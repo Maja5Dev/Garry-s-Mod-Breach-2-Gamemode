@@ -1,0 +1,147 @@
+
+function BR_Access_Terminal(terminal)
+	create_terminal_fonts()
+	if IsValid(access_terminal) then
+		return
+	end
+	local size_mul = ScrH() / 1080
+	local size_w = math.Clamp(ScrW() / 3.5, 400, ScrW())
+	local size_h = math.Clamp(ScrH() / 3.5, 225, ScrH())
+	access_terminal = vgui.Create("DFrame")
+	access_terminal:ShowCloseButton(false)
+	access_terminal:SetSizable(false)
+	access_terminal:SetDraggable(true)
+	access_terminal:SetSize(size_w, size_h)
+	access_terminal:SetPos(ScrW()/2 - (size_w/2), ScrH()/2 - (size_h/2))
+	access_terminal:SetDeleteOnClose(false)
+	access_terminal:SetTitle("")
+	access_terminal:MakePopup()
+	access_terminal.bad_password_end = 0
+	local gap = 8
+	access_terminal.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, Color(25,25,25,140))
+		draw.RoundedBox(0, gap, gap, w-(gap*2), h-(gap*2), Color(4, 4, 4, 180))
+		
+		if input.IsKeyDown(KEY_ESCAPE) then
+			self:Remove()
+			gui.HideGameUI()
+		elseif input.IsKeyDown(KEY_ENTER) then
+			--if (#panel_2:GetText() > 0) and (#panel_3:GetText() > 0) then
+				BR_Access_Terminal_Loading(terminal)
+				surface.PlaySound("breach2/Button.ogg")
+			--end
+		end
+		if access_terminal.bad_password_end > CurTime() then
+			draw.Text({
+				text = "ERR_BAD_PASSWORD",
+				pos = {w/2, h/2},
+				xalign = TEXT_ALIGN_CENTER,
+				yalign = TEXT_ALIGN_TOP,
+				font = "BR_ACCESS_TERMINAL_1",
+				color = Color(255,0,0,255),
+			})
+		end
+	end
+	
+	local panel_w = size_w - (gap * 4)
+	local panel_h = (size_h / 3) - (gap * 2)
+	
+	local panel_1 = vgui.Create("DPanel", access_terminal)
+	panel_1:SetSize(panel_w, panel_h)
+	panel_1:SetPos(gap * 2, gap * 2)
+	local last_y = panel_h + gap
+	panel_1.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, Color(50,50,50,200))
+		draw.Text({
+			text = "S-COM SOFTWARE",
+			pos = {8, 4},
+			xalign = TEXT_ALIGN_LEFT,
+			yalign = TEXT_ALIGN_TOP,
+			font = "BR_ACCESS_TERMINAL_3",
+			color = Color(240,240,240,255),
+		})
+		draw.Text({
+			text = "UNAUTHORIZED ACCESS STRICTLY PROHIBITED",
+			pos = {w/2, h - 4},
+			xalign = TEXT_ALIGN_CENTER,
+			yalign = TEXT_ALIGN_BOTTOM,
+			font = "BR_ACCESS_TERMINAL_4",
+			color = Color(230,0,0,255),
+		})
+		local size = 40 * size_mul
+		surface.SetDrawColor(200,200,0,255)
+		surface.SetMaterial(br2_warning_1)
+		surface.DrawTexturedRect(w - size - 8, 4, size, size)
+		/*
+		draw.RoundedBox(0, 0, 0, w, h, Color(100,100,100,200))
+		draw.Text({
+			text = "Access the terminal",
+			pos = {w/2, h/2},
+			xalign = TEXT_ALIGN_CENTER,
+			yalign = TEXT_ALIGN_CENTER,
+			font = "BR_ACCESS_TERMINAL_1",
+			color = Color(255,255,255,255),
+		})
+		*/
+	end
+	
+	local panel_2 = vgui.Create("DTextEntry", access_terminal)
+	panel_2:SetSize(panel_w, panel_h * 0.7)
+	panel_2:SetPos(gap * 2, last_y + gap * 2)
+	last_y = last_y + (panel_h * 0.7) + (gap * 2)
+	panel_2.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, Color(50,50,50,180))
+		local dtext = self:GetText()
+		local dcolor = Color(255,255,255,140)
+		local dfont = "BR_ACCESS_TERMINAL_2"
+		if #dtext < 1 then
+			dtext = "Input login here"
+			dcolor = Color(255,255,255,20)
+			dfont = "BR_ACCESS_TERMINAL_2_IT"
+		end
+		draw.Text({
+			text = dtext,
+			pos = {10, h/2},
+			xalign = TEXT_ALIGN_LEFT,
+			yalign = TEXT_ALIGN_CENTER,
+			font = dfont,
+			color = dcolor,
+		})
+	end
+	
+	local panel_3 = vgui.Create("DTextEntry", access_terminal)
+	panel_3:SetSize(panel_w, panel_h * 0.7)
+	panel_3:SetPos(gap*2, last_y + gap)
+	last_y = last_y + (panel_h * 0.7) + (gap * 2)
+	panel_3.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, Color(50,50,50,180))
+		local dtext = self:GetText()
+		local dcolor = Color(255,255,255,140)
+		local dfont = "BR_ACCESS_TERMINAL_2"
+		if #dtext < 1 then
+			dtext = "Input password here"
+			dcolor = Color(255,255,255,20)
+			dfont = "BR_ACCESS_TERMINAL_2_IT"
+		else
+			dtext = ""
+			for i=1, #self:GetText() do
+				dtext = dtext .. "*"
+			end
+		end
+		draw.Text({
+			text = dtext,
+			pos = {10, h/2},
+			xalign = TEXT_ALIGN_LEFT,
+			yalign = TEXT_ALIGN_CENTER,
+			font = dfont,
+			color = dcolor,
+		})
+	end
+	
+	access_terminal:SetSize(size_w, last_y + gap)
+	
+	access_terminal.panel_login = panel_2
+	access_terminal.panel_password = panel_3
+end
+
+print("[Breach2] client/derma/menu_terminal_access.lua loaded!")

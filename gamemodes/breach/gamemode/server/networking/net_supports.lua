@@ -1,0 +1,299 @@
+
+
+net.Receive("br_mtf_teams_leave", function(len, ply)
+	for k,v in pairs(BR2_MTF_TEAMS) do
+		for k2,v2 in pairs(v) do
+			if v2 == ply then
+				table.RemoveByValue(v, ply)
+				net.Start("br_mtf_teams_update")
+					net.WriteTable(BR2_MTF_TEAMS)
+				net.Send(ply)
+				return
+			end
+		end
+	end
+end)
+
+function br2_mtf_teams_check()
+	for k,v in pairs(BR2_MTF_TEAMS) do
+		for k2,pl in pairs(v) do
+			if pl == nil or !IsValid(pl) or pl:Alive() or pl.br_downed == true or pl:IsSpectator() then
+				table.RemoveByValue(BR2_MTF_TEAMS, pl)
+			end
+		end
+	end
+end
+
+MTF_NEEDED_TO_SPAWN = 3
+
+function br2_mtf_teams_add(ply, num)
+	if SafeFloatConVar("br2_time_mtf_spawn") > (CurTime() - br2_round_state_start) then
+		ply:PrintMessage(HUD_PRINTTALK, "MTF Support Spawns will be available in " .. math.Round(SafeFloatConVar("br2_time_mtf_spawn") - (CurTime() - br2_round_state_start)) .. " seconds")
+		return
+	end
+	if istable(BR2_TERMINALS) and (num == 1 or num == 2 or num == 3 or num == 4) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed == false then
+		local evac_info = nil
+		for terminal_k,terminal in pairs(BR2_TERMINALS) do
+			if terminal.is_evac_shelter then
+				evac_info =  {terminal.name, terminal.Authorization.login, terminal.Authorization.password}
+				break
+			end
+		end
+
+		local evac_code = nil
+		for k,v in pairs(MAPCONFIG.KEYPADS) do
+			if v.evac_shelter then
+				evac_code = v.code
+				break
+			end
+		end
+
+		for k,v in pairs(ply.br_support_spawns) do
+			if v[1] == "mtf" and v[2] > 0 then
+				br2_mtf_teams_check()
+				for k,v in pairs(BR2_MTF_TEAMS) do
+					for k2,pl in pairs(v) do
+						if pl == ply then
+							table.RemoveByValue(v, ply)
+						end
+					end
+				end
+				table.ForceInsert(BR2_MTF_TEAMS[num], ply)
+
+				if table.Count(BR2_MTF_TEAMS[num]) == MTF_NEEDED_TO_SPAWN then
+					print("MTF Team " .. num .. " is ready to deploy")
+					local all_mtfs = table.Copy(BR2_MTF_TEAMS[num])
+
+					local all_possible_mtf_spawns = {}
+					for mtf_spawn_group_k, mtf_spawn_group in pairs(MAPCONFIG.SPAWNS_MTF) do
+						if mtf_spawn_group.available() == true then
+							table.ForceInsert(all_possible_mtf_spawns, mtf_spawn_group)
+						end
+					end
+					if table.Count(all_possible_mtf_spawns) == 0 then
+						table.ForceInsert(all_possible_mtf_spawns, table.Random(MAPCONFIG.SPAWNS_MTF))
+					end
+					local mtf_spawn_tab = table.Random(all_possible_mtf_spawns)
+					local mtf_spawns = table.Copy(mtf_spawn_tab.spawns)
+
+					mtf_spawn_tab.func()
+
+					for plk, pl_mtf in pairs(all_mtfs) do
+						pl_mtf:SendLua("BR_ClearMenus()")
+						local spawn = table.Random(mtf_spawns)
+						pl_mtf.charid = BR_GetUniqueCharID()
+						pl_mtf:SetNWInt("BR_CharID", pl_mtf.charid)
+						assign_system.Assign_MTF_NTF(pl_mtf)
+						pl_mtf:SetPos(spawn)
+						pl_mtf.br_team = TEAM_MTF
+						if IsValid(pl_mtf.Body) then
+							pl_mtf.Body.Info.Victim = nil
+						end
+						notepad_system.AssignNewNotepad(pl_mtf, false)
+						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
+							notepad_system.AddPlayerInfo(pl_mtf, info[1], info[2], info[3], info[4], false)
+						end
+						table.RemoveByValue(mtf_spawns, spawn)
+					end
+					for k_mtf1,mtf1 in pairs(all_mtfs) do
+						for k_mtf2,mtf2 in pairs(all_mtfs) do
+							notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, false, HEALTH_ALIVE, false, mtf2.charid)
+						end
+						--for evac_k, evac in pairs(evac_info) do
+						--	notepad_system.AddAutomatedInfo(mtf1, evac[1] .. "   -   login:  " .. evac[2] .. "   pass:  " .. evac[3])
+						--end
+						if evac_info != nil and evac_code != nil then
+							notepad_system.AddAutomatedInfo(mtf1, evac_info[1] .. "   -   login:  " .. evac_info[2] .. "   pass:  " .. evac_info[3] .. "   code:  " .. evac_code)
+						end
+						notepad_system.UpdateNotepad(mtf1)
+
+						net.Start("br_update_own_info")
+							net.WriteString(mtf1.br_showname)
+							net.WriteString(mtf1.br_role)
+							net.WriteBool(false)
+							net.WriteBool(false)
+						net.Send(mtf1)
+					end
+					
+					if round_system.AlreadyAnnouncedMTF == false then
+						BroadcastLua('surface.PlaySound("breach2/mtf/Announc.ogg")')
+						round_system.AlreadyAnnouncedMTF = true
+					end
+
+					
+					net.Start("br_mtf_team_ready")
+						--net.WriteTable({scps_alive = 0})
+						-- TEAM NAME
+						-- TEAM MEMBER NAMES
+						-- NUMBER OF SCPS ALIVE
+					net.Send(BR2_MTF_TEAMS[num])
+					
+
+					BR2_MTF_TEAMS[num] = {}
+				else
+					net.Start("br_mtf_teams_update")
+						net.WriteTable(BR2_MTF_TEAMS)
+					net.Send(ply)
+				end
+				return
+			end
+		end
+	end
+	ply:PrintMessage(HUD_PRINTTALK, "For some reason you could not join this team")
+end
+
+function br2_mtf_teams_remove(ply)
+	br2_mtf_teams_check()
+	for k,v in pairs(BR2_MTF_TEAMS) do
+		for k2, pl in pairs(v) do
+			if pl == ply then
+				table.RemoveByValue(v, ply)
+			end
+		end
+	end
+end
+
+function br2_mtf_teams_reset()
+	BR2_MTF_TEAMS = {
+		{},
+		{},
+		{},
+		{}
+	}
+end
+
+br2_mtf_teams_reset()
+
+net.Receive("br_mtf_teams_join", function(len, ply)
+	local num = net.ReadInt(4)
+	br2_mtf_teams_add(ply, num)
+end)
+
+net.Receive("br_mtf_teams_update", function(len, ply)
+	--if ply.next_mtf_team_update < CurTime() then
+		net.Start("br_mtf_teams_update")
+			net.WriteTable(BR2_MTF_TEAMS)
+		net.Send(ply)
+	--	ply.next_mtf_team_update = CurTime() + 1
+	--end
+end)
+
+local function default_support_spawn_human(ply)
+	ply:SetHealth(20)
+
+	ply.br_times_support_respawned = ply.br_times_support_respawned + 1
+	for i=1, math.Clamp(ply.br_times_support_respawned, 0, 3) do
+		ply.br_sanity = ply.br_sanity - 20
+	end
+
+	ply.charid = BR_GetUniqueCharID()
+	ply:SetNWInt("BR_CharID", ply.charid)
+	if istable(ply.br_spawn_groups) then
+		local all_possible_spawns = {}
+		for k,pos in pairs(ply.br_spawn_groups) do
+			local pos_available = true
+			for k2,pl in pairs(player.GetAll()) do
+				local trace = util.TraceLine({
+					start = pl:GetPos(),
+					endpos = pos,
+					mask = MASK_SOLID,
+					filter = pl
+				})
+				if trace.HitPos == pos then
+					pos_available = false
+				end
+			end
+			if pos_available == true then
+				table.ForceInsert(all_possible_spawns, pos)
+			end
+		end
+		ply:SetPos(table.Random(all_possible_spawns))
+	end
+	notepad_system.AssignNewNotepad(ply, false)
+	notepad_system.UpdateNotepad(ply)
+end
+
+net.Receive("br_support_spawn", function(len, ply)
+	if ply:IsSpectator() and CurTime() - ply.DeathTime > 30 then
+		local support_spawn = net.ReadString()
+		for k,v in pairs(ply.br_support_spawns) do
+			if v[1] == support_spawn then
+				if v[2] > 0 then
+					v[2] = v[2] - 1
+					print(ply:Nick() .. " support spawned")
+					ply:SendLua('surface.PlaySound("breach2/save3.ogg")')
+					ply.support_spawning = true
+					ply.retrievingNotes = false
+					if support_spawn == "researcher" then
+						ply.dont_assign_items = true
+						assign_system.Assign_Researcher(ply)
+						ply.br_team = TEAM_RESEARCHER
+						default_support_spawn_human(ply)
+						ply:Give("keycard_level1")
+			
+					elseif support_spawn == "class_d" then
+						ply.dont_assign_items = true
+						ply.retrievingNotes = false
+						assign_system.Assign_ClassD(ply)
+						ply.br_team = TEAM_CLASSD
+						default_support_spawn_human(ply)
+
+					elseif support_spawn == "scp_049_2" then
+						ply.dont_assign_items = true
+						ply.retrievingNotes = false
+						assign_system.Assign_ClassD(ply)
+						ply.br_team = TEAM_SCP
+						default_support_spawn_human(ply)
+
+					elseif support_spawn == "doctor" then
+						ply.dont_assign_items = true
+						ply.retrievingNotes = false
+						assign_system.Assign_Doctor(ply)
+						ply.br_team = TEAM_MINORSTAFF
+						default_support_spawn_human(ply)
+
+					elseif support_spawn == "janitor" then
+						ply.dont_assign_items = true
+						ply.retrievingNotes = false
+						assign_system.Assign_Janitor(ply)
+						ply.br_team = TEAM_MINORSTAFF
+						default_support_spawn_human(ply)
+
+					elseif support_spawn == "explorer" then
+						ply.dont_assign_items = false
+						ply.retrievingNotes = false
+						assign_system.Assign_ClassD9341(ply)
+						ply.br_team = TEAM_CLASSD
+						default_support_spawn_human(ply)
+						ply:Give("keycard_omni")
+						ply:Give("item_nvg_military")
+						ply:Give("kanade_tfa_mp5k")
+						ply:Give("kanade_tfa_glock")
+						ply:Give("kanade_tfa_rpg")
+						ply:SetAmmo(120, "pistol")
+						ply:SetAmmo(360, "smg1")
+					end
+					ply:AddRunStamina(-10000)
+					ply:SetFOV(160, 0)
+					ply:SetFOV(DEF_FOV, 2)
+					ply.support_spawning = false
+
+					hook.Call("BR2_SupportSpawned", GAMEMODE, ply)
+
+					for k2,mtf_team in pairs(BR2_MTF_TEAMS) do
+						for k3,mtf in pairs(mtf_team) do
+							if mtf == ply then
+								table.RemoveByValue(mtf_team, ply)
+							end
+						end
+					end
+				else
+					return
+				end
+			end
+		end
+	end
+end)
+
+print("[Breach2] server/networking/net_supports.lua loaded!")
+
