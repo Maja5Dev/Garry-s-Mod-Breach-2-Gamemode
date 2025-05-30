@@ -63,11 +63,13 @@ local ambient_pos_max = 800
 
 function PlayFirstSounds(num)
 	local first_sounds_table = nil
+
 	if istable(br2_current_scenario.first_sounds_override) then
 		first_sounds_table = br2_current_scenario.first_sounds_override
 	elseif istable(MAPCONFIG.FirstSounds) == true then
 		first_sounds_table = MAPCONFIG.FirstSounds
 	end
+
 	if istable(first_sounds_table) == true then
 		if istable(first_sounds_table[num]) == true then
 			surface.PlaySound(first_sounds_table[num][1])
@@ -87,25 +89,30 @@ function PlayAmbientSound(snd, min, max)
 	if max == nil then
 		max = ambient_pos_max
 	end
+
 	local client_pos = LocalPlayer():GetPos()
 	local rnd_pos_x = client_pos.x
+
 	if math.random(1,2) == 1 then
 		rnd_pos_x = rnd_pos_x + math.random(min,max)
 	else
 		rnd_pos_x = rnd_pos_x - math.random(min,max)
 	end
+
 	local rnd_pos_y = client_pos.y
 	if math.random(1,2) == 1 then
 		rnd_pos_y = rnd_pos_y + math.random(min,max)
 	else
 		rnd_pos_y = rnd_pos_y - math.random(min,max)
 	end
+
 	local rnd_pos = Vector(rnd_pos_x, rnd_pos_y, client_pos.z)
 	sound.Play(snd, rnd_pos, 100, 100, 1)
 end
 
 function CheckAmbient()
 	if firstsounds_end > CurTime() then return end
+
 	local client = LocalPlayer()
 	if #our_ambients > 3 then
 		if last_ambient_sound < CurTime() then
@@ -117,6 +124,7 @@ function CheckAmbient()
 					v[2] = v[2] - 1
 				end
 			end
+
 			local rnd_ambient = table.Random(ambients_to_use)
 			if rnd_ambient != nil then
 				for k,v in pairs(our_ambients) do
@@ -200,6 +208,7 @@ function music_problem_check()
 	
 	print("")
 	print("/br2_music_info/")
+
 	if istable(br2_music_info) then
 		print("	nextPlay:	" .. tostring(br2_music_info.nextPlay) .. "")
 		print("	nextPlay2:	" .. tostring(CurTime() - br2_music_info.nextPlay) .. "")
@@ -237,12 +246,11 @@ local next_rmusic_end = 0
 
 function HandleMusic()
 	local client = LocalPlayer()
+
 	if client and client.Alive != nil and !client:IsBot() and round_start then
 		if client:Alive() == true and client:IsSpectator() == false then
 			local our_music_zone = LocalPlayer():GetMusicZone()
 			local get_zone = client:GetZone()
-
-			-- ass23
 
 			/*
 			if br2_our_sanity < 3 then
@@ -256,6 +264,7 @@ function HandleMusic()
 					}
 				end
 			*/
+
 			if next_rmusic_end > CurTime() then
 			elseif our_music_zone != nil and (br2_music_info.sound != our_music_zone.sound or br2_music_info == nil) then
 				br2_music_info = {
@@ -268,6 +277,7 @@ function HandleMusic()
 						return cur_music_zone == our_music_zone
 					end
 				}
+				
 			elseif get_zone != nil and get_zone.music != nil and br2_music_info.sound != get_zone.music.sound then
 				br2_music_info = {
 					nextPlay = 0,
@@ -310,6 +320,7 @@ function HandleMusic()
 					elseif br2_music_info.nextPlay < CurTime() then
 						BR2_END_MUSIC()
 					end
+
 					if isfunction(br2_music_info.playUntil) then
 						if br2_music_info.playUntil() == false then
 							BR2_END_MUSIC()
@@ -322,11 +333,13 @@ function HandleMusic()
 			if istable(lastzone) and lastzone.use_general_ambients == true then
 				if next_one_shot < CurTime() then
 					local rnd_oneshot = table.Random(ALL_ONESHOT_AMBIENTS)
+
 					if rnd_oneshot == nil then
 						RESET_ONESHOT_AMBIENTS()
 						print("oneshot ambients reset")
 						rnd_oneshot = table.Random(ALL_ONESHOT_AMBIENTS)
 					end
+
 					--chat.AddText("oneshot: " .. rnd_oneshot)
 					PlayAmbientSound(rnd_oneshot)
 					table.RemoveByValue(ALL_ONESHOT_AMBIENTS, rnd_oneshot)
@@ -346,6 +359,7 @@ function HandleMusic()
 							--end
 						end
 					end
+
 					lastzone = get_zone
 					if istable(lastzone.ambients) == true then
 						our_ambients = {}

@@ -20,7 +20,7 @@ scp_012_pos = Vector(0,0,0)
 scp_012_enabled = false
 scp_012_next = 0
 hook.Add("HUDPaint", "scp_012_seen_hook", function()
-	if scp_012_enabled then
+	if scp_012_enabled and scp_012_next > CurTime() then
 		if scp_012_next > CurTime() then
 			local ang = (scp_012_pos - LocalPlayer():GetShootPos()):Angle()
 			local eyeang = EyeAngles()
@@ -54,14 +54,12 @@ lockpicking_timestamp = 0
 
 function StartLockpicking()
 	lockpicking_timestamp = CurTime() + 9
-
 	InitiateProgressCircle(9)
 	chat.AddText(Color(255,255,255,255), "Started lockpicking...")
 end
 
 function StopLockpicking()
 	lockpicking_timestamp = 0
-
 	progress_circle_end = nil
 	progress_circle_time = nil
 	progress_circle_status = 0
@@ -216,15 +214,19 @@ net.Receive("br_use_294", function(len)
 	if res == 1 then
 		keyboard_294_text = "OUT OF RANGE"
 		surface.PlaySound("breach2/294/outofrange.ogg")
+
 	elseif res == 2 then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense0.ogg")
+
 	elseif res == 3 then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense1.ogg")
+
 	elseif res == 4 then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense2.ogg")
+
 	elseif res == 5 then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense3.ogg")
@@ -261,6 +263,7 @@ net.Receive("cl_playerdeath", function(len)
 	--RunConsoleCommand("stopsound")
 	print("DEAD")
 	br2_notepad_own_notes = {}
+
 	local font_structure = {
 		font = "Tahoma",
 		extended = false,
@@ -278,14 +281,18 @@ net.Receive("cl_playerdeath", function(len)
 		additive = false,
 		outline = false,
 	}
+
 	font_structure.size = 128 * (ScrH() / 1080)
 	surface.CreateFont("BR_DEATH_SCREEN_1", font_structure)
+
 	font_structure.size = 64 * (ScrH() / 1080)
 	surface.CreateFont("BR_DEATH_SCREEN_2", font_structure)
+
 	timer.Simple(0.08, function()
 		surface.PlaySound("breach2/D9341/Damage1.ogg")
 		surface.PlaySound("breach2/music/death_"..math.random(1,6)..".ogg")
 	end)
+
 	br2_last_death = CurTime()
 	br2_survive_time = net.ReadInt(16)
 	br2_support_spawns = net.ReadTable()
@@ -301,6 +308,7 @@ net.Receive("cl_playerescaped", function(len)
 	if br2_last_music then br2_last_music:Stop() end
 	--RunConsoleCommand("stopsound")
 	print("ESCAPED")
+
 	local font_structure = {
 		font = "Tahoma",
 		extended = false,
@@ -318,13 +326,17 @@ net.Receive("cl_playerescaped", function(len)
 		additive = false,
 		outline = false,
 	}
+
 	font_structure.size = 128 * (ScrH() / 1080)
 	surface.CreateFont("BR_DEATH_SCREEN_1", font_structure)
+
 	font_structure.size = 64 * (ScrH() / 1080)
 	surface.CreateFont("BR_DEATH_SCREEN_2", font_structure)
+
 	timer.Simple(0.08, function()
 		surface.PlaySound("breach2/EndingSound.ogg")
 	end)
+	
 	br2_last_escape = CurTime()
 	br2_last_death = CurTime()
 	br2_survive_time = net.ReadInt(16)

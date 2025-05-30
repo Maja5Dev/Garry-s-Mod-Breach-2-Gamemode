@@ -1,6 +1,7 @@
 
 function MakeFOG()
 	if primary_lights_on or BR_WATCHING_CAMERAS then return false end
+	
 	if IsValid(horror_scp_ent) and horror_scp_ent.isEnding > 0 then
 		render.FogStart(0)
 		render.FogEnd(250)
@@ -9,6 +10,7 @@ function MakeFOG()
 		render.FogMode(MATERIAL_FOG_LINEAR)
 		return true
 	end
+
 	local nvg = nil
 	for k,v in pairs(LocalPlayer():GetWeapons()) do
 		if istable(v.NVG) then
@@ -19,6 +21,7 @@ function MakeFOG()
 			end
 		end
 	end
+
 	render.FogStart(0)
 	local sanity_fog = (FOG_LEVEL / 2) * (1 - (br2_our_sanity2 / 100))
 	render.FogEnd(FOG_LEVEL - sanity_fog)

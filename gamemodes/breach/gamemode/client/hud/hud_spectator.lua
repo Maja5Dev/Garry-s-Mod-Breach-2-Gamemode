@@ -3,6 +3,7 @@ br2_current_spec_target = nil
 function DrawSpectatorHud()
 	local obv_target = LocalPlayer():GetObserverTarget()
 	local spec_text = "Spectating (Click R to change mode, LMB/RMB to cycle players)"
+	
 	if IsValid(obv_target) then
 		if obv_target:IsPlayer() then
 			spec_text = "Spectating " .. obv_target:Nick()
@@ -11,6 +12,7 @@ function DrawSpectatorHud()
 		end
 		br2_current_spec_target = obv_target
 	end
+
 	draw.Text({
 		text = spec_text,
 		pos = {ScrW() / 2, ScrH() - 8},

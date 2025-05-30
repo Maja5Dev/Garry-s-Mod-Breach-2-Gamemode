@@ -25,6 +25,7 @@ function BR_ShowScoreboard()
 		additive = false,
 		outline = false,
 	}
+	
 	surface.CreateFont("BR_Scoreboard_Logo", font_structure)
 	font_structure.size = 30 * size_mul
 	surface.CreateFont("BR_Scoreboard_Creator", font_structure)

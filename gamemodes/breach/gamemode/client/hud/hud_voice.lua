@@ -3,7 +3,6 @@ local PANEL = {}
 local PlayerVoicePanels = {}
 
 function PANEL:Init()
-
 	self.LabelName = vgui.Create("DLabel", self)
 	self.LabelName:SetFont("GModNotify")
 	self.LabelName:Dock(FILL)
@@ -20,21 +19,17 @@ function PANEL:Init()
 end
 
 function PANEL:Setup(ply)
-
 	self.ply = ply
 	self.LabelName:SetText(ply:Nick())
 	
 	self.Color = team.GetColor(ply:Team())
 	
 	self:InvalidateLayout()
-
 end
 
 function PANEL:Paint(w, h)
-
-	if (!IsValid(self.ply)) then return end
+	if !IsValid(self.ply) then return end
 	draw.RoundedBox(4, 0, 0, w, h, Color(0, self.ply:VoiceVolume() * 255, 0, 240))
-
 end
 
 function PANEL:Think()
@@ -53,11 +48,9 @@ function PANEL:Think()
 	if (self.fadeAnim) then
 		self.fadeAnim:Run()
 	end
-
 end
 
 function PANEL:FadeOut(anim, delta, data)
-	
 	if (anim.Finished) then
 	
 		if (IsValid(PlayerVoicePanels[ self.ply ])) then
@@ -69,13 +62,11 @@ function PANEL:FadeOut(anim, delta, data)
 	return end
 	
 	self:SetAlpha(255 - (255 * delta))
-
 end
 
 derma.DefineControl("VoiceNotify", "", PANEL, "DPanel")
 
 function GM:PlayerStartVoice(ply)
-
 	if (!IsValid(g_VoicePanelList)) then return end
 	
 	-- There'd be an exta one if voice_loopback is on, so remove it.
@@ -101,33 +92,24 @@ function GM:PlayerStartVoice(ply)
 	pnl:Setup(ply)
 	
 	PlayerVoicePanels[ ply ] = pnl
-
 end
 
 local function VoiceClean()
-
 	for k, v in pairs(PlayerVoicePanels) do
-	
 		if (!IsValid(k)) then
 			GAMEMODE:PlayerEndVoice(k)
 		end
-	
 	end
-
 end
 timer.Create("VoiceClean", 10, 0, VoiceClean)
 
 function GM:PlayerEndVoice(ply)
-
 	if (IsValid(PlayerVoicePanels[ ply ])) then
-
 		if (PlayerVoicePanels[ ply ].fadeAnim) then return end
 
 		PlayerVoicePanels[ ply ].fadeAnim = Derma_Anim("FadeOut", PlayerVoicePanels[ ply ], PlayerVoicePanels[ ply ].FadeOut)
 		PlayerVoicePanels[ ply ].fadeAnim:Start(2)
-
 	end
-
 end
 
 local function CreateVoiceVGUI()

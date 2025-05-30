@@ -3,6 +3,7 @@ local angpow_inc = 0.05
 local angpow_dec = 0.05
 local angadd = 0
 local angmax = 1
+
 hook.Add("CalcView", "BR2_CalcView", function(ply, position, angles, fov)
 	local flashlight3d = ply:GetNWEntity("flashlight3d")
 	if flashlight3d:IsValid() then
@@ -19,6 +20,7 @@ hook.Add("CalcView", "BR2_CalcView", function(ply, position, angles, fov)
 	if LocalPlayer():IsInPD() then
 		view.angles = Angle(angles.pitch, angles.yaw, -15)
 	end
+
 	local vel = ply:GetVelocity():Length()
 	local vel_f = math.Clamp(vel / 100, 0, 2)
 	angpow_inc = 0.05 * (vel_f * 0.6)
@@ -26,6 +28,7 @@ hook.Add("CalcView", "BR2_CalcView", function(ply, position, angles, fov)
 	--chat.AddText(tostring(angpow_inc))
 	local mvl = ply:KeyDown(IN_MOVELEFT)
 	local mvr = ply:KeyDown(IN_MOVERIGHT)
+
 	if !(mvl and mvr) and (mvl or mvr) and vel > 30 then
 		if mvl then
 			angadd = angadd - angpow_inc
@@ -44,9 +47,11 @@ hook.Add("CalcView", "BR2_CalcView", function(ply, position, angles, fov)
 			angadd = angadd - angpow_dec
 		end
 	end
+
 	if math.abs(angadd) > 0.1 then
 		view.angles = angles + Angle(0, 0, angadd)
 	end
+	
 	return view
 end)
 

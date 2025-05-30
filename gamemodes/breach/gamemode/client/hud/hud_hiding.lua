@@ -2,6 +2,7 @@
 BR_IS_HIDING = false
 
 local hmat = Material("vgui/zoom")
+
 function DrawHidingInfo()
 	local view_ent = LocalPlayer():GetViewEntity()
 	if IsValid(view_ent) and view_ent != LocalPlayer() then

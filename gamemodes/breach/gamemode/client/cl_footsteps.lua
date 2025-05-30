@@ -2,9 +2,11 @@
 function HandleFootstepsCL()
 	for k,v in pairs(player.GetAll()) do
 		local vel = math.Round(v:GetVelocity():Length())
+
 		if !v:IsSpectator() and v:Alive() and v:GetMoveType() != MOVETYPE_NOCLIP and vel > 25 and v:IsOnGround() and v.br_role != "SCP-173" then
 			if v.nextstep == nil then v.nextstep = 0 end
 			if v.nextstep > CurTime() then return true end
+
 			local fvel = math.Clamp(1 - (vel / 100) / 3, 0.22, 2)
 			v.nextstep = CurTime() + fvel
 			
@@ -31,6 +33,7 @@ function HandleFootstepsCL()
 				EmitSound("breach2/steps/StepPD"..math.random(1,3)..".mp3", v:GetPos(), v:EntIndex(), CHAN_AUTO, math.Clamp(volume, 0, 1), soundLevel)
 				return
 			end
+			
 			if tr.MatType == MAT_DIRT or tr.MatType == MAT_GRASS then
 			--if tr.MatType == MAT_GRASS then
 				volume = volume * 0.35

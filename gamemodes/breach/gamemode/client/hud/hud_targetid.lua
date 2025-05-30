@@ -34,7 +34,6 @@ end
 function DrawTargetID()
 	if IsValid(LocalPlayer()) and isfunction(LocalPlayer().GetEyeTrace) and !LocalPlayer():Alive() or LocalPlayer():IsSpectator() or BR_AnyMenusOn() then return end
 	local trace = LocalPlayer():GetAllEyeTrace()
-	--print(trace.Entity)
 
 	if trace == nil then return end
 
@@ -42,6 +41,7 @@ function DrawTargetID()
 	if trace.Hit and trace.HitNonWorld then
 		local ent = trace.Entity
 		if IsValid(ent) == false or ent:GetNoDraw() == true then return end
+
 		local dis = LocalPlayer():GetPos():Distance(ent:GetPos())
 		if ent:IsPlayer() then
 			if ent:IsSpectator() == false and math.Round(dis) < (FOG_LEVEL * 0.4) then
@@ -62,12 +62,14 @@ function DrawTargetID()
 				lastseen = CurTime() + 2
 				lastseen_alpha = 255
 			end
+
 		elseif isstring(ent.PrintName) and EntIsPickupable(ent) then
 			lastseen_nick = ent.PrintName
 			lastseen_player = ent
 			lastseen_color = item_halo_color
 			lastseen = CurTime() + 2
 			lastseen_alpha = 255
+
 		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 then
 			lastseen_player = ent
 			--print(ent)

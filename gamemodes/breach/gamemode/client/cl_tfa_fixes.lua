@@ -2,6 +2,7 @@
 if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 	old_GetHoloSightReticle = TFA.INS2.GetHoloSightReticle
 	br2_tfa_fixed = false
+
 	hook.Add("Tick", "BR2_TFA_FIXES", function()
 		if br2_tfa_fixed == true then
 			hook.Remove("Tick", "BR2_TFA_FIXES")
@@ -35,6 +36,7 @@ if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 			newWeapon.VElements["sight_eotech_lens"] = TFA.INS2.GetHoloSightReticle("sight_eotech", "yes")
 		end
 	end)
+
 	hook.Add("HUDWeaponPickedUp", "BR2_TFA_DEPLOY_FIX", function(wep)
 		if CLIENT and br2_tfa_fixed and wep.Category == "Breach 2 Weapons" then
 			wep.VElements["sight_eotech_lens"] = TFA.INS2.GetHoloSightReticle("sight_eotech", "yes")

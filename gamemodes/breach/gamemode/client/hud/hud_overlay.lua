@@ -2,6 +2,7 @@
 function GM:DrawOverlay()
 	local client = LocalPlayer()
 	if !IsValid(client) or not client.Alive then return end
+
 	if !BR2_ShouldDrawAnyHud() then
 		draw.RoundedBox(0, 0, 0, ScrW(), ScrH(), Color(0,0,0,255))
 
@@ -34,6 +35,7 @@ function GM:DrawOverlay()
 		})
 		return
 	end
+	
 	DrawTargetID()
 	DrawHealing()
 	DrawProgressBar()

@@ -16,6 +16,7 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 	local mx = ScrW() / 2
 	local my = ScrH() / 2
 	local size_mul = ScrH() / 1080
+	
 	for _,bgroup in pairs(MAPCONFIG.BUTTONS_2D) do
 		for i,button in ipairs(bgroup.buttons) do
 			local pos = LocalPlayer():GetPos()

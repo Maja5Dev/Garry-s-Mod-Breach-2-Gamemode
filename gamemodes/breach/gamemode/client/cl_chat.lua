@@ -97,6 +97,7 @@ local notif_speed = 100
 hook.Add("DrawOverlay", "BR2_DrawNotifs", function()
 	if !BR2_ShouldDrawAnyHud() then return end
 	local collisions = {}
+
 	for k1,v1 in ipairs(chat_notifications) do
 		if v1[3] != true then
 			for k2,v2 in ipairs(chat_notifications) do
@@ -107,15 +108,19 @@ hook.Add("DrawOverlay", "BR2_DrawNotifs", function()
 			end
 		end
 	end
+
 	for i,v in ipairs(collisions) do
 		v[2] = v[2] + 0.00001 * i
 	end
+
 	table.sort(chat_notifications, function(a, b) return a[2] > b[2] end)
+
 	for i,v in ipairs(chat_notifications) do
 		local alpha = 120
 		if v[2] + notif_time < CurTime() then
 			alpha = 120 - ((CurTime() - (v[2] + notif_time)) * notif_speed)
 		end
+
 		local last_size = 0
 		for k,v2 in pairs(v[1]) do
 			local Tx, Ty = draw.Text({
@@ -128,6 +133,7 @@ hook.Add("DrawOverlay", "BR2_DrawNotifs", function()
 			})
 			last_size = last_size + Tx
 		end
+
 		if alpha < 1 then
 			table.RemoveByValue(chat_notifications, v)
 		end
@@ -183,6 +189,7 @@ function BR_CreateChatFrame(pop_up)
 		chat_frame:SetVisible(false)
 		chat_frame:KillFocus()
 	end
+
 	local gap = 8
 	chat_frame.Paint = function(self, w, h)
 		draw.RoundedBox(0, 0, 0, w, h, Color(chat_color.r, chat_color.g, chat_color.b, 140))
@@ -212,9 +219,11 @@ function BR_CreateChatFrame(pop_up)
 			color = Color(255,255,255,80),
 		})
 	end
+
 	if pop_up then
 		chat_input_panel:RequestFocus()
 	end
+
 	chat_input_panel:SetMouseInputEnabled(true)
 	chat_input_panel:SetKeyBoardInputEnabled(true)
 	chat_input_panel:SetText("")
@@ -227,6 +236,7 @@ function BR_CreateChatFrame(pop_up)
 				return
 			end
 		end
+
 		if txt == "" then
 			chat_frame:Close()
 			if chat_input_panel and IsValid(chat_input_panel) and chat_input_panel:HasFocus() then
@@ -235,12 +245,14 @@ function BR_CreateChatFrame(pop_up)
 			gui.HideGameUI()
 			return true
 		end
+		
 		if string.Trim(txt) != "" then
 			table.ForceInsert(our_messages, txt)
 			LocalPlayer():ConCommand("say "..txt)
 		end
 		chat_input_panel:SetText("")
 	end
+
 	chat_input_panel.OnKeyCodeTyped = function(self, key)
 		local txt = chat_input_panel:GetText()
 		if key == KEY_UP or key == KEY_DOWN then
@@ -269,6 +281,7 @@ function BR_CreateChatFrame(pop_up)
 					end
 				end
 			end
+
 		elseif key == KEY_ESCAPE then
 			chat_input_panel:SetText("")
 			chat_frame:Close()
@@ -276,6 +289,7 @@ function BR_CreateChatFrame(pop_up)
 				chat_input_panel:KillFocus()
 			end
 			gui.HideGameUI()
+
 		elseif key == KEY_ENTER then
 			finish_typing()
 		end
@@ -296,6 +310,7 @@ function BR_CreateChatFrame(pop_up)
 			color = Color(255,255,255,80),
 		})
 	end
+
 	chat_enter_button.DoClick = function()
 		finish_typing()
 	end
@@ -321,6 +336,7 @@ hook.Add("ChatText", "BR_Chat_ServerNotifications", function(index, name, text, 
 		if !IsValid(chat_frame) then
 			BR_CreateChatFrame(false)
 		end
+
 		if IsValid(chat_frame) and IsValid(chat_frame.textPanel) then
 			if !chat_frame:IsVisible() then
 				table.ForceInsert(chat_notifications, {{{text, Color(255,255,255)}}, CurTime()})
@@ -348,9 +364,11 @@ function chat.AddText(...)
 				chat_frame.textPanel:AppendText(obj:Nick())
 			end
 		end
+
 		if !chat_frame:IsVisible() then
 			local next_color = Color(255,255,255,255)
 			local whole_text = {}
+			
 			for _, obj in pairs(args) do
 				if type(obj) == "table" then
 					next_color = Color(obj.r, obj.g, obj.b, 255)
@@ -362,6 +380,7 @@ function chat.AddText(...)
 					next_color = Color(255,255,255,255)
 				end
 			end
+
 			if #whole_text > 0 then
 				table.ForceInsert(chat_notifications, {whole_text, CurTime()})
 			end

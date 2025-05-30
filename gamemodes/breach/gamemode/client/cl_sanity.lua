@@ -1,11 +1,13 @@
 
 function HorrorCL_Blood()
 	if LocalPlayer():IsInPD() then return end
+
 	local tr = util.TraceLine({
 		start = LocalPlayer():GetPos() + Vector(0,0,50),
 		endpos = Vector(math.random(-10000,10000), math.random(-10000,10000), math.random(-10000,10000)),
 		mask = MASK_SOLID
 	})
+
 	if tr.Hit then
 		util.Decal("Blood", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		if math.random(1,12) == 7 then
@@ -28,7 +30,9 @@ end
 
 function HorrorCL_SCPSound()
 	if LocalPlayer():IsInPD() then return end
+
 	local pos = LocalPlayer():GetPos() + Vector(math.random(-400,400), math.random(-400,400), 20)
+
 	local horror_scp_sounds = {
 		"breach2/173sound1.ogg",
 		"breach2/173sound2.ogg",
@@ -52,10 +56,12 @@ function HorrorCL_SCPSound()
 end
 
 function HorrorCL_SCP()
-	if true then return end -- disabled
+	if true then return end -- TODO: disabled
 	if LocalPlayer():IsInPD() then return end
+	
 	local client = LocalPlayer()
 	local ourpos = client:GetPos()
+
 	if IsValid(horror_scp_ent) == false and #br2_lastPositions > 0 then
 		local pos = br2_lastPositions[1][1]
 		if pos:Distance(ourpos) > 400 then

@@ -1,6 +1,7 @@
 
 temp_cold_mat = Material("breach2/br2_temp_cold.png")
 temp_hot_mat = Material("breach2/br2_temp_hot.png")
+
 function DrawTemperature()
 	local size_mul = math.Clamp(ScrH() / 1080, 0.1, 1)
 	local size = 64 * size_mul
