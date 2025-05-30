@@ -68,6 +68,7 @@ notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_ci_a
                 return
             end
         end
+
         local formed_info = {
             br_showname = info_showname,
             br_role = info_role,
@@ -75,9 +76,11 @@ notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_ci_a
             health = info_health,
             scp = info_scp,
         }
+
         if info_ent then
             formed_info.ent = info_ent
         end
+        
         table.ForceInsert(notepad_system.AllNotepads[ply.charid].people, formed_info)
     end
 end

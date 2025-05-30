@@ -190,6 +190,7 @@ local function default_support_spawn_human(ply)
 	ply:SetNWInt("BR_CharID", ply.charid)
 	if istable(ply.br_spawn_groups) then
 		local all_possible_spawns = {}
+
 		for k,pos in pairs(ply.br_spawn_groups) do
 			local pos_available = true
 			for k2,pl in pairs(player.GetAll()) do
@@ -203,12 +204,14 @@ local function default_support_spawn_human(ply)
 					pos_available = false
 				end
 			end
+			
 			if pos_available == true then
 				table.ForceInsert(all_possible_spawns, pos)
 			end
 		end
 		ply:SetPos(table.Random(all_possible_spawns))
 	end
+
 	notepad_system.AssignNewNotepad(ply, false)
 	notepad_system.UpdateNotepad(ply)
 end
@@ -216,6 +219,7 @@ end
 net.Receive("br_support_spawn", function(len, ply)
 	if ply:IsSpectator() and CurTime() - ply.DeathTime > 30 then
 		local support_spawn = net.ReadString()
+
 		for k,v in pairs(ply.br_support_spawns) do
 			if v[1] == support_spawn then
 				if v[2] > 0 then
@@ -223,7 +227,9 @@ net.Receive("br_support_spawn", function(len, ply)
 					print(ply:Nick() .. " support spawned")
 					ply:SendLua('surface.PlaySound("breach2/save3.ogg")')
 					ply.support_spawning = true
+					ply.br_times_support_respawned = ply.br_times_support_respawned + 1
 					ply.retrievingNotes = false
+
 					if support_spawn == "researcher" then
 						ply.dont_assign_items = true
 						assign_system.Assign_Researcher(ply)
@@ -273,6 +279,11 @@ net.Receive("br_support_spawn", function(len, ply)
 						ply:SetAmmo(120, "pistol")
 						ply:SetAmmo(360, "smg1")
 					end
+
+					if support_spawn != "explorer" then
+						ply:AddSanity(-10 * ply.br_times_support_respawned)
+					end
+
 					ply:AddRunStamina(-10000)
 					ply:SetFOV(160, 0)
 					ply:SetFOV(DEF_FOV, 2)

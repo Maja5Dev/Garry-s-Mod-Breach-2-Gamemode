@@ -54,9 +54,11 @@ net.Receive("br_end_reviving", function(len, ply)
 			if isPlayerAlive then
 				ent.Info.Victim:UnDownPlayer(ply)
 			end
+
 			net.Start("br_end_reviving")
 				net.WriteBool(isPlayerAlive)
 			net.Send(ply)
+
 			end_reviving_pl(ply)
 		end
 	end
@@ -73,13 +75,16 @@ end
 
 net.Receive("br_start_reviving", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() or ply.startedCheckingPulse != nil then return end
+
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
+
 	if ply.br_role == "SCP-049" then
 		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
 			start_reviving_pl(ply, ent)
 			--print("started reviving")
 		end
+
 	elseif isValidPlayerCorpse(ply, ent) then
 		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
 			start_reviving_pl(ply, ent)
@@ -89,8 +94,10 @@ end)
 
 net.Receive("br_end_checking_pulse", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() or istable(ply.startedCheckingPulse) == false or ply.startedReviving != nil then return end
+	
 	local ent = ply.startedCheckingPulse[1]
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
+
 	if isPlayerValid then
 		if !(ent:GetPos():Distance(ply:GetPos()) > 60) and ((ply.startedCheckingPulse[2] + 4.1) > CurTime()) then
 			--print("pulse_end_check_1")
@@ -99,6 +106,7 @@ net.Receive("br_end_checking_pulse", function(len, ply)
 			net.Send(ply)
 			ply.startedCheckingPulse = nil
 		end
+
 	elseif ent.IsStartingCorpse == true then
 		--print("pulse_end_check_2")
 		net.Start("br_end_checking_pulse")
@@ -110,8 +118,10 @@ end)
 
 net.Receive("br_start_checking_pulse", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() or ply.startedReviving != nil then return end
+
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
+
 	if ent:GetPos():Distance(ply:GetPos()) < 60 then
 		--print("pulse_start_check_1")
 		ply.startedCheckingPulse = {ent, CurTime()}
@@ -128,11 +138,13 @@ net.Receive("br_check_pulse", function(len, ply)
 		local dis = ent:GetPos():Distance(ply:GetPos())
 		if dis < 120 then
 			local is_alive = false
+
 			if istable(ent.Info) then
 				if IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10 then
 					is_alive = true
 				end
 			end
+			
 			net.Start("br_check_pulse")
 			net.WriteBool(is_alive)
 			net.Send(ply)

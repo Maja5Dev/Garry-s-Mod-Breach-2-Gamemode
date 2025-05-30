@@ -25,6 +25,7 @@ function HandlePlayerSpeeds()
 				new_walk_speed = new_walk_speed * 0.9
 				new_run_speed = new_run_speed * 0.9
 			end
+
 			if v.br_usesSanity and v.br_sanity < 20 then
 				new_walk_speed = new_walk_speed * 1.05
 				new_run_speed = new_run_speed * 1.05
@@ -46,6 +47,7 @@ function HandlePlayerSpeeds()
 				new_run_speed = new_run_speed * 1.15
 				v:AddRunStamina(100)
 				--print(v:Nick(), v.br_run_stamina)
+
 			elseif v.br_used_syringe == true then
 				v.br_used_syringe = false
 				v.CrippledStamina = CurTime()
@@ -73,6 +75,7 @@ function HandlePlayerSpeeds()
 			
 			v.nextNormalRun = v.nextNormalRun or 0
 			v.CrippledStamina = v.CrippledStamina or 0
+
 			if v.br_run_stamina and v.speed_walking and v.speed_running and v.br_jump_stamina then
 				if v.nextNormalRun > CurTime() then
 					if v.nextBreath < CurTime() then
@@ -83,6 +86,7 @@ function HandlePlayerSpeeds()
 						v.nextBreath = CurTime() + 6
 					end
 					new_run_speed = new_walk_speed
+					
 				elseif v.br_run_stamina < 50 then
 					v.nextNormalRun = CurTime() + 4
 				end

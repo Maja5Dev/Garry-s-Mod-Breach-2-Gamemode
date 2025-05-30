@@ -27,6 +27,7 @@ net.Receive("br_hide_in_closet", function(len, ply)
 					--ply:SelectWeapon("br_hands")
 					ply:Start_HidingInCloset(v)
 				end
+
 				return
 			end
 		end
@@ -46,6 +47,7 @@ net.Receive("br_use_294", function(len, ply)
 				return
 			end
 		end
+
 		net.Start("br_use_294")
 			net.WriteInt(1, 4)
 		net.Send(ply)
@@ -55,6 +57,7 @@ end)
 net.Receive("br_use_soda_machine", function(len, ply)
 	if len < 100 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) and game_state != GAMESTATE_POSTROUND then
 		local vector_got = net.ReadVector()
+
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.SODAMACHINES.buttons) do
 			if v.pos == vector_got then
 				for k2,v2 in pairs(ply.br_special_items) do
@@ -106,12 +109,11 @@ end)
 net.Receive("br_use_button_simple", function(len, ply)
 	if len < 100 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 		local vector_got = net.ReadVector()
+
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D) do
 			for k2,v2 in pairs(v.buttons) do
-				if v2.pos == vector_got then
-					if isfunction(v2.func_sv) then
-						v2.func_sv(ply)
-					end
+				if v2.pos == vector_got and isfunction(v2.func_sv) then
+					v2.func_sv(ply)
 				end
 			end
 		end
@@ -124,6 +126,7 @@ net.Receive("br_retrieve_own_notes", function(len, ply)
             ply.retrievingNotes = false
             return
         end
+
         if len < 10000 then
             local tab = net.ReadTable()
             --PrintTable(tab)
@@ -173,6 +176,7 @@ end)
 net.Receive("br_c4_action", function(len, ply)
 	if ply:Alive() and ply:IsSpectator() == false then
 		local wep = ply:GetActiveWeapon()
+
 		if IsValid(wep) and wep:GetClass() == "item_c4" and wep.Contents then
 			local int = net.ReadInt(8)
 			for k,v in pairs(wep.Contents) do
@@ -188,11 +192,14 @@ end)
 net.Receive("br_use_medkit_item", function(len, ply)
 	if ply:Alive() and ply:IsSpectator() == false then
 		local wep = ply:GetActiveWeapon()
+		
 		if IsValid(wep) and wep:GetClass() == "item_medkit" then
 			local str = net.ReadString()
+
 			if wep.Contents and wep.Contents[str] then
 				wep.Contents[str].amount = wep.Contents[str].amount - 1
 				wep.Contents[str].sv_effect(ply)
+
 				if wep.Contents[str].amount < 1 then
 					wep.Contents[str] = nil
 					if table.Count(wep.Contents) < 1 then

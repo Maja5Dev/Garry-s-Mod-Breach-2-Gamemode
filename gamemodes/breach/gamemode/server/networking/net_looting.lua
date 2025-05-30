@@ -2,6 +2,7 @@
 net.Receive("br_loot_crate", function(len, ply)
 	if len < 500 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) and ply.startedLockpicking == nil then
 		local pos_got = net.ReadVector()
+
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES.buttons) do
 			if v.pos == pos_got then
 				if v.locked == true then
@@ -19,9 +20,11 @@ net.Receive("br_loot_crate", function(len, ply)
 					net.WriteTable(v.items)
 					net.WriteTable({"container", pos_got})
 				net.Send(ply)
+
 				if SafeBoolConVar("br2_debug_mode") then
 					print(NiceVector(v.pos))
 				end
+
 				return
 			end
 		end
@@ -31,19 +34,23 @@ end)
 net.Receive("br_loot_container", function(len, ply)
 	if len < 500 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 		local pos_got = net.ReadVector()
+
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 			if v.pos == pos_got then
 				if v.locked then
 					ply:PrintMessage(HUD_PRINTTALK, "Seems to be locked...")
 					return
 				end
+
 				net.Start("br_get_loot_info")
 					net.WriteTable(v.items)
 					net.WriteTable({"container", pos_got})
 				net.Send(ply)
+
 				if SafeBoolConVar("br2_debug_mode") then
 					print(NiceVector(v.pos))
 				end
+
 				return
 			end
 		end
@@ -53,6 +60,7 @@ end)
 net.Receive("br_get_body_notepad", function(len, ply)
 	if ply:Alive() and ply:IsSpectator() == false then
 		local ent = ply:GetAllEyeTrace().Entity
+
 		if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and ent:GetPos():Distance(ply:GetPos()) < 150 and istable(ent.Info) and istable(ent.Info.notepad) then
 			net.Start("br_get_body_notepad")
 				net.WriteTable(ent.Info.notepad)
@@ -64,6 +72,7 @@ end)
 net.Receive("br_get_loot_info", function(len, ply)
 	if ply:Alive() and ply:IsSpectator() == false then
 		local ent = ply:GetAllEyeTrace().Entity
+
 		if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and ent:GetPos():Distance(ply:GetPos()) < 150 and istable(ent.Info) and istable(ent.Info.Loot) then
 			net.Start("br_get_loot_info")
 				net.WriteTable(ent.Info.Loot)
@@ -84,12 +93,14 @@ net.Receive("br_take_loot", function(len, ply)
 
 	if isstring(item.class) and table.Count(source) > 1 and isstring(source[1]) then
 		local source_tab = nil
+
 		if source[1] == "container" and isvector(source[2]) and source[2]:Distance(ply:GetPos()) < 160 then
 			for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 				if v.pos == source[2] then
 					source_tab = v.items
 				end
 			end
+
 			for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES.buttons) do
 				if v.pos == source[2] then
 					source_tab = v.items
@@ -98,6 +109,7 @@ net.Receive("br_take_loot", function(len, ply)
 		elseif source[1] == "body" and isentity(source[2]) and IsValid(source[2]) and source[2]:GetPos():Distance(ply:GetPos()) < 160 and istable(source[2].Info) then
 			source_tab = source[2].Info.Loot
 		end
+
 		if istable(source_tab) then
 			for k,v in pairs(source_tab) do
 				local class = item.class
@@ -138,26 +150,32 @@ net.Receive("br_take_loot", function(len, ply)
 						print("DOCUMENT'S ASSDDD")
 
 					end
+
 					for k2,v2 in pairs(ply:GetWeapons()) do
 						if v2.Slot == swep.Slot then
 							local dropped_wep = ents.Create(class)
+							
 							if IsValid(dropped_wep) then
 								dropped_wep:SetPos(ply:GetPos() + Vector(0,0,30))
 								dropped_wep:Spawn()
 								dropped_wep:SetNWBool("isDropped", true)
 							end
+
 							table.RemoveByValue(source_tab, v)
 							return
 						end
 					end
+
 					local wep = ply:Give(class)
 					if IsValid(wep) then
 						if isnumber(item.ammo) and item.ammo > 0 then
 							wep:SetClip1(item.ammo)
 						end
+
 						if item.code != nil then
 							wep.Code = item.code
 						end
+
 						if item.battery_level != nil then
 							wep.BatteryLevel = item.battery_level
 						end

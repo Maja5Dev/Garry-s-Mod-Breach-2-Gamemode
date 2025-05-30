@@ -28,6 +28,7 @@ round_system.ThreatLevel = function()
 			else
 				threat_level = threat_level + 1
 			end
+
 			for _,wep in pairs(v:GetWeapons()) do
 				if IsValid(wep) and isLethalWeapon(wep) then
 					threat_level = threat_level + 1
@@ -48,16 +49,21 @@ round_system.Force_MTF_Spawn = function()
 	for k,v in pairs(player.GetAll()) do
 		if v:IsSpectator() then
 			local spawn = table.Random(mtf_spawns)
+
 			v.charid = BR_GetUniqueCharID()
 			assign_system.Assign_MTF_NTF(v)
 			v:SetPos(spawn)
+
 			if IsValid(v.Body) then
 				v.Body.Info.Victim = nil
 			end
+
 			notepad_system.AssignNewNotepad(v, false)
+
 			for k_info,info in pairs(BR2_MTF_STARTING_INFORMATION) do
 				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false)
 			end
+
 			table.ForceInsert(all_mtfs, v)
 			table.RemoveByValue(mtf_spawns, spawn)
 		end
@@ -79,11 +85,13 @@ round_system.Next_MTF_Spawn = 0
 round_system.MTF_Check = function()
 	if round_system.Next_MTF_Spawn < CurTime() then
 		local spectators = {}
+
 		for k,v in pairs(player.GetAll()) do
 			if v:IsSpectator() then
 				table.ForceInsert(spectators, v)
 			end
 		end
+
 		if #spectators > 2 then
 			round_system.Force_MTF_Spawn()
 		end
@@ -108,7 +116,9 @@ round_system.AssignPlayers = function()
 	local tab_players = {}
 	local all_players = table.Copy(player.GetAll())
 	local max_players = #round_system.current_scenario.role_list[#player.GetAll()].roles
+
 	print("Max players for the current scenario: "..tostring(max_players).."")
+
 	for i=1, math.Clamp(#player.GetAll(), 1, max_players) do
 		local rnd_player = table.Random(all_players)
 		table.ForceInsert(tab_players, rnd_player)
@@ -163,6 +173,7 @@ round_system.AssignPlayers = function()
 					end
 				end
 			end
+
 			if spawned == false and istable(role.spawns) then
 				for i=1, #role.spawns do
 					if spawned == false then
@@ -196,11 +207,13 @@ end
 function PlayCommotionSound()
 	if istable(round_system.commotion_sounds) then
 		local rnd_sound = table.Random(round_system.commotion_sounds)
+
 		if isstring(rnd_sound) == false then
 			print("Couldnt find a commotion sound, removing the timer.")
 			timer.Remove("PlayCommotionSounds")
 			return
 		end
+
 		--lua_run_cl PlayAmbientSound("breach2/intro/Commotion/Commotion1.ogg", 600, 600)
 		BroadcastLua('surface.PlaySound("' .. rnd_sound .. '")')
 		--BroadcastLua('PlayAmbientSound("'..rnd_sound..'", 600, 600)')
@@ -225,6 +238,7 @@ round_system.AssignRandomCodes = function()
 	local all_possible_codes = {}
 	local all_possible_personal_codes = {}
 	local all_ci_codes = {}
+
 	for k,v in pairs(MAPCONFIG.KEYPADS) do
 		if v.code_available_on_start then
 			if v.code_personal_office then
@@ -232,6 +246,7 @@ round_system.AssignRandomCodes = function()
 			else
 				table.ForceInsert(all_possible_codes, {v.name, v.code})
 			end
+
 		elseif v.code_ci_only then
 			table.ForceInsert(all_ci_codes, {v.name, v.code})
 		end
@@ -250,12 +265,14 @@ round_system.AssignRandomCodes = function()
 	for i=1, #all_pl do
 		local v = table.Random(all_pl)
 		local bt = v.br_team
+
 		if v.br_role == "Researcher" then
 			local random_personal_code = table.Random(all_possible_personal_codes)
 			if random_personal_code != nil then
 				notepad_system.AddAutomatedInfo(v, "Personal office code: "..random_personal_code[2].." ("..random_personal_code[1]..")")
 				table.RemoveByValue(all_possible_personal_codes, random_personal_code)
 			end
+
 		elseif bt == TEAM_MINORSTAFF or bt == TEAM_RESEARCHER or bt == TEAM_SECURITY or bt == TEAM_CI then
 			local random_code = table.Random(all_possible_codes)
 			if random_code != nil then
@@ -265,6 +282,7 @@ round_system.AssignRandomCodes = function()
 		end
 		table.RemoveByValue(all_pl, v)
 	end
+
 	for k,v in pairs(player.GetAll()) do
 		notepad_system.UpdateNotepad(v)
 	end
@@ -285,9 +303,11 @@ end
 round_system.PreparingStart = function()
 	local result = hook.Call("BR2_PreparingStart")
 	if result == true then return end
+
 	game_state = GAMESTATE_PREPARING
 	game.CleanUpMap()
 	br2_mtf_teams_reset()
+
 	if isnumber(force_scenario) then
 		round_system.current_scenario = BREACH_SCENARIOS[force_scenario]
 	else
@@ -300,24 +320,31 @@ round_system.PreparingStart = function()
 	RunConsoleCommand("sbox_playershurtplayers", "1")
 
 	if isfunction(round_system.current_scenario.preparing_start) then round_system.current_scenario.preparing_start() end
+
 	create_all_possible_names()
 	all_fake_corpses = {}
+
 	if isfunction(Breach_Map_Organise) and round_system.current_scenario.disable_map_organisation != true then
 		Breach_Map_Organise()
 	end
+
 	if istable(MAPCONFIG) then
 		MAP_ResetGasZones()
 		MAP_ResetGenerators()
 	end
+
 	SetGlobalBool("PrimaryGeneratorsOn", false)
 	BR2_MTF_STARTING_INFORMATION = {}
 	round_system.AssignPlayers()
+
 	if round_system.current_scenario.disable_getting_codes == false then
 		round_system.AssignRandomCodes()
 	end
+
 	if isfunction(round_system.current_scenario.after_assign) then
 		round_system.current_scenario.after_assign()
 	end
+
 	timer.Remove("PlayCommotionSounds")
 	timer.Remove("LockdownWait")
 	timer.Remove("GasLeak1")
@@ -328,9 +355,11 @@ round_system.PreparingStart = function()
 			MAPCONFIG.Lockdown(true)
 		end
 	end)
+
 	if round_system.current_scenario.disable_commotion_sounds != true then
 		round_system.HandleCommotionSounds()
 	end
+
 	local send_scenario = {}
 	send_scenario.name = round_system.current_scenario.name
 	send_scenario.fake_corpses = round_system.current_scenario.fake_corpses
@@ -359,12 +388,13 @@ end
 round_system.RoundStart = function()
 	local result = hook.Call("BR2_RoundStart")
 	if result == true then return end
+
 	game_state = GAMESTATE_ROUND
 	round_system.Next_MTF_Spawn = CurTime() + math.random(70,120)
 	round_system.AlreadyAnnouncedMTF = false
+
 	if isfunction(round_system.current_scenario.round_start) then round_system.current_scenario.round_start() end
 	--PrintMessage(HUD_PRINTTALK, "BR2_RoundStart")
-
 	--BR2_ChangeLightingStyle()
 
 	HandleDiseases()
@@ -375,9 +405,12 @@ end
 
 round_system.PostRoundStart = function()
 	local result = hook.Call("BR2_PostRoundStart")
+
 	if result == true then return end
+
 	game_state = GAMESTATE_POSTROUND
 	if isfunction(round_system.current_scenario.postround_start) then round_system.current_scenario.postround_start() end
+
 	PrintMessage(HUD_PRINTTALK, "The round is ending in "..GetConVar("br2_time_postround"):GetInt().." seconds")
 	--PrintMessage(HUD_PRINTTALK, "BR2_PostRoundStart")
 end
@@ -387,11 +420,13 @@ MAP_ANIMATED_BUTTONS = {}
 round_system.RoundEnded = function()
 	MAP_ANIMATED_BUTTONS = {}
 	BroadcastLua('br2_blackscreen = CurTime() + 99999')
+
 	local result = hook.Call("BR2_RoundEnded")
 	if result == true then
-		--NEW MAP
+		--TODO: NEW MAP
 		return
 	end
+
 	game_state = GAMESTATE_ROUND_END
 	if isfunction(round_system.current_scenario.round_end) then round_system.current_scenario.round_end() end
 	--PrintMessage(HUD_PRINTTALK, "BR2_RoundEnded")
@@ -420,6 +455,7 @@ function WinCheck()
 		local alive_players = 0
 		local last_team  = nil
 		local all_same_team = true
+
 		for k,v in pairs(player.GetAll()) do
 			if v:Alive() and !v:IsSpectator() and v.br_downed == false then
 				alive_players = alive_players + 1
@@ -430,6 +466,7 @@ function WinCheck()
 				end
 			end
 		end
+
 		if alive_players == 1 then
 			return 1
 		elseif all_same_team then
@@ -452,6 +489,7 @@ function HandleRounds()
 			next_round_info_update = CurTime() + 1
 		end
 	end
+
 	if #player.GetAll() < 8 then return end
 
 	--if game_state == GAMESTATE_ROUND then
@@ -462,10 +500,12 @@ function HandleRounds()
 		br2_round_state_end = 0
 		print("0 - game started")
 	end
+
 	local win_check = WinCheck()
 	if !(game_state == GAMESTATE_ROUND and win_check > 0) then
 		if br2_round_state_end > CurTime() then return end
 	end
+
 	if game_state == GAMESTATE_NOTSTARTED or game_state == GAMESTATE_ROUND_END then
 		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_preparing") or 20
 		br2_round_state_start = CurTime()
@@ -495,11 +535,13 @@ hook.Add("Tick", "BR2_HandleRounds", HandleRounds)
 
 function HandleDiseases()
 	local possible_infecteds = {}
+	
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and v.canGetInfected and math.random(1,4) == 2 then
 			table.ForceInsert(possible_infecteds, v)
 		end
 	end
+
 	if table.Count(possible_infecteds) > 0 then
 		local patient_zero = table.Random(possible_infecteds)
 		patient_zero.next_iup1 = CurTime() + math.random(20,45)

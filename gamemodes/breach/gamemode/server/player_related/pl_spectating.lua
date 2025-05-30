@@ -30,11 +30,13 @@ function player_meta:SpectatePlayerRight()
 			table.ForceInsert(all_alive, v)
 		end
 	end
+
 	for k,v in pairs(ents.GetAll()) do
 		if table.HasValue(BR_SCP_NPC_CLASSES, v:GetClass()) then
 			table.ForceInsert(all_alive, v)
 		end
 	end
+
 	local new_target = all_alive[1] or self
 	for i,v in ipairs(all_alive) do
 		if v == obv_target then
@@ -44,6 +46,7 @@ function player_meta:SpectatePlayerRight()
 			end
 		end
 	end
+
 	self:SpectateEntity(new_target)
 	self:SetPos(new_target:GetPos())
 	--print("changing target to", new_target)
@@ -58,8 +61,10 @@ end
 
 function player_meta:SpectatePlayerLeft()
 	if !self:Alive() then return end
+
 	local mode = self:GetObserverMode()
 	if mode != OBS_MODE_IN_EYE and mode != OBS_MODE_CHASE then return end
+
 	local obv_target = self:GetObserverTarget()
 
 	local all_alive = {}
@@ -69,11 +74,13 @@ function player_meta:SpectatePlayerLeft()
 			table.ForceInsert(all_alive, v)
 		end
 	end
+
 	for k,v in pairs(ents.GetAll()) do
 		if table.HasValue(BR_SCP_NPC_CLASSES, v:GetClass()) then
 			table.ForceInsert(all_alive, v)
 		end
 	end
+
 	local new_target = all_alive[1] or self
 	for i,v in ipairs(all_alive) do
 		if v == obv_target then
@@ -85,6 +92,7 @@ function player_meta:SpectatePlayerLeft()
 			break
 		end
 	end
+
 	self:SpectateEntity(new_target)
 	self:SetPos(new_target:GetPos())
 	--print("changing target to", new_target)
@@ -139,6 +147,7 @@ function player_meta:UnSpectatePlayer(savepos)
 	self:SetNoDraw(false)
 	self:UnSpectate()
 	self:Spawn()
+	
 	if savepos == true then
 		self:SetPos(pos)
 		self:SetEyeAngles(ang)

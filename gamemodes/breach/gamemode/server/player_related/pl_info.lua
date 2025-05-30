@@ -24,6 +24,7 @@ function player_meta:CopyPlayerInfo(attacker)
 	player_info.PlayerMoveType = self:GetMoveType()
 	player_info.PlayerNoDraw = self:GetNoDraw()
 	player_info.PlayerAmmo = {}
+
 	for k,v in pairs(self:GetWeapons()) do
 		if IsValid(v) and v.GetPrimaryAmmoType then
 			local ammo_type = v:GetPrimaryAmmoType()
@@ -33,9 +34,11 @@ function player_meta:CopyPlayerInfo(attacker)
 			end
 		end
 	end
+
 	if IsValid(attacker) and attacker:IsPlayer() then
 		player_info.PlayerAttacker = attacker:SteamID64()
 	end
+
 	player_info.BreachShowName = self.br_showname
 	player_info.BreachIsBleeding = self.br_isBleeding
 	player_info.BreachSanity = self.br_sanity
@@ -88,6 +91,7 @@ function player_meta:ApplyPlayerInfo(player_info)
 			self:Give(v)
 		end
 	end
+
 	if IsValid(self.Body) and istable(self.Body.Info) and istable(self.Body.Info.Loot) then
 		for k,v in pairs(self.Body.Info.Loot) do
 			if isstring(v.class) then
@@ -109,6 +113,7 @@ function player_meta:ApplyPlayerInfo(player_info)
 			end
 		end
 	end
+	
 	--NOTEPAD
 	if istable(self.Body.Info.notepad) then
 		notepad_system.AllNotepads[self.charid] = self.Body.Info.notepad

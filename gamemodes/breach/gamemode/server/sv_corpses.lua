@@ -22,6 +22,7 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 		elseif dmgtype == DMG_PARALYZE and victim.br_sanity < 50 then
 			rag:SetNWString("ExamineDmgInfo", " - He died of despair")
 		end
+
 	elseif attacker:IsPlayer() then
 		local inflictor = attacker:GetActiveWeapon()
 		local item_infos = {
@@ -67,9 +68,11 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	rag.Info.VictimNick = victim:Nick()
 	rag.Info.DamageType = dmgtype
 	rag.Info.Time = CurTime()
+
 	if istable(notepad_system.AllNotepads[victim.charid]) then
 		rag.Info.notepad = table.Copy(notepad_system.AllNotepads[victim.charid])
 	end
+
 	rag.Info.Loot = {}
 	for k,v in pairs(victim.br_special_items) do
 		for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
@@ -127,10 +130,12 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 			bone:SetVelocity(v)
 		end
 	end
+
 	if rag:GetModel() != SCP_173_MODEL then
 		victim:Spectate(OBS_MODE_IN_EYE)
 		victim:SpectateEntity(rag)
 	end
+
 	victim.Body = rag
 	return tag
 end
@@ -142,6 +147,7 @@ function ApplyCorpseInfo(ent, info, blood)
 		ent:SetAngles(Angle(0,0,0))
 		--ent:SetVelocity(info.ragdoll_vel)
 		ent:SetVelocity(Vector(0,0,0))
+
 		local num = ent:GetPhysicsObjectCount() - 1
 		for i=0, num do
 			local bone = ent:GetPhysicsObjectNum(i)
@@ -153,6 +159,7 @@ function ApplyCorpseInfo(ent, info, blood)
 				bone:EnableMotion(false)
 			end
 		end
+		
 		ent:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		timer.Simple(1, function() if IsValid(ent) then ent:CollisionRulesChanged() end end)
 	end

@@ -125,6 +125,7 @@ for i=1, 20 do
 			tab.victory_conditions = {"one_player"}
 		end
 	end
+	
 	for num=1, i do
 		if num % 2 == 1 then
 			table.ForceInsert(tab.roles, BREACH_DEATHMATCH_ROLES.roles_mtf)
@@ -183,6 +184,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 		elseif v:IsFromFoundationHighStaff() then
 			table.ForceInsert(all_non_spies, v)
 		end
+
 		if v.br_team == TEAM_CI then
 			for k2,pl in pairs(players) do
 				if v != pl and pl.br_team == TEAM_CI and pl.br_ci_agent == false then
@@ -192,6 +194,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			end
 		end
 	end
+
 	for k,v in pairs(all_fake_corpses) do
 		if v.br_ci_agent == true then
 			table.ForceInsert(all_ci_spies, v)
@@ -207,6 +210,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 		table.ForceInsert(possible_ci_spies, rnd_spy)
 		table.RemoveByValue(all_ci_spies, rnd_spy)
 	end
+
 	if #possible_ci_spies > 0 then
 		for i=1, math.Clamp(#all_non_spies, 0, 3) do
 			local rnd_non_spy = table.Random(all_non_spies)
@@ -344,9 +348,11 @@ BREACH_SCENARIOS = {
 		starting_information = function()
 			local players = GetAlivePlayers()
 			notepad_system.ClearAllNotepads()
+
 			for k,v in pairs(players) do
 				notepad_system.AssignNewNotepad(v, false)
 			end
+
 			for k,v in pairs(players) do
 				for k2,pl in pairs(players) do
 					if v != pl and v.br_team == pl.br_team then
@@ -354,6 +360,7 @@ BREACH_SCENARIOS = {
 					end
 				end
 			end
+
 			for k,v in pairs(players) do
 				notepad_system.UpdateNotepad(v)
 			end
@@ -368,23 +375,29 @@ BREACH_SCENARIOS = {
 					table.ForceInsert(spawn_teams[2], v)
 				end
 			end
+
 			for k,class in pairs(spawn_teams) do
 				for pl_k,pl in pairs(class) do
 					local rnd_class = table.Random(all_deathmatch_classes)
+
 					if rnd_class == nil then
 						all_deathmatch_classes = table.Copy(deathmatch_classes)
 						rnd_class = table.Random(all_deathmatch_classes)
 					end
+					
 					pl:Give(table.Random(rnd_class.primary))
 					pl:Give(table.Random(rnd_class.secondary))
 					for wep_k,wep in pairs(rnd_class.items) do
 						pl:Give(wep)
 					end
+
 					for ammo_k,ammo in pairs(rnd_class.ammo) do
 						pl:SetAmmo(ammo[1], ammo[2])
 					end
+
 					pl.br_special_items = {}
 					pl.sp_medkit_uses = 4
+
 					for item_k,item in pairs(rnd_class.special_items) do
 						table.ForceInsert(pl.br_special_items, {class = item})
 					end

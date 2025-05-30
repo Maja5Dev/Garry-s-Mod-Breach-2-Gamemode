@@ -21,36 +21,44 @@ local function HandleSanity()
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false and v.br_usesSanity then
 			v.nextSanityCheck = v.nextSanityCheck or 0
+
 			if v.nextSanityCheck < CurTime() and game_state == GAMESTATE_ROUND then
 				v.nextSanityCheck = CurTime() + SafeIntConVar("br2_sanity_speed")
 				--print(v:Nick() .. "'s Sanity: " .. v.br_sanity .. "")
 				local zone = v:GetZone()
 				local sanity_amount = 0
+
 				if zone != nil and zone.sanity then
 					sanity_amount = sanity_amount + zone.sanity
 				else
 					sanity_amount = sanity_amount - 1
 				end
+
 				for _,wep in pairs(v:GetWeapons()) do
 					if IsValid(wep) and isLethalWeapon(wep) then
 						sanity_amount = sanity_amount + 0.5
 					end
 				end
+
 				/*
 				if IsRoundTimeProgress(0.5) then
 					sanity_amount = sanity_amount - 1
 				end
 				*/
+
 				if v:Health() < 25 then
 					sanity_amount = sanity_amount - 1	
 				end
+
 				local afk_time = v:AfkTime()
 				if afk_time > 30 then
 					sanity_amount = sanity_amount - 2
 				end
+
 				--v:PrintMessage(HUD_PRINTCENTER, v.br_sanity .. " / " .. sanity_amount)
 				v:AddSanity(sanity_amount)
 			end
+
 			if v:SanityLevel() < 4 then
 				v.nextHorrorFootstep = v.nextHorrorFootstep or (CurTime() + math.Rand(1,5))
 				if v.nextHorrorFootstep < CurTime() then
@@ -62,6 +70,7 @@ local function HandleSanity()
 					v:Horror_Footsteps()
 				end
 			end
+
 			if v:SanityLevel() < 3 then
 				v.nextHorrorBlood = v.nextHorrorBlood or (CurTime() + math.Rand(2,7))
 				if v.nextHorrorBlood < CurTime() then
@@ -69,6 +78,7 @@ local function HandleSanity()
 					v:SendLua('HorrorCL_Blood()')
 				end
 			end
+
 			if v:SanityLevel() < 2 then
 				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(8,22))
 				if v.nextHorrorSCPS < CurTime() then
@@ -79,6 +89,7 @@ local function HandleSanity()
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
 				if v.nextHorrorDamage < CurTime() then
 					v.nextHorrorDamage = CurTime() + 4
+
 					if v:Health() < 2 then
 						local fdmginfo = DamageInfo()
 						fdmginfo:SetDamage(20)
@@ -107,6 +118,7 @@ function player_meta:HorrorDoors()
 	if self:Alive() == true and self:IsSpectator() == false then
 		local tab_ents = ents.FindInSphere(self:GetPos(), 200)
 		local tab = {}
+
 		for k,v in pairs(tab_ents) do
 			if v:GetClass() == "func_button" then
 				print("e: " .. tostring(v))
@@ -122,6 +134,7 @@ function player_meta:HorrorDoors()
 				table.ForceInsert(tab, v)
 			end
 		end
+
 		if #tab > 0 then
 			local button = table.Random(tab)
 			if IsValid(button) == true then
@@ -133,6 +146,7 @@ function player_meta:HorrorDoors()
 				print("opened?")
 			end
 		end
+
 		print("horror_doors")
 		PrintTable(tab)
 	end
@@ -142,11 +156,13 @@ function player_meta:Horror_1()
 	for k,v in pairs(ents.FindInSphere(self:GetPos() + Vector(0,0,50), 300)) do
 		if v.br_info == nil then
 			local ent = NULL
+			
 			if v:GetClass() == "func_door" and IsValid(v:GetChildren()[1]) and v:GetChildren()[1]:GetModel() == "models/novux/sitegard/prop/br_hcz_door.mdl" then
 				ent = v:GetChildren()[1]
 			elseif v:GetClass() == "func_button" then
 				ent = v
 			end
+			
 			if IsValid(ent) and ((ent.lastUse == nil) or ((CurTime() - ent.lastUse) > 4)) then
 				self:SendLua('surface.PlaySound("breach2/horror/Horror7.ogg")')
 				--local pos = ent:GetPos()

@@ -256,9 +256,11 @@ function assign_system.Assign_Researcher(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("scientist")
 	ply:Give("br_hands")
+
 	if ply.br_showname == "Gordon Freeman" then
 		ply:Give("kanade_tfa_crowbar")
 	end
+	
 	if ply.dont_assign_items == false then
 		local rnd = math.random(1,100)
 		if rnd < 15 then
@@ -267,6 +269,7 @@ function assign_system.Assign_Researcher(ply)
 			ply:Give("keycard_level1")
 		end
 	end
+
 	ply.br_role = "Researcher"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
@@ -297,17 +300,21 @@ function assign_system.Assign_Engineer(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("engineer")
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
 	end
+
 	ply.br_role = "Engineer"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"engineer", 2}, {"mtf", 1}}
 		ply.first_info = "engineer"
 		ply.mission_set = "staff"
 	end
+
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
 	ply.DefaultWeapons = {"br_hands"}
@@ -318,6 +325,7 @@ function assign_system.Assign_Janitor(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("janitor")
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
 		local wep_rnd = math.random(1,100)
@@ -328,14 +336,17 @@ function assign_system.Assign_Janitor(ply)
 			ply:Give("item_gasmask")
 		end
 	end
+
 	ply.br_role = "Janitor"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"janitor", 2}, {"mtf", 1}}
 		ply.first_info = "janitor"
 		ply.mission_set = "staff"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -347,6 +358,7 @@ function assign_system.Assign_Doctor(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("medic")
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
 		local wep_rnd = math.random(1,100)
@@ -354,14 +366,17 @@ function assign_system.Assign_Doctor(ply)
 			ply:Give("item_medkit")
 		end
 	end
+
 	ply.br_role = "Doctor"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"doctor", 2}, {"mtf", 1}}
 		ply.first_info = "doctor"
 		ply.mission_set = "staff"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -376,6 +391,7 @@ function assign_system.Assign_SDofficer(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level3")
 		ply:Give(table.Random({"kanade_tfa_beretta", "kanade_tfa_glock"}))
@@ -385,14 +401,17 @@ function assign_system.Assign_SDofficer(ply)
 		ply:SetAmmo(90, "smg1")
 		ply:SetAmmo(20, "buckshot")
 	end
+
 	ply.br_role = "SD Officer"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "sd_officer"
 		ply.mission_set = "guard"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -407,20 +426,24 @@ function assign_system.Assign_SDofficerLight(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level3")
 		ply:Give(table.Random({"kanade_tfa_beretta", "kanade_tfa_m1911", "kanade_tfa_glock"}))
 		ply:Give(table.Random({"item_gasmask", "item_radio"}))
 		ply:SetAmmo(30, "pistol")
 	end
+
 	ply.br_role = "SD Officer"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "sd_officer"
 		ply.mission_set = "guard"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -434,6 +457,7 @@ function assign_system.Assign_ISDagent(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		local wep_rnd = math.random(1,100)
 		if wep_rnd < 31 then
@@ -442,15 +466,18 @@ function assign_system.Assign_ISDagent(ply)
 		ply:Give("item_radio")
 		ply:Give("keycard_level3")
 	end
+
 	ply.br_role = "ISD Agent"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.getsPossibleTraitors = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "isd_agent"
 		ply.mission_set = "isd_agent"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_CI
 	Post_Assign(ply)
@@ -465,6 +492,7 @@ function assign_system.Assign_CIsoldier(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give(table.Random({"kanade_tfa_m4a1", "kanade_tfa_m16a4", "kanade_tfa_ump45", "kanade_tfa_mp5k", "kanade_tfa_m590", "kanade_tfa_ak12"}))
 		ply:Give("kanade_tfa_m1911")
@@ -476,15 +504,18 @@ function assign_system.Assign_CIsoldier(ply)
 		ply:Give("item_radio")
 		ply:Give("item_nvg")
 	end
+
 	ply.br_role = "CI Soldier"
 	ply.br_usesTemperature = true
 	ply.br_uses_hunger_system = false
 	ply.getsAllCIinfo = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "ci_soldier"
 		ply.mission_set = "chaos_soldiers"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_CI)
 	ply.br_support_team = SUPPORT_CI
 	Post_Assign(ply)
@@ -499,6 +530,7 @@ function assign_system.Assign_MTF_NTF(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		ply:Give(table.Random({"kanade_tfa_m16a4", "kanade_tfa_m249", "kanade_tfa_m4a1", "kanade_tfa_ak12", "kanade_tfa_g36c", "kanade_tfa_m590"}))
 		ply:Give(table.Random({"kanade_tfa_beretta", "kanade_tfa_glock", "kanade_tfa_m1911"}))
@@ -510,13 +542,16 @@ function assign_system.Assign_MTF_NTF(ply)
 		ply:Give("item_radio")
 		ply:Give("item_nvg")
 	end
+
 	ply.br_role = "MTF Operative"
 	ply.br_usesTemperature = true
 	ply.br_uses_hunger_system = false
 	ply.canContain173 = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -528,6 +563,7 @@ function assign_system.Assign_Researcher_CI(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("scientist")
 	ply:Give("br_hands")
+
 	if ply.dont_assign_items == false then
 		local rnd = math.random(1,100)
 		if rnd < 20 then
@@ -536,15 +572,18 @@ function assign_system.Assign_Researcher_CI(ply)
 			ply:Give("keycard_level1")
 		end
 	end
+
 	ply.br_role = "Researcher"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.br_ci_agent = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "ci_spy"
 		ply.mission_set = "chaos_spies"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_CI)
 	ply.br_support_team = SUPPORT_CI
 	Post_Assign(ply)
@@ -559,20 +598,24 @@ function assign_system.Assign_SDofficer_CI(ply)
 	ply.cantChangeOutfit = true
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
+	
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level3")
 		ply:Give(table.Random({"kanade_tfa_beretta", "kanade_tfa_m1911"}))
 		ply:Give(table.Random({"item_gasmask", "item_radio"}))
 		ply:SetAmmo(30, "pistol")
 	end
+
 	ply.br_role = "SD Officer"
 	ply.br_usesTemperature = true
 	ply.br_ci_agent = true
+
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "ci_spy"
 		ply.mission_set = "chaos_spies"
 	end
+
 	--ply:SetNWInt("br_support_team", SUPPORT_CI)
 	ply.br_support_team = SUPPORT_CI
 	Post_Assign(ply)
@@ -582,8 +625,6 @@ end
 
 
 -- DEATHMATCH ROLES
-
-
 
 function assign_system.Assign_DM_MTF_NTF(ply)
 	Pre_Assign(ply)

@@ -43,6 +43,7 @@ function player_meta:FirstSetup()
 	self:SetNoDraw(true)
 	self.br_support_spawns = {{"mtf", 1}}
 	self.support_spawning = false
+	self.br_times_support_respawned = 0
 	self.br_downed = false
 	self:SetTeam(TEAM_UNASSIGNED)
 
@@ -69,8 +70,10 @@ function player_meta:GetAmmoItems()
 	for i, v in pairs(self:GetAmmo()) do
 		local ammo_amount = v
 		local attempt = 1
+
 		while(ammo_amount > 0 and attempt < 50) do
 			local best_fit = nil
+
 			for k, item in pairs(BR2_SPECIAL_ITEMS) do
 				if istable(item.ammo_info) and item.ammo_info[1] == game.GetAmmoName(i) and ammo_amount >= item.ammo_info[2] then
 					if (best_fit == nil) or (item.ammo_info[2] > best_fit.ammo_info[2]) then
@@ -78,6 +81,7 @@ function player_meta:GetAmmoItems()
 					end
 				end
 			end
+
 			if best_fit != nil then
 				for i=1, math.Round(v / best_fit.ammo_info[2]) do -- less attempts
 					if ammo_amount >= best_fit.ammo_info[2] then
@@ -87,6 +91,7 @@ function player_meta:GetAmmoItems()
 					end
 				end
 			end
+
 			if (ammo_amount < 10) or (best_fit == nil) then break end
 			attempt = attempt + 1
 		end
@@ -145,6 +150,7 @@ function player_meta:DropWep(wep, set_vel)
 		wep:CustomDrop(self)
 		return
 	end
+
 	/*
 	if set_vel == true then
 		self:DropWeapon(wep)
@@ -152,6 +158,7 @@ function player_meta:DropWep(wep, set_vel)
 		return
 	end
 	*/
+
 	local dropped_ent = ents.Create(wep:GetClass())
 	if IsValid(dropped_ent) then
 		--dropped_ent:SetPos(self:GetPos() + Vector(0,0,40))
@@ -160,16 +167,20 @@ function player_meta:DropWep(wep, set_vel)
 			endpos = self:EyePos() + (self:EyeAngles():Forward() * 30),
 			filter = self
 		})
+
 		if tr.Hit == false then
 			dropped_ent:SetPos(tr.HitPos)
 		else
 			dropped_ent:SetPos(self:EyePos())
 		end
+
 		dropped_ent:SetAngles(Angle(-10, self:EyeAngles().yaw, 0))
 		dropped_ent:Spawn()
+
 		if wep.Clip1 and wep:Clip1() > 0 then
 			dropped_ent:SetClip1(wep:Clip1())
 		end
+
 		dropped_ent:SetNWBool("isDropped", true)
 		
 		if set_vel == true then
@@ -183,6 +194,7 @@ function player_meta:DropWep(wep, set_vel)
 		if isfunction(wep.SaveVariablesTo) then
 			wep:SaveVariablesTo(dropped_ent)
 		end
+
 		self.lastDroppedWeapon = {dropped_ent, CurTime()}
 		self:StripWeapon(wep:GetClass())
 	end
@@ -205,6 +217,7 @@ function player_meta:ForceUseFlashlight(fl)
 	if IsValid(self.flashlight3d) then
 		self.flashlight3d:Remove()
 	end
+
 	if self.flashlightEnabled == false then
 		self.flashlight3d = ents.Create("env_projectedtexture")
 		fl.on_use(self)
@@ -224,14 +237,17 @@ end
 function player_meta:HasAnyGasmasksOn()
 	local has_gasmask = false
 	local outfit = self:GetOutfit()
+
 	if outfit != nil and outfit.has_gasmask == true then
 		has_gasmask = true
 	end
+
 	for _,wep in pairs(self:GetWeapons()) do
 		if wep.GasMaskOn == true then
 			has_gasmask = true
 		end
 	end
+	
 	return has_gasmask
 end
 

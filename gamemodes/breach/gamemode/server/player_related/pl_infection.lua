@@ -11,6 +11,7 @@ end
 function player_meta:InfectiousTouch()
 	if math.random(1,4) == 2 then
 		local possibles = {}
+
 		for k,v in pairs(player.GetAll()) do
 			if v:Alive() and !v:IsSpectator() and v.canGetInfected and !v.br_isInfected and math.random(1,3) == 2 then
 				local tr = util.TraceLine({
@@ -23,6 +24,7 @@ function player_meta:InfectiousTouch()
 				end
 			end
 		end
+
 		if table.Count(possibles) > 0 then
 			table.Random(possibles):GetInfected(self)
 		end
@@ -31,6 +33,7 @@ end
 
 function player_meta:InfectiousCough()
 	local closest_player = nil
+
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and v.canGetInfected and !v.br_isInfected then
 			local ipos = self:GetShootPos() + (self:EyeAngles():Forward() * 10)
@@ -42,6 +45,7 @@ function player_meta:InfectiousCough()
 			end
 		end
 	end
+	
 	if closest_player then
 		closest_player[1]:GetInfected(self)
 	end

@@ -5,16 +5,19 @@ function form_basic_item_info(class, amount)
 			return {class = class, ammo = 0, name = v.name}
 		end
 	end
+
 	for k,v in pairs(BR2_SPECIAL_ITEMS) do
 		if v.class == class then
 			return {class = class, ammo = 0, v.name}
 		end
 	end
+	
 	--print("TEST ITEM", class, weapons.Get(class), weapons.Get(class).PrintName)
 	local wwep = weapons.Get(class)
 	if wwep == nil then
 		ErrorNoHalt("Couldn't find a weapon class: " .. class)
 	end
+
 	return {class = class, ammo = amount or 0, name = wwep.PrintName}
 end
 
@@ -38,22 +41,27 @@ function BR_DEFAULT_MAP_Organize_ItemSpawns()
 		for i=1, #all_spawns - v.num do
 			table.RemoveByValue(all_spawns, table.Random(all_spawns))
 		end
+
 		local all_ents = {}
 		for i,spawn in ipairs(all_spawns) do
 			local ent = ents.Create(v.class)
+
 			if IsValid(ent) then
 				if v.model then
 					ent:SetModel(v.model)
 				end
+
 				ent:SetPos(spawn[1])
 				ent:SetAngles(spawn[2])
 				ent:Spawn()
+
 				if isfunction(v.func) then
 					v.func(ent)
 				end
 				table.ForceInsert(all_ents, ent)
 			end
 		end
+
 		if isfunction(v.func_all) then
 			v.func_all(all_ents)
 		end
@@ -163,9 +171,11 @@ function BR_DEFAULT_MAP_Organize_Keypads()
 								table.ForceInsert(button_ents, ent)
 								MAPCONFIG.KEYPADS[real_butt].ent = ent
 								table.RemoveByValue(butt.pos, v)
+
 								if table.Count(butt.pos) == 0 then
 									table.RemoveByValue(mapconfig_keypads, butt)
 								end
+
 								should_break = true
 								break
 							end
@@ -200,6 +210,7 @@ function BR_DEFAULT_MAP_Organize_Terminals()
 				device_cameras = false
 			}
 		}
+
 		v.Info.SettingsFunctions = v.special_functions
 		if istable(v.auth) then
 			v.Authorization = {
@@ -207,9 +218,11 @@ function BR_DEFAULT_MAP_Organize_Terminals()
 				password = "admin",
 				currentlyLogged = false,
 			}
+
 			if v.auth[2] == true then
 				v.Authorization.password = GenerateRandomPassword()
 			end
+
 			if isstring(v.auth[1]) then
 				v.Authorization.login = v.auth[1]
 			end
@@ -218,7 +231,7 @@ function BR_DEFAULT_MAP_Organize_Terminals()
 			v.Info.devices.device_cameras = true
 		end
 
-																			v.Info.devices.device_cameras = true
+		v.Info.devices.device_cameras = true
 
 		/*
 		v.Authorization = {
@@ -264,6 +277,7 @@ end
 
 function BR_DEFAULT_MAP_Organize_ItemContainers()
 	local container_groups = {}
+
 	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 		v.locked = false
 		--if math.random(1,4) == 2 and !v.canBeLocked then
@@ -274,6 +288,7 @@ function BR_DEFAULT_MAP_Organize_ItemContainers()
 		--end
 		v.items = {}
 	end
+
 	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES.buttons) do
 		container_groups[v.item_gen_group] = container_groups[v.item_gen_group] or {}
 		table.ForceInsert(container_groups[v.item_gen_group], v)
@@ -284,11 +299,13 @@ function BR_DEFAULT_MAP_Organize_ItemContainers()
 	for k_cont_group,cont_group in pairs(container_groups) do
 		if istable(MAPCONFIG.ITEM_GENERATION_GROUPS[k_cont_group]) then
 			local all_items = {}
+
 			for k_item, item in pairs(MAPCONFIG.ITEM_GENERATION_GROUPS[k_cont_group]) do
 				for i = 1, item[2] do
 					table.ForceInsert(all_items, item[1])
 				end
 			end
+
 			for k_button,button in pairs(cont_group) do
 				if table.Count(button.items) == 0 and table.Count(all_items) > 0 then
 					local rnd_item = table.Random(all_items)
@@ -298,6 +315,7 @@ function BR_DEFAULT_MAP_Organize_ItemContainers()
 					end
 				end
 			end
+
 			for k_item,item in pairs(all_items) do
 				local rnd_cont = table.Random(cont_group)
 				if item != nil then
@@ -313,6 +331,7 @@ function BR_DEFAULT_MAP_Organize_Cameras()
 		for k,v in pairs(MAPCONFIG.CAMERAS) do
 			for k2,v2 in pairs(v.cameras) do
 				local camera = ents.Create("br2_camera")
+				
 				if IsValid(camera) then
 					camera:SetModel("models/props/cs_assault/camera.mdl")
 					camera:SetPos(v2.pos)

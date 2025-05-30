@@ -2,16 +2,19 @@
 net.Receive("br_take_outfit", function(len, ply)
 	if len < 100 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 		local str_got = net.ReadString()
+
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.OUTFITTERS.buttons) do
 			if v.pos:Distance(ply:GetPos()) < 150 and table.HasValue(v.items, str_got) then
 				local our_pos = 1
 				local our_model = ply:GetModel()
 				local our_model_class = nil
 				local outfit = nil
+
 				for i,v in ipairs(BREACH_OUTFITS) do
 					if v.class == str_got then
 						outfit = table.Copy(v)
 					end
+
 					if isstring(v.model) then
 						if v.model == our_model then
 							if isnumber(ply.lastOutfitPos) then
@@ -19,6 +22,7 @@ net.Receive("br_take_outfit", function(len, ply)
 							else
 								our_pos = i
 							end
+
 							our_model_class = v.class
 						end
 					else
@@ -29,17 +33,20 @@ net.Receive("br_take_outfit", function(len, ply)
 								else
 									our_pos = i2
 								end
+
 								our_model_class = v.class
 							end
 						end
 					end
 				end
+
 				if outfit != nil and our_model_class != nil then
 					if our_pos then
 						ply:ApplyOutfit(str_got, our_pos)
 					else
 						ply:ApplyOutfit(str_got)
 					end
+
 					/*
 					if isstring(outfit.model) then
 						ply:SetModel(outfit.model)
@@ -47,6 +54,7 @@ net.Receive("br_take_outfit", function(len, ply)
 						ply:SetModel(outfit.model[math.Clamp(our_pos, 1, table.Count(outfit.model))])
 					end
 					*/
+					
 					ply:EmitSound(Sound("npc/combine_soldier/zipline_clothing"..math.random(1,2)..".wav"))
 					table.RemoveByValue(v.items, str_got)
 					table.ForceInsert(v.items, our_model_class)

@@ -11,6 +11,7 @@ hook.Add("Tick", "BR2_Misc", function()
 	for k,v in pairs(player.GetAll()) do
 		if v:IsSpectator() then
 			local obv_target = v:GetObserverTarget()
+			
 			if v:GetObserverMode() != OBS_MODE_ROAMING and IsValid(obv_target) and obv_target.Alive != nil then
 				if !obv_target:Alive() or (obv_target.IsSpectator and obv_target:IsSpectator()) then
 					v:Spectate(OBS_MODE_ROAMING)
@@ -18,17 +19,22 @@ hook.Add("Tick", "BR2_Misc", function()
 					v:SetPos(obv_target:GetPos())
 				end
 			end
+
 		elseif v:Alive() then
 			if isnumber(v.charid) then
 				v:SetNWInt("BR_CharID", v.charid)
 			end
+
 			if v.canEscape == true and v:IsInEscapeZone() == true then
 				v:SetSpectator()
+
 				print(v:Nick(), "escaped")
+
 				net.Start("cl_playerescaped")
 					net.WriteInt(CurTime() - v.aliveTime, 16)
 				net.Send(v)
 			end
+
 			if v.br_run_stamina then
 				net.Start("br_update_misc")
 					net.WriteInt(v.br_run_stamina, 16)
@@ -39,9 +45,11 @@ hook.Add("Tick", "BR2_Misc", function()
 			if v.viewing895 then
 				if v.next895dmg < CurTime() then
 					local viewent = v:GetViewEntity()
+
 					if !IsValid(viewent) or viewent:GetClass() != "br2_camera_view" then
 						v.viewing895 = false
 					end
+
 					--print('895 damage - ' .. v:Nick())
 					--v:AddSanity(-1)
 					v.next895dmg = CurTime() + 0.5
@@ -66,13 +74,16 @@ hook.Add("Tick", "BR2_Misc", function()
 			local outfit = v:GetOutfit()
 			local has_gasmask = false
 			local has_hazmat = false
+
 			if outfit != nil and outfit.has_gasmask == true then
 				has_gasmask = true
 			end
+
 			for _,wep in pairs(v:GetWeapons()) do
 				if wep.InfiniteStamina == true then
 					v:AddRunStamina(1000)
 				end
+
 				if wep.GasMaskOn == true then
 					has_gasmask = true
 					has_hazmat = true
@@ -83,12 +94,14 @@ hook.Add("Tick", "BR2_Misc", function()
 						v.nextBreath = CurTime() + 3
 					end
 				end
+
 				if wep:GetClass() == "item_c4" then
 					if wep.Activated then
 						if wep.nextBeep < CurTime() then
 							v:EmitSound("weapons/c4/c4_beep1.wav")
 							wep.nextBeep = CurTime() + 1
 						end
+
 						if wep.nextExplode < CurTime() then
 							v:StripWeapon(wep:GetClass())
 							v:SendLua('surface.PlaySound("breach2/explosion_near.wav")')
@@ -97,12 +110,17 @@ hook.Add("Tick", "BR2_Misc", function()
 						end
 					end
 				end
+
 				if isnumber(wep.BatteryLevel) then
 					wep.NextBatteryCheck = wep.NextBatteryCheck or 0
+
 					if wep.Enabled and wep.NextBatteryCheck < CurTime() then
 						wep.BatteryLevel = wep.BatteryLevel - 1
+
 						if wep.BatteryLevel < 1 then wep.BatteryLevel = 0 end
+
 						wep.NextBatteryCheck = CurTime() + wep.BatterySpeed
+
 						net.Start("br_updatebattery")
 							net.WriteInt(wep.BatteryLevel, 8)
 							net.WriteInt(wep.Slot, 4)
@@ -115,6 +133,7 @@ hook.Add("Tick", "BR2_Misc", function()
 			local should_icough = true
 			if v:IsInGasZone() then
 				local cough_sound = ""
+
 				if !has_gasmask then
 					if v.NextCough < CurTime() then
 						should_icough = false

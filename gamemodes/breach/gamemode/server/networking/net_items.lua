@@ -7,6 +7,7 @@ net.Receive("br_install_device", function(len, ply)
 		for k,v in pairs(ply.br_special_items) do
 			if v.class == device then
 				table.RemoveByValue(ply.br_special_items, v)
+
 				for k2,v2 in pairs(BR2_TERMINALS) do
 					if v2.name == terminal and v2.Info.devices[device] == false then
 						v2.Info.devices[device] = true
@@ -139,13 +140,16 @@ net.Receive("br_pickup_item", function(len, ply)
 						return
 					end
 				end
+
 				local new_ent = ply:Give(entf:GetClass())
 				if entf.Clip1 and entf:Clip1() > 0 then
 					new_ent:SetClip1(entf:Clip1())
 				end
+
 				if entf.Code != nil then
 					new_ent.Code = entf.Code
 				end
+				
 				if entf.BatteryLevel != nil then
 					new_ent.BatteryLevel = entf.BatteryLevel
 				end

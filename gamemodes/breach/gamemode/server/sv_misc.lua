@@ -1,11 +1,13 @@
 
 function BR_GetUniqueCharID()
 	local highest_char_id = 0
+
 	for i,v in ipairs(player.GetAll()) do
 		if v.charid > highest_char_id then
 			highest_char_id = v.charid
 		end
 	end
+
 	return (highest_char_id + 1)
 end
 
@@ -21,14 +23,17 @@ function C4BombExplode(ent, radius, damage, ply)
 		if v:IsPlayer() and v:Alive() and v:IsSpectator() == false then
 			local filters = {}
 			table.ForceInsert(filters, ent)
+
 			if IsValid(ply) then
 				table.ForceInsert(filters, ply)
 			end
+
 			local tr = util.TraceLine({
 				start = ent:GetPos(),
 				endpos = v:GetPos() + Vector(0,0,40),
 				filter = filters
 			})
+			
 			if tr.Entity == v then
 				local num = math.Clamp(damage - math.Round(v:GetPos():Distance(ent:GetPos()) / 1.75), 1, 500)
 				print("C4 blew and damaged " .. v:Nick() .. " with " .. tostring(num) .. " damage.")

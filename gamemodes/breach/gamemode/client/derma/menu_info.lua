@@ -256,6 +256,9 @@ function OpenInfoMenu1()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
     end
@@ -420,6 +423,9 @@ function OpenInfoMenu2()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
     end
@@ -591,7 +597,6 @@ function OpenInfoMenu3()
 
         draw_multiple_texts({
             "If you want to contact anybody working on this project, join the discord server",
-            "And please do not add Kanade on steam or discord, its annoying",
             "Click the link below and check the console/chat to copy"
         })
 
@@ -602,6 +607,9 @@ function OpenInfoMenu3()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
     end
@@ -952,6 +960,9 @@ function OpenInfoMenu4()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
     end
@@ -1116,6 +1127,9 @@ function OpenInfoMenu5()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
     end
@@ -1257,6 +1271,9 @@ function Open_MTF_SpawnMenu()
         if input.IsKeyDown(KEY_ESCAPE) then
             gui.HideGameUI()
             info_menu_1_frame:Close()
+            if IsValid(info_menus_panel) then
+                info_menus_panel:Remove()
+            end
             gui.HideGameUI()
         end
         

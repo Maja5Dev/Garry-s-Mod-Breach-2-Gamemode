@@ -256,7 +256,7 @@ BR2_SPECIAL_ITEMS = {
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
 					pl:AddThirst(-20)
-					pl:PrintMessage(HUD_PRINTTALK, "You have drinked some water and feel refreshed...")
+					pl:PrintMessage(HUD_PRINTTALK, "You drank some water and feel refreshed...")
 					return true
 				end
 			end
@@ -290,7 +290,7 @@ BR2_SPECIAL_ITEMS = {
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
 					pl:AddThirst(-20)
-					pl:PrintMessage(HUD_PRINTTALK, "You have drinked some soda and feel refreshed...")
+					pl:PrintMessage(HUD_PRINTTALK, "You drank some soda and feel refreshed...")
 					return true
 				end
 			end

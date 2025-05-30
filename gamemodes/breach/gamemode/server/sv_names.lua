@@ -186,6 +186,7 @@ function TestRandomNames()
 	for i=1, times_to_do do
 		table.ForceInsert(names_got, GetRandomName())
 	end
+
 	local num_duplicates = 0
 	for k,v in pairs(names_got) do
 		local names_got_w = table.Copy(names_got)
@@ -197,9 +198,11 @@ function TestRandomNames()
 			end
 		end
 	end
+
 	print("random ("..times_to_do..") - duplicates: " .. num_duplicates)
 	local n_dup = {}
 	local s_dup = {}
+
 	for k,v in pairs(BREACH_NAMES.names) do
 		local n2 = table.Copy(BREACH_NAMES.names)
 		table.RemoveByValue(n2, v)
@@ -209,6 +212,7 @@ function TestRandomNames()
 			end
 		end
 	end
+
 	for k,v in pairs(BREACH_NAMES.surnames) do
 		local n2 = table.Copy(BREACH_NAMES.surnames)
 		table.RemoveByValue(n2, v)
@@ -218,6 +222,7 @@ function TestRandomNames()
 			end
 		end
 	end
+	
 	print("Names - duplicates (" .. #n_dup .. ")")
 	PrintTable(n_dup)
 	print("Surnames - duplicates (" .. #s_dup .. ")")

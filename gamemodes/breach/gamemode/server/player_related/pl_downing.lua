@@ -43,6 +43,7 @@ function player_meta:UnDownPlayer(healer)
 		--PrintTable(self.lastPlayerInfo)
 		self:SetHealth(math.Clamp(self.lastPlayerInfo.PlayerHealth * 0.5, 1, self:GetMaxHealth()))
 	end
+	
 	self:Freeze(false)
 	self:SetMoveType(MOVETYPE_WALK)
 	self:SetNoDraw(false)
@@ -56,6 +57,7 @@ function player_meta:UnDownPlayer(healer)
 		mask = MASK_SOLID,
 		filter = {self, self.Body, healer}
 	})
+
 	if tr_test.Hit then
 		self:SetPos(healer:GetPos())
 	else
@@ -70,6 +72,7 @@ function player_meta:UnDownPlayer(healer)
 	if IsValid(self.Body) then
 		self.Body:Remove()
 	end
+
 	self.br_downed = false
 	self.lastPlayerInfo = nil
 end
@@ -81,6 +84,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 
 	local rag_pos = self.Body:GetPos()
 	local lpi = self.lastPlayerInfo
+
 	if lpi then
 		lpi.PlayerTeam = TEAM_SCP
 		lpi.BreachRole = "SCP-049-2"
@@ -115,6 +119,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 		mask = MASK_SOLID,
 		filter = {self, self.Body, healer}
 	})
+	
 	if tr_test.Hit then
 		self:SetPos(healer:GetPos())
 	else

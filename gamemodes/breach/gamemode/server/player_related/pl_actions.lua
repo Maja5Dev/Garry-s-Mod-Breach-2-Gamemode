@@ -7,6 +7,7 @@ function player_meta:ApplyOutfit(class, pos)
 			if IsColor(v.player_color) then
 				self:BR_SetColor(v.player_color)
 			end
+			
 			--print(self:GetModel())
 			if isstring(v.model) then
 				self:SetModel(v.model)
@@ -17,6 +18,7 @@ function player_meta:ApplyOutfit(class, pos)
 					self:SetModel(v.model[math.Clamp(pos, 1, table.Count(v.model))])
 				end
 			end
+
 			--print(self:GetModel())
 			if istable(v.hands) then
 				self.br_hands = table.Copy(v.hands)
@@ -34,9 +36,11 @@ function player_meta:Start_HidingInCloset(closet)
 	self.next_hiding = CurTime() + 4
 	self.next_lhiding = CurTime() + 2
 	self:SetViewEntity(closet.peeking_ent)
+
 	if closet.inside_func then
 		closet.inside_func(self, closet.peeking_ent)
 	end
+
 	self:SetLocalVelocity(Vector(0,0,0))
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetNoDraw(true)
@@ -50,9 +54,11 @@ function player_meta:Stop_HidingInCloset(closet)
 		self:SetViewEntity(self)
 		self:SetMoveType(MOVETYPE_WALK)
 		self:SetNoDraw(false)
+
 		if closet.outside_func then
 			closet.outside_func(self)
 		end
+
 		self.is_hiding_in_closet = nil
 		closet.player = nil
 	end

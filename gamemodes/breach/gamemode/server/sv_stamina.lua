@@ -3,6 +3,7 @@ local function HandleStamina()
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false and v.br_usesStamina then
 			local vel = v:GetVelocity()
+			
 			if v.nextJumpStaminaCheck < CurTime() then
 				local jump_stamina_change = 1
 				if !v:OnGround() and vel.z > 0 then
@@ -11,6 +12,7 @@ local function HandleStamina()
 				v:AddJumpStamina(jump_stamina_change)
 				v.nextJumpStaminaCheck = CurTime() + 0.02
 			end
+
 			if v.nextRunStaminaCheck < CurTime() then
 				local run_stamina_change = 3
 				if vel:Length() > 150 and (v:KeyDown(IN_FORWARD) or v:KeyDown(IN_BACK) or v:KeyDown(IN_MOVELEFT) or v:KeyDown(IN_MOVERIGHT)) then

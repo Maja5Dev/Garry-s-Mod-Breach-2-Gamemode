@@ -50,6 +50,7 @@ function BR2NetworkingTick()
 					elseif v.br_hunger == 24 then
 						v:PrintMessage(HUD_PRINTTALK, "You are getting very hungry...")
 					end
+
 					if v:Health() < 1 then
 						local fdmginfo = DamageInfo()
 						fdmginfo:SetDamage(20)
@@ -58,19 +59,23 @@ function BR2NetworkingTick()
 						v:TakeDamageInfo(fdmginfo)
 					end
 				end
+
 				if v.next_thirst < CurTime() then
 					v.next_thirst = CurTime() + math.random(10,18)
 					v.br_thirst = v.br_thirst - 1
+
 					if v.br_thirst < 25 then
 						v:SetHealth(v:Health() - 2)
 					elseif v.br_thirst < 50 then
 						v:SetHealth(v:Health() - 1)
 					end
+
 					if v.br_thirst == 49 then
 						v:PrintMessage(HUD_PRINTTALK, "You are getting thirsty...")
 					elseif v.br_thirst == 24 then
 						v:PrintMessage(HUD_PRINTTALK, "You are getting very thirsty...")
 					end
+
 					if v:Health() < 1 then
 						local fdmginfo = DamageInfo()
 						fdmginfo:SetDamage(20)
@@ -92,6 +97,7 @@ function BR2NetworkingTick()
 			if v.nextBleed < CurTime() then
 				if v.br_isBleeding == true and v.br_downed == false then
 					v:TakeDamage(1, v, v)
+
 					if v:Health() < 20 then
 						if math.random(1,4) == 3 then
 							local fake_damage_info = DamageInfo()
@@ -101,6 +107,7 @@ function BR2NetworkingTick()
 							v:SetDowned(fake_damage_info)
 						end
 					end
+
 					v:BleedEffect()
 					v.nextBleed = CurTime() + 4
 				end
@@ -108,6 +115,7 @@ function BR2NetworkingTick()
 					net.WriteBool(v.br_isBleeding)
 				net.Send(v)
 			end
+
 			v.next_sanity_update = v.next_sanity_update or 0
 			if v.next_sanity_update < CurTime() then
 				net.Start("br_update_sanity")
@@ -116,8 +124,10 @@ function BR2NetworkingTick()
 				net.Send(v)
 				v.next_sanity_update = CurTime() + 2
 			end
+
 			if v.br_role == "SCP-049" and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then
 				local dis = (v.startedReviving[1]:GetPos():Distance(v:GetPos()) > 70) or v:KeyDown(IN_ATTACK) or v:KeyDown(IN_ATTACK2)
+
 				if (v.startedReviving[2] + 8.1) > CurTime() and !dis then
 					v.startedReviving[1].nextReviveMove = v.startedReviving[1].nextReviveMove or 0
 					if v.startedReviving[1].nextReviveMove < CurTime() then
@@ -135,18 +145,22 @@ function BR2NetworkingTick()
 					v:SetNWBool("br_is_reviving", false)
 				end
 			end
+
 			if istable(v.startedLockpicking) then
 				--print(v.startedLockpicking[2] - CurTime())
 				local ent_pos = Vector(0,0,0)
+
 				if IsEntity(v.startedLockpicking[1]) then
 					ent_pos = v.startedLockpicking[1]:GetPos()
 				else
 					ent_pos = v.startedLockpicking[1].pos
 				end
+
 				if (ent_pos:Distance(v:GetPos()) > 100) or v:KeyDown(IN_ATTACK) or v:KeyDown(IN_ATTACK2) then
 					v.startedLockpicking = nil
 					v:SendLua("StopLockpicking()")
 					v:StopSound("breach2/lockpick.mp3")
+
 				elseif v.startedLockpicking[2] + 9.1 < CurTime() then
 					for k2,v2 in pairs(v.br_special_items) do
 						if v2.class == "lockpick" then
@@ -163,37 +177,45 @@ function BR2NetworkingTick()
 					end
 				end
 			end
+
 			if v.br_downed == true then
 				if v.next_health_update < CurTime() then
 					v.next_health_update = CurTime() + 1
 					if IsValid(v.Body) then
 						if v.Body.RagdollHealth == nil then v.Body.RagdollHealth = 100 end
+
 						v.Body.RagdollHealth = v.Body.RagdollHealth - 1
+
 						if v.br_isInfected then
 							v.Body.RagdollHealth = v.Body.RagdollHealth - 1
 						end
+
 						--print("v.Body.RagdollHealth: "..v.Body.RagdollHealth.."")
 						if v.Body.RagdollHealth < 1 then
 							v:Freeze(false)
 							v:KillSilent()
 							--v:Kill()
 						end
+
 						net.Start("br_update_health_state")
 							net.WriteInt(v.Body.RagdollHealth, 8)
 						net.Send(v)
 					end
 				end
+
 				if v.next_revive_update < CurTime() then
 					v.next_revive_update = CurTime() + 0.2
 					for k2,v2 in pairs(player.GetAll()) do
 						if v2.startedReviving and IsValid(v.Body) and v2.startedReviving[1] == v.Body and v2.br_role != "SCP-049" then
 							local dis = (v.Body:GetPos():Distance(v2:GetPos()) > 70) or v2:KeyDown(IN_ATTACK) or v2:KeyDown(IN_ATTACK2)
+
 							if (v2.startedReviving[2] + 8.1) > CurTime() and !dis then
 								if v.Body.nextReviveMove < CurTime() then
 									local phys_obj = v.Body:GetPhysicsObject()
 									phys_obj:SetVelocity(Vector(0,0,200))
 									v.Body.nextReviveMove = CurTime() + 1
 								end
+
 								net.Start("br_is_reviving")
 									net.WriteFloat(CurTime() - v2.startedReviving[2])
 								net.Send(v)
@@ -204,6 +226,7 @@ function BR2NetworkingTick()
 						end
 					end
 				end
+				
 				for k2,v2 in pairs(player.GetAll()) do
 					if IsValid(v.Body) and v2.startedCheckingPulse != nil and v2.startedCheckingPulse[1] == v.Body then
 						local dis1 = (v.Body:GetPos():Distance(v2:GetPos()) > 70) or v2:KeyDown(IN_ATTACK) or v2:KeyDown(IN_ATTACK2)
