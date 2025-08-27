@@ -3,6 +3,7 @@ MAPCONFIG = {}
 
 br2_914_on_map = false -- TODO CHANGE
 
+include("server/functions_npcs.lua")
 include("server/functions_other.lua")
 include("server/functions_scp914.lua")
 include("server/functions_organise.lua")

@@ -1,0 +1,193 @@
+﻿
+local function CanOccupy(ent, pos)
+    if not IsValid(ent) or not util.IsInWorld(pos) then return false end
+
+    -- Trace the entity's own hull a tiny distance to see if it would collide at pos
+    local tr = util.TraceEntity({
+        start  = pos,
+        endpos = pos + Vector(0, 0, 1),  -- small sweep to trigger hit detection
+        mask   = MASK_NPCSOLID,
+        filter = ent
+    }, ent)
+
+    if tr.Hit then return false end
+
+    -- Optional: extra crowding check using an AABB around the OBB mins/maxs
+    local mins, maxs = ent:OBBMins(), ent:OBBMaxs()
+    for _, e in ipairs(ents.FindInBox(pos + mins, pos + maxs)) do
+        if IsValid(e) and e != ent and (e:IsPlayer() or e:IsNPC() or e:GetSolid() != SOLID_NONE) then
+            return false
+        end
+    end
+
+    return true
+end
+
+-- Find ground at/near a point and return a slightly raised position
+local function GroundedPos(ent, around)
+    local tr = util.TraceLine({
+        start  = around + Vector(0, 0, 64),
+        endpos = around - Vector(0, 0, 2048),
+        mask   = MASK_SOLID_BRUSHONLY,
+        filter = ent
+    })
+    if tr.Hit then
+        return tr.HitPos + Vector(0, 0, 2)
+    end
+end
+
+-- Spiral search for a nearby free position the NPC can occupy
+local function FindClearGroundPos(ent, origin, maxAttempts, step)
+    maxAttempts = maxAttempts or 30
+    step = step or 64
+
+    -- Try origin first
+    local cand = GroundedPos(ent, origin)
+    if cand and CanOccupy(ent, cand) then return cand end
+
+    -- Golden-angle spiral (nice coverage without repeats)
+    local GA = 2.399963229728653
+    for i = 1, maxAttempts do
+        local radius = step * math.ceil(i / 6)
+        local ang = i * GA
+        local offset = Vector(math.cos(ang), math.sin(ang), 0) * radius
+        local base = origin + offset
+
+        cand = GroundedPos(ent, base)
+        if cand and CanOccupy(ent, cand) then
+            return cand
+        end
+    end
+end
+
+local function isVisible(pl, pos)
+    local tr = util.TraceLine({
+        start = pl:EyePos(),
+        endpos = pos,
+        mask = MASK_SOLID,
+        filter = pl
+    })
+    return not tr.Hit
+end
+
+local nextTrack = 0
+function TrackNPCs()
+    if CurTime() < nextTrack or !game_state == GAMESTATE_ROUND then return end
+    nextTrack = CurTime() + 1
+
+	local all_npcs = {}
+
+	for k,ent in pairs(ents.GetAll()) do
+		if string.find(ent:GetClass(), "npc_cpt_scp") and IsValid(ent) and ent:Health() > 0 then
+			table.ForceInsert(all_npcs, ent)
+		end
+	end
+
+	for k,ent in pairs(all_npcs) do
+        ent.nextNPCMove = ent.nextNPCMove or 0
+        if CurTime() < ent.nextNPCMove then continue end
+
+		-- Track if there are any players nearby, if not, move the npc closer to a position with players
+		local player_nearby1 = false
+
+		for _,pl in pairs(player.GetAll()) do
+			if pl:Alive() and pl:IsSpectator() == false and pl:Team() != TEAM_SCP and
+				(isVisible(pl, ent:GetPos()) or pl:GetPos():Distance(ent:GetPos()) < 900) then
+				-- Player is nearby the NPC and can see it, so we don't need to move it
+                --Entity(1):PrintMessage(HUD_PRINTTALK, tostring(ent) .. " is near " .. tostring(pl) .. ", not moving." .. CurTime() .. "")
+                ent.nextNPCMove = CurTime() + 5
+                player_nearby1 = true
+			end
+		end
+
+        if player_nearby1 == true then continue end
+
+		-- No players nearby, so we need to move the NPC
+		local available_positions = {}
+
+		for _,pos_group in pairs(MAPCONFIG.RANDOM_NPC_SPAWNS) do
+            for _,pos in pairs(pos_group) do
+                if ent:GetPos():Distance(pos) > 700 then
+                    local pos_available = true
+                    local player_nearby = false
+
+                    for _,npc2 in pairs(all_npcs) do
+                        if npc2 != ent and npc2:GetPos():Distance(pos) < 300 then
+                            pos_available = false
+                            break
+                        end
+                    end
+
+                    for _,pl in pairs(player.GetAll()) do
+                        if pl:Alive() == true and pl:IsSpectator() == false and pl:Team() != TEAM_SCP then
+                            local dist = pl:GetPos():Distance(pos)
+
+                            if dist < 1000 then
+                                player_nearby = true
+                            end
+
+                            if dist < 600 or isVisible(pl, pos) then
+                                pos_available = false
+                                break
+                            end
+                        end
+                    end
+
+                    if pos_available and player_nearby then
+                        table.ForceInsert(available_positions, pos)
+                    end
+                end
+            end
+		end
+
+		if #available_positions > 0 then
+            ent.nextNPCMove = CurTime() + 30  -- Cooldown before next move
+
+			local new_pos = table.Random(available_positions)
+			local place = FindClearGroundPos(ent, new_pos, 30, 64)
+
+            if place then
+                ent:SetPos(place)
+            else
+                -- Fallback: try the raw spot and let DropToFloor help
+                ent:SetPos(new_pos + Vector(0, 0, 8))
+            end
+
+			ent:DropToFloor()
+			ent:SetAngles(Angle(0, math.random(0, 360), 0))
+			--Entity(1):PrintMessage(HUD_PRINTTALK, "Moved " .. tostring(ent) .. " to a new position to be closer to players. (" .. tostring(new_pos) .. ")")
+            print("Moved " .. tostring(ent) .. " to a new position to be closer to players. (" .. tostring(new_pos) .. ")")
+
+            -- If this is a NextBot, clear any stuck state on its locomotion
+            if ent.loco then
+                ent.loco:ClearStuck()
+            end
+
+            /*
+			-- Unstuck the npc if it's stuck
+			if ent:IsStuck() then
+				local maxAttempts = 20
+				local step = 50
+
+				for i = 1, maxAttempts do
+					local angle = (i / maxAttempts) * math.pi * 2
+					local offset = Vector(math.cos(angle), math.sin(angle), 0) * (step * math.ceil(i/6))
+					local tryPos = new_pos + offset
+
+					ent:SetPos(tryPos)
+					ent:SetAngles(Angle(0, math.random(0, 360), 0))
+					ent:DropToFloor()
+
+					if not ent:IsStuck() then
+						print("Unstuck NPC " .. tostring(ent) .. " at attempt " .. i)
+						break
+					end
+				end
+			end
+            */
+		end
+	end
+end
+hook.Add("Tick", "MAP_NPC_TRACKER", TrackNPCs)
+
+print("[Breach2] server/sv_npcs.lua loaded!")

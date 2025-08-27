@@ -60,25 +60,6 @@ function BR_SpawnMapNPC(npc, zone)
 	return false
 end
 
-local SPAWNS_AROUND_LCZ = {
-	Vector(-3011.509765625, 6075.8046875, -67.96875),
-	Vector(-1596.0563964844, 6606.1079101563, -67.96875),
-	Vector(-3564.064453125, 6274.9926757813, -67.96875),
-	Vector(-4264.9506835938, 6290.908203125, -67.968757629395),
-	Vector(-4723.1655273438, 6143.841796875, -67.968757629395),
-	Vector(-5251.7006835938, 6021.5458984375, -67.96875),
-	Vector(-4802.2978515625, 7141.2612304688, -67.96875),
-	Vector(-5417.37890625, 7071.5244140625, -67.968757629395),
-	Vector(-6263.5830078125, 7035.91796875, -67.96875),
-	Vector(-7112.6435546875, 7088.7758789063, -67.968742370605),
-	Vector(-2532.39453125, 6274.3046875, -67.96875),
-	Vector(-4893.6533203125, 7662.9956054688, -67.96875),
-	Vector(-5581.8671875, 7939.2421875, -67.96875),
-	Vector(-5020.9692382813, 4666.625, -67.96875),
-	Vector(-4863.9487304688, 5557.560546875, -67.96875),
-	Vector(-6911.673828125, 7589.8569335938, -67.96875),	
-}
-
 function SpawnMapNPCs()
 	if GetConVar("br2_enable_npcs"):GetBool() == false then return end
 	if round_system.current_scenario.disable_npc_spawning == true then return end
@@ -124,7 +105,7 @@ function SpawnMapNPCs()
 
 	timer.Remove("NPC_SPAWN_049_TIMER")
 	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 30, prep_time + 60), 1, function()
-		BR_SpawnMapNPC("npc_cpt_scp_049", SPAWNS_AROUND_LCZ)
+		BR_SpawnMapNPC("npc_cpt_scp_049", MAPCONFIG.SPAWNS_AROUND_LCZ)
 	end)
 
 	timer.Remove("NPC_SPAWN_096_TIMER")
@@ -139,7 +120,7 @@ function SpawnMapNPCs()
 
 	timer.Remove("NPC_SPAWN_173_TIMER")
 	timer.Create("NPC_SPAWN_173_TIMER", math.random(prep_time + 140, prep_time + 200), 1, function()
-		BR_SpawnMapNPC("npc_cpt_scp_173", SPAWNS_AROUND_LCZ)
+		BR_SpawnMapNPC("npc_cpt_scp_173", MAPCONFIG.SPAWNS_AROUND_LCZ)
 	end)
 
 	timer.Remove("NPC_SPAWN_1048_TIMER")

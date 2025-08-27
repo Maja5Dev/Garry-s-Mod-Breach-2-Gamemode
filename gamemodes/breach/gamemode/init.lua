@@ -89,6 +89,8 @@ include("server/sv_assign_players.lua") -- assigning functions, high priority
 include("shared/sh_maprelated.lua")
 include("server/sv_maprelated.lua") -- load before map configs
 
+include("server/sv_npcs.lua") -- load after map
+
 include("mapconfigs/"..game.GetMap().."/init.lua")
 include("mapconfigs/"..game.GetMap().."/shared.lua")
 

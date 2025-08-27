@@ -44,6 +44,10 @@ function Breach_Map_Organise()
 	BR_DEFAULT_MAP_Organize_Cameras()
 	local button_ents = BR_DEFAULT_MAP_Organize_Keypads()
 
+	if SafeBoolConVar("br2_testing_mode") == false then
+		SpawnMapNPCs()
+	end
+
 	-- BUTTON CODES
 	local numww = 0
 	local code_pairs = {}
