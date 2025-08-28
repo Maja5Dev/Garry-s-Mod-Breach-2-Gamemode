@@ -247,7 +247,7 @@ local next_rmusic_end = 0
 function HandleMusic()
 	local client = LocalPlayer()
 
-	if client and client.Alive != nil and !client:IsBot() and round_start then
+	if client and client.IsBot and !client:IsBot() and round_start then
 		if client:Alive() == true and client:IsSpectator() == false then
 			local our_music_zone = LocalPlayer():GetMusicZone()
 			local get_zone = client:GetZone()

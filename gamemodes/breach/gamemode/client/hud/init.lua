@@ -16,7 +16,7 @@ include("hud_wepswitch.lua")
 include("hud_overlay.lua")
 
 function BR2_ShouldDrawAnyHud()
-	return LocalPlayer() and LocalPlayer().Alive and LocalPlayer():Alive() and (CurTime() - br2_last_death) >= 12
+	return LocalPlayer and IsValid(LocalPlayer()) and LocalPlayer().Alive and LocalPlayer():Alive() and (CurTime() - br2_last_death) >= 12
 end
 
 function DrawInfo(pos, txt, clr)

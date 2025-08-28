@@ -70,16 +70,35 @@ local function isVisible(pl, pos)
     return not tr.Hit
 end
 
+local dont_teleport_npcs = {
+    ["npc_cpt_scp_939"] = true
+}
+
 local nextTrack = 0
 function TrackNPCs()
-    if CurTime() < nextTrack or !game_state == GAMESTATE_ROUND then return end
+	if GetConVar("br2_enable_npcs"):GetBool() == false or
+        round_system.current_scenario.disable_npc_spawning == true or
+        !game_state == GAMESTATE_ROUND or
+        CurTime() < nextTrack
+    then return end
+
     nextTrack = CurTime() + 1
 
 	local all_npcs = {}
 
 	for k,ent in pairs(ents.GetAll()) do
 		if string.find(ent:GetClass(), "npc_cpt_scp") and IsValid(ent) and ent:Health() > 0 then
-			table.ForceInsert(all_npcs, ent)
+            local forbidden = false
+
+            for forbiddenname,forbiddennamev in pairs(dont_teleport_npcs) do
+                if string.find(ent:GetClass(), forbiddenname) then
+                    forbidden = true
+                end
+            end
+
+            if !forbidden then
+			    table.ForceInsert(all_npcs, ent)
+            end
 		end
 	end
 
