@@ -131,7 +131,7 @@ function TrackNPCs()
                     local player_nearby = false
 
                     for _,npc2 in pairs(all_npcs) do
-                        if npc2 != ent and npc2:GetPos():Distance(pos) < 300 then
+                        if npc2 != ent and npc2:GetPos():Distance(pos) < 400 then
                             pos_available = false
                             break
                         end

@@ -50,6 +50,12 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 					surface.DrawTexturedRect(mx-( (opened_tab.w * size_mul) /2),my-( (opened_tab.h * size_mul) /2), opened_tab.w, opened_tab.h)
 					focus_button_ready = bgroup
 				else
+					if bgroup.mat == nil then
+						print("No material found")
+						PrintTable(bgroup)
+						print("")
+					end
+
 					local closed_tab = table.Copy(bgroup.mat.closed)
 					if isfunction(bgroup.mat.closed_func) then
 						local ret = bgroup.mat.closed_func(i, button, opened_tab)

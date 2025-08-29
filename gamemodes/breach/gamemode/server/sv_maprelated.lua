@@ -201,6 +201,16 @@ function BR_DEFAULT_MAP_Organize_Keypads()
 	return button_ents
 end
 
+local function GenerateRandomPassword()
+    local str = "1234567890qwertyuiopasdfghjklzxcvbnm"
+    local ret = ""
+    for i=1, 4 do
+        ret = ret .. str[math.random(1,36)]
+    end
+    print("random pass: " .. ret)
+    return ret
+end
+
 function BR_DEFAULT_MAP_Organize_Terminals()
 	BR2_TERMINALS = table.Copy(MAPCONFIG.BUTTONS_2D.TERMINALS.buttons)
 	for k,v in pairs(BR2_TERMINALS) do
