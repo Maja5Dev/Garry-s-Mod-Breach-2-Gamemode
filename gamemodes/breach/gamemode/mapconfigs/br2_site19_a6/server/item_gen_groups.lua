@@ -8,7 +8,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_radio", 1},
 
 		{"ammo_pistol16", 1},
-		--{"flashlight", 3}, TODO: Figure out what the flashlights were
+		{"flashlight_normal", 2},
 		{"coin", 4},
 		{"doc_scp1048", 1},
 	},
@@ -19,7 +19,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_battery_9v", 1},
 
 		{"ammo_pistol16", 1},
-		--{"flashlight", 1},
+		{"flashlight_tactical", 1},
 		{"coin", 2},
 		{"device_cameras", 1},
 	},
@@ -89,7 +89,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 
 		{"ammo_pistol16", 1},
 		{"ammo_rifle30", 1},
-		--{"flashlight", 1},
+		{"flashlight_normal", 1},
 		{"coin", 2},
 	},
 	["HCZ_SECOND"] = {
@@ -99,7 +99,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"kanade_tfa_axe", 1},
 
 		{"ammo_smg30", 1},
-		--{"flashlight", 3},
+		{"flashlight_tactical", 2},
 		{"device_cameras", 1},
 		{"syringe", 1}
 	},
@@ -135,7 +135,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_medkit", 1},
 		{"item_radio", 1},
 
-		--{"flashlight", 3},
+		{"flashlight_normal", 2},
 		{"ammo_pistol16", 1},
 		{"coin", 3},
 	},
@@ -152,7 +152,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["EZ_OFFICES"] = {
 		{"keycard_level5", 1},
 
-		--{"flashlight", 1},
+		{"flashlight_tactical", 1},
 	},
 	["EZ_MEDBAY"] = {
 		{"item_medkit", 3},
