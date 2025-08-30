@@ -71,7 +71,10 @@ local function isVisible(pl, pos)
 end
 
 local dont_teleport_npcs = {
-    ["npc_cpt_scp_939"] = true
+    ["npc_cpt_scp_939"] = true,
+    ["npc_cpt_scp_012"] = true,
+    ["npc_cpt_scp_513"] = true,
+    ["npc_cpt_scp_178specs"] = true,
 }
 
 local nextTrack = 0

@@ -443,7 +443,7 @@ function Debug_NextRoundStage()
 end
 
 function WinCheck()
-	if (CurTime() - br2_round_state_start) > 30 then
+	if (CurTime() - br2_round_state_start) > 30 and player.GetCount() > 1 then
 		local alive_players = 0
 		local last_team  = nil
 		local all_same_team = true
@@ -465,6 +465,7 @@ function WinCheck()
 			return 2
 		end
 	end
+
 	return 0
 end
 
