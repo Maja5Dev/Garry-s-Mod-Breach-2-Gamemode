@@ -78,10 +78,12 @@ local dont_teleport_npcs = {
 }
 
 local nextTrack = 0
+local nextNPCTeleport = 0
 function TrackNPCs()
 	if GetConVar("br2_enable_npcs"):GetBool() == false or
         round_system.current_scenario.disable_npc_spawning == true or
         !game_state == GAMESTATE_ROUND or
+        CurTime() < nextNPCTeleport or
         CurTime() < nextTrack
     then return end
 
@@ -164,6 +166,7 @@ function TrackNPCs()
 
 		if #available_positions > 0 then
             ent.nextNPCMove = CurTime() + 30  -- Cooldown before next move
+            nextNPCTeleport = CurTime() + 30  -- Global cooldown to avoid mass teleports
 
 			local new_pos = table.Random(available_positions)
 			local place = FindClearGroundPos(ent, new_pos, 30, 64)
