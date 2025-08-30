@@ -147,8 +147,8 @@ function player_meta:HorrorDoors()
 			end
 		end
 
-		print("horror_doors")
-		PrintTable(tab)
+		--print("horror_doors")
+		--PrintTable(tab)
 	end
 end
 
