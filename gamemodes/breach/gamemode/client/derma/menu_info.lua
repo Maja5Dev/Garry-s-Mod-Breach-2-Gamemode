@@ -53,6 +53,10 @@ function info_menu_pop()
         {"Gamemode", br2_scp_logo1, function() OpenInfoMenu1() end, Color(255,255,255,200), br2_scp_logo2},
     }
 
+    if !SERVER_INFO.ENABLED then
+        table.remove(menus_list, 4) -- remove server info
+    end
+
     for i,v in ipairs(menus_list) do
         local m_panel = vgui.Create("DButton", info_menus_panel)
         --m_panel:SetPos(0, ((i-1) * (info_menus_w + (ims * 2))))
@@ -328,9 +332,6 @@ function OpenInfoMenu2()
         true,
     }
 
-    if SERVER_INFO.OFFICIAL == true then
-        table.ForceInsert(info_table, {"This server is an official Breach 2 testing server", Color(255,215,0,200)})
-    end
     table.ForceInsert(info_table, "Server owner: "..SERVER_INFO.OWNER)
     table.ForceInsert(info_table, "Server location: "..SERVER_INFO.LOCATION)
     table.ForceInsert(info_table, "Server language: "..SERVER_INFO.LANGUAGE)
@@ -407,13 +408,13 @@ function OpenInfoMenu2()
 			color = Color(255,255,255,150),
         })
 
-		draw.Text({
+        draw.Text({
             text = "Server edition: 1",
-			pos = {w - im1s, h - im1s},
-			xalign = TEXT_ALIGN_RIGHT,
-			yalign = TEXT_ALIGN_BOTTOM,
-			font = "BR_INFO_1_FONT_3",
-			color = Color(255,255,255,150),
+            pos = {w - im1s, h - im1s},
+            xalign = TEXT_ALIGN_RIGHT,
+            yalign = TEXT_ALIGN_BOTTOM,
+            font = "BR_INFO_1_FONT_3",
+            color = Color(255,255,255,150),
         })
 
         surface.SetDrawColor(Color(255,255,255,175))

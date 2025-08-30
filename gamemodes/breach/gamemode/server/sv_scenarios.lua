@@ -137,24 +137,38 @@ for i=1, 20 do
 end
 
 BREACH_DEFAULT_ROLELIST = {
-    -- 8 PLAYERS
-    [8] = {
-        roles = {
-            BREACH_DEFAULT_ROLES.roles_classds,
-            BREACH_DEFAULT_ROLES.roles_classds,
-			BREACH_DEFAULT_ROLES.roles_classds,
-			
-			--BREACH_DEFAULT_ROLES.roles_scps,
-            BREACH_DEFAULT_ROLES.roles_researchers,
-
-            BREACH_DEFAULT_ROLES.roles_researchers,
-            BREACH_DEFAULT_ROLES.roles_security_ez,
-
-			BREACH_DEFAULT_ROLES.roles_ci_agent_res,
-			BREACH_DEFAULT_ROLES.roles_ci_soldiers,
-        },
-        victory_conditions = {"one_player", "all_same_team"},
-    }
+	roles = {
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_researchers,
+		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_scps,
+		BREACH_DEFAULT_ROLES.roles_minor_staff,
+		BREACH_DEFAULT_ROLES.roles_researchers,
+		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_scps,
+		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_minor_staff,
+		BREACH_DEFAULT_ROLES.roles_researchers,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
+		BREACH_DEFAULT_ROLES.roles_minor_staff,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_researchers,
+		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_classds,
+		BREACH_DEFAULT_ROLES.roles_researchers,
+	},
+	victory_conditions = {"one_player", "all_same_team"},
 }
 
 BR2_MTF_STARTING_INFORMATION = {}

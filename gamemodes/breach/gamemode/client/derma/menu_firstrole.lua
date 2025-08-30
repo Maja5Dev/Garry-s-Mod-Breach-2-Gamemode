@@ -31,9 +31,6 @@ local starting_panel_serverinfo = {"SERVER", function(button, panel)
 		end
 
 		table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
-		if SERVER_INFO.OFFICIAL == true then
-			table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", "This server is an official Breach 2 testing server", clr_big_text, true})
-		end
 		table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", "If you have any connection problems, check your status using net_graph 1 in console", clr_big_text, true})
 
 		panel.Paint = function(self, w, h)
@@ -367,6 +364,12 @@ local br_starting_panel = {
 }
 
 function BR_OpenFirstRolePanel(str)
+	local starting_panel = br_starting_panel
+	if !SERVER_INFO.ENABLED then
+		table.remove(starting_panel, 2) -- remove server info
+	end
+
+
 	next_first_panel_role = str
 	--BR_ForceOpen_Terminal(br_starting_panel, "info_terminal")
 	--timer.Simple(0.5, function()

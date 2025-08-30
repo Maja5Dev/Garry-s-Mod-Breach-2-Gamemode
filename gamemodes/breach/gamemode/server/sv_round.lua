@@ -115,19 +115,11 @@ round_system.AssignPlayers = function()
 	local assign_time = CurTime()
 	local tab_players = {}
 	local all_players = table.Copy(player.GetAll())
-	local max_players = #round_system.current_scenario.role_list[#player.GetAll()].roles
 
-	print("Max players for the current scenario: "..tostring(max_players).."")
-
-	for i=1, math.Clamp(#player.GetAll(), 1, max_players) do
+	for i=1, #player.GetAll() do
 		local rnd_player = table.Random(all_players)
 		table.ForceInsert(tab_players, rnd_player)
 		table.RemoveByValue(all_players, rnd_player)
-	end
-	
-	for k,v in pairs(all_players) do
-		v:SetTeam(TEAM_UNASSIGNED)
-		v:Spawn()
 	end
 	
 	local map_config = {}
@@ -146,7 +138,7 @@ round_system.AssignPlayers = function()
 	
 	for i,pl in ipairs(tab_players) do
 		--local role = round_system.current_scenario.role_list[i]
-		local role = round_system.current_scenario.role_list[#player.GetAll()].roles[i]
+		local role = round_system.current_scenario.role_list.roles[i]
 		if istable(role) then
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
@@ -489,8 +481,6 @@ function HandleRounds()
 			next_round_info_update = CurTime() + 1
 		end
 	end
-
-	if #player.GetAll() < 8 then return end
 
 	--if game_state == GAMESTATE_ROUND then
 	--	round_system.MTF_Check()
