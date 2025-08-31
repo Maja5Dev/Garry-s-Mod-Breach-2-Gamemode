@@ -229,12 +229,12 @@ function BR_ShowScoreboardOptions()
 
 	local npanel_w = 280
 	local npanel_h = 34
-	ScoreboardOptions_Panel = vgui.Create("DPanel")
-	ScoreboardOptions_Panel:MakePopup()
+	ScoreboardOptions_Panel = vgui.Create("DPanel", BR_Scoreboard)
 	ScoreboardOptions_Panel:SetSize(npanel_w, npanel_h)
 	ScoreboardOptions_Panel.Paint = function(self, w, h)
 	end
 	last_h = 0
+
 	for k,v in pairs(BR_SCOREBOARD_OPTIONS) do
 		local button = vgui.Create("DButton", ScoreboardOptions_Panel)
 		button:SetSize(npanel_w, npanel_h)
@@ -255,14 +255,18 @@ function BR_ShowScoreboardOptions()
 		last_h = last_h + npanel_h + 4
 		ScoreboardOptions_Panel:SetSize(npanel_w, last_h)
 	end
-	ScoreboardOptions_Panel:Center()
+
+	ScoreboardOptions_Panel:SetPos(BR_Scoreboard:GetWide() / 2 - npanel_w / 2, BR_Scoreboard:GetTall() - last_h - 14)
 end
 
 function GM:ScoreboardShow()
 	if !BR2_ShouldDrawAnyHud() or are_we_downed() then return end
+
 	if (game_state == GAMESTATE_PREPARING or game_state == GAMESTATE_ROUND) and !LocalPlayer():IsSpectator() and LocalPlayer():Alive() then
 		if #BR_SCOREBOARD_OPTIONS > 0 then
-			if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] and BR2_OURNOTEPAD.people[1].br_role == "SCP-173" then return end
+			-- SCPs don't have notepad
+			BR_ShowScoreboard()
+			if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] and string.find(BR2_OURNOTEPAD.people[1].br_role, "SCP") then return end
 			BR_ShowScoreboardOptions()
 		end
 	else

@@ -520,6 +520,10 @@ local br2_arrow_right = Material("breach2/arrow_right.png", "noclamp smooth")
 local br2_arrow_down = Material("breach2/arrow_down.png", "noclamp smooth")
 
 function BR_ShowNotepad(notepad_info)
+	if IsValid(BR_Scoreboard) then
+		BR_Scoreboard:Remove()
+	end
+
 	surface.PlaySound("breach2/UI/Pickups/PICKUP_Map_01.ogg")
 
 	local size_mul = math.Clamp(ScrH() / 1440, 0.1, 1)
