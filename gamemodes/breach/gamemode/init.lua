@@ -76,6 +76,9 @@ AddCSLuaFile("cl_init.lua")
 
 include("shared.lua")
 
+include("config/sv_names.lua") -- config for names
+include("config/sv_weapon_sets.lua") -- config for weapon sets
+
 include("server/sv_names.lua") -- has to be before sv_scenarios, top priority
 include("server/sv_scenarios.lua") -- table of scenarios, top priority
 include("server/sv_items.lua") -- table of items, top priority
@@ -86,7 +89,7 @@ include("server/player_related/init.lua") -- loads many files, functions assigne
 
 include("server/sv_round.lua") -- round_system things, pretty high priority
 include("server/sv_corpses.lua") -- corpse functions used in player.lua and player_meta.lua, high priority
-include("server/sv_assign_players.lua") -- assigning functions, high priority
+include("server/assigning/sv_assigning.lua") -- assigning functions, high priority
 
 include("shared/sh_maprelated.lua")
 include("server/sv_maprelated.lua") -- load before map configs
