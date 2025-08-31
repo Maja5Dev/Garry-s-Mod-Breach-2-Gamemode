@@ -21,6 +21,7 @@ AddCSLuaFile("mapconfigs/"..game.GetMap().."/shared.lua")
 AddCSLuaFile("client/cl_fonts.lua") -- need to be loaded before any UI files
 AddCSLuaFile("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before cl_networking.lua
 AddCSLuaFile("client/cl_footsteps.lua")
+AddCSLuaFile("client/cl_calcview.lua")
 
 AddCSLuaFile("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 
@@ -42,6 +43,7 @@ AddCSLuaFile("client/hud/hud_temperature.lua")
 AddCSLuaFile("client/hud/hud_voice.lua")
 AddCSLuaFile("client/hud/hud_wepswitch.lua")
 AddCSLuaFile("client/hud/hud_overlay.lua")
+AddCSLuaFile("client/hud/hud_screen_effects.lua")
 AddCSLuaFile("client/hud/init.lua")
 
 /* DERMA */

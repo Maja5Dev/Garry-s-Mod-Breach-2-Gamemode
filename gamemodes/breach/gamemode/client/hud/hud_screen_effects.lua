@@ -11,7 +11,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 
 	local i = {
 		contrast = 1.2,
-		colour = 1,
+		colour = 1.1,
 		brightness = 0,
 		clr_r = 0,
 		clr_g = 0,
@@ -28,7 +28,9 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 		i.brightness = -1
 	end
 
+	-- only when alive
 	if client:Alive() and client:IsSpectator() == false then
+		-- stun effect
 		if (CurTime() - last_got_stunned) < 1 then
 			i.brightness = 1 - (CurTime() - last_got_stunned)
 		end
@@ -36,6 +38,8 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 		if temprature_strongness > BR_OUR_TEMPERATURE then
 			temprature_strongness = temprature_strongness - 0.2
 		end
+
+		-- low temperature, cold!
 		if BR_OUR_TEMPERATURE < -50 then
 			local brightness_dec = ((-temprature_strongness) / 1000) / 4
 			--brightness = brightness - brightness_dec
@@ -67,6 +71,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 		*/
 
 		if IsValid(cameras_frame) then
+			-- in camera effects
 			DrawSharpen(1,1)
 			i.brightness = 0.3
 			i.contrast = 1.2
@@ -74,6 +79,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 			i.vignette_alpha = 150
 			DrawMaterialOverlay("effects/combine_binocoverlay", 0)
 		else
+			-- Pocket Dimension effects
 			if client:IsInPD() then
 				i.vignette_alpha = 200
 				i.brightness = 0.03
@@ -88,7 +94,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 					DrawMotionBlur(0.1, 1, 0.01)
 				end
 			end
-
+			-- downed blur
 			if are_we_downed() then
 				DrawToyTown(20, ScrH())
 			end
@@ -98,6 +104,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				net.SendToServer()
 			end
 			
+			-- night vision effects
 			local nvg = nil
 			for k,v in pairs(client:GetWeapons()) do
 				if v.NVG and v.Enabled then
@@ -113,8 +120,10 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 			end
 
 			if !nvg then
-				DrawBloom(0, 0.2, 2, 9, 1, 1, 1, 1, 1)
+				-- no night vision on
+				DrawBloom(1, 0.2, 2, 9, 1, 1, 1, 1, 1)
 				DrawToyTown(i.tt1, scrh / i.tt2)
+				DrawSharpen(0.8, 0.8)
 
 				if br2_generators_on_flash then
 					local left = br2_generators_on - CurTime()
@@ -156,4 +165,4 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 	surface.DrawTexturedRectRotated(scrw/2, scrh/2, scrh, scrw, -90)
 end)
 
-print("[Breach2] client/cl_screen_effects.lua loaded!")
+print("[Breach2] client/hud/hud_screen_effects.lua loaded!")

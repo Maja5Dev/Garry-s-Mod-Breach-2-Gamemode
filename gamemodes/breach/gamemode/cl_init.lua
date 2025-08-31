@@ -10,6 +10,7 @@ include("mapconfigs/"..game.GetMap().."/shared.lua")
 include("client/cl_fonts.lua") -- need to be loaded before any UI files
 include("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before cl_networking.lua
 include("client/cl_footsteps.lua")
+include("client/cl_calcview.lua")
 
 include("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 
