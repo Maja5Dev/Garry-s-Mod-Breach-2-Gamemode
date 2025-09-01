@@ -55,7 +55,19 @@ BR_ROLE_FIRST_TEXTS = {
         "Steal any valuable information or SCP objects you find in this place",
         "Teamwork with other CI members will be CRUCIAL to win this fight",
 	},
-
+    scp_049 = {
+        "You are SCP-049, the Plague Doctor",
+        "You are driven by an uncontrollable urge to 'cure' humans of a disease you perceive them to have",
+        "You must find humans and 'cure' them by touching them, turning them into SCP-049-2",
+        "Work with other SCPs to eliminate all humans in this facility",
+    },
+    scp_173 = {
+        "You are SCP-173, the Sculpture",
+        "You are a hostile and extremely dangerous entity",
+        "You cannot move while being observed by any living creature",
+        "Blinking or looking away even for a short time is enough for you to move",
+        "You must kill all humans in this facility, work with other SCPs to achieve your goal",
+    },
 
 	-- DEATHMATCH
     dm_ci = {

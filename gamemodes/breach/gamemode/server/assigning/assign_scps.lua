@@ -14,6 +14,10 @@ function assign_system.Assign_SCP049(ply)
 	ply.br_showname = "SCP-049"
 	ply.br_customspawn = "SPAWNS_SCP_049"
 	ply.Faction = "BR2_FACTION_SCP_049"
+
+	ply.first_info = "scp_049"
+	ply.mission_set = "scp_049"
+
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_049")
 	--if ply.support_spawning == false then
 	--	ply.br_support_spawns = {{"scp_049_2", 1}}
@@ -45,6 +49,10 @@ function assign_system.Assign_SCP173(ply)
 	ply.br_showname = "SCP-173"
 	ply.br_customspawn = "SPAWNS_SCP_173"
 	ply.Faction = "BR2_FACTION_SCP_173"
+
+	ply.first_info = "scp_173"
+	ply.mission_set = "scp_173"
+
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_173")
 	ply.br_support_team = SUPPORT_ROGUE
 
@@ -55,6 +63,32 @@ end
 
 last_scp_assign = nil
 function assign_system.Assign_SCP(ply)
-	assign_system.Assign_SCP049(ply)
-	--assign_system.Assign_SCP173(ply)
+	-- Alternate between SCP-049 and SCP-173 assignments for first SCP
+	if last_scp_assign == nil then
+		if math.random(1,2) == 1 then
+			assign_system.Assign_SCP049(ply)
+			last_scp_assign = "scp_049"
+			print(ply, "was assigned SCP-049")
+			return
+		else
+			assign_system.Assign_SCP173(ply)
+			last_scp_assign = "scp_173"
+			print(ply, "was assigned SCP-173")
+			return
+		end
+
+	-- an SCP 049 was assigned, so assign SCP 173 next
+	elseif last_scp_assign == "scp_049" then
+		assign_system.Assign_SCP173(ply)
+		last_scp_assign = "scp_173"
+		print(ply, "was assigned SCP-173")
+		return
+
+	-- an SCP 173 was assigned, so assign SCP 049 next
+	elseif last_scp_assign == "scp_173" then
+		assign_system.Assign_SCP049(ply)
+		last_scp_assign = "scp_049"
+		print(ply, "was assigned SCP-049")
+		return
+	end
 end
