@@ -62,7 +62,7 @@ BREACH_DEFAULT_ROLES = {
 	},
 	roles_ci_soldiers = {
 		team = TEAM_CI,
-		spawns = {"SPAWNS_ENTRANCEZONE_LATE"},
+		spawns = {"SPAWNS_CISOLDIERSEARLY"},
 		assign_function = "Assign_CIsoldier"
 	},
 	roles_ci_agent_res = {
