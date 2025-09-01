@@ -1,7 +1,10 @@
 
 function draw_easy_text(spos, align_x, align_y, tab)
+	local texttab = table.Copy(tab)
+
 	local wpos_x = spos[1]
 	local wpos_y = spos[2]
+
 	local ptext = {
 		text = "",
 		pos = {wpos_x, wpos_y},
@@ -10,7 +13,8 @@ function draw_easy_text(spos, align_x, align_y, tab)
 		font = "DermaLarge",
 		color = Color(255, 255, 255, 255)
 	}
-	for k,v in pairs(tab) do
+
+	for k,v in pairs(texttab) do
 		if v[1] == true then
 			surface.SetFont(v[2])
 			local cpos_x, cpos_y = surface.GetTextSize("ok")

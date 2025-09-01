@@ -47,6 +47,9 @@ AddCSLuaFile("client/hud/hud_screen_effects.lua")
 AddCSLuaFile("client/hud/init.lua")
 
 /* DERMA */
+AddCSLuaFile("config/cl_starttexts.lua") -- these need to be before menu_firstrole
+AddCSLuaFile("config/cl_firstrole.lua") -- these need to be before menu_firstrole
+
 AddCSLuaFile("client/derma/menu_firstrole.lua")
 AddCSLuaFile("client/derma/menu_identify.lua")
 AddCSLuaFile("client/derma/menu_info.lua")
