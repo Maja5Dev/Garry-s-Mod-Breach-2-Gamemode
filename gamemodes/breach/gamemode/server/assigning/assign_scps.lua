@@ -50,8 +50,6 @@ function assign_system.Assign_SCP173(ply)
 	ply.br_customspawn = "SPAWNS_SCP_173"
 	ply.Faction = "BR2_FACTION_SCP_173"
 
-	ply.ShouldDisableLegs = true
-
 	ply.first_info = "scp_173"
 	ply.mission_set = "scp_173"
 

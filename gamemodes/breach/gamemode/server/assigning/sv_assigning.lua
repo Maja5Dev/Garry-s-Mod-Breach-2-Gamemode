@@ -44,8 +44,6 @@ function Pre_Assign(ply)
 	ply.canContain173 = false
 	ply.getsAllCIinfo = false
 
-	ply.ShouldDisableLegs = false
-
 	ply.DefaultWeapons = {}
 	ply:SetBloodColor(BLOOD_COLOR_RED)
 	ply:SetCanZoom(false)
