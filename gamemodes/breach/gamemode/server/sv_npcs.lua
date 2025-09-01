@@ -1,18 +1,18 @@
 ﻿
-function BR_SpawnMapNPC(npc, zone)
-	print("Spawning " .. npc .. " in zone " .. tostring(zone))
+function BR_SpawnMapNPC(npcclass, zone)
+	print("Spawning " .. npcclass .. " in zone " .. tostring(zone))
 
 	local all_players = {}
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false then
 			table.ForceInsert(all_players, v)
 
-            if string.find(npc:GetClass(), "scp_173") and self.Owner.br_role == "SCP-173" then
+            if string.find(npcclass, "scp_173") and v.br_role == "SCP-173" then
                 print("Not spawning SCP-173 because a player is SCP-173")
                 return false
             end
 
-            if string.find(npc:GetClass(), "scp_049") and self.Owner.br_role == "SCP-049" then
+            if string.find(npcclass, "scp_049") and v.br_role == "SCP-049" then
                 print("Not spawning SCP-049 because a player is SCP-049")
                 return false
             end
@@ -59,7 +59,7 @@ function BR_SpawnMapNPC(npc, zone)
 	local best_spawn = table.Random(all_suitable_spawns)
 
 	if best_spawn != nil then
-		local npc = ents.Create(npc)
+		local npc = ents.Create(npcclass)
 		if IsValid(npc) then
 			npc:SetPos(best_spawn[1])
 			npc:Spawn()
