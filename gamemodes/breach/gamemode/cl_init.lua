@@ -20,6 +20,7 @@ include("config/cl_starttexts.lua") -- these need to be before derma
 include("client/derma/init.lua") -- loads many files
 
 /* HUD */
+include("config/cl_screeneffects.lua") -- load before hud
 include("client/cl_chat.lua") -- all chat stuff, any load order
 include("client/hud/init.lua") -- loads many files
 

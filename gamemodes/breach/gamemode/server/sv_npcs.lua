@@ -141,13 +141,6 @@ local function isVisible(pl, pos)
     return not tr.Hit
 end
 
-local dont_teleport_npcs = {
-    ["npc_cpt_scp_939"] = true,
-    ["npc_cpt_scp_012"] = true,
-    ["npc_cpt_scp_513"] = true,
-    ["npc_cpt_scp_178specs"] = true,
-}
-
 local nextTrack = 0
 local nextNPCTeleport = 0
 function TrackNPCs()
@@ -166,7 +159,7 @@ function TrackNPCs()
 		if string.find(ent:GetClass(), "npc_cpt_scp") and IsValid(ent) and ent:Health() > 0 then
             local forbidden = false
 
-            for forbiddenname,forbiddennamev in pairs(dont_teleport_npcs) do
+            for forbiddenname,forbiddennamev in pairs(BR_NO_TELEPORT_NPCS) do
                 if string.find(ent:GetClass(), forbiddenname) then
                     forbidden = true
                 end

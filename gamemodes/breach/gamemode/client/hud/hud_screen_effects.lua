@@ -94,6 +94,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 					DrawMotionBlur(0.1, 1, 0.01)
 				end
 			end
+
 			-- downed blur
 			if are_we_downed() then
 				DrawToyTown(20, ScrH())
@@ -116,6 +117,13 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 					else
 						brightness = -1
 					end
+				end
+			end
+
+			if LocalPlayer().br_role == "SCP-049" then
+				nvg = BR_SCP_049_NVG
+				if isfunction(nvg.effect) then
+					nvg.effect(nvg, i)
 				end
 			end
 

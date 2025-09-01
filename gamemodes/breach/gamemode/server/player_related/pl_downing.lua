@@ -77,6 +77,33 @@ function player_meta:UnDownPlayer(healer)
 	self.lastPlayerInfo = nil
 end
 
+local function FindClearSpawnPos(origin, ply, radius, step, max_attempts)
+    radius = radius or 32
+    step = step or 16
+    max_attempts = max_attempts or 10
+
+    local mins = ply:OBBMins()
+    local maxs = ply:OBBMaxs()
+
+    for i = 0, max_attempts do
+        local offset = VectorRand():GetNormalized() * (radius + i * step)
+        local pos = origin + offset
+        local tr = util.TraceHull({
+            start = pos,
+            endpos = pos,
+            mins = mins,
+            maxs = maxs,
+            mask = MASK_PLAYERSOLID,
+            filter = ply
+        })
+        if not tr.Hit then
+            return pos
+        end
+    end
+
+    return origin -- fallback, no empty spot found
+end
+
 function player_meta:UnDownPlayerAsZombie(healer)
 	self.DefaultWeapons = {"weapon_scp_049_2"}
 	self.br_special_items = table.Copy(self.Body.Info.Loot)
@@ -111,20 +138,12 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	self:SetNoDraw(false)
 	self:UnSpectate()
 	self:Spawn()
-	self:SetPos(rag_pos)
 
-	local tr_test = util.TraceLine({
-		start = rag_pos,
-		endpos = rag_pos + Angle(-90,0,0):Forward() * 100,
-		mask = MASK_SOLID,
-		filter = {self, self.Body, healer}
-	})
-	
-	if tr_test.Hit then
-		self:SetPos(healer:GetPos())
-	else
-		self:SetPos(rag_pos)
+	local spawn_pos = rag_pos
+	if IsValid(healer) then
+		spawn_pos = FindClearSpawnPos(rag_pos, healer, 32, 16, 10)
 	end
+	self:SetPos(spawn_pos)
 	
 	if IsValid(self.Body) then
 		self.Body:Remove()

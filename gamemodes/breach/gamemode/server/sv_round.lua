@@ -127,15 +127,6 @@ round_system.AssignPlayers = function()
 		map_config = table.Copy(MAPCONFIG)
 	end
 	
-	for i,v in ipairs(tab_players) do
-		if v.forcedrole != nil then
-			local prev = tab_players[v.forcedrole]
-			tab_players[v.forcedrole] = v
-			tab_players[i] = prev
-		end
-		v.forcedrole = nil
-	end
-	
 	for i,pl in ipairs(tab_players) do
 		--local role = round_system.current_scenario.role_list[i]
 		local role = round_system.current_scenario.role_list.roles[i]

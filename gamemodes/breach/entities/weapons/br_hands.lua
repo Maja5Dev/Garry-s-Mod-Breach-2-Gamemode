@@ -21,7 +21,7 @@ SWEP.IsHands = true
 
 function SWEP:IsSCP049()
 	if CLIENT then
-		return (BR2_OURNOTEPAD.people[1] != nil and BR2_OURNOTEPAD.people[1].br_role == "SCP-049")
+		return (BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] != nil and BR2_OURNOTEPAD.people[1].br_role == "SCP-049")
 	else
 		return (self.Owner.br_role == "SCP-049")
 	end
@@ -32,12 +32,17 @@ function SWEP:Reload()
 	if not IsFirstTimePredicted() or self.NextReload > CurTime() then return end
 	self.NextReload = CurTime() + 0.5
 
-	local is_scp049 = self:IsSCP049()
 	local dmg_holdtype = "fist"
 
-	if is_scp049 then
-		self.SCP049Mode = !self.SCP049Mode
-		dmg_holdtype = "pistol"
+	if self:IsSCP049() then
+		self.PushingMode = false
+		self.PunchingMode = false
+		self.SCP049Mode = true
+		self.HoldType = "pistol"
+		if SERVER then
+			self:SetHoldType(self.HoldType)
+		end
+		return
 	else
 		self.PunchingMode = !self.PunchingMode
 	end
@@ -992,8 +997,19 @@ function SWEP:Think()
 			self:Push()
 		end
 	end
+
 	if self:GetHoldType() != self.HoldType then
 		self:SetHoldType(self.HoldType)
+	end
+
+	if self:IsSCP049() and self.PushingMode then
+		self.PushingMode = false
+		self.PunchingMode = false
+		self.SCP049Mode = true
+		self.HoldType = "pistol"
+		if SERVER then
+			self:SetHoldType(self.HoldType)
+		end
 	end
 end
 

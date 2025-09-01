@@ -43,6 +43,7 @@ AddCSLuaFile("client/hud/hud_temperature.lua")
 AddCSLuaFile("client/hud/hud_voice.lua")
 AddCSLuaFile("client/hud/hud_wepswitch.lua")
 AddCSLuaFile("client/hud/hud_overlay.lua")
+AddCSLuaFile("config/cl_screeneffects.lua")
 AddCSLuaFile("client/hud/hud_screen_effects.lua")
 AddCSLuaFile("client/hud/init.lua")
 
@@ -97,6 +98,7 @@ include("server/assigning/sv_assigning.lua") -- assigning functions, high priori
 include("shared/sh_maprelated.lua")
 include("server/sv_maprelated.lua") -- load before map configs
 
+include("config/sv_npcs.lua") -- load before sv_npcs
 include("server/sv_npcs.lua") -- load after map
 
 include("mapconfigs/"..game.GetMap().."/init.lua")
