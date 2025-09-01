@@ -3,8 +3,6 @@ MAPCONFIG.OUTFIT_GENERATION_GROUPS = {
 	["RES"] = {
 		{"scientist", 1}
 	},
-
-
 	["LCZ"] = {
 		{"class_d", 4},
 		{"scientist", 4},

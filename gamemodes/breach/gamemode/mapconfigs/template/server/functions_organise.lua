@@ -49,121 +49,22 @@ function Breach_Map_Organise()
 
 	OrganiseAnimatedButtons()
 
-	if istable(MAPCONFIG.BUTTONS_2D.HIDING_CLOSETS) then
-		for k,v in pairs(MAPCONFIG.BUTTONS_2D.HIDING_CLOSETS.buttons) do
-			v.peeking_ent = ents.Create("br2_peeking")
-			if IsValid(v.peeking_ent) then
-				v.peeking_ent:SetModel("models/hunter/blocks/cube025x025x025.mdl")
-				v.peeking_ent:SetPos(v.peeking_pos)
-				v.peeking_ent:Spawn()
-				v.peeking_ent:SetNoDraw(true)
-			end
-		end
-	end
+	BR_DEFAULT_MAP_Organize_HidingClosets()
 
 	MAP_SCP_294_Coins = 0
 
-	for k,v in pairs(MAPCONFIG.RANDOM_ITEM_SPAWNS) do
-		local all_spawns = table.Copy(v.spawns)
-		for i=1, #all_spawns - v.num do
-			table.RemoveByValue(all_spawns, table.Random(all_spawns))
-		end
-		local all_ents = {}
-		for i,spawn in ipairs(all_spawns) do
-			local ent = ents.Create(v.class)
-			if IsValid(ent) then
-				if v.model then
-					ent:SetModel(v.model)
-				end
-				ent:SetPos(spawn[1])
-				ent:SetAngles(spawn[2])
-				ent:Spawn()
-				if isfunction(v.func) then
-					v.func(ent)
-				end
-				table.ForceInsert(all_ents, ent)
-			end
-		end
-		if isfunction(v.func_all) then
-			v.func_all(all_ents)
-		end
-	end
+	BR_DEFAULT_MAP_Organize_ItemSpawns()
 
 	br2_914_disabled = false
 	br_914status = 1
 	
 	local button_ents = {}
 
-	--CORPSES
-	if istable(MAPCONFIG.STARTING_CORPSES) and round_system.current_scenario.fake_corpses == true then
-		local all_corpses = table.Copy(MAPCONFIG.STARTING_CORPSES)
-		local corpse_infos = {}
-
-		for i=1, MAPCONFIG.Starting_Corpses_Number() do
-			local random_corpse = table.Random(all_corpses)
-			table.ForceInsert(corpse_infos, random_corpse)
-			table.RemoveByValue(all_corpses, random_corpse)
-		end
-		
-		for k,v in pairs(corpse_infos) do
-			local corpse = table.Random(v)
-			local rag = ents.Create("prop_ragdoll")
-			if IsValid(rag) then
-				rag:SetModel(corpse.model)
-				rag:SetPos(corpse.ragdoll_pos)
-				rag.IsStartingCorpse = true
-				rag:Spawn()
-				ApplyCorpseInfo(rag, corpse, true)
-				rag.CInfo = corpse
-				rag.Info = {}
-				rag.Info.CorpseID = rag:GetCreationID()
-				rag.Info.Victim = NULL
-				rag.Info.VictimNick = "Unknown"
-				rag.Info.DamageType = DMG_GENERIC
-				rag.Info.Time = CurTime() - math.random(20,1400)
-				rag:SetNWInt("DeathTime", rag.Info.Time)
-				rag:SetNWString("ExamineDmgInfo", " - Cause of death is unknown")
-				rag.Info.Loot = {}
-				--local random_item = table.Random({"item_radio", "item_medkit", "item_pills", "item_gasmask", "item_nvg", "keycard_level1", "keycard_level2", "kanade_tfa_crowbar"})
-				--table.ForceInsert(rag.Info.Loot, form_basic_item_info(random_item))
-				rag.RagdollHealth = 0
-				rag.nextReviveMove = 0
-				
-				if isfunction(corpse.setup) then
-					corpse.setup(rag)
-					if istable(all_fake_corpses) then
-						table.ForceInsert(all_fake_corpses, rag)
-						rag.Info.notepad = {}
-						rag.Info.notepad.people = {
-							{
-								br_ci_agent = rag.br_ci_agent,
-								br_role = rag.br_role,
-								br_showname = rag.br_showname,
-								health = HEALTH_ALIVE,
-								scp = false
-							}
-						}
-					end
-				end
-			end
-		end
-	end
-	
-	timer.Create("BR2_MAPCONFIG_CORPSEINFO", 4, 1, function()
-		for k,v in pairs(ents.FindByClass("prop_ragdoll")) do
-			if v.CInfo then
-				--ApplyCorpseInfo(v, v.CInfo, true)
-				for i=0, (v:GetPhysicsObjectCount() - 1) do
-					local bone = v:GetPhysicsObjectNum(i)
-					if IsValid(bone) then
-						bone:EnableMotion(true)
-					end
-				end
-			end
-		end
- 	end)
-
-	-- lua_run for k,v in pairs(ents.GetAll()) do if string.find(v:GetName(), "mbutton_") then print(v:GetName()) end end
+	BR_DEFAULT_MAP_Organize_Corpses()
+	BR_DEFAULT_MAP_Organize_Terminals()
+	BR_DEFAULT_MAP_Organize_Outfits()
+	BR_DEFAULT_MAP_Organize_ItemContainers()
+	BR_DEFAULT_MAP_Organize_Cameras()
 
 	local allowed_button_classes = {
 		"func_button"
@@ -192,143 +93,6 @@ function Breach_Map_Organise()
 		end
 	else
 		print("[Breach2] No buttons found...")
-		return
-	end
-
-	-- TERMINALS
-	BR2_TERMINALS = table.Copy(MAPCONFIG.BUTTONS_2D.TERMINALS.buttons)
-	for k,v in pairs(BR2_TERMINALS) do
-		v.Info = {
-			tab_set = "TERMINAL_INFO_GENERIC",
-			devices = {
-				device_cameras = false
-			}
-		}
-		v.Info.SettingsFunctions = v.special_functions
-		if istable(v.auth) then
-			v.Authorization = {
-				login = "admin",
-				password = "admin",
-				currentlyLogged = false,
-			}
-			if v.auth[2] == true then
-				v.Authorization.password = GenerateRandomPassword()
-			end
-			if isstring(v.auth[1]) then
-				v.Authorization.login = v.auth[1]
-			end
-		end
-		if math.random(1,7) == 4 then
-			v.Info.devices.device_cameras = true
-		end
-
-																			v.Info.devices.device_cameras = true
-
-		/*
-		v.Authorization = {
-			login = "admin",
-			password = "admin",
-			currentlyLogged = false,
-		}
-		*/
-	end
-
-
-	-- OUTFITS
-	local outfit_groups = {}
-	for k,v in pairs(MAPCONFIG.BUTTONS_2D.OUTFITTERS.buttons) do
-		outfit_groups[v.item_gen_group] = outfit_groups[v.item_gen_group] or {}
-		table.ForceInsert(outfit_groups[v.item_gen_group], v)
-		v.items = {}
-	end
-	
-	for k_outfit_group,outfit_group in pairs(outfit_groups) do
-		if istable(MAPCONFIG.OUTFIT_GENERATION_GROUPS[k_outfit_group]) then
-			local gen_groups = table.Copy(MAPCONFIG.OUTFIT_GENERATION_GROUPS[k_outfit_group])
-			local all_outfitters = {}
-
-			for i = 1, table.Count(gen_groups) do
-				local rnd_outfitter = table.Random(gen_groups)
-				table.ForceInsert(all_outfitters, rnd_outfitter)
-				table.RemoveByValue(gen_groups, rnd_outfitter)
-			end
-
-			for k_item, item in pairs(all_outfitters) do
-				local rnd_outfitter = table.Random(outfit_group)
-				if istable(rnd_outfitter) then
-					for i = 1, item[2] do
-						table.ForceInsert(rnd_outfitter.items, item[1])
-					end
-					table.RemoveByValue(outfit_group, rnd_outfitter)
-				end
-			end
-		end
-	end
-
-	-- ITEMS
-	local container_groups = {}
-	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
-		v.locked = false
-		if math.random(1,4) == 2 and !v.canBeLocked then
-			v.locked = true
-		else
-			container_groups[v.item_gen_group] = container_groups[v.item_gen_group] or {}
-			table.ForceInsert(container_groups[v.item_gen_group], v)
-		end
-		v.items = {}
-	end
-	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES.buttons) do
-		container_groups[v.item_gen_group] = container_groups[v.item_gen_group] or {}
-		table.ForceInsert(container_groups[v.item_gen_group], v)
-		v.items = {}
-		v.locked = true
-	end
-
-	for k_cont_group,cont_group in pairs(container_groups) do
-		if istable(MAPCONFIG.ITEM_GENERATION_GROUPS[k_cont_group]) then
-			local all_items = {}
-			for k_item, item in pairs(MAPCONFIG.ITEM_GENERATION_GROUPS[k_cont_group]) do
-				for i = 1, item[2] do
-					table.ForceInsert(all_items, item[1])
-				end
-			end
-			for k_button,button in pairs(cont_group) do
-				if table.Count(button.items) == 0 and table.Count(all_items) > 0 then
-					local rnd_item = table.Random(all_items)
-					if rnd_item != nil then
-						table.ForceInsert(button.items, form_basic_item_info(rnd_item))
-						table.RemoveByValue(all_items, rnd_item)
-					end
-				end
-			end
-			for k_item,item in pairs(all_items) do
-				local rnd_cont = table.Random(cont_group)
-				if item != nil then
-					table.ForceInsert(rnd_cont.items, form_basic_item_info(item))
-				end
-			end
-		end
-	end
-	
-	-- CAMERAS
-	if istable(MAPCONFIG.CAMERAS) then
-		for k,v in pairs(MAPCONFIG.CAMERAS) do
-			for k2,v2 in pairs(v.cameras) do
-				local camera = ents.Create("br2_camera")
-				if IsValid(camera) then
-					camera:SetModel("models/props/cs_assault/camera.mdl")
-					camera:SetPos(v2.pos)
-					camera:SetAngles(v2.ang)
-					camera:Spawn()
-					camera.CameraInfo = table.Copy(v2)
-					camera.CameraName = v2.name
-					camera:SetNWString("CameraName", v2.name)
-				end
-			end
-			print("Cameras for " .. v.name .. " setup")
-		end
-	else
-		print("[Breach2] No cameras found...")
 		return
 	end
 

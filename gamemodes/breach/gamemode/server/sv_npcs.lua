@@ -1,4 +1,75 @@
 ﻿
+function BR_SpawnMapNPC(npc, zone)
+	print("Spawning " .. npc .. " in zone " .. tostring(zone))
+
+	local all_players = {}
+	for k,v in pairs(player.GetAll()) do
+		if v:Alive() and v:IsSpectator() == false then
+			table.ForceInsert(all_players, v)
+
+            if string.find(npc:GetClass(), "scp_173") and self.Owner.br_role == "SCP-173" then
+                print("Not spawning SCP-173 because a player is SCP-173")
+                return false
+            end
+
+            if string.find(npc:GetClass(), "scp_049") and self.Owner.br_role == "SCP-049" then
+                print("Not spawning SCP-049 because a player is SCP-049")
+                return false
+            end
+		end
+	end
+
+	for k,v in pairs(ents.GetAll()) do
+		if string.find(v:GetClass(), "npc_cpt_scp") then
+			table.ForceInsert(all_players, v)
+		end
+	end
+
+	local all_suitable_spawns = {}
+	for pos_num,pos in ipairs(zone) do
+		local pos_available = true
+		local pos_points = 0
+		for pl_num,pl in pairs(all_players) do
+			local dist = pl:GetPos():Distance(pos)
+			local trace = util.TraceLine({
+				start = pl:GetPos(),
+				endpos = pos,
+				mask = MASK_SOLID,
+				filter = pl
+			})
+			if dist < 700 and trace.Hit == false then
+				pos_available = false
+				break
+			else
+				pos_points = pos_points + dist
+			end
+		end
+		if pos_available == true then
+			table.ForceInsert(all_suitable_spawns, {pos, pos_points})
+		end
+	end
+	/*
+	local best_spawn = nil
+	for k,v in pairs(all_suitable_spawns) do
+		if best_spawn == nil or best_spawn[2] > v[2] then
+			best_spawn = v
+		end
+	end
+	*/
+	local best_spawn = table.Random(all_suitable_spawns)
+
+	if best_spawn != nil then
+		local npc = ents.Create(npc)
+		if IsValid(npc) then
+			npc:SetPos(best_spawn[1])
+			npc:Spawn()
+			npc:Activate()
+			return true
+		end
+	end
+	return false
+end
+
 local function CanOccupy(ent, pos)
     if not IsValid(ent) or not util.IsInWorld(pos) then return false end
 
