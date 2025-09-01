@@ -123,7 +123,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				-- no night vision on
 				DrawBloom(1, 0.2, 2, 9, 1, 1, 1, 1, 1)
 				DrawToyTown(i.tt1, scrh / i.tt2)
-				DrawSharpen(0.8, 0.8)
+				DrawSharpen(0.5, 0.5)
 
 				if br2_generators_on_flash then
 					local left = br2_generators_on - CurTime()
