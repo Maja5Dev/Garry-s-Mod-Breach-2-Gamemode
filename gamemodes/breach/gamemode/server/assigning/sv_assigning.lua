@@ -22,8 +22,8 @@ function Pre_Assign(ply)
 	ply.br_zombie = false
 
 	ply.br_sanity = 100
-	ply.br_hunger = 100
-	ply.br_thirst = 100
+	ply.br_hunger = 120
+	ply.br_thirst = 120
 	ply.br_temperature = 0
 	ply.br_infection = 0
 	ply.br_speed_boost = 0
