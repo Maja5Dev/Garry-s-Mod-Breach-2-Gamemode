@@ -256,15 +256,20 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			
 			for k2,pl in pairs(players) do
 				if v != pl then
+					local isciagent = false
+					if v.br_team == TEAM_CI then
+						isciagent = pl.br_ci_agent
+					end
+
 					local known_ent = pl.charid
 					--if math.random(1,3) == 2 then
 					--	known_ent = nil
 					--end
 					if pl.br_team == TEAM_SCP then
-						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, false, HEALTH_MISSING, true, known_ent)
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, known_ent)
 
 					elseif pl:IsFromFoundation() == true then
-						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, false, HEALTH_MISSING, false, known_ent)
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, known_ent)
 					end
 				end
 			end
@@ -272,7 +277,11 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			-- class d gets info
 			for k2,pl in pairs(players) do
 				if v != pl and pl:IsFromFoundation() then
-					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_ci_agent, HEALTH_MISSING, false, pl.charid)
+					local isciagent = false
+					if v.br_team == TEAM_CI then
+						isciagent = pl.br_ci_agent
+					end
+					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid)
 				end
 			end
 		end
