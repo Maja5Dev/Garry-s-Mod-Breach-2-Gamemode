@@ -192,21 +192,20 @@ function OpenInfoMenu1()
         last_y = last_y + ((info_menu_exit_size_o * 1.5) * size_mul) + im1s
         
         local info_table = {
-            "Gamemode made by Kanade",
-            --"Map originally made by Default_OS, heavily edited by Kanade",
+            "Gamemode developed by Akko",
+            true,
+            --"Map originally made by Default_OS, heavily edited by Akko",
             "Models, textures and sounds were made by the Undertow Games",
-            --"The whole entrance zone was made by Kanade",
+            --"The whole entrance zone was made by Akko",
             "Playermodels were made by KERRY and maJor",
-            --"NPCs were made by Cpt. Hazama, edited by Kanade",
+            --"NPCs were made by Cpt. Hazama, edited by Akko",
             "Weapons are using the TFA Base made by The Forgotten Architect",
             "Some SCP:CB prop models were made by nasvaykid",
             "Music and some ambients were made by Creative Assembly",
+            true,
             "Special thanks to:",
             " - Polish_User for a lot of gameplay ideas and bug-fixes",
             " - Dr.arielpro for quality checks and content ideas",
-            true,
-            {"This gamemode is currently only available to play on Kanade's servers", Color(89,183,255,175)},
-            {"It will be published after its fully completed and bug-free", Color(89,183,255,175)},
         }
 
         for k,v in pairs(info_table) do
@@ -1064,18 +1063,19 @@ function OpenInfoMenu5()
         
         local info_table = {
             "Development of Breach 2 started in january of 2018",
-            "This gamemode, like Breach is being developed only by Kanade",
+            "This gamemode, like Breach is being developed only by Akko",
             "Because of that the development is very slow and hard",
             true,
             {"Current goals of the gamemode:", Color(255,128,0,175)},
-            " - Fix all bugs and errors",
+            " - Fix any bugs and errors",
             " - Make the UI scaling good on most resolutions",
-            " - Add more content (mostly items, mechanics)",
+            " - Add more content",
             " - Make the gamemode more consistent",
-            " - Develop the map (better rooms, lighting)",
             " - Add playable SCP-106 and SCP-035",
             " - More player settings and customizations",
             " - Add random and triggered events around the facility",
+            " - Add random and scary horror elements",
+            " - Make the gamemode easier for new players",
             " - Add more round scenarios (like round types in Breach 1)",
         }
 

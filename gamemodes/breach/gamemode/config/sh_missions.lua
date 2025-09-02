@@ -123,6 +123,14 @@ BREACH_MISSIONS = {
 		},
 	},
 	{
+		class = "scp_173",
+		name = "Survive",
+		missions = {
+			mission_escape,
+			mission_kill_humans,
+		},
+	},
+	{
 		class = "chaos_soldiers",
 		name = "Bring chaos to the facility",
 		missions = {
@@ -163,4 +171,4 @@ BREACH_MISSIONS = {
 	},
 }
 
-print("[Breach2] shared/sh_missions.lua loaded!")
+print("[Breach2] config/sh_missions.lua loaded!")

@@ -15,6 +15,7 @@ include("client/cl_calcview.lua")
 include("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 
 /* DERMA MENUS */
+include("config/sh_missions.lua")-- these need to be before derma
 include("config/cl_firstrole.lua") -- these need to be before derma
 include("config/cl_starttexts.lua") -- these need to be before derma
 include("client/derma/init.lua") -- loads many files

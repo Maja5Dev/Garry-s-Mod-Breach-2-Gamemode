@@ -11,7 +11,6 @@ include("shared/sh_enums.lua") -- just all the enums, top priority
 include("shared/sh_outfits.lua") -- contains just the table of outfits, top priority
 include("shared/sh_documents.lua") -- table of documents, top priority
 include("shared/sh_player_damage.lua") -- table containing missions, top priority
-include("shared/sh_missions.lua") -- used in cl_menu.lua
 
 include("shared/sh_cvars.lua") -- used in sv_round.lua, sh_player_damage.lua, sv_player.lua, sv_sanity.lua, sv_networking.lua, sv_temperature.lua, sv_functions_organise.lua
 include("shared/sh_util.lua") -- things used in sv_round.lua, sv_sanity.lua, sv_player_meta.lua and br_hands.lua

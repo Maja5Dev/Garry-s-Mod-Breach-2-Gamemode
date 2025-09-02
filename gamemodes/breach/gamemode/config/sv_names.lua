@@ -169,3 +169,5 @@ BREACH_NAMES = {
 		"Hatfield",
 	}
 }
+
+print("[Breach2] config/sv_names.lua loaded!")

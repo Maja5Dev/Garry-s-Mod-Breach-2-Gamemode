@@ -5,7 +5,6 @@ AddCSLuaFile("shared/sh_enums.lua") -- just all the enums, top priority
 AddCSLuaFile("shared/sh_outfits.lua") -- contains just the table of outfits, top priority
 AddCSLuaFile("shared/sh_documents.lua") -- table of documents, top priority
 AddCSLuaFile("shared/sh_player_damage.lua") -- table containing missions, top priority
-AddCSLuaFile("shared/sh_missions.lua") -- used in cl_menu.lua
 
 AddCSLuaFile("shared/sh_cvars.lua") -- used in sv_round.lua, sh_player_damage.lua, sv_player.lua, sv_sanity.lua, sv_networking.lua, sv_temperature.lua, sv_functions_organise.lua
 AddCSLuaFile("shared/sh_util.lua") -- things used in sv_round.lua, sv_sanity.lua, sv_player_meta.lua and br_hands.lua
@@ -48,6 +47,7 @@ AddCSLuaFile("client/hud/hud_screen_effects.lua")
 AddCSLuaFile("client/hud/init.lua")
 
 /* DERMA */
+AddCSLuaFile("config/sh_missions.lua") -- these need to be before menu_firstrole
 AddCSLuaFile("config/cl_starttexts.lua") -- these need to be before menu_firstrole
 AddCSLuaFile("config/cl_firstrole.lua") -- these need to be before menu_firstrole
 

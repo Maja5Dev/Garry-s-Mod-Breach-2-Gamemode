@@ -86,5 +86,7 @@ BR_ROLE_FIRST_TEXTS = {
 		"These anomalous SCP objects and valuable information were stolen from us",
 		"Our group of operatives is here to retake this facility from Chaos Insrugency",
 		"Work with your teammates, kill any unathorized personnel and remember to stay vigilant"
-    },
+    }
 }
+
+print("[Breach2] config/cl_firstrole.lua loaded!")

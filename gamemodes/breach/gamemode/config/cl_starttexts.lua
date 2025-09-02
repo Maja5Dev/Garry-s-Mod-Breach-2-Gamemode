@@ -76,3 +76,5 @@ BR_CONVARS_TEXT_TAB = {
     {"BR_TERMINAL_MAIN_TEXT", "br2_reset_chat", clr_highlight_text, true},
     {"BR_TERMINAL_MAIN_TEXT_SMALL", " Cleans the chat", clr_big_text, true},
 }
+
+print("[Breach2] config/cl_starttexts.lua loaded!")

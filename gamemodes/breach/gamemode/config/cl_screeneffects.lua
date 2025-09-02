@@ -35,3 +35,5 @@ BR_SCP_049_NVG = {
 		return true
 	end
 }
+
+print("[Breach2] config/cl_screeneffects.lua loaded!")

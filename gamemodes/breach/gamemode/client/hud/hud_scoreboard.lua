@@ -25,17 +25,40 @@ function BR_ShowScoreboard()
 		additive = false,
 		outline = false,
 	}
+
+	surface.CreateFont("BR_Scoreboard_Missions", {
+		font = "Patrick Hand SC",
+		extended = false,
+		size = 58 * size_mul,
+		weight = 1000,
+		blursize = 0,
+		scanlines = 0,
+		antialias = true,
+		underline = false,
+		italic = false,
+		strikeout = false,
+		symbol = false,
+		rotary = false,
+		shadow = false,
+		additive = false,
+		outline = false,
+	})
 	
 	surface.CreateFont("BR_Scoreboard_Logo", font_structure)
+
 	font_structure.size = 30 * size_mul
 	surface.CreateFont("BR_Scoreboard_Creator", font_structure)
+
 	font_structure.size = 28 * size_mul
 	font_structure.font = "Tahoma"
 	surface.CreateFont("BR_Scoreboard_Names", font_structure)
+
 	font_structure.size = 32 * size_mul
 	surface.CreateFont("BR_Scoreboard_Bottom", font_structure)
+
 	font_structure.size = 32 * size_mul
 	surface.CreateFont("BR_Scoreboard_Players", font_structure)
+
 	font_structure.size = 42 * size_mul
 	surface.CreateFont("BR_Scoreboard_Hostname", font_structure)
 	
@@ -85,7 +108,7 @@ function BR_ShowScoreboard()
 			color = text_color,
 		})
 		draw.Text({
-			text = "made by kanade",
+			text = "made by Akko",
 			pos = {gap * 4, h - (gap * 2)},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_BOTTOM,
@@ -259,6 +282,64 @@ function BR_ShowScoreboardOptions()
 	ScoreboardOptions_Panel:SetPos(BR_Scoreboard:GetWide() / 2 - npanel_w / 2, BR_Scoreboard:GetTall() - last_h - 14)
 end
 
+function BR_ShowScoreboardMissions()
+	local clr_big_text = Color(255,255,255,255)
+	local clr_small_text = Color(238,190,0,255)
+	local clr_highlight_text = Color(255,81,0,255)
+
+	local size_mul = math.Clamp(ScrH() / 1080, 0.1, 1)
+	local fontsize = 58 * size_mul * 0.6
+
+	if istable(BREACH_MISSIONS) then
+		for k,v in pairs(BREACH_MISSIONS) do
+			if v.class == br2_our_mission_set then
+				if IsValid(BR_Scoreboard_Missions) then
+					BR_Scoreboard_Missions:Remove()
+				end
+
+				BR_Scoreboard_Missions = vgui.Create("DPanel")
+				BR_Scoreboard_Missions:SetSize(ScrW() * 0.3, ScrH())
+				BR_Scoreboard_Missions.Paint = function(self, w, h)
+					draw.Text({
+						text = "Your missions:",
+						pos = {16, 12},
+						xalign = TEXT_ALIGN_LEFT,
+						yalign = TEXT_ALIGN_TOP,
+						font = "BR_Scoreboard_Missions",
+						color = clr_big_text,
+					})
+
+					local y = 16 + fontsize
+					for k2,v2 in pairs(v.missions) do
+						draw.Text({
+							text = " - " .. v2.name,
+							pos = {16, y},
+							xalign = TEXT_ALIGN_LEFT,
+							yalign = TEXT_ALIGN_TOP,
+							font = "BR_Scoreboard_Missions",
+							color = clr_small_text,
+						})
+						y = y + fontsize
+					end
+				end
+
+				/*
+				table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
+				table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
+				--table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", string.upper(v.name), clr_big_text, true})
+				table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", "Your missions:", clr_big_text, true})
+				
+				for k2,v2 in pairs(v.missions) do
+					table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " - " .. v2.name, clr_small_text, true})
+				end
+				*/
+
+				return
+			end
+		end
+	end
+end
+
 function GM:ScoreboardShow()
 	if !BR2_ShouldDrawAnyHud() or are_we_downed() then return end
 
@@ -268,6 +349,7 @@ function GM:ScoreboardShow()
 			BR_ShowScoreboard()
 			if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] and string.find(BR2_OURNOTEPAD.people[1].br_role, "SCP") then return end
 			BR_ShowScoreboardOptions()
+			BR_ShowScoreboardMissions()
 		end
 	else
 		BR_ShowScoreboard()
@@ -284,6 +366,9 @@ function GM:ScoreboardHide()
 	end
 	if IsValid(BR_Scoreboard) and BR_Scoreboard.IsNotepad == nil then
 		BR_Scoreboard:Remove()
+	end
+	if IsValid(BR_Scoreboard_Missions) then
+		BR_Scoreboard_Missions:Remove()
 	end
 end
 

@@ -524,6 +524,16 @@ function BR_ShowNotepad(notepad_info)
 		BR_Scoreboard:Remove()
 	end
 
+	if IsValid(BR_Scoreboard_Missions) then
+		BR_Scoreboard_Missions:Remove()
+	end
+	if IsValid(ScoreboardOptions_Panel) then
+		ScoreboardOptions_Panel:Remove()
+	end
+    if IsValid(info_menus_panel) then
+        info_menus_panel:Remove()
+    end
+
 	surface.PlaySound("breach2/UI/Pickups/PICKUP_Map_01.ogg")
 
 	local size_mul = math.Clamp(ScrH() / 1440, 0.1, 1)

@@ -196,7 +196,7 @@ function create_terminal_fonts()
 	font_structure.size = 24 * size_mul
 	surface.CreateFont("BR_ACCESS_TERMINAL_4", font_structure)
 	
-	font_structure.size = 40 * size_mul
+	font_structure.size = 36 * size_mul
 	surface.CreateFont("BR_TERMINAL_MAIN_TEXT", font_structure)
 	
 	font_structure.size = font_structure.size * 0.9

@@ -77,6 +77,8 @@ BR2_WEAPON_SETS = {
         additional = {
             "item_radio",
             "item_nvg",
-        },
-    },
+        }
+    }
 }
+
+print("[Breach2] config/sv_weapon_sets.lua loaded!")
