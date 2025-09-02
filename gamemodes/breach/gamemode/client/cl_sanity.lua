@@ -55,6 +55,28 @@ function HorrorCL_SCPSound()
 	end
 end
 
+local insanity_attack_sounds = {
+	"breach2/horror/insane1.wav",
+	"breach2/horror/insane2.wav",
+}
+
+-- More chill insanity ambient
+function HorrorCL_InsanityAmbient()
+	if math.random(1,2) == 1 then
+		surface.PlaySound("breach2/horror/insanityambient.ogg")
+		
+	elseif math.random(1,2) == 1 then
+		surface.PlaySound("breach2/horror/insane3.ogg")
+	end
+end
+
+BR_INSANITY_ATTACK = 0
+-- More aggressive insanity attack
+function HorrorCL_InsanityAttack()
+	surface.PlaySound(table.Random(insanity_attack_sounds))
+	BR_INSANITY_ATTACK = CurTime() + 12
+end
+
 function HorrorCL_SCP()
 	if true then return end -- TODO: disabled
 	if LocalPlayer():IsInPD() then return end

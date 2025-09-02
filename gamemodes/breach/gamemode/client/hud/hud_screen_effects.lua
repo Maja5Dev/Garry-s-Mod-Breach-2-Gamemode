@@ -127,6 +127,13 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				end
 			end
 
+			if br2_our_sanity < 40 and BR_INSANITY_ATTACK > CurTime() then
+				nvg = BR_INSANITY_NVG
+				if isfunction(nvg.effect) then
+					nvg.effect(nvg, i)
+				end
+			end
+
 			if !nvg then
 				-- no night vision on
 				DrawBloom(1, 0.2, 2, 9, 1, 1, 1, 1, 1)

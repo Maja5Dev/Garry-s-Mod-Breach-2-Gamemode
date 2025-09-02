@@ -51,7 +51,7 @@ local function HandleSanity()
 				end
 
 				local afk_time = v:AfkTime()
-				if afk_time > 30 then
+				if afk_time > 45 then
 					sanity_amount = sanity_amount - 2
 				end
 
@@ -60,19 +60,19 @@ local function HandleSanity()
 			end
 
 			if v:SanityLevel() < 4 then
-				v.nextHorrorFootstep = v.nextHorrorFootstep or (CurTime() + math.Rand(1,5))
+				v.nextHorrorFootstep = v.nextHorrorFootstep or (CurTime() + math.Rand(1, 7))
 				if v.nextHorrorFootstep < CurTime() then
 					if v:GetVelocity():Length() < 25 then
-						v.nextHorrorFootstep = CurTime() + 11
+						v.nextHorrorFootstep = CurTime() + math.Rand(2, 11)
 					else
-						v.nextHorrorFootstep = CurTime() + 5
+						v.nextHorrorFootstep = CurTime() + math.Rand(1, 7)
 					end
 					v:Horror_Footsteps()
 				end
 			end
 
 			if v:SanityLevel() < 3 then
-				v.nextHorrorBlood = v.nextHorrorBlood or (CurTime() + math.Rand(2,7))
+				v.nextHorrorBlood = v.nextHorrorBlood or (CurTime() + math.Rand(2, 11))
 				if v.nextHorrorBlood < CurTime() then
 					v.nextHorrorBlood = CurTime() + math.Rand(2,4)
 					v:SendLua('HorrorCL_Blood()')
@@ -80,12 +80,13 @@ local function HandleSanity()
 			end
 
 			if v:SanityLevel() < 2 then
-				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(8,22))
+				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(13, 35))
 				if v.nextHorrorSCPS < CurTime() then
 					v.nextHorrorSCPS = CurTime() + math.Rand(10,20)
 					v:SendLua('HorrorCL_SCPSound()')
 				end
 				
+				/*
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
 				if v.nextHorrorDamage < CurTime() then
 					v.nextHorrorDamage = CurTime() + 4
@@ -99,6 +100,21 @@ local function HandleSanity()
 					else
 						v:SetHealth(v:Health() - 1)
 					end
+				end
+				*/
+
+				v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient or (CurTime() + math.Rand(12, 40))
+				if v.nextHorrorInsanityAmbient < CurTime() then
+					v.nextHorrorInsanityAmbient = CurTime() + math.Rand(12, 120)
+					v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack + 16
+					v:SendLua('HorrorCL_InsanityAttack()')
+				end
+
+				v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack or (CurTime() + math.Rand(6, 120))
+				if v.nextHorrorInsanityAttack < CurTime() then
+					v.nextHorrorInsanityAttack = CurTime() + math.Rand(6, 120)
+					v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient + 8
+					v:SendLua('HorrorCL_InsanityAmbient()')
 				end
 				
 				/*
