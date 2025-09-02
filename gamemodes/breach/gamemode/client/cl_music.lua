@@ -58,7 +58,7 @@ lastzone = nil
 last_ambient_sound = 4
 our_ambients = {}
 
-local ambient_pos_min = 200
+local ambient_pos_min = 300
 local ambient_pos_max = 800
 
 function PlayFirstSounds(num)
@@ -330,6 +330,7 @@ function HandleMusic()
 				end
 			end
 			
+			--ONESHOTS
 			if istable(lastzone) and lastzone.use_general_ambients == true then
 				if next_one_shot < CurTime() then
 					local rnd_oneshot = table.Random(ALL_ONESHOT_AMBIENTS)
@@ -343,7 +344,7 @@ function HandleMusic()
 					--chat.AddText("oneshot: " .. rnd_oneshot)
 					PlayAmbientSound(rnd_oneshot)
 					table.RemoveByValue(ALL_ONESHOT_AMBIENTS, rnd_oneshot)
-					next_one_shot = CurTime() + math.random(5, 10)
+					next_one_shot = CurTime() + math.random(12, 35)
 				end
 			end
 			
