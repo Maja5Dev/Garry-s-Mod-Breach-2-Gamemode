@@ -241,74 +241,6 @@ BR2_SPECIAL_ITEMS = {
 		end
 	},
 	{
-		class = "bottle_water",
-		name = "Water Bottle",
-		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
-			table.ForceInsert(pl.br_special_items, {class = "bottle_water"})
-			return true
-		end,
-		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddThirst(-20)
-					pl:PrintMessage(HUD_PRINTTALK, "You drank some water and feel refreshed...")
-					return true
-				end
-			end
-			return false
-		end,
-		onstart = function(pl)
-		end,
-		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "bottle_water", "Water Bottle", "prop_physics", "models/props/cs_office/Water_bottle.mdl")
-		end,
-		scp_1162_class = "prop_physics",
-		scp_1162 = function(pl, ent)
-			ent.PrintName = "Water Bottle"
-			ent.SI_Class = "bottle_water"
-			ForceSetPrintName(ent, ent.PrintName)
-		end
-	},
-	{
-		class = "popcan",
-		name = "Can of Soda",
-		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
-			table.ForceInsert(pl.br_special_items, {class = "popcan"})
-			return true
-		end,
-		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddThirst(-20)
-					pl:PrintMessage(HUD_PRINTTALK, "You drank some soda and feel refreshed...")
-					return true
-				end
-			end
-			return true
-		end,
-		onstart = function(pl)
-		end,
-		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "popcan", "Can of Soda", "prop_physics", "models/props_junk/PopCan01a.mdl")
-		end,
-		scp_1162_class = "prop_physics",
-		scp_1162 = function(pl, ent)
-			ent.PrintName = "Can of Soda"
-			ent.SI_Class = "popcan"
-			ForceSetPrintName(ent, ent.PrintName)
-		end
-	},
-	{
 		class = "coin",
 		name = "Coin",
 		func = function(pl)
@@ -645,7 +577,7 @@ BR2_SPECIAL_ITEMS = {
 					pl.nextHorrorSCP = CurTime() + 45
 					pl:AddSanity(50)
 					pl:EmitSound("breach2/pills_deploy_"..math.random(1,3)..".wav")
-					pl:ChatPrint("Your took the pills...")
+					pl:ChatPrint("Your took the pills... you feel calmer.")
 					return true
 				end
 			end
@@ -826,6 +758,11 @@ local function add_food(class, name, model, hunger, health)
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_thirst > 100 then
+				pl:PrintMessage(HUD_PRINTTALK, "You are not hungry")
+				return false
+			end
+
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
@@ -841,6 +778,18 @@ local function add_food(class, name, model, hunger, health)
 						pl:AddHunger(-hunger)
 						pl:AddHealth(health)
 					end
+					
+					if pl.br_hunger > 75 then
+						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel full")
+					elseif pl.br_hunger > 60 then
+						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel satisfied")
+					elseif pl.br_hunger > 35 then
+						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your feel less hungry")
+					else
+						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your stomach still rumbles")
+					end
+
+					pl:EmitSound("breach2/eat.wav")
 					return true
 				end
 			end
@@ -867,6 +816,11 @@ local function add_drink(class, name, model, thirst)
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_thirst > 100 then
+				pl:PrintMessage(HUD_PRINTTALK, "You are not thirsty")
+				return false
+			end
+
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
@@ -877,9 +831,25 @@ local function add_drink(class, name, model, thirst)
 					else
 						pl:AddThirst(-thirst)
 					end
+
+					if pl.br_thirst > 70 then
+						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
+					elseif pl.br_thirst > 35 then
+						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
+					else
+						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
+					end
+
+					if string.find(class, "soda") then
+						pl:EmitSound("breach2/soda.wav")
+					else
+						pl:EmitSound("breach2/drink.wav")
+					end
+
 					return true
 				end
 			end
+
 			return true
 		end,
 		onstart = function(pl)
@@ -901,6 +871,8 @@ add_food("food_pizza", "Pizza", "models/foodnhouseholditems/pizzab.mdl", {"food_
 
 add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 20)
 add_drink("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 20)
+add_drink("bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
+add_drink("popcan", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
 
 local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
