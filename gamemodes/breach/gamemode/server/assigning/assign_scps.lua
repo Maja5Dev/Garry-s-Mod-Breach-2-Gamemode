@@ -1,8 +1,8 @@
 ﻿
 function assign_system.Assign_SCP049(ply)
 	Pre_Assign(ply)
-	ply:SetHealth(200)
-	ply:SetMaxHealth(200)
+	ply:SetHealth(350)
+	ply:SetMaxHealth(350)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_049")
 	ply.cantChangeOutfit = true
@@ -61,8 +61,9 @@ function assign_system.Assign_SCP173(ply)
 	Post_Assign(ply)
 end
 
+/*
 last_scp_assign = nil
-function assign_system.Assign_SCP(ply)
+function assign_system.Assign_SCP_Unkillable(ply)
 	-- Alternate between SCP-049 and SCP-173 assignments for first SCP
 	if last_scp_assign == nil then
 		if math.random(1,2) == 1 then
@@ -91,4 +92,14 @@ function assign_system.Assign_SCP(ply)
 		print(ply, "was assigned SCP-049")
 		return
 	end
+end
+*/
+
+-- so far only 2 SCPs so we use this simple thing
+function assign_system.Assign_SCP_Unkillable(ply)
+	assign_system.Assign_SCP173(ply)
+end
+
+function assign_system.Assign_SCP_Killable(ply)
+	assign_system.Assign_SCP049(ply)
 end
