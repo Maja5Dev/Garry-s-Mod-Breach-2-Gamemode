@@ -61,6 +61,8 @@ function player_meta:FirstSetup()
 	self.nextBTerminal = 0
 	self.next_hiding = 0
 	self.nextHorrorDamage = 0
+	self.nextHorrorInsanityAttack = 0
+	self.nextHorrorInsanityAmbient = 0
 	--self.next_mtf_team_update = self.next_mtf_team_update or 0
 end
 

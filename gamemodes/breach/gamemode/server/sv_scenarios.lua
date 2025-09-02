@@ -2,21 +2,25 @@
 -- groups of roles to use in role assignment on round start
 BREACH_DEFAULT_ROLES = {
 	roles_classds = {
+		class = "classd",
 		team = TEAM_CLASSD,
 		spawns = {"SPAWNS_CLASSD_CELLS"},
 		assign_function = "Assign_ClassD"
 	},
 	roles_classd_9341 = {
+		class = "classd_9341",
 		team = TEAM_CLASSD,
 		spawns = {"SPAWNS_CLASSD_CELLS"},
 		assign_function = "Assign_ClassD9341"
 	},
 	roles_minor_staff = {
+		class = "minor_staff",
 		team = TEAM_MINORSTAFF,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_MinorStaff"
 	},
 	roles_researchers = {
+		class = "researcher",
 		team = TEAM_RESEARCHER,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Researcher"
@@ -29,6 +33,7 @@ BREACH_DEFAULT_ROLES = {
 	},
 	*/
 	roles_security = {
+		class = "sd_officer",
 		team = TEAM_SECURITY,
 		spawns = {"SPAWNS_SECURITY"},
 		assign_function = "Assign_SDofficer"
@@ -55,17 +60,26 @@ BREACH_DEFAULT_ROLES = {
 		assign_function = "Assign_ISDagent"
 	},
 	*/
-	roles_scps = {
+	roles_scps_unkillable = {
+		class = "scp_unkillable",
 		team = TEAM_SCP,
 		spawns = {"SPAWNS_SCP_OTHERS"},
-		assign_function = "Assign_SCP"
+		assign_function = "Assign_SCP_Unkillable"
+	},
+	roles_scps_killable = {
+		class = "scp_killable",
+		team = TEAM_SCP,
+		spawns = {"SPAWNS_SCP_OTHERS"},
+		assign_function = "Assign_SCP_Killable"
 	},
 	roles_ci_soldiers = {
+		class = "ci_soldier",
 		team = TEAM_CI,
 		spawns = {"SPAWNS_CISOLDIERSEARLY"},
 		assign_function = "Assign_CIsoldier"
 	},
 	roles_ci_agent_res = {
+		class = "ci_agent",
 		team = TEAM_CI,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Researcher_CI"
@@ -80,21 +94,25 @@ BREACH_DEFAULT_ROLES = {
 
 	--ADDITIONAL
 	roles_mtf = {
+		class = "mtf",
 		team = TEAM_MTF,
 		spawns = {"SPAWNS_MTF"},
 		assign_function = "Assign_MTF_NTF"
 	},
 	roles_minor_janitor = {
+		class = "janitor",
 		team = TEAM_MINORSTAFF,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Janitor"
 	},
 	roles_minor_doctor = {
+		class = "doctor",
 		team = TEAM_MINORSTAFF,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Doctor"
 	},
 	roles_minor_engineer = {
+		class = "engineer",
 		team = TEAM_MINORSTAFF,
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Engineer"
@@ -103,11 +121,13 @@ BREACH_DEFAULT_ROLES = {
 
 BREACH_DEATHMATCH_ROLES = {
 	roles_mtf = {
+		class = "mtf",
 		team = TEAM_MTF,
 		spawns = {"SPAWNS_ENTRANCEZONE_GATEB"},
 		assign_function = "Assign_DM_MTF_NTF"
 	},
 	roles_ci_soldiers = {
+		class = "ci_soldier",
 		team = TEAM_CI,
 		--spawns = {"SPAWNS_HCZ_LATE"},
 		spawns = {"SPAWNS_ENTRANCEZONE_NEAR_GATES"},
@@ -144,12 +164,12 @@ BREACH_DEFAULT_ROLELIST = {
 		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
 		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_scps,
+		BREACH_DEFAULT_ROLES.roles_scps_killable,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
 		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_security,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_scps,
+		BREACH_DEFAULT_ROLES.roles_scps_unkillable,
 		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,

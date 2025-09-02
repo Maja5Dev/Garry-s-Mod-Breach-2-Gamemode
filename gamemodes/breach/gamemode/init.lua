@@ -1,4 +1,5 @@
 
+AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
 AddCSLuaFile("shared/sh_server_specific.lua") -- enums of server-related things, top priority
 AddCSLuaFile("shared/sh_npcs.lua") -- enums of NPC-related things, top priority
 AddCSLuaFile("shared/sh_enums.lua") -- just all the enums, top priority

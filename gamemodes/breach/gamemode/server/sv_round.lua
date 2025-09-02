@@ -127,10 +127,19 @@ round_system.AssignPlayers = function()
 		map_config = table.Copy(MAPCONFIG)
 	end
 	
+	local role_num = 1
 	for i,pl in ipairs(tab_players) do
 		--local role = round_system.current_scenario.role_list[i]
-		local role = round_system.current_scenario.role_list.roles[i]
+		local role = round_system.current_scenario.role_list.roles[role_num]
 		if istable(role) then
+			if role.class == "scp_unkillable" then
+				if math.random() < BR2_ASSIGN_CONFIG.SCP_SPAWN_AS_PLAYER_CHANCE then
+					print("SCP NOT SPAWNING BECAUSE CHANCE FAILEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED")
+					role_num = role_num + 1
+					role = round_system.current_scenario.role_list.roles[role_num] or round_system.current_scenario.role_list.roles[1]
+				end
+			end
+
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
 			pl.br_team = role.team
@@ -177,6 +186,8 @@ round_system.AssignPlayers = function()
 			--if spawned == false then
 				--print("No spawnpoint")
 			--end
+
+			role_num = role_num + 1
 		end
 	end
 	
