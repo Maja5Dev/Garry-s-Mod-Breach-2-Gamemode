@@ -30,7 +30,10 @@ function BR_GetAllMenus()
 		BR_Identifying_Menu,
 		frame_294,
 		frame_document,
-		nvg_settings_menu
+		nvg_settings_menu,
+		BR_SupportSpawns,
+		BR_Scoreboard,
+		BR_Scoreboard_Missions
 	}
 end
 
