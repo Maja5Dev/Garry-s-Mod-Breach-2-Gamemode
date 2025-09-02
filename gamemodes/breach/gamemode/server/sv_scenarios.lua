@@ -195,6 +195,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			if v.br_ci_agent == true then
 				table.ForceInsert(all_ci_spies, v)
 			end
+
 		elseif v:IsFromFoundationHighStaff() then
 			table.ForceInsert(all_non_spies, v)
 		end
@@ -235,6 +236,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 
 	--Main Information
 	for k,v in pairs(players) do
+		-- high staff gets info
 		if v:IsFromFoundationHighStaff() == true then
 			if v.getsPossibleTraitors == true then
 				notepad_system.AddAutomatedInfo(v, "Possible spies")
@@ -243,9 +245,9 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 						notepad_system.AddAutomatedInfo(v, " - "..pspy.br_showname)
 					end
 				end
-				
 			end
 			
+			-- corpses info
 			if istable(all_fake_corpses) then
 				for _,corpse in pairs(all_fake_corpses) do
 					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false)
@@ -260,9 +262,17 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 					--end
 					if pl.br_team == TEAM_SCP then
 						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, false, HEALTH_MISSING, true, known_ent)
+
 					elseif pl:IsFromFoundation() == true then
 						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, false, HEALTH_MISSING, false, known_ent)
 					end
+				end
+			end
+		elseif v:IsFromFoundation() then
+			-- class d gets info
+			for k2,pl in pairs(players) do
+				if v != pl and pl:IsFromFoundation() then
+					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_ci_agent, HEALTH_MISSING, false, pl.charid)
 				end
 			end
 		end
