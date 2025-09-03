@@ -1,8 +1,10 @@
 
-local function isValidPlayerCorpse(ply, ent)
+function isValidPlayerCorpse(ply, ent)
 	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and istable(ent.Info) then
 		if ent:GetPos():Distance(ply:GetPos()) < 80 then
-			if IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10 then
+			if IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10
+				and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1)
+			then
 				return true, true
 			else
 				return true, false
@@ -22,8 +24,10 @@ net.Receive("br_end_reviving", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() or istable(ply.startedReviving) == false or ply.startedCheckingPulse != nil then
 		return
 	end
+
 	local ent = ply.startedReviving[1]
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
+
 	if ply.br_role == "SCP-049" then
 		if !(ent:GetPos():Distance(ply:GetPos()) > 60) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
 			--if isPlayerAlive then
@@ -79,15 +83,19 @@ net.Receive("br_start_reviving", function(len, ply)
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
 
-	if ply.br_role == "SCP-049" then
-		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
-			start_reviving_pl(ply, ent)
-			--print("started reviving")
-		end
+	if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
+		if ent:GetClass() == "prop_ragdoll" and istable(ent.Info) and IsValid(ent.Info.Victim)
+			and ent.Info.Victim:Alive() and !ent.Info.Victim:IsSpectator()
+			and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1)
+		then
+			if ply.br_role == "SCP-049" then
+				start_reviving_pl(ply, ent)
+				--print("started reviving")
 
-	elseif isValidPlayerCorpse(ply, ent) then
-		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
-			start_reviving_pl(ply, ent)
+			elseif isValidPlayerCorpse(ply, ent) then
+				start_reviving_pl(ply, ent)
+			end
+			return
 		end
 	end
 end)

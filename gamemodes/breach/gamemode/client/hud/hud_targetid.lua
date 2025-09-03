@@ -115,6 +115,7 @@ function DrawTargetID()
 				if LocalPlayer().br_role == "SCP-049" then
 					revive_text1 = "Press E to cure"
 					revive_text2 = "Curing..."
+					
 				elseif ent.Pulse == true then
 					lastseen_nick = "Dead"
 					can_revive = false
