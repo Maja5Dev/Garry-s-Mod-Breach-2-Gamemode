@@ -504,7 +504,7 @@ function HandleRounds()
 	end
 
 	if game_state == GAMESTATE_NOTSTARTED or game_state == GAMESTATE_ROUND_END then
-		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_preparing") or 20
+		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_preparing") or 25
 		br2_round_state_start = CurTime()
 		round_system.PreparingStart()
 		print("1 - round preparing")
