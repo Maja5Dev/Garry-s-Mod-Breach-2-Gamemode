@@ -4,17 +4,13 @@ function BR2_GetCountryCode(ply)
         local ip = ply:IPAddress()
 
         if ip then
-            http.Fetch("http://ip-api.com/json/" .. ip .. "", 
+            http.Fetch("http://ip-api.com/json/" .. string.Explode(":", ip)[1] .. "", 
                 function(body)
-                    print(body)
-
                     local data = util.JSONToTable(body)
 
-                    PrintTable(data)
-
                     if data and data.countryCode then
-                        ply.CountryCode = tolower(data.countryCode)
-                        ply:SetNWString("CountryCode", tolower(data.countryCode))
+                        ply.CountryCode = string.lower(data.countryCode)
+                        ply:SetNWString("CountryCode", string.lower(data.countryCode))
                     end
                 end,
                 function(err)
@@ -24,3 +20,5 @@ function BR2_GetCountryCode(ply)
         end
     end
 end
+
+-- lua_run print(Entity(1).CountryCode)

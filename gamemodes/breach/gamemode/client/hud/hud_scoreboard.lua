@@ -172,18 +172,28 @@ function BR_ShowScoreboard()
 			draw.RoundedBox(0, 0, 0, w, h, panel_color)
 
 			local nameToDisplay = v:Nick()
+			local flagwidth = 0
 
 			if !v:IsBot() then
 				-- country codes
 				local countrycode = v:GetNWString("CountryCode", nil)
-				if countrycode then
-					nameToDisplay = nameToDisplay .. " [" .. string.upper(countrycode) .. "]"
+				countrycode = "fi"
+				if isstring(countrycode) and string.len(countrycode) > 0 then
+					local flag_mat = Material("flags16/" .. countrycode .. ".png", "smooth")
+					if flag_mat and flag_mat:IsError() == false then
+						surface.SetMaterial(flag_mat)
+						surface.SetDrawColor(255, 255, 255, 255)
+						local flag_h = pl_size / 2
+						local flag_w = flag_h * (16 / 11)
+						surface.DrawTexturedRect(pl_size + gap + 4, h / 2 - (pl_size / 4), flag_w, flag_h)
+						flagwidth = flag_w + 6
+					end
 				end
 			end
 
 			draw.Text({
-				text = v:Nick(),
-				pos = {pl_size + gap * 2, h/2},
+				text = nameToDisplay,
+				pos = {flagwidth + pl_size + gap * 2, h/2},
 				xalign = TEXT_ALIGN_LEFT,
 				yalign = TEXT_ALIGN_CENTER,
 				font = "BR_Scoreboard_Names",
