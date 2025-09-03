@@ -438,7 +438,7 @@ BR2_SPECIAL_ITEMS = {
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddRunStamina(2000)
+					pl:AddRunStamina(3000)
 					pl:AddJumpStamina(200)
 					pl.CrippledStamina = 0
 					pl.nextNormalRun = CurTime()
@@ -472,7 +472,7 @@ BR2_SPECIAL_ITEMS = {
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddRunStamina(2000)
+					pl:AddRunStamina(3000)
 					pl:AddJumpStamina(200)
 					pl.CrippledStamina = 0
 					pl.br_sanity = 100

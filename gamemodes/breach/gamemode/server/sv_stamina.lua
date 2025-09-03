@@ -7,7 +7,7 @@ local function HandleStamina()
 			if v.nextJumpStaminaCheck < CurTime() then
 				local jump_stamina_change = 1
 				if !v:OnGround() and vel.z > 0 then
-					jump_stamina_change = jump_stamina_change - 6
+					jump_stamina_change = jump_stamina_change - 5
 				end
 				v:AddJumpStamina(jump_stamina_change)
 				v.nextJumpStaminaCheck = CurTime() + 0.02
@@ -16,7 +16,7 @@ local function HandleStamina()
 			if v.nextRunStaminaCheck < CurTime() then
 				local run_stamina_change = 3
 				if vel:Length() > 150 and (v:KeyDown(IN_FORWARD) or v:KeyDown(IN_BACK) or v:KeyDown(IN_MOVELEFT) or v:KeyDown(IN_MOVERIGHT)) then
-					run_stamina_change = run_stamina_change - 5
+					run_stamina_change = run_stamina_change - 4
 					v.lastRunning = CurTime()
 
 				elseif (CurTime() - v.lastRunning) < 2 then
@@ -40,8 +40,8 @@ function player_meta:AddJumpStamina(amount)
 end
 
 function player_meta:AddRunStamina(amount)
-	self.br_run_stamina = self.br_run_stamina or 2000
-	self.br_run_stamina = math.Clamp(self.br_run_stamina + amount, 0, 2000)
+	self.br_run_stamina = self.br_run_stamina or 3000
+	self.br_run_stamina = math.Clamp(self.br_run_stamina + amount, 0, 3000)
 end
 
 print("[Breach2] server/sv_stamina.lua loaded!")

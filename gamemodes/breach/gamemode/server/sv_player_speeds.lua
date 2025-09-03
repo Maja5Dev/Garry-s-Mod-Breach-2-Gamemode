@@ -51,7 +51,7 @@ function HandlePlayerSpeeds()
 			elseif v.br_used_syringe == true then
 				v.br_used_syringe = false
 				v.CrippledStamina = CurTime()
-				v:AddRunStamina(-2000)
+				v:AddRunStamina(-3000)
 				v:AddJumpStamina(-200)
 				v:SetFOV(DEF_FOV, 1)
 				v:SendLua('surface.PlaySound("breach2/D9341/breath0.ogg")')
