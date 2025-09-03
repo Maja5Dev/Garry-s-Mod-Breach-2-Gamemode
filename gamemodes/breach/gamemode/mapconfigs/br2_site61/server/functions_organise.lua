@@ -37,7 +37,9 @@ function Breach_Map_Organise()
 			local name = v:GetName():lower()
 			if name == "008_containment_door" then
 				local rnd_pl = table.Random(player.GetAll())
-				v:Use(rnd_pl, rnd_pl, 1, 1)
+				if IsValid(rnd_pl) then
+					v:Use(rnd_pl, rnd_pl, 1, 1)
+				end
 			end
 		end
 	end)
