@@ -508,8 +508,6 @@ end)
 BR2_MTF_TEAMS = {
 	{},
 	{},
-	{},
-	{}
 }
 
 br_our_team_num = 0
@@ -547,7 +545,7 @@ net.Receive("br_mtf_teams_update", function(len)
 		end
 	end
 
-	if istable(our_team) and #our_team > 3 then
+	if istable(our_team) and #our_team > 1 then
 		return
 	end
 
@@ -574,6 +572,7 @@ net.Receive("br_mtf_teams_update", function(len)
 					br_our_mtf_frame.nextUpdate = CurTime() + 1
 				end
 			end
+
 			--our_team = {Entity(1), Entity(2), Entity(3), Entity(4)}
 			br_our_mtf_frame.Paint = function(self, w, h)
 				for i,v in ipairs(BR2_MTF_TEAMS) do

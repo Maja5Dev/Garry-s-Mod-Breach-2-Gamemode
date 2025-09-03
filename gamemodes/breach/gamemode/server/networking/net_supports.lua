@@ -31,12 +31,17 @@ function br2_mtf_teams_add(ply, num)
 		ply:PrintMessage(HUD_PRINTTALK, "MTF Support Spawns will be available in " .. math.Round(SafeFloatConVar("br2_time_mtf_spawn") - (CurTime() - br2_round_state_start)) .. " seconds")
 		return
 	end
-	if istable(BR2_TERMINALS) and (num == 1 or num == 2 or num == 3 or num == 4) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed == false then
-		local evac_info = nil
-		for terminal_k,terminal in pairs(BR2_TERMINALS) do
-			if terminal.is_evac_shelter then
-				evac_info =  {terminal.name, terminal.Authorization.login, terminal.Authorization.password}
-				break
+
+	if (num == 1 or num == 2) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed == false then
+		if istable(BR2_TERMINALS) then
+			local evac_info = nil
+			print("Searching for evac shelter terminal...")
+			for terminal_k, terminal in pairs(BR2_TERMINALS) do
+				if terminal.is_evac_shelter then
+					evac_info =  {terminal.name, terminal.Authorization.login, terminal.Authorization.password}
+					print("Found evac shelter terminal: " .. terminal.name, evac_info)
+					break
+				end
 			end
 		end
 
@@ -51,6 +56,7 @@ function br2_mtf_teams_add(ply, num)
 		for k,v in pairs(ply.br_support_spawns) do
 			if v[1] == "mtf" and v[2] > 0 then
 				br2_mtf_teams_check()
+
 				for k,v in pairs(BR2_MTF_TEAMS) do
 					for k2,pl in pairs(v) do
 						if pl == ply then
@@ -70,9 +76,11 @@ function br2_mtf_teams_add(ply, num)
 							table.ForceInsert(all_possible_mtf_spawns, mtf_spawn_group)
 						end
 					end
+
 					if table.Count(all_possible_mtf_spawns) == 0 then
 						table.ForceInsert(all_possible_mtf_spawns, table.Random(MAPCONFIG.SPAWNS_MTF))
 					end
+
 					local mtf_spawn_tab = table.Random(all_possible_mtf_spawns)
 					local mtf_spawns = table.Copy(mtf_spawn_tab.spawns)
 
@@ -86,15 +94,20 @@ function br2_mtf_teams_add(ply, num)
 						assign_system.Assign_MTF_NTF(pl_mtf)
 						pl_mtf:SetPos(spawn)
 						pl_mtf.br_team = TEAM_MTF
+
 						if IsValid(pl_mtf.Body) then
 							pl_mtf.Body.Info.Victim = nil
 						end
+
 						notepad_system.AssignNewNotepad(pl_mtf, false)
+
 						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
 							notepad_system.AddPlayerInfo(pl_mtf, info[1], info[2], info[3], info[4], false)
 						end
+						
 						table.RemoveByValue(mtf_spawns, spawn)
 					end
+
 					for k_mtf1,mtf1 in pairs(all_mtfs) do
 						for k_mtf2,mtf2 in pairs(all_mtfs) do
 							notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, false, HEALTH_ALIVE, false, mtf2.charid)
@@ -120,7 +133,6 @@ function br2_mtf_teams_add(ply, num)
 						round_system.AlreadyAnnouncedMTF = true
 					end
 
-					
 					net.Start("br_mtf_team_ready")
 						--net.WriteTable({scps_alive = 0})
 						-- TEAM NAME
@@ -128,7 +140,6 @@ function br2_mtf_teams_add(ply, num)
 						-- NUMBER OF SCPS ALIVE
 					net.Send(BR2_MTF_TEAMS[num])
 					
-
 					BR2_MTF_TEAMS[num] = {}
 				else
 					net.Start("br_mtf_teams_update")
@@ -188,6 +199,7 @@ local function default_support_spawn_human(ply)
 
 	ply.charid = BR_GetUniqueCharID()
 	ply:SetNWInt("BR_CharID", ply.charid)
+
 	if istable(ply.br_spawn_groups) then
 		local all_possible_spawns = {}
 

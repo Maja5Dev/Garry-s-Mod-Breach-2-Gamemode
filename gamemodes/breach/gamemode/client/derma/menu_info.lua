@@ -1286,7 +1286,7 @@ function Open_MTF_SpawnMenu()
     end
 
     local last_y = 312 * size_mul
-    local num_of_teams = 4
+    local num_of_teams = 2
     local ggap = (16 * (num_of_teams + 1)) * size_mul
     local team_panels_w = ((info_menu_1_w - ggap) / num_of_teams)
 
@@ -1345,16 +1345,20 @@ function Open_MTF_SpawnMenu()
                 end
             end
         end
+
         team_panel_join.Paint = function(self, w, h)
             local text = "Join Team "..i..""
             local color = Color(255,33,58,100)
+
             if isnumber(self.team_num_found) and self.team_num_found == i then
                 text = "Leave Team "..i..""
                 color = Color(33,188,255,100)
+                
             elseif #BR2_MTF_TEAMS[i] > 3 then
                 text = "Team "..i.." Full"
                 color = Color(0,0,0,255)
             end
+
             draw.RoundedBox(0, 0, 0, w, h, color)
             draw.Text({
                 text = text,
@@ -1368,9 +1372,11 @@ function Open_MTF_SpawnMenu()
 
         team_panel_join.DoClick = function(self)
             surface.PlaySound("breach2/Button.ogg")
+
             if isnumber(team_panel_join.team_num_found) and team_panel_join.team_num_found == i then
                 net.Start("br_mtf_teams_leave")
                 net.SendToServer()
+
             elseif #BR2_MTF_TEAMS[i] < 4 then
                 net.Start("br_mtf_teams_join")
                     net.WriteInt(i, 4)
