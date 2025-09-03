@@ -86,9 +86,9 @@ local function HandleSanity()
 					v:SendLua('HorrorCL_SCPSound()')
 				end
 				
-				/*
+				local afk_time = v:AfkTime()
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
-				if v.nextHorrorDamage < CurTime() then
+				if v.nextHorrorDamage < CurTime() and afk_time > 60 then
 					v.nextHorrorDamage = CurTime() + 4
 
 					if v:Health() < 2 then
@@ -101,7 +101,6 @@ local function HandleSanity()
 						v:SetHealth(v:Health() - 1)
 					end
 				end
-				*/
 
 				v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient or (CurTime() + math.Rand(12, 40))
 				if v.nextHorrorInsanityAmbient < CurTime() then
