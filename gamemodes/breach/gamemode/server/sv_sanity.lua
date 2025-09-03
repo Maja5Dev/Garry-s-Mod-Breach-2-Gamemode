@@ -77,15 +77,7 @@ local function HandleSanity()
 					v.nextHorrorBlood = CurTime() + math.Rand(2,4)
 					v:SendLua('HorrorCL_Blood()')
 				end
-			end
 
-			if v:SanityLevel() < 2 then
-				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(13, 35))
-				if v.nextHorrorSCPS < CurTime() then
-					v.nextHorrorSCPS = CurTime() + math.Rand(10,20)
-					v:SendLua('HorrorCL_SCPSound()')
-				end
-				
 				local afk_time = v:AfkTime()
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
 				if v.nextHorrorDamage < CurTime() and afk_time > 60 then
@@ -100,6 +92,14 @@ local function HandleSanity()
 					else
 						v:SetHealth(v:Health() - 1)
 					end
+				end
+			end
+
+			if v:SanityLevel() < 2 then
+				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(13, 35))
+				if v.nextHorrorSCPS < CurTime() then
+					v.nextHorrorSCPS = CurTime() + math.Rand(10,20)
+					v:SendLua('HorrorCL_SCPSound()')
 				end
 
 				v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient or (CurTime() + math.Rand(12, 40))
