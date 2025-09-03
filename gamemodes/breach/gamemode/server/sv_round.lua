@@ -1,6 +1,6 @@
 
 function IsRoundTimeProgress(progress)
-	return game_state == GAMESTATE_ROUND and (br2_round_state_end - CurTime()) < (cvars.Number("br2_time_round", 1800) * (1 - progress))
+	return game_state == GAMESTATE_ROUND and (br2_round_state_end - CurTime()) < (cvars.Number("br2_time_round", 1320) * (1 - progress))
 end
 
 round_system = {}
@@ -510,7 +510,7 @@ function HandleRounds()
 		print("1 - round preparing")
 		
 	elseif game_state == GAMESTATE_PREPARING then
-		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_round") or 1200
+		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_round") or 1320
 		br2_round_state_start = CurTime()
 		round_system.RoundStart()
 		print("2 - round started")
