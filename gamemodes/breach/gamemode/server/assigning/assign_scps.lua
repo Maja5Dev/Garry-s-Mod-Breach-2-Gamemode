@@ -1,12 +1,13 @@
 ﻿
 function assign_system.Assign_SCP049(ply)
 	Pre_Assign(ply)
-	ply:SetHealth(350)
-	ply:SetMaxHealth(350)
+	ply:SetHealth(1100)
+	ply:SetMaxHealth(1100)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_049")
 	ply.cantChangeOutfit = true
 	ply:Give("br_hands")
+	ply:Give("keycard_level4")
 	ply.use049sounds = true
 	ply.br_uses_hunger_system = false
 	ply.canGetInfected = false
@@ -19,9 +20,9 @@ function assign_system.Assign_SCP049(ply)
 	ply.mission_set = "scp_049"
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_049")
-	--if ply.support_spawning == false then
-	--	ply.br_support_spawns = {{"scp_049_2", 1}}
-	--end
+	if ply.support_spawning == false then
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
+	end
 	ply.br_support_team = SUPPORT_ROGUE
 	Post_Assign(ply)
 end
@@ -54,6 +55,9 @@ function assign_system.Assign_SCP173(ply)
 	ply.mission_set = "scp_173"
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_173")
+	if ply.support_spawning == false then
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
+	end
 	ply.br_support_team = SUPPORT_ROGUE
 
 	ply:SetBloodColor(DONT_BLEED)
