@@ -531,6 +531,8 @@ end
 hook.Add("Tick", "BR2_HandleRounds", HandleRounds)
 
 function HandleDiseases()
+	if math.random (1,100) > 50 then return end
+
 	local possible_infecteds = {}
 	
 	for k,v in pairs(player.GetAll()) do
