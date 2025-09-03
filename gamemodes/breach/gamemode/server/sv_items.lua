@@ -611,7 +611,7 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		onstart = function(pl)
-			if pl.br_role == "Researcher" and (math.random(1,100) < cvars.Number("br2_chance_to_get_downed", 50)) then
+			if pl.br_role == "Researcher" then
 				table.ForceInsert(pl.br_special_items, {class = "conf_folder"})
 			end
 		end,
