@@ -7,7 +7,7 @@ local function br2_add_cvar(name, value, helptext)
 	table.ForceInsert(all_br2_cvars, {name, value})
 end
 
-br2_add_cvar("br2_time_preparing", "60", "Preparing time")
+br2_add_cvar("br2_time_preparing", "´25", "Preparing time")
 br2_add_cvar("br2_time_round", "1800", "Round time")
 br2_add_cvar("br2_time_postround", "30", "Post-round time")
 br2_add_cvar("br2_time_mtf_spawn", "400", "After x seconds MTF can spawn")
@@ -29,6 +29,8 @@ br2_add_cvar("br2_sanity_strength", "1", "Sanity strength")
 br2_add_cvar("br2_sanity_speed", "3", "Sanity speed in seconds")
 br2_add_cvar("br2_temperature_speed", "0.75", "Temperature speed in seconds")
 br2_add_cvar("br2_temperature_high_enabled", "0", "Enable Warm/High temperatures")
+br2_add_cvar("br2_npc_teleport_delay_global", "40", "Global delay between SCP NPCs can teleport")
+br2_add_cvar("br2_npc_teleport_delay", "40", "Delay between individual SCP NPC's teleports")
 
 concommand.Add("br2_reset_settings", function()
 	for k,v in pairs(all_br2_cvars) do

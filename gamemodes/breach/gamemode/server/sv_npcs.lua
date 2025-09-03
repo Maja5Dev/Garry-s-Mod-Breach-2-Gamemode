@@ -229,8 +229,8 @@ function TrackNPCs()
 		end
 
 		if #available_positions > 0 then
-            ent.nextNPCMove = CurTime() + 30  -- Cooldown before next move
-            nextNPCTeleport = CurTime() + 30  -- Global cooldown to avoid mass teleports
+            ent.nextNPCMove = CurTime() + (GetBR2conVar("br2_npc_teleport_delay") or 45)  -- Cooldown before next move
+            nextNPCTeleport = CurTime() + (GetBR2conVar("br2_npc_teleport_delay_global") or 45)  -- Global cooldown to avoid mass teleports
 
 			local new_pos = table.Random(available_positions)
 			local place = FindClearGroundPos(ent, new_pos, 30, 64)
