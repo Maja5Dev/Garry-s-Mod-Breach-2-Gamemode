@@ -15,7 +15,7 @@ function GM:PlayerInitialSpawn(ply)
 	ply:FirstSetup()
 
     -- allow pre-game players to have some fun
-	timer.Simple(8, function()
+	timer.Simple(10, function()
 		if game_state == GAMESTATE_NOTSTARTED and table.Count(player.GetAll()) < 3 then
 			ply:PreGameSpawns()
 			if !pregame_organised then
