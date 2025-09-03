@@ -24,6 +24,8 @@ function GM:PlayerInitialSpawn(ply)
 			end
 		end
 	end)
+
+	BR2_GetCountryCode(ply)
 end
 
 print("[Breach2] server/overrides/ov_spawning.lua loaded!")

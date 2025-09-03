@@ -79,6 +79,7 @@ include("net_player_actions.lua")
 include("net_round.lua")
 include("net_terminal.lua")
 include("net_scp.lua")
+include("net_country_codes.lua")
 
 include("tick.lua") -- lowest priority
 

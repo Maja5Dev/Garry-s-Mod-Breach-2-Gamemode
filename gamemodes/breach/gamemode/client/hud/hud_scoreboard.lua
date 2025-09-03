@@ -147,18 +147,40 @@ function BR_ShowScoreboard()
 		SB_Panel_Player:SetSize(sb_w - (gap * 8), pl_size)
 		SB_Panel_Player:SetPos((gap * 2), (gap * 2) + ((i-1) * (pl_size + (gap * 2))))
 
-		local avatar_panel = vgui.Create("AvatarImage", SB_Panel_Player)
+		local avatar_panel = vgui.Create("DButton", SB_Panel_Player)
 		avatar_panel:SetSize(pl_size, pl_size)
 		avatar_panel:SetPos(0, 0)
-		avatar_panel:SetPlayer(v, 64)
+		avatar_panel.DoClick = function()
+			if IsValid(v) and !v:IsBot() then
+				v:ShowProfile()
+			end
+		end
+		avatar_panel:SetMouseInputEnabled(IsValid(v) and !v:IsBot())
+
+		local avatarimage = vgui.Create("AvatarImage", avatar_panel)
+		avatarimage:Dock(FILL)
+		avatarimage:SetPlayer(v, 64)
+		avatarimage:SetMouseInputEnabled(false)
 
 		SB_Panel_Player.Paint = function(self, w, h)
-			if v:IsValid() == false then
+			if IsValid(v) == false then
 				BR_Scoreboard:Remove()
 				BR_ShowScoreboard()
 				return
 			end
+
 			draw.RoundedBox(0, 0, 0, w, h, panel_color)
+
+			local nameToDisplay = v:Nick()
+
+			if !v:IsBot() then
+				-- country codes
+				local countrycode = v:GetNWString("CountryCode", nil)
+				if countrycode then
+					nameToDisplay = nameToDisplay .. " [" .. string.upper(countrycode) .. "]"
+				end
+			end
+
 			draw.Text({
 				text = v:Nick(),
 				pos = {pl_size + gap * 2, h/2},
@@ -167,6 +189,7 @@ function BR_ShowScoreboard()
 				font = "BR_Scoreboard_Names",
 				color = text_color,
 			})
+
 			local group = v:GetUserGroup()
 			if group != "user" then
 				draw.Text({
@@ -178,10 +201,12 @@ function BR_ShowScoreboard()
 					color = text_color,
 				})
 			end
+
 			local connection = "" .. v:Ping() .. ""
 			if v:IsBot() then
 				connection = "BOT"
 			end
+
 			draw.Text({
 				text = connection,
 				pos = {w - (gap * 2) - 4, h/2},
@@ -298,7 +323,7 @@ function BR_ShowScoreboardMissions()
 				end
 
 				BR_Scoreboard_Missions = vgui.Create("DPanel")
-				BR_Scoreboard_Missions:SetSize(ScrW() * 0.3, ScrH())
+				BR_Scoreboard_Missions:SetSize(ScrW() * 0.2, (fontsize * (#v.missions + 1) + 24 * 2))
 				BR_Scoreboard_Missions.Paint = function(self, w, h)
 					draw.Text({
 						text = "Your missions:",
