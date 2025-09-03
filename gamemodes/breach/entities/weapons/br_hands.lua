@@ -991,6 +991,7 @@ end
 SWEP.AttackDelay = 0.8
 SWEP.NextAttack = 0
 
+SWEP.fixPlaybackRate = 0
 function SWEP:Think()
 	if SERVER and self.Owner:KeyDown(IN_ATTACK) then
 		if self.PushingMode then
@@ -1010,6 +1011,11 @@ function SWEP:Think()
 		if SERVER then
 			self:SetHoldType(self.HoldType)
 		end
+	end
+
+	if self.fixPlaybackRate == 0 then
+		self:GetOwner():GetViewModel():SetPlaybackRate(1)
+		self.fixPlaybackRate = 1
 	end
 end
 
