@@ -58,6 +58,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		dmginfo:ScaleDamage(0)
 		return true
 	end
+
 	if SERVER then
 		if attacker:IsPlayer() and attacker:Alive() and attacker:IsSpectator() == false then
 			local same_team = victim.br_team == attacker.br_team
