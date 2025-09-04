@@ -126,56 +126,12 @@ function Breach_Map_Organise()
 	if SafeBoolConVar("br2_testing_mode") == false then
 		SpawnMapNPCs()
 	end
-	
-	local button_ents = {}
 
     BR_DEFAULT_MAP_Organize_Corpses()
     BR_DEFAULT_MAP_Organize_Terminals()
 	BR_DEFAULT_MAP_Organize_Outfits()
     BR_DEFAULT_MAP_Organize_ItemContainers()
     BR_DEFAULT_MAP_Organize_Cameras()
-    
-    -- TODO: Implement keypads
-
-	 -- lua_run for k,v in pairs(ents.GetAll()) do if string.find(v:GetName(), "mbutton_") then print(v:GetName()) end end
-
-	-- BUTTONS
-	if istable(MAPCONFIG.BUTTONS) then
-		for i,butt in ipairs(MAPCONFIG.BUTTONS) do
-			local button_found = false
-			for k,v in pairs(ents.GetAll()) do
-				if (isstring(butt.ent_name) and butt.ent_name == v:GetName()) or (v:GetPos() == butt.pos) or (v:GetPos():Distance(butt.pos) < 3) then
-					if butt.ent_name then
-						print("Found a button with name (" .. butt.ent_name .. ")")
-					end
-					--print("Found a button with pos (" .. tostring(butt.pos) .. ")  and level " .. butt.level)
-					v.br_info = butt
-					table.ForceInsert(button_ents, v)
-					butt.ent = v
-					button_found = true
-					continue
-				end
-			end
-			if button_found == false then
-				print("Button not found", i, butt.pos)
-			end
-		end
-	else
-		print("[Breach2] No buttons found...")
-		return
-	end
-	
-	-- BUTTON CODES
-	local numww = 0
-	for k,v in pairs(button_ents) do
-		if v.br_info.code != nil then
-			local oldcode = v.br_info.code
-			v.br_info.code = (math.random(1,9) * 1000) + (math.random(1,9) * 100) + (math.random(1,9) * 10) + math.random(1,9)
-			print("Found a code button ("..oldcode..") changing to a random one ("..v.br_info.code..")", v.br_info.name)
-			v.br_info.code_type = "radio"
-			numww = numww + 1
-		end
-	end
-	print("ALL CODE BUTTONS: " .. numww)
+	BR_DEFAULT_MAP_Organize_Keypads()
 end
 

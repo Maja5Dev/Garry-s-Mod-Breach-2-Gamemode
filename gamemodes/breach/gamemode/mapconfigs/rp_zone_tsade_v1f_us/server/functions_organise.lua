@@ -127,16 +127,15 @@ function Breach_Map_Organise()
 	local button_ents = {}
 
 	BR_DEFAULT_MAP_Organize_Corpses()
-	BR_DEFAULT_MAP_Organize_Keypads()
 	BR_DEFAULT_MAP_Organize_Terminals()
 	BR_DEFAULT_MAP_Organize_Outfits()
 	BR_DEFAULT_MAP_Organize_ItemContainers()
 	BR_DEFAULT_MAP_Organize_Cameras()
 
+	local button_ents = BR_DEFAULT_MAP_Organize_Keypad_Find()
+
 	-- BUTTON CODES
 	local numww = 0
-
-	
 	local code_pairs = {}
 	local code_ents = {}
 
