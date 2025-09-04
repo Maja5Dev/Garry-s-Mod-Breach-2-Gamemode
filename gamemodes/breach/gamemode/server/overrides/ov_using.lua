@@ -1,14 +1,16 @@
 
 function ShouldPlayerUse(ply, ent)
 	ent.lastUse = CurTime()
+
 	if SafeBoolConVar("br2_debug_mode") and ent:GetClass() == "func_button" then
 		local pos = ent:GetPos()
 		ply:PrintMessage(HUD_PRINTCONSOLE, "Vector(" .. pos.x .. ", " .. pos.y .. ", " .. pos.z .. ")")
 	end
 	
 	if ply:IsSpectator() then return false end
-	if istable(ent.br_info) == true then
-		if ply.use_delay == nil then ply.use_delay = 0 end
+
+	if istable(ent.br_info) then
+		ply.use_delay = ply.use_delay or 0
 		if ply.use_delay > CurTime() then return false end
 		
 		local lvl, card = ply:GetKeycardLevel()
@@ -32,6 +34,7 @@ function ShouldPlayerUse(ply, ent)
 				usesounds = ent.br_info.sounds
 			end
 		end
+
 		if ent.br_info.level != nil then
 			klvl = ent.br_info.level
 		end
@@ -39,10 +42,12 @@ function ShouldPlayerUse(ply, ent)
 		if lvl < klvl then
 			ply.use_delay = CurTime() + 1.2
 			if usesounds == true then ply:EmitSound("breach2/keycarduse2.ogg", 75, 100, 0.7) end
+			ply:BR2_ShowNotification("I need a keycard level " .. tostring(klvl) .. " to unlock this keypad...")
 			return false
 		else
 			if usesounds == true then ply:EmitSound("breach2/keycarduse1.ogg", 75, 100, 0.7) end
 		end
+		
 		ply.use_delay = CurTime() + 1.2
 	end
 	return true

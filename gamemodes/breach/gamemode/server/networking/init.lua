@@ -68,6 +68,7 @@ util.AddNetworkString("br_send_crate_info")
 util.AddNetworkString("br_hide_in_closet")
 util.AddNetworkString("br_update_misc")
 util.AddNetworkString("br_scp173_mode")
+util.AddNetworkString("br2_notification")
 
 include("net_supports.lua") -- top priority
 
@@ -80,6 +81,7 @@ include("net_round.lua")
 include("net_terminal.lua")
 include("net_scp.lua")
 include("net_country_codes.lua")
+include("net_notification.lua")
 
 include("tick.lua") -- lowest priority
 

@@ -13,6 +13,7 @@ include("hud_temperature.lua")
 include("hud_voice.lua")
 include("hud_wepswitch.lua")
 include("hud_screen_effects.lua")
+include("hud_notification.lua")
 
 include("hud_overlay.lua")
 

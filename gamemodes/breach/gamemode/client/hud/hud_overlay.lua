@@ -48,6 +48,7 @@ function GM:DrawOverlay()
 		DrawHidingInfo()
 		DrawTemperature()
 		DrawSprintMeter()
+		BR2_DrawNotifications()
 	end
 
 	if debug_view_mode then
