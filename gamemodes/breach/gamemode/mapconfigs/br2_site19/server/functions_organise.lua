@@ -61,6 +61,7 @@ function Breach_Map_Organise()
 		end
 	end
 
+	Breach_FixMapHDRBrightness()
 
 	MAP_SCP_294_Coins = 0
 

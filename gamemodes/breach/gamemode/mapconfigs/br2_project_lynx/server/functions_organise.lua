@@ -28,6 +28,8 @@ hook.Add("BR2_RoundStart", "MAP_ROUNDSTART", MAP_ON_ROUND_START)
 function Breach_Map_Organise()
 	print("organising the map...")
 
+	Breach_FixMapHDRBrightness()
+
 	BR_DEFAULT_MAP_Organize_HidingClosets()
 
 	MAP_SCP_294_Coins = 0

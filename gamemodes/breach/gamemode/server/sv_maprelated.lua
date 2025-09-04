@@ -21,6 +21,14 @@ function form_basic_item_info(class, amount)
 	return {class = class, ammo = amount or 0, name = wwep.PrintName}
 end
 
+function Breach_FixMapHDRBrightness()
+	for k,v in pairs(ents.FindByClass("env_tonemap_controller")) do
+		v:Fire("UseDefaultAutoExposure", "0", 0)
+		v:Fire("SetAutoExposureMin", "0.5", 0)
+		v:Fire("SetAutoExposureMax", "1.1", 0)
+	end
+end
+
 function BR_DEFAULT_MAP_Organize_HidingClosets()
 	if istable(MAPCONFIG.BUTTONS_2D.HIDING_CLOSETS) then
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.HIDING_CLOSETS.buttons) do

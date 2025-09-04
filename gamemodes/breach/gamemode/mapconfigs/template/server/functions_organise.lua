@@ -47,6 +47,8 @@ function Breach_Map_Organise()
 
 	--br_next_radio_play = 0
 
+	Breach_FixMapHDRBrightness()
+
 	OrganiseAnimatedButtons()
 
 	BR_DEFAULT_MAP_Organize_HidingClosets()
