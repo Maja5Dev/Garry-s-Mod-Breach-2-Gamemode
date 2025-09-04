@@ -209,7 +209,7 @@ function TrackNPCs()
                     end
 
                     for _,pl in pairs(player.GetAll()) do
-                        if pl:Alive() == true and pl:IsSpectator() == false and pl:Team() != TEAM_SCP then
+                        if pl:Alive() == true and pl:IsSpectator() == false and pl.br_team != TEAM_SCP then
                             local dist = pl:GetPos():Distance(pos)
 
                             if dist < 1000 then
