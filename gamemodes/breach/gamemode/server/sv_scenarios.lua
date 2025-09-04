@@ -206,6 +206,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 	
 	--Clear all notepads
 	notepad_system.ClearAllNotepads()
+
 	for k,v in pairs(players) do
 		notepad_system.AssignNewNotepad(v, false)
 
@@ -236,6 +237,11 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 				end
 			end
 		end
+
+		if v:IsFromFoundation() then
+			local login, password = BR2_GenerateTerminalAuth(v)
+			notepad_system.AddAutomatedInfo(v, "personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
+		end
 	end
 
 	for k,v in pairs(all_fake_corpses) do
@@ -265,7 +271,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 	--Main Information
 	for k,v in pairs(players) do
 		-- high staff gets info
-		if v:IsFromFoundationHighStaff() == true then
+		if v:IsFromFoundationHighStaff() then
 			if v.getsPossibleTraitors == true then
 				notepad_system.AddAutomatedInfo(v, "Possible spies")
 				for k2,pspy in pairs(possible_ci_spies) do
@@ -294,7 +300,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 					--	known_ent = nil
 					--end
 					if pl.br_team == TEAM_SCP then
-						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, known_ent)
+						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, known_ent)
 
 					elseif pl:IsFromFoundation() == true then
 						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, known_ent)
@@ -302,13 +308,22 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 				end
 			end
 		elseif v:IsFromFoundation() then
+			-- corpses info
+			if istable(all_fake_corpses) then
+				for _,corpse in pairs(all_fake_corpses) do
+					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false)
+				end
+			end
+			
 			-- class d gets info
 			for k2,pl in pairs(players) do
-				if v != pl and pl:IsFromFoundation() then
+				if v != pl and pl:IsFromFoundation() and pl.br_team != TEAM_SCP then
 					local isciagent = false
+
 					if v.br_team == TEAM_CI then
 						isciagent = pl.br_ci_agent
 					end
+
 					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid)
 				end
 			end
