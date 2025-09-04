@@ -140,6 +140,7 @@ SWEP.Contents = {
 				end
 			end
 		--TEMPERATURE
+			local high_temp_enabled = SafeBoolConVar("br2_temperature_high_enabled")
 			if BR_OUR_TEMPERATURE < -900 then
 				chat.AddText(Color(255, 0, 0), " - Your body is freezing!")
 
@@ -149,13 +150,13 @@ SWEP.Contents = {
 			elseif BR_OUR_TEMPERATURE < -200 then
 				chat.AddText(Color(255, 255, 255), " - Your body temperature is low")
 
-			elseif BR_OUR_TEMPERATURE > 900 then
+			elseif high_temp_enabled and BR_OUR_TEMPERATURE > 900 then
 				chat.AddText(Color(255, 0, 0), " - Your body temperature is very high!")
 
-			elseif BR_OUR_TEMPERATURE > 500 then
+			elseif high_temp_enabled and BR_OUR_TEMPERATURE > 500 then
 				chat.AddText(Color(255, 100, 100), " - Your body temperature is very high")
 
-			elseif BR_OUR_TEMPERATURE > 200 then
+			elseif high_temp_enabled and BR_OUR_TEMPERATURE > 200 then
 				chat.AddText(Color(255, 255, 255), " - Your body temperature is high")
 
 			else

@@ -8,12 +8,14 @@ function DrawTemperature()
 	local posx = ScrW()-(size)-24
 	local posy = ScrH()/2
 
+	local high_temp_enabled = SafeBoolConVar("br2_temperature_high_enabled")
+
 	if BR_OUR_TEMPERATURE < -50 then
 		surface.SetDrawColor(Color(255,255,255,-BR_OUR_TEMPERATURE / 10))
 		surface.SetMaterial(temp_cold_mat)
 		surface.DrawTexturedRect(posx, posy-(size/2), size, size)
 		
-	elseif BR_OUR_TEMPERATURE > 50 then
+	elseif high_temp_enabled and BR_OUR_TEMPERATURE > 50 then
 		surface.SetDrawColor(Color(255,255,255,BR_OUR_TEMPERATURE / 10))
 		surface.SetMaterial(temp_hot_mat)
 		surface.DrawTexturedRect(posx, posy-(size/2), size, size)
