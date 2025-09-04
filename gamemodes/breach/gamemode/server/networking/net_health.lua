@@ -55,7 +55,7 @@ net.Receive("br_end_reviving", function(len, ply)
 		end
 	elseif isPlayerValid then
 		if !(ent:GetPos():Distance(ply:GetPos()) > 60) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
-			if isPlayerAlive then
+			if isPlayerAlive and ent.Info.Victim.Body != nil then
 				ent.Info.Victim:UnDownPlayer(ply)
 			end
 
