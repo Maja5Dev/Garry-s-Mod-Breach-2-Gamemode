@@ -39,14 +39,14 @@ SWEP.MaxTargets				= 3
 SWEP.DLightLevel = 0
 SWEP.Enabled = true
 SWEP.DefaultNVG = {
-	contrast = 1.5,
+	contrast = 2,
 	colour = 1,
 	brightness = 0,
-	clr_r = 0.1,
+	clr_r = 0.05,
 	clr_g = 1,
-	clr_b = 0.1,
+	clr_b = 0.05,
 	add_r = 0,
-	add_g = 0.1,
+	add_g = 0.05,
 	add_b = 0,
 	vignette_alpha = 200,
 	draw_nvg = false,
@@ -67,7 +67,7 @@ SWEP.DefaultNVG = {
 	end,
 	fog = function()
 		render.FogStart(0)
-		render.FogEnd(600)
+		render.FogEnd(1000)
 		render.FogColor(0, 1, 0)
 		render.FogMaxDensity(1)
 		render.FogMode(MATERIAL_FOG_LINEAR)
