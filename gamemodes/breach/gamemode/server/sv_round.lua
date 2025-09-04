@@ -41,9 +41,9 @@ end
 
 round_system.AlreadyAnnouncedMTF = false
 round_system.Force_MTF_Spawn = function()
-	if true then return end
 	round_system.Next_MTF_Spawn = CurTime() + math.random(40,320)
-	local mtf_spawns = table.Copy(MAPCONFIG.SPAWNS_MTF)
+	local mtf_spawns = table.Random(table.Copy(MAPCONFIG.SPAWNS_MTF)).spawns
+	
 	print("Mobile Task Force Spawned")
 	local all_mtfs = {}
 	for k,v in pairs(player.GetAll()) do
@@ -62,6 +62,15 @@ round_system.Force_MTF_Spawn = function()
 
 			for k_info,info in pairs(BR2_MTF_STARTING_INFORMATION) do
 				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false)
+			end
+
+			local evac_info, evac_code = MTF_GetEvacInfo()
+
+
+			print("evac_info: ", evac_info, "evac_code: ", evac_code)
+
+			if evac_info != nil and evac_code != nil then
+				notepad_system.AddAutomatedInfo(v, evac_info[1] .. "   -   login:  " .. evac_info[2] .. "   pass:  " .. evac_info[3] .. "   code:  " .. evac_code)
 			end
 
 			table.ForceInsert(all_mtfs, v)
@@ -273,10 +282,13 @@ round_system.AssignRandomCodes = function()
 				table.RemoveByValue(all_possible_personal_codes, random_personal_code)
 			end
 
-		elseif bt == TEAM_MINORSTAFF or bt == TEAM_RESEARCHER or bt == TEAM_SECURITY or bt == TEAM_CI then
+
+		elseif (isfunction(v.code_available_for) and v.code_available_for(v))
+			or bt == TEAM_RESEARCHER or bt == TEAM_SECURITY or bt == TEAM_CI
+		then
 			local random_code = table.Random(all_possible_codes)
 			if random_code != nil then
-				notepad_system.AddAutomatedInfo(v, "Code: "..random_code[2])
+				notepad_system.AddAutomatedInfo(v, "Code: "..random_code[2].." ("..random_code[1]..")")
 				table.RemoveByValue(all_possible_codes, random_code)
 			end
 		end
