@@ -28,7 +28,7 @@ BR_SCP_049_NVG = {
 	end,
 	fog = function()
 		render.FogStart(0)
-		render.FogEnd(600)
+		render.FogEnd(FOG_LEVEL * 1.5)
 		render.FogColor(0, 1, 0)
 		render.FogMaxDensity(1)
 		render.FogMode(MATERIAL_FOG_LINEAR)
@@ -64,7 +64,7 @@ BR_INSANITY_NVG = {
 	end,
 	fog = function()
 		render.FogStart(0)
-		render.FogEnd(600)
+		render.FogEnd(FOG_LEVEL * 0.75)
 		render.FogColor(0.5, 0.5, 1)
 		render.FogMaxDensity(1)
 		render.FogMode(MATERIAL_FOG_LINEAR)
