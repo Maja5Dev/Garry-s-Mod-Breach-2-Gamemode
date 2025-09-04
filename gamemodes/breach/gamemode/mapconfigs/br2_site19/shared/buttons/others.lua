@@ -199,7 +199,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(7120,-2917,-10981),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		*/

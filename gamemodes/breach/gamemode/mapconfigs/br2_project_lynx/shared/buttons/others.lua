@@ -81,7 +81,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = XXXXXXXXXXXXXXXXXXXXXXX,
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		*/

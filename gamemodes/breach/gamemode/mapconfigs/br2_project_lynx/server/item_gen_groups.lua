@@ -33,7 +33,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"coin", 1},
 		{"item_gasmask", 1},
 		{"kanade_tfa_pipe", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 	},
 	["MEDICAL"] = {
 		{"item_medkit", 1}

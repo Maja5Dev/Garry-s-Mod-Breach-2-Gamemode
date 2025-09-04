@@ -111,7 +111,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(2609,5672,-7124),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		{
@@ -121,7 +121,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(-181,-93,-8148),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		{
@@ -131,7 +131,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(1821,6864,-7124),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		{
@@ -141,7 +141,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(3419,4992,-7253),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		{
@@ -151,7 +151,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(5074,4176,-7124),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props/cs_office/Water_bottle.mdl",
-			class = "bottle_water",
+			class = "drink_bottle_water",
 			name = "Water Bottle"
 		},
 		{
@@ -161,7 +161,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(3842,4936,-7242),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props_junk/PopCan01a.mdl",
-			class = "popcan",
+			class = "drink_popcan",
 			name = "Can of Soda"
 		}
 	}

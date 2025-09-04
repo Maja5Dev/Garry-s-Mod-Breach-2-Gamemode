@@ -32,7 +32,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_battery_9v", 1},
 		{"medicine", 1},
 		{"doc_scp1048", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 	},
 	["LCZ_FIRST_LOOT_LATE"] = {
 		{"keycard_level2", 2},
@@ -40,7 +40,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_cheap", 1},
 		{"flashlight_normal", 1},
 		{"ssri_pills", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 		{"medicine", 1},
 	},
 
@@ -65,7 +65,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"food_cookies", 1},
 		{"food_chips", 1},
 		{"drink_orange_juice", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 	},
 	["LCZ_REDSTA"] = {
 		{"keycard_level1", 2},

@@ -45,7 +45,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"lockpick", 1},
 		{"item_battery_9v", 1},
 		{"doc_scp1048", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 	},
 	["LCZ_1"] = {
 		{"keycard_level2", 1},
@@ -63,11 +63,11 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"keycard_level3", 2},
 		{"flashlight_cheap", 1},
 		{"ssri_pills", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 		{"medicine", 1},
 	},
 	["LCZ_3"] = {
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 		{"conf_folder", 1},
 		{"doc_note682", 1},
 		{"device_cameras", 1},
@@ -86,7 +86,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_normal", 1},
 		{"medicine", 1},
 		{"ssri_pills", 1},
-		{"bottle_water", 1},
+		{"drink_bottle_water", 1},
 	},
 	["RZ_3"] = {
 		{"keycard_level3", 2},
