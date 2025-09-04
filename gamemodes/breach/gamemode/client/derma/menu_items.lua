@@ -57,8 +57,8 @@ local item_infos = {
 	medicine = {name = "Medicine", desc = "Cures diseases"},
 	eyedrops = {name = "Eyedrops", desc = "Saline-containing drops"},
 	ssri_pills = {name = "SSRI Pills", desc = "Pills that help with your mental health"},
-	bottle_water = {name = "Water Bottle", desc = "Bottle of purified water"},
-	popcan = {name = "Can of Soda", desc = "Tasty soda!"},
+	drink_bottle_water = {name = "Water Bottle", desc = "Bottle of purified water"},
+	drink_popcan = {name = "Can of Soda", desc = "Tasty soda!"},
 	device_cameras = {name = "WCR [Cameras]", desc = "Used to check the cameras"},
 	--cup = {name = "Cup", desc = "Just a cup"},
 	cup = {desc = "Just a cup"},
@@ -98,8 +98,8 @@ local item_infos = {
 	scp_500 = {name = "SCP-500", desc = "Pill that heals all wounds"},
 	syringe = {name = "Syringe", desc = "Quick stamina boost!"},
 
-	-- bottle_water
-	-- popcan
+	-- drink_bottle_water
+	-- drink_popcan
 }
 
 function BR_OpenInventoryMenu(items)
@@ -332,12 +332,29 @@ function BR_OpenLootingMenu(items, source)
 		else
 			panel2:SetPos(looting_menu_w - 80, 0)
 		end
+
+		local item_disabled = false
+		if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] then
+			if BR2_OURNOTEPAD.people[1].br_role == "SCP-049" or BR2_OURNOTEPAD.people[1].br_role == "SCP-173" then
+				local swep = weapons.Get(v.class)
+				if (swep or v.ammo_info or string.find(v.class, "ammo") or string.find(v.class, "food") or string.find(v.class, "drink"))
+					and !string.find(v.class, "keycard")
+				then
+					item_disabled = true
+				end
+			end
+		end
+
 		panel2:SetSize(80 - 8, 50 - 8)
 		panel2:SetText("")
 		panel2.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(255, 255, 255, 100))
+			local text = "TAKE"
+			if item_disabled then
+				text = "X"
+			end
 			draw.Text({
-				text = "TAKE",
+				text = text,
 				pos = {(w / 2) - 2, h / 2},
 				xalign = TEXT_ALIGN_CENTER,
 				yalign = TEXT_ALIGN_CENTER,
@@ -346,24 +363,26 @@ function BR_OpenLootingMenu(items, source)
 			})
 		end
 		panel2.DoClick = function()
-			surface.PlaySound("breach2/pickitem2.ogg")
-			--PrintTable(v)
-			net.Start("br_take_loot")
-				net.WriteTable(v)
-				net.WriteTable(source)
-			net.SendToServer()
+			if !item_disabled then
+				surface.PlaySound("breach2/pickitem2.ogg")
+				--PrintTable(v)
+				net.Start("br_take_loot")
+					net.WriteTable(v)
+					net.WriteTable(source)
+				net.SendToServer()
 
-			BR_Looting_Menu:Remove()
-			
-			local new_items = {}
-			for k2,v2 in pairs(items) do
-				if v2 != v then
-					table.ForceInsert(new_items, v2)
+				BR_Looting_Menu:Remove()
+				
+				local new_items = {}
+				for k2,v2 in pairs(items) do
+					if v2 != v then
+						table.ForceInsert(new_items, v2)
+					end
 				end
-			end
-			BR_Looting_Menu:Remove()
-			if table.Count(new_items) > 0 then
-				BR_OpenLootingMenu(new_items, source)
+				BR_Looting_Menu:Remove()
+				if table.Count(new_items) > 0 then
+					BR_OpenLootingMenu(new_items, source)
+				end
 			end
 		end
 	end

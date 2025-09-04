@@ -14,6 +14,9 @@ end
 
 function GM:PlayerCanPickupWeapon(ply, wep)
 	--return BR_PlayerCanPickupWeapon(ply, wep)
+	if ply.br_role == "SCP-049" or ply.br_role == "SCP-173" then
+		return string.find(wep:GetClass(), "keycard")
+	end
 	if ply:IsSpectator() == true or ply:Alive() == false then return false end
 	if wep:GetNWBool("isDropped", false) == true and !IsValid(wep.Owner) then return false end
 	--if ply.DefaultWeapons and table.Count(ply.DefaultWeapons) > 0 then ply:SelectWeapon(ply.DefaultWeapons[1]) end
@@ -21,6 +24,9 @@ function GM:PlayerCanPickupWeapon(ply, wep)
 end
 
 function GM:PlayerCanPickupItem(ply, item)
+	if ply.br_role == "SCP-049" or ply.br_role == "SCP-173" then
+		return false
+	end
 	return !(ply:IsSpectator())
 end
 

@@ -871,8 +871,8 @@ add_food("food_pizza", "Pizza", "models/foodnhouseholditems/pizzab.mdl", {"food_
 
 add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 20)
 add_drink("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 20)
-add_drink("bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
-add_drink("popcan", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
+add_drink("drink_bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
+add_drink("drink_popcan", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
 
 local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
