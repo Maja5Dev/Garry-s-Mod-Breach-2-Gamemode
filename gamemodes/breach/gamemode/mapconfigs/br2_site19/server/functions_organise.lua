@@ -45,6 +45,12 @@ end
 function Breach_Map_Organise()
 	print("organising the map...")
 
+	Breach_FixMapHDRBrightness()
+
+	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
+		Breach_FixMapHDRBrightness()
+	end)
+
 	br_next_radio_play = 0
 
 	OrganiseAnimatedButtons()
@@ -60,8 +66,6 @@ function Breach_Map_Organise()
 			end
 		end
 	end
-
-	Breach_FixMapHDRBrightness()
 
 	MAP_SCP_294_Coins = 0
 

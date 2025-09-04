@@ -99,6 +99,12 @@ end)
 function Breach_Map_Organise()
 	print("organising the map...")
 
+	Breach_FixMapHDRBrightness()
+
+	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
+		Breach_FixMapHDRBrightness()
+	end)
+
 	-- open certain things
 	for k,v in pairs(ents.GetAll()) do
 		for k2,v2 in pairs(things_to_open) do
@@ -108,8 +114,6 @@ function Breach_Map_Organise()
 			end
 		end
 	end
-
-	Breach_FixMapHDRBrightness()
 
 	BR_DEFAULT_MAP_Organize_HidingClosets()
 

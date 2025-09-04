@@ -22,6 +22,10 @@ function Breach_Map_Organise()
 
 	Breach_FixMapHDRBrightness()
 
+	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
+		Breach_FixMapHDRBrightness()
+	end)
+
 	MAP_SCP_294_Coins = 0
 
 	BR2_SPECIAL_BUTTONS = {}

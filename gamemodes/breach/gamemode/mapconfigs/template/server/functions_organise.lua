@@ -45,9 +45,11 @@ end
 function Breach_Map_Organise()
 	print("organising the map...")
 
-	--br_next_radio_play = 0
-
 	Breach_FixMapHDRBrightness()
+
+	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
+		Breach_FixMapHDRBrightness()
+	end)
 
 	OrganiseAnimatedButtons()
 

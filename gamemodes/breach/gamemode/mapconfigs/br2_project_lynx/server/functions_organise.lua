@@ -30,6 +30,10 @@ function Breach_Map_Organise()
 
 	Breach_FixMapHDRBrightness()
 
+	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
+		Breach_FixMapHDRBrightness()
+	end)
+
 	BR_DEFAULT_MAP_Organize_HidingClosets()
 
 	MAP_SCP_294_Coins = 0
