@@ -296,32 +296,9 @@ function Breach_Map_Organise()
 			}
 		}
 		v.Info.SettingsFunctions = v.special_functions
-		if istable(v.auth) then
-			v.Authorization = {
-				login = "admin",
-				password = "admin",
-				currentlyLogged = false,
-			}
-			if v.auth[2] == true then
-				v.Authorization.password = GenerateRandomPassword()
-			end
-			if isstring(v.auth[1]) then
-				v.Authorization.login = v.auth[1]
-			end
-		end
 		if math.random(1,7) == 4 then
 			v.Info.devices.device_cameras = true
 		end
-
-																												v.Info.devices.device_cameras = true
-
-		/*
-		v.Authorization = {
-			login = "admin",
-			password = "admin",
-			currentlyLogged = false,
-		}
-		*/
 	end
 
 

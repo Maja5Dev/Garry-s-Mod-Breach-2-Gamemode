@@ -15,14 +15,19 @@ round_system.ThreatLevel = function()
 		if v:Alive() and v:IsSpectator() == false then
 			if v.br_team == TEAM_RESEARCHER then
 				threat_level = threat_level + 2
+				
 			elseif v.br_team == TEAM_CLASSD then
 				threat_level = threat_level + 3
+
 			elseif v.br_team == TEAM_CI then
 				threat_level = threat_level + 8
+
 			elseif v.br_team == TEAM_SCP then
 				threat_level = threat_level + 12
+
 			elseif v.br_team == TEAM_MTF then
 				threat_level = threat_level - 4
+
 			elseif v.br_team == TEAM_SECURITY then
 				threat_level = threat_level - 2
 			else
@@ -64,13 +69,10 @@ round_system.Force_MTF_Spawn = function()
 				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false)
 			end
 
-			local evac_info, evac_code = MTF_GetEvacInfo()
+			local evac_code = MTF_GetEvacInfo()
 
-
-			print("evac_info: ", evac_info, "evac_code: ", evac_code)
-
-			if evac_info != nil and evac_code != nil then
-				notepad_system.AddAutomatedInfo(v, evac_info[1] .. "   -   login:  " .. evac_info[2] .. "   pass:  " .. evac_info[3] .. "   code:  " .. evac_code)
+			if evac_code != nil then
+				notepad_system.AddAutomatedInfo(v, "evacuation code:  " .. evac_code)
 			end
 
 			table.ForceInsert(all_mtfs, v)
@@ -315,6 +317,8 @@ end
 round_system.PreparingStart = function()
 	local result = hook.Call("BR2_PreparingStart")
 	if result == true then return end
+
+	round_system.logins = {}
 
 	game_state = GAMESTATE_PREPARING
 	game.CleanUpMap()

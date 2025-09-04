@@ -58,7 +58,8 @@ net.Receive("br_open_terminal", function(len, ply)
 	for k,v in pairs(BR2_TERMINALS) do
 		if v.name == net_str then
 			if v.pos:Distance(ply:GetPos()) < 170 then
-				if v.Authorization == nil or (v.Authorization.currentlyLogged == true or (v.Authorization.login == login and v.Authorization.password == password)) then
+				-- TODO verify auth with login and pass
+				if true then
 					local info_to_send = table.Copy(v.Info)
 
 					if istable(info_to_send.SettingsFunctions) then
@@ -73,6 +74,7 @@ net.Receive("br_open_terminal", function(len, ply)
 						net.WriteBool(true)
 						net.WriteTable(info_to_send)
 					net.Send(ply)
+
 					ply.lastTerminal = v
 					return
 				end

@@ -89,6 +89,7 @@ include("server/sv_scenarios.lua") -- table of scenarios, top priority
 include("server/sv_items.lua") -- table of items, top priority
 include("server/sv_notepad_system.lua") -- notepad_system table, top priority
 include("server/sv_misc.lua") -- misc functions, top priority
+include("server/sv_logins.lua") -- top priority
 
 include("server/player_related/init.lua") -- loads many files, functions assigned to player_meta, high priority
 

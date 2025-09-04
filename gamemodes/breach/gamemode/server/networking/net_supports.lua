@@ -27,17 +27,7 @@ end
 MTF_NEEDED_TO_SPAWN = 3
 
 function MTF_GetEvacInfo()
-	local evac_info = nil
 	local evac_code = nil
-
-	print("Searching for evac shelter terminal...")
-	for terminal_k, terminal in pairs(BR2_TERMINALS) do
-		if terminal.is_evac_shelter then
-			evac_info =  {terminal.name, terminal.Authorization.login, terminal.Authorization.password}
-			print("Found evac shelter terminal: " .. terminal.name, evac_info)
-			break
-		end
-	end
 
 	for k,v in pairs(MAPCONFIG.KEYPADS) do
 		if v.evac_shelter then
@@ -46,7 +36,7 @@ function MTF_GetEvacInfo()
 		end
 	end
 
-	return evac_info, evac_code
+	return evac_code
 end
 
 function br2_mtf_teams_add(ply, num)
@@ -56,7 +46,7 @@ function br2_mtf_teams_add(ply, num)
 	end
 
 	if (num == 1 or num == 2) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed == false then
-		local evac_info, evac_code = MTF_GetEvacInfo()
+		local evac_code = MTF_GetEvacInfo()
 
 		for k,v in pairs(ply.br_support_spawns) do
 			if v[1] == "mtf" and v[2] > 0 then
@@ -120,9 +110,8 @@ function br2_mtf_teams_add(ply, num)
 						--for evac_k, evac in pairs(evac_info) do
 						--	notepad_system.AddAutomatedInfo(mtf1, evac[1] .. "   -   login:  " .. evac[2] .. "   pass:  " .. evac[3])
 						--end
-						print("evac_info: ", evac_info, "evac_code: ", evac_code)
-						if evac_info != nil and evac_code != nil then
-							notepad_system.AddAutomatedInfo(mtf1, evac_info[1] .. "   -   login:  " .. evac_info[2] .. "   pass:  " .. evac_info[3] .. "   code:  " .. evac_code)
+						if evac_code != nil then
+							notepad_system.AddAutomatedInfo(mtf1, "evacuation code:  " .. evac_code)
 						end
 						notepad_system.UpdateNotepad(mtf1)
 
