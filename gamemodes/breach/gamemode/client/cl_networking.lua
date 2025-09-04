@@ -736,7 +736,7 @@ net.Receive("br_send_notepad", function(len)
 		*/
 		BR_AssignNotepadPlayers()
 	end
-	print("updated notepad")
+	--print("updated notepad")
 end)
 
 net.Receive("br_send_info", function(len)

@@ -148,7 +148,7 @@ local br_starting_panel = {
 			if istable(BREACH_MISSIONS) then
 				for k,v in pairs(BREACH_MISSIONS) do
 					if v.class == br2_our_mission_set then
-						print("Found our mission set: " .. v.class)
+						--print("Found our mission set: " .. v.class)
 
 						table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
 						table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})

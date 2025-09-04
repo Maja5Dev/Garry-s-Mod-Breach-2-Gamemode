@@ -45,7 +45,7 @@ notepad_system.AssignNewNotepad = function(ply, to_send)
 					net.WriteTable(ply.notepad)
 				net.Send(ply)
 			end
-            print("a new notepad assigned to: " .. ply:Nick())
+            --print("a new notepad assigned to: " .. ply:Nick())
             --PrintTable(ply.notepad)
         end
     end

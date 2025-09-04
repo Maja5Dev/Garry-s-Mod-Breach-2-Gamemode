@@ -352,7 +352,7 @@ function BR_DEFAULT_MAP_Organize_Cameras()
 					camera:SetNWString("CameraName", v2.name)
 				end
 			end
-			print("Cameras for " .. v.name .. " setup")
+			--print("Cameras for " .. v.name .. " setup")
 		end
 	else
 		print("[Breach2] No cameras found...")
