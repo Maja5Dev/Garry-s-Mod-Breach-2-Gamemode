@@ -132,12 +132,18 @@ round_system.AssignPlayers = function()
 		--local role = round_system.current_scenario.role_list[i]
 		local role = round_system.current_scenario.role_list.roles[role_num]
 		if istable(role) then
+			/*
 			if role.class == "scp_unkillable" then
 				if math.random() < BR2_ASSIGN_CONFIG.SCP_SPAWN_AS_PLAYER_CHANCE then
 					print("SCP NOT SPAWNING BECAUSE CHANCE FAILEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED")
 					role_num = role_num + 1
 					role = round_system.current_scenario.role_list.roles[role_num] or round_system.current_scenario.role_list.roles[1]
 				end
+			end
+			*/
+
+			if role.assign_function == nil or assign_system[role.assign_function] == nil then
+				Error("Role " .. role.class .. "(" .. role_num .. ")" .. " has no assign_function!")
 			end
 
 			assign_system[role.assign_function](pl)
