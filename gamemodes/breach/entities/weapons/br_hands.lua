@@ -533,29 +533,11 @@ function SWEP:CreateFrame()
 	})
 	
 	self:CheckContents()
+
+	local scp914_1_enabled, scp914_2_enabled = BR_Check914()
 	
-	self.Contents.use_914_1.enabled = false
-	self.Contents.use_914_2.enabled = false
-	if IsValid(tr_hull.Entity) then
-		local ent = tr_hull.Entity
-		if ent:GetClass() == "class C_BaseEntity" then
-			--print(ent, ent:GetPos())
-			local ent_pos = ent:GetPos()
-			--ent_pos = Vector(math.Round(ent_pos.x), math.Round(ent_pos.y), math.Round(ent_pos.z))
-
-			local pos_914_1 = BR2_Get_914_1_Pos()
-			pos_914_1 = Vector(math.Round(pos_914_1.x), math.Round(pos_914_1.y), math.Round(pos_914_1.z))
-
-			local pos_914_2 = BR2_Get_914_2_Pos()
-			pos_914_2 = Vector(math.Round(pos_914_2.x), math.Round(pos_914_2.y), math.Round(pos_914_2.z))
-			
-			if ent_pos:Distance(pos_914_1) < 2 then
-				self.Contents.use_914_1.enabled = true
-			elseif ent_pos:Distance(pos_914_2) < 2 then
-				self.Contents.use_914_2.enabled = true
-			end
-		end
-	end
+	self.Contents.use_914_1.enabled = scp914_1_enabled
+	self.Contents.use_914_2.enabled = scp914_2_enabled
 	
 	local tr_ent = self.Owner:GetAllEyeTrace().Entity
 	self.Contents.pickup_bomb.enabled = false
