@@ -87,6 +87,7 @@ net.Receive("br_start_reviving", function(len, ply)
 		if ent:GetClass() == "prop_ragdoll" and istable(ent.Info) and IsValid(ent.Info.Victim)
 			and ent.Info.Victim:Alive() and !ent.Info.Victim:IsSpectator()
 			and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1)
+			and !string.find(ent.Info.br_role, "SCP")
 		then
 			if ply.br_role == "SCP-049" then
 				start_reviving_pl(ply, ent)

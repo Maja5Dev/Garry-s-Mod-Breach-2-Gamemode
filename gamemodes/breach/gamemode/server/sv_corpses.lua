@@ -66,6 +66,7 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	rag.Info.CorpseID = rag:GetCreationID()
 	rag.Info.Victim = victim
 	rag.Info.VictimNick = victim:Nick()
+	rag.Info.br_role = victim.br_role
 	rag.Info.DamageType = dmgtype
 	rag.Info.Time = CurTime()
 
