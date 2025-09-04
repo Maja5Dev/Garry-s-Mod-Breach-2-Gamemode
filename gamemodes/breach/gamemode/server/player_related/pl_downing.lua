@@ -123,6 +123,8 @@ function player_meta:UnDownPlayerAsZombie(healer)
 		lpi.BreachCIAgent = false
 		lpi.BreachZombie = true
 		lpi.BreachIsBleeding = false
+		lpi.can_get_infected = false
+		lpi.disable_coughing = true
 		self:ApplyPlayerInfo(lpi)
 	end
 

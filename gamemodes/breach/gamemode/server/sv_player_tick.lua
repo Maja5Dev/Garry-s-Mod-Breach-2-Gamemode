@@ -131,7 +131,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 			/* GAS, COUGHING */
 			local should_icough = true
-			if v:IsInGasZone() then
+			if v:IsInGasZone() and !v.disable_coughing then
 				local cough_sound = ""
 
 				if !has_gasmask then
@@ -152,7 +152,7 @@ hook.Add("Tick", "BR2_Misc", function()
 			end
 
 			/* PLAYER INFECTION */
-			if v.br_isInfected and !v.br_downed then
+			if v.br_isInfected and !v.br_downed and v.can_get_infected then
 				if v.next_iup1 < CurTime() then
 					v.next_iup1 = CurTime() + math.random(2,3)
 					

@@ -536,7 +536,7 @@ function HandleDiseases()
 	local possible_infecteds = {}
 	
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and !v:IsSpectator() and v.canGetInfected and math.random(1,4) == 2 then
+		if v:Alive() and !v:IsSpectator() and v.can_get_infected and math.random(1,4) == 2 then
 			table.ForceInsert(possible_infecteds, v)
 		end
 	end

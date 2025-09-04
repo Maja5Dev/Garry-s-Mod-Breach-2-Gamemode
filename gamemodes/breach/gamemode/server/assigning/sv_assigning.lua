@@ -30,13 +30,12 @@ function Pre_Assign(ply)
 	ply.br_isBleeding = false
 	ply.br_isInfected = false
 	ply.br_asymptomatic = false
-
 	ply.br_uses_hunger_system = true
 	ply.br_usesSanity = false
 	ply.br_usesStamina = true
 	ply.br_usesTemperature = false
 	ply.canStartBleeding = true
-	ply.canGetInfected = true
+	ply.can_get_infected = true
 	ply.getsPossibleTraitors = false
 	ply.canEscape = true
 	ply.use049sounds = false
@@ -71,6 +70,7 @@ function Pre_Assign(ply)
 
 	ply.nextBreath = 0
 	ply.NextCough = 0
+	ply.disable_coughing = false
 	ply.nextDamageInGas = 0
 	ply.next049Breath = 0
 	ply.next_hsd = 0

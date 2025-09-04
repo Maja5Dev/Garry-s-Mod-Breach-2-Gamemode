@@ -10,7 +10,7 @@ function assign_system.Assign_SCP049(ply)
 	ply:Give("keycard_level4")
 	ply.use049sounds = true
 	ply.br_uses_hunger_system = false
-	ply.canGetInfected = false
+	ply.can_get_infected = false
 	ply.br_role = "SCP-049"
 	ply.br_showname = "SCP-049"
 	ply.br_customspawn = "SPAWNS_SCP_049"
@@ -39,13 +39,14 @@ function assign_system.Assign_SCP173(ply)
 	ply:Give("weapon_scp_173")
 	ply.use173behavior = true
 	ply.br_uses_hunger_system = false
-	ply.canGetInfected = false
+	ply.can_get_infected = false
 	ply.br_usesSanity = false
 	ply.br_usesTemperature = false
 	ply.canStartBleeding = false
 	ply.cantUseFlashlight = true
 	ply.br_usesStamina = false
 	ply.blinking_enabled = false
+	ply.disable_coughing = true
 	ply.br_role = "SCP-173"
 	ply.br_showname = "SCP-173"
 	ply.br_customspawn = "SPAWNS_SCP_173"
