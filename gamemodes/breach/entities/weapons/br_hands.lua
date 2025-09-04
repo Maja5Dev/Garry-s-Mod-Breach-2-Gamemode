@@ -1055,8 +1055,15 @@ end
 
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+
+	local text = "Secondary attack opens action menu, Reload toggles pushing mode"
+	
+	if self:IsSCP049() then
+		text = "Left click to attack, Secondary attack opens action menu, Reload toggles punching mode"
+	end
+
 	draw.Text({
-		text = "Secondary attack opens action menu, Reload toggles pushing mode",
+		text = text,
 		pos = { ScrW() / 2, ScrH() - 6},
 		font = "BR2_ItemFont",
 		color = Color(255,255,255,15),
