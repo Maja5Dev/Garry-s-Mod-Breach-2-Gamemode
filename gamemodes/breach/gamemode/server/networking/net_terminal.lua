@@ -55,29 +55,44 @@ net.Receive("br_open_terminal", function(len, ply)
 	local login = net.ReadString()
 	local password = net.ReadString()
 
+	local loginInfo = nil
+	for _,logintab in pairs(round_system.logins) do
+		if (login == logintab.login and password == logintab.password) or (login == "p" and logintab.ply == ply) then
+			logged = true
+			loginInfo = logintab
+		end
+	end
+
+	if loginInfo == nil then
+		net.Start("br_open_terminal")
+			net.WriteBool(false)
+			net.WriteString("")
+			net.WriteTable({})
+		net.Send(ply)
+		return
+	end
+
 	for k,v in pairs(BR2_TERMINALS) do
 		if v.name == net_str then
-			if v.pos:Distance(ply:GetPos()) < 170 then
-				-- TODO verify auth with login and pass
-				if true then
-					local info_to_send = table.Copy(v.Info)
+			if v.pos:Distance(ply:GetEyeTrace().HitPos) < 180 then
+				local info_to_send = table.Copy(v.Info)
 
-					if istable(info_to_send.SettingsFunctions) then
-						for k2,v2 in pairs(info_to_send.SettingsFunctions) do
-							if v2.server then
-								v2.server = {}
-							end
+				if istable(info_to_send.SettingsFunctions) then
+					for k2,v2 in pairs(info_to_send.SettingsFunctions) do
+						if v2.server then
+							v2.server = {}
 						end
 					end
-
-					net.Start("br_open_terminal")
-						net.WriteBool(true)
-						net.WriteTable(info_to_send)
-					net.Send(ply)
-
-					ply.lastTerminal = v
-					return
 				end
+
+				net.Start("br_open_terminal")
+					net.WriteBool(true)
+					net.WriteTable(info_to_send)
+					net.WriteTable(loginInfo)
+				net.Send(ply)
+
+				ply.lastTerminal = v
+				return
 			end
 		end
 	end
@@ -85,6 +100,7 @@ net.Receive("br_open_terminal", function(len, ply)
 	net.Start("br_open_terminal")
 		net.WriteBool(false)
 		net.WriteString("")
+		net.WriteTable({})
 	net.Send(ply)
 
 	/*

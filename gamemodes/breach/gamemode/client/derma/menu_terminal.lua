@@ -206,8 +206,11 @@ function create_terminal_fonts()
 	surface.CreateFont("BR_TERMINAL_DATE_TEXT", font_structure)
 	
 	font_structure.size = 58 * size_mul
-	font_structure.font = "Tahoma"
+	font_structure.font = "Lorimer No 2 Stencil"
 	surface.CreateFont("BR_TERMINAL_INFO_BIG", font_structure)
+	
+	font_structure.size = 42 * size_mul
+	surface.CreateFont("BR_TERMINAL_INFO_MEDIUM", font_structure)
 	
 	font_structure.size = 400 * size_mul
 	font_structure.font = "Lorimer No 2 Stencil"
@@ -239,7 +242,7 @@ function BR_Access_BrokenTerminal(terminal)
 end
 
 --lua_run_cl BR_Open_Terminal(br_terminal_mtf)
-function BR_Open_Terminal(options)
+function BR_Open_Terminal(options, loginInfo)
 	local client = LocalPlayer()
 	local scrw = ScrW()
 	local scrh = ScrH()
@@ -293,6 +296,7 @@ function BR_Open_Terminal(options)
 	terminal_info_panel:SetSize(1401*size_mul, 190*size_mul)
 	terminal_info_panel.Paint = function(self, w, h)
 		draw.RoundedBox(0, 0, 0, w, h, Color(37, 37, 37, 255))
+
 		draw.Text({
 			text = "S-COM SOFTWARE",
 			pos = {16, h*0.25},
@@ -301,12 +305,31 @@ function BR_Open_Terminal(options)
 			font = "BR_TERMINAL_INFO_BIG",
 			color = Color(255,255,255,255),
 		})
+
 		draw.Text({
 			text = "version: 2.0.0",
 			pos = {16, h*0.65},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_CENTER,
 			font = "BR_TERMINAL_INFO_BIG",
+			color = Color(255,255,255,255),
+		})
+
+		draw.Text({
+			text = "Logged in as:",
+			pos = {w - 16, 16},
+			xalign = TEXT_ALIGN_RIGHT,
+			yalign = TEXT_ALIGN_TOP,
+			font = "BR_TERMINAL_INFO_MEDIUM",
+			color = Color(255,255,255,255),
+		})
+
+		draw.Text({
+			text = loginInfo.nick,
+			pos = {w - 16, 42 * size_mul + 12},
+			xalign = TEXT_ALIGN_RIGHT,
+			yalign = TEXT_ALIGN_TOP,
+			font = "BR_TERMINAL_INFO_MEDIUM",
 			color = Color(255,255,255,255),
 		})
 	end

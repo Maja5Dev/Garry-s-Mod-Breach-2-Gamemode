@@ -370,9 +370,9 @@ end)
 
 net.Receive("br_open_terminal", function(len)
 	local passed = net.ReadBool()
-	local info_got = net.ReadTable()
-	--PrintTable(info_got)
-	loading_terminal.endfunc(passed, info_got)
+	local infoGot = net.ReadTable()
+	local loginInfo = net.ReadTable()
+	loading_terminal.endfunc(passed, infoGot, loginInfo)
 end)
 
 net.Receive("br_round_start", function(len)

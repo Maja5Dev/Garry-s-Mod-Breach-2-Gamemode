@@ -29,7 +29,12 @@ function BR2_GenerateTerminalAuth(ply)
     -- Password can be random, doesn't need uniqueness
     password = GenerateRandomString(10)
 
-    table.ForceInsert(round_system.logins, {login, password})
+    table.ForceInsert(round_system.logins, {
+        ply = ply,
+        login = login,
+        password = password,
+        nick = ply:Nick()
+    })
 
     return login, password
 end
