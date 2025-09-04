@@ -879,8 +879,8 @@ function SWEP:PunchAttack()
 
 	local our_anim = "Attack_Quick"
 	if use_attack == 2 then our_anim = "Attack_Quick2" end
-	--if IsFirstTimePredicted() or SERVER then self:SendViewModelSeq(our_anim) end
-	self:SendViewModelSeq(our_anim)
+	if IsFirstTimePredicted() or SERVER then self:SendViewModelSeq(our_anim) end
+	--self:SendViewModelSeq(our_anim)
 	
 	if self.Primary.Directional then
 		ply = self:GetOwner()
@@ -937,7 +937,6 @@ function SWEP:PunchAttack()
 	self:SetNextPrimaryFire(CurTime() + attack["end"] / self:GetAnimationRate(attack.act))
 	self:GetOwner():SetAnimation(PLAYER_ATTACK1)
 	self:SetComboCount(self:GetComboCount() + 1)
-	
 end
 
 function SWEP:SmackEffect(trace, dmg)
@@ -1008,6 +1007,7 @@ function SWEP:PrimaryAttack()
 		self:PunchAttack()
 		return
 	end
+
 	if CLIENT or self.SCP049Mode == false or self.NextAttack > CurTime() then return end
 	self.NextAttack = CurTime() + self.AttackDelay
 	local hullsize = 4
@@ -1019,6 +1019,7 @@ function SWEP:PrimaryAttack()
 		maxs = Vector(hullsize, hullsize, hullsize),
 		mask = MASK_SHOT_HULL
 	})
+
 	local ent = tr.Entity
 	if IsValid(ent) and ent:IsPlayer() and ent:Alive() and !ent:IsSpectator() and ent.br_team != TEAM_SCP then
 		ent.lastPlayerInfo = ent:CopyPlayerInfo(self.Owner)
