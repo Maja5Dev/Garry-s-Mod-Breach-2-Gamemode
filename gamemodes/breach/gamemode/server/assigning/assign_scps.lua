@@ -65,9 +65,9 @@ function assign_system.Assign_SCP173(ply)
 	Post_Assign(ply)
 end
 
-/*
+
 last_scp_assign = nil
-function assign_system.Assign_SCP_Unkillable(ply)
+function assign_system.Assign_SCP(ply)
 	-- Alternate between SCP-049 and SCP-173 assignments for first SCP
 	if last_scp_assign == nil then
 		if math.random(1,2) == 1 then
@@ -97,7 +97,7 @@ function assign_system.Assign_SCP_Unkillable(ply)
 		return
 	end
 end
-*/
+
 
 -- so far only 2 SCPs so we use this simple thing
 function assign_system.Assign_SCP_Unkillable(ply)

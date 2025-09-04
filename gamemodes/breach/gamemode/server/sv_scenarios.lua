@@ -60,6 +60,7 @@ BREACH_DEFAULT_ROLES = {
 		assign_function = "Assign_ISDagent"
 	},
 	*/
+	/*
 	roles_scps_unkillable = {
 		class = "scp_unkillable",
 		team = TEAM_SCP,
@@ -71,6 +72,13 @@ BREACH_DEFAULT_ROLES = {
 		team = TEAM_SCP,
 		spawns = {"SPAWNS_SCP_OTHERS"},
 		assign_function = "Assign_SCP_Killable"
+	},
+	*/
+	roles_scps = {
+		class = "scp",
+		team = TEAM_SCP,
+		spawns = {"SPAWNS_SCP_OTHERS"},
+		assign_function = "Assign_SCP"
 	},
 	roles_ci_soldiers = {
 		class = "ci_soldier",
@@ -164,12 +172,12 @@ BREACH_DEFAULT_ROLELIST = {
 		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
 		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_scps_killable,
+		BREACH_DEFAULT_ROLES.roles_scps,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
 		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_security,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_scps_unkillable,
+		BREACH_DEFAULT_ROLES.roles_scps,
 		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
