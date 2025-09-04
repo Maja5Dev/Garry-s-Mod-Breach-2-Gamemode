@@ -132,6 +132,7 @@ function Breach_Map_Organise()
 	BR_DEFAULT_MAP_Organize_Outfits()
     BR_DEFAULT_MAP_Organize_ItemContainers()
     BR_DEFAULT_MAP_Organize_Cameras()
+	BR_DEFAULT_MAP_Organize_KeypadCodes()
 	BR_DEFAULT_MAP_Organize_Keypads()
 end
 

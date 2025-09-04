@@ -213,7 +213,41 @@ function BR_DEFAULT_MAP_Organize_Keypad_Find()
 	return button_ents
 end
 
+local allowed_button_classes = {
+	"func_button"
+}
+
 function BR_DEFAULT_MAP_Organize_Keypads()
+	if istable(MAPCONFIG.BUTTONS) then
+		for i,butt in ipairs(MAPCONFIG.BUTTONS) do
+			local button_found = false
+			for k,v in pairs(ents.GetAll()) do
+				if ((isstring(butt.ent_name) and butt.ent_name == v:GetName()) or
+					(v:GetPos() == butt.pos) or
+					(v:GetPos():Distance(butt.pos) < 3)) and table.HasValue(allowed_button_classes, v:GetClass())
+				then
+					if butt.ent_name then
+						print("Found a button with name (" .. butt.ent_name .. ")")
+					end
+					--print("Found a button with pos (" .. tostring(butt.pos) .. ")  and level " .. butt.level)
+					v.br_info = butt
+					table.ForceInsert(button_ents, v)
+					butt.ent = v
+					button_found = true
+					continue
+				end
+			end
+			if button_found == false then
+				print("Button not found", i, butt.pos)
+			end
+		end
+	else
+		print("[Breach2] No buttons found...")
+		return
+	end
+end
+
+function BR_DEFAULT_MAP_Organize_KeypadCodes()
 	local button_ents = BR_DEFAULT_MAP_Organize_Keypad_Find()
 
 	-- BUTTON CODES
