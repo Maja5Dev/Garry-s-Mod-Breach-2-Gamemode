@@ -31,8 +31,8 @@ end
 -- lua_run assign_system.Assign_SCP173(Entity(1))
 function assign_system.Assign_SCP173(ply)
 	Pre_Assign(ply)
-	ply:SetHealth(9000)
-	ply:SetMaxHealth(9000)
+	ply:SetHealth(8000)
+	ply:SetMaxHealth(8000)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_173")
 	ply.cantChangeOutfit = true
