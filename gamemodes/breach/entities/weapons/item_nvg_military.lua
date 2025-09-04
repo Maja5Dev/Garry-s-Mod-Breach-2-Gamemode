@@ -123,7 +123,7 @@ SWEP.DefaultNVG = {
 	end,
 	fog = function()
 		render.FogStart(0)
-		render.FogEnd(FOG_LEVEL * 3.5)
+		render.FogEnd(FOG_LEVEL * 2)
 		render.FogColor(25, 25, 25)
 		render.FogMaxDensity(1)
 		render.FogMode(MATERIAL_FOG_LINEAR)

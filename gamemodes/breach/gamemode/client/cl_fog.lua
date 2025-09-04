@@ -16,8 +16,7 @@ function MakeFOG()
 		if istable(v.NVG) then
 			if v.Enabled == true and (!isnumber(v.BatteryLevel) or v.BatteryLevel > 0) then
 				nvg = v.NVG
-				nvg.fog()
-				return true
+				return nvg.fog()
 			end
 		end
 	end
