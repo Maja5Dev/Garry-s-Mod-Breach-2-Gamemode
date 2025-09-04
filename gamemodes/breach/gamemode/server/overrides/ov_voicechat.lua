@@ -1,5 +1,7 @@
 
 function GM:PlayerCanHearPlayersVoice(listener, talker)
+	if game_state == GAMESTATE_POSTROUND then return true end
+
 	local dis = listener:GetPos():Distance(talker:GetPos())
 	if listener:IsSpectator() == true or listener:Alive() == false then
 		if talker:IsSpectator() == true or talker:Alive() == false then
@@ -44,7 +46,10 @@ function GM:PlayerCanHearPlayersVoice(listener, talker)
 end
 
 function GM:PlayerCanSeePlayersChat(text, teamOnly, listener, talker)
-	if !IsValid(talker) or talker == listener then return true end
+	if game_state == GAMESTATE_POSTROUND then return true end
+	if !IsValid(talker) or !IsValid(listener) then return false end
+	if talker == listener then return true end
+
 	local dis = listener:GetPos():Distance(talker:GetPos())
 	if listener:IsSpectator() == true or listener:Alive() == false then
 		if talker:IsSpectator() == true or talker:Alive() == false then
