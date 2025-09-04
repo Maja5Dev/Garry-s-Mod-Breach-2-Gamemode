@@ -1,5 +1,7 @@
 ﻿
 function BR_SpawnMapNPC(npcclass, zone)
+    if BR_DISABLE_NPCS[npcclass] then return false end
+
 	print("Spawning " .. npcclass .. " in zone " .. tostring(zone))
 
 	local all_players = {}
