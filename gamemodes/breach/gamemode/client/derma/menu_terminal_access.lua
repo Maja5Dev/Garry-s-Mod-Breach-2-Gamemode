@@ -115,6 +115,7 @@ function BR_Access_Terminal(terminal)
 	last_y = last_y + (panel_h * 0.7) + (gap * 2)
 	panel_3.Paint = function(self, w, h)
 		draw.RoundedBox(0, 0, 0, w, h, Color(50,50,50,180))
+
 		local dtext = self:GetText()
 		local dcolor = Color(255,255,255,140)
 		local dfont = "BR_ACCESS_TERMINAL_2"
@@ -136,6 +137,47 @@ function BR_Access_Terminal(terminal)
 			font = dfont,
 			color = dcolor,
 		})
+	end
+
+	local findLogin = nil
+	local findPassword = nil
+	for k,v in pairs(BR2_OURNOTEPAD.automated_info) do
+		if string.find(v, "login: ") then
+			findLogin, findPassword = string.match(v, "login:%s*(.-)\n%s*- password:%s*(.-)\n")
+		end
+	end
+
+	if findLogin and findPassword then
+		local panel_4 = vgui.Create("DPanel", access_terminal)
+		panel_4:SetSize(panel_w, panel_h * 0.7)
+		panel_4:SetPos(gap*2, last_y + gap)
+		last_y = last_y + (panel_h * 0.7) + (gap * 2)
+		panel_4.Paint = function(self, w, h)
+		end
+
+		local button_use_id_card = vgui.Create("DButton", panel_4)
+		button_use_id_card:SetSize(panel_w * 0.8, (panel_h * 0.7) * 0.8)
+		button_use_id_card:SetText("")
+		button_use_id_card:Center()
+
+		button_use_id_card.Paint = function(self, w, h)
+			draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,160))
+			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(0,0,0,255))
+
+			draw.Text({
+				text = "Use personal id card",
+				pos = {w/2, h/2},
+				xalign = TEXT_ALIGN_CENTER,
+				yalign = TEXT_ALIGN_CENTER,
+				font = "BR_ACCESS_TERMINAL_2_SMALL",
+				color = Color(255,255,255,170),
+			})
+		end
+		button_use_id_card.DoClick = function(self)
+			panel_2:SetText(findLogin)
+			panel_3:SetText(findPassword)
+			surface.PlaySound("breach2/Button.ogg")
+		end
 	end
 	
 	access_terminal:SetSize(size_w, last_y + gap)

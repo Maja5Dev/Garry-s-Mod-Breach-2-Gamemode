@@ -186,6 +186,9 @@ function create_terminal_fonts()
 	font_structure.size = 42 * size_mul
 	surface.CreateFont("BR_ACCESS_TERMINAL_2", font_structure)
 	
+	font_structure.size = 34 * size_mul
+	surface.CreateFont("BR_ACCESS_TERMINAL_2_SMALL", font_structure)
+	
 	font_structure.italic = true
 	surface.CreateFont("BR_ACCESS_TERMINAL_2_IT", font_structure)
 	
