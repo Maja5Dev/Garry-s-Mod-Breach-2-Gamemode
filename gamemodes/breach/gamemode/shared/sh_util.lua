@@ -19,11 +19,13 @@ end
 
 function GetAlivePlayers()
 	local tab = {}
+	
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false then
 			table.ForceInsert(tab, v)
 		end
 	end
+	
 	return tab
 end
 

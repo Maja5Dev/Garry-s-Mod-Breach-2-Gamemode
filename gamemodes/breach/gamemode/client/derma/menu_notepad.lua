@@ -3,12 +3,12 @@ local chaos_color = Color(30, 100, 30)
 local scp_color = Color(255, 0, 0)
 
 local scoreboard_role_colors = {}
-scoreboard_role_colors["Janitor"] = Color(130, 62, 209)
-scoreboard_role_colors["Doctor"] = Color(130, 62, 209)
-scoreboard_role_colors["Researcher"] = Color(30, 30, 170)
-scoreboard_role_colors["Containment Specialist"] = Color(132, 25, 94)
-scoreboard_role_colors["SD Officer"] = Color(30, 30, 170)
-scoreboard_role_colors["ISD Agent"] = Color(24, 33, 132)
+scoreboard_role_colors["Janitor"] = Color(130, 62, 230)
+scoreboard_role_colors["Doctor"] = Color(130, 62, 230)
+scoreboard_role_colors["Researcher"] = Color(25, 140, 180)
+scoreboard_role_colors["SD Officer"] = Color(30, 30, 200)
+scoreboard_role_colors["Containment Specialist"] = Color(132, 25, 120)
+scoreboard_role_colors["ISD Agent"] = Color(24, 33, 150)
 scoreboard_role_colors["CI Soldier"] = chaos_color
 scoreboard_role_colors["Class D"] = Color(201, 87, 16)
 scoreboard_role_colors["MTF Operative"] = Color(0, 0, 60)
@@ -46,7 +46,7 @@ local notepad_pages = {
 			our_name:SetFont('BR_Scoreboard2')
 			our_name:SetContentAlignment(7)
 			local our_showname = nil
-			our_name:SetColor(Color(0, 0, 0, 200))
+			our_name:SetColor(Color(65, 65, 65, 255))
 			--our_name:SizeToContents()
 			our_name.Paint = function(self, w, h)
 				--draw.RoundedBox(0, 0, 0, w, h, Color(100, 255, 0, 50))
@@ -65,25 +65,32 @@ local notepad_pages = {
 				local people_copy = table.Copy(notepad_info.people)
 				local known_people_sorted = {}
 				local known_people_sorted_ci = {}
+
 				for k,v in pairs(people_copy) do
 					if v.br_showname == notepad_info.people[1].br_showname then continue end
 					local tab = known_people_sorted
 					local tab_name = v.br_role
+
 					if v.br_ci_agent then
 						tab = known_people_sorted_ci
 					end
+
 					if tab[tab_name] == nil then
-						local color_to_use = Color(0,0,0,200)
+						local color_to_use = Color(80, 80, 80,255)
+
 						if v.scp then
 							color_to_use = Color(255,0,0,200)
 						end
+
 						if scoreboard_role_colors[v.br_role] then
 							color_to_use = scoreboard_role_colors[v.br_role]
 						end
+
 						tab[tab_name] = {clr = color_to_use, list = {}}
 					end
 					table.ForceInsert(tab[tab_name].list, v)
 				end
+
 				local our_known_people = {}
 				
 				for k,v in pairs(known_people_sorted_ci) do
@@ -117,15 +124,18 @@ local notepad_pages = {
 				local use_dark = true
 				for i,v in ipairs(our_known_people) do
 					local showrole = v.br_role
+
 					if v.br_ci_agent == true then
 						showrole = showrole .. " (CI)"
 					end
+
 					local player_panel = vgui.Create("DPanel", playerlist_panel)
 					player_panel:SetSize(pc_w, player_panel_h)
 					player_panel:SetPos(0, last_y)
 					player_panel.text1 = v.br_showname
 					player_panel.text2 = showrole
 					player_panel.role_color = Color(64, 64, 64, 220)
+
 					if v.scp then
 						player_panel.role_color = scp_color
 					elseif v.br_ci_agent == true then
@@ -133,6 +143,7 @@ local notepad_pages = {
 					elseif scoreboard_role_colors[v.br_role] then
 						player_panel.role_color = scoreboard_role_colors[v.br_role]
 					end
+
 					player_panel.role_color = Color(player_panel.role_color.r, player_panel.role_color.g, player_panel.role_color.b, 220)
 					player_panel.use_dark = use_dark
 					player_panel.Paint = function(self, w, h)
@@ -145,7 +156,7 @@ local notepad_pages = {
 							xalign = TEXT_ALIGN_LEFT,
 							yalign = TEXT_ALIGN_CENTER,
 							font = "BR_Scoreboard3",
-							color = Color(64, 64, 64, 220),
+							color = Color(65, 65, 65, 255),
 						})
 						draw.Text({
 							text = self.text2,
@@ -321,16 +332,33 @@ local notepad_pages = {
 		name = "Automated Information",
 		func = function(notepad_info)
 			local all_texts = {}
+			local text_combined = ""
+
 			if istable(notepad_info) and istable(notepad_info.automated_info) then
 				for k,v in pairs(notepad_info.automated_info) do
 					table.ForceInsert(all_texts, v)
+					text_combined = text_combined .. v .. "\n"
 				end
 			else
 				table.ForceInsert(all_texts, "No information")
 			end
-			local auto_info_panel = vgui.Create("DPanel", panel_contents)
+
+			local auto_info_panel = vgui.Create("DTextEntry", panel_contents)
+			auto_info_panel:SetEditable(true)
+			auto_info_panel:SetMultiline(true)
+			auto_info_panel:SetFont("BR_SB_RICHTEXT")
+			auto_info_panel:SetTextColor(Color(65, 65, 65, 255))
+			auto_info_panel:SetPaintBackground(false)
+			auto_info_panel:SetTabbingDisabled(false)
+			auto_info_panel:SetText(text_combined)
 			auto_info_panel:Dock(FILL)
 			panel_contents.auto_info_panel = auto_info_panel
+
+			auto_info_panel.OnChange = function()
+				auto_info_panel:SetText(text_combined)
+			end
+
+			/*
 			auto_info_panel.Paint = function(self, w, h)
 				local last_y = 16
 				for k,v in pairs(all_texts) do
@@ -345,6 +373,8 @@ local notepad_pages = {
 					last_y = last_y + 34
 				end
 			end
+			*/
+
 		end,
 		on_remove = function()
 			if IsValid(panel_contents.auto_info_panel) then
@@ -420,7 +450,7 @@ local notepad_pages = {
 					self:SetNumeric(false)
 					self:SetAllowNonAsciiCharacters(false)
 					
-					self:SetTextColor(Color(64,64,64,220))
+					self:SetTextColor(Color(65, 65, 65, 255))
 
 					self:SetTall(20)
 					self.m_bLoseFocusOnClickAway = true
@@ -548,9 +578,9 @@ function BR_ShowNotepad(notepad_info)
 
 	current_page = 1
 	surface.CreateFont("BR_SB_RICHTEXT", {
-		font = "Caveat",
+		font = "Neucha",
 		extended = false,
-		size = 34 * font_size_mul,
+		size = 36 * font_size_mul,
 		weight = 1000,
 		blursize = 0,
 		scanlines = 0,
