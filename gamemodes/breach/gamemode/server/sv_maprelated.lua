@@ -25,7 +25,7 @@ function Breach_FixMapHDRBrightness()
 	for k,v in pairs(ents.FindByClass("env_tonemap_controller")) do
 		v:Fire("UseDefaultAutoExposure", "0", 0)
 		v:Fire("SetAutoExposureMin", "0.5", 0)
-		v:Fire("SetAutoExposureMax", "1.1", 0)
+		v:Fire("SetAutoExposureMax", "1", 0)
 	end
 end
 
