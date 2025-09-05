@@ -64,11 +64,18 @@ function br2_mtf_teams_add(ply, num)
 				if table.Count(BR2_MTF_TEAMS[num]) == MTF_NEEDED_TO_SPAWN then
 					print("MTF Team " .. num .. " is ready to deploy")
 					local all_mtfs = table.Copy(BR2_MTF_TEAMS[num])
+					local existingMTFs = {}
 
 					local all_possible_mtf_spawns = {}
 					for mtf_spawn_group_k, mtf_spawn_group in pairs(MAPCONFIG.SPAWNS_MTF) do
-						if mtf_spawn_group.available() == true then
+						if mtf_spawn_group.available() then
 							table.ForceInsert(all_possible_mtf_spawns, mtf_spawn_group)
+						end
+					end
+
+					for k2,v2 in pairs(player.GetAll()) do
+						if v2:Alive() and !v2:IsSpectator() and v2.br_role == "MTF Operative" then
+							table.ForceInsert(existingMTFs, v2)
 						end
 					end
 
@@ -81,38 +88,49 @@ function br2_mtf_teams_add(ply, num)
 
 					mtf_spawn_tab.func()
 
+					-- Spawn them
 					for plk, pl_mtf in pairs(all_mtfs) do
 						pl_mtf:SendLua("BR_ClearMenus()")
-						local spawn = table.Random(mtf_spawns)
+
 						pl_mtf.charid = BR_GetUniqueCharID()
 						pl_mtf:SetNWInt("BR_CharID", pl_mtf.charid)
+
 						assign_system.Assign_MTF_NTF(pl_mtf)
-						pl_mtf:SetPos(spawn)
 						pl_mtf.br_team = TEAM_MTF
+
+						local spawn = table.Random(mtf_spawns)
+						pl_mtf:SetPos(spawn)
 
 						if IsValid(pl_mtf.Body) then
 							pl_mtf.Body.Info.Victim = nil
 						end
 
+						-- Assign a new notepad and send the info from start of the round
 						notepad_system.AssignNewNotepad(pl_mtf, false)
 
 						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
-							notepad_system.AddPlayerInfo(pl_mtf, info[1], info[2], info[3], info[4], false)
+							notepad_system.AddPlayerInfo(pl_mtf, info[1], info[2], info[3], info[4], false, info[5], info[6])
 						end
 						
 						table.RemoveByValue(mtf_spawns, spawn)
 					end
 
+					-- Send info so they know eachother
 					for k_mtf1,mtf1 in pairs(all_mtfs) do
 						for k_mtf2,mtf2 in pairs(all_mtfs) do
-							notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, false, HEALTH_ALIVE, false, mtf2.charid)
+							if mtf1 != mtf2 then
+								notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, false, HEALTH_ALIVE, false, mtf2.charid, mtf2)
+							end
 						end
-						--for evac_k, evac in pairs(evac_info) do
-						--	notepad_system.AddAutomatedInfo(mtf1, evac[1] .. "   -   login:  " .. evac[2] .. "   pass:  " .. evac[3])
-						--end
+
+						for k2,v2 in pairs(existingMTFs) do
+							notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+						end
+
 						if evac_code != nil then
 							notepad_system.AddAutomatedInfo(mtf1, "evacuation code:  " .. evac_code)
 						end
+
 						notepad_system.UpdateNotepad(mtf1)
 
 						net.Start("br_update_own_info")

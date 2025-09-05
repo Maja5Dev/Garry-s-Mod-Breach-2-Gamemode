@@ -212,7 +212,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 
 		--MTF INFO
 		if !(v.br_team == TEAM_CI and v.br_ci_agent == false) then
-			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true})
+			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true, v.charid, v})
 		end 
 	end
 	
@@ -232,8 +232,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 		if v.br_team == TEAM_CI then
 			for k2,pl in pairs(players) do
 				if v != pl and pl.br_team == TEAM_CI and pl.br_ci_agent == false then
-					--notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false)
-					notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid)
+					notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
 				end
 			end
 		end
@@ -249,7 +248,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			table.ForceInsert(all_ci_spies, v)
 		else
 			table.ForceInsert(all_non_spies, v)
-			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true})
+			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true, v.charid, v})
 		end
 	end
 
@@ -284,7 +283,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			-- corpses info
 			if istable(all_fake_corpses) then
 				for _,corpse in pairs(all_fake_corpses) do
-					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false)
+					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false, nil, nil)
 				end
 			end
 			
@@ -295,15 +294,11 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 						isciagent = pl.br_ci_agent
 					end
 
-					local known_ent = pl.charid
-					--if math.random(1,3) == 2 then
-					--	known_ent = nil
-					--end
 					if pl.br_team == TEAM_SCP then
-						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, known_ent)
+						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, pl.charid)
 
 					elseif pl:IsFromFoundation() == true then
-						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, known_ent)
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid, pl)
 					end
 				end
 			end
@@ -311,7 +306,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			-- corpses info
 			if istable(all_fake_corpses) then
 				for _,corpse in pairs(all_fake_corpses) do
-					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false)
+					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false, nil, nil)
 				end
 			end
 			
@@ -324,7 +319,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 						isciagent = pl.br_ci_agent
 					end
 
-					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid)
+					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid, pl)
 				end
 			end
 		end
@@ -432,7 +427,7 @@ BREACH_SCENARIOS = {
 			for k,v in pairs(players) do
 				for k2,pl in pairs(players) do
 					if v != pl and v.br_team == pl.br_team then
-						notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid)
+						notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
 					end
 				end
 			end

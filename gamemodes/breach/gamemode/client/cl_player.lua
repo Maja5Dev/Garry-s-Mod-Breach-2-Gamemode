@@ -25,17 +25,10 @@ function GM:OnPlayerChat(ply, strText, bTeamOnly, bPlayerIsDead)
 			if dis > DEF_PLAYER_RANGE then return true end
 			
 			if isstring(ply.br_showname) then
-				if client:IsAdmin() then
-					table.insert(tab, ply.br_showname .. " (" .. ply:Nick() .. ")")
-				else
-					table.insert(tab, ply.br_showname)
-				end
+				-- TODO this should show from the info we got
+				table.insert(tab, ply.br_showname .. " (" .. ply:Nick() .. ")")
 			else
-				if client:IsAdmin() then
-					table.insert(tab, "[Unknown]" .. " (" .. ply:Nick() .. ")")
-				else
-					table.insert(tab, "[Unknown]")
-				end
+				table.insert(tab, "[Unknown]" .. " (" .. ply:Nick() .. ")")
 			end
 		end
 	else

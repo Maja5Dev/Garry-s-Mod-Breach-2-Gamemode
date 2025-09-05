@@ -51,6 +51,14 @@ round_system.Force_MTF_Spawn = function()
 	
 	print("Mobile Task Force Spawned")
 	local all_mtfs = {}
+	local existingMTFs = {}
+
+	for k,v in pairs(player.GetAll()) do
+		if v:Alive() and !v:IsSpectator() and v.br_role == "MTF Operative" then
+			table.ForceInsert(existingMTFs, v)
+		end
+	end
+
 	for k,v in pairs(player.GetAll()) do
 		if v:IsSpectator() then
 			local spawn = table.Random(mtf_spawns)
@@ -66,7 +74,7 @@ round_system.Force_MTF_Spawn = function()
 			notepad_system.AssignNewNotepad(v, false)
 
 			for k_info,info in pairs(BR2_MTF_STARTING_INFORMATION) do
-				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false)
+				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false, info[5])
 			end
 
 			local evac_code = MTF_GetEvacInfo()
@@ -79,10 +87,22 @@ round_system.Force_MTF_Spawn = function()
 			table.RemoveByValue(mtf_spawns, spawn)
 		end
 	end
+
+	print("existingMTFs")
+	PrintTable(existingMTFs)
+
 	for k,v in pairs(all_mtfs) do
 		for k2,v2 in pairs(all_mtfs) do
-			notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid)
+			if v != v2 then
+				notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+			end
 		end
+
+		for k2,v2 in pairs(existingMTFs) do
+			print("giving info on existing mtf " .. v2:Nick() .. " to " .. v:Nick() .. "")
+			notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+		end
+		
 		notepad_system.UpdateNotepad(v)
 	end
 	

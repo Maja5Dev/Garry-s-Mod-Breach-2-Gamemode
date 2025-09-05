@@ -686,7 +686,8 @@ function BR_AssignNotepadPlayers()
 			pl.scp = nil
 		end
 	end
-	if  LocalPlayer().Alive and LocalPlayer():Alive() and !LocalPlayer():IsSpectator() then
+
+	if LocalPlayer().Alive and LocalPlayer():Alive() and !LocalPlayer():IsSpectator() then
 		for _,pl in pairs(player.GetAll()) do
 			if BR2_OURNOTEPAD.people == nil then
 				--print(pl:Nick() .. " ERRRROOOORR RRR R")
@@ -694,8 +695,10 @@ function BR_AssignNotepadPlayers()
 				BR2_OURNOTEPAD = {}
 				BR2_OURNOTEPAD.people = {}
 			end
+
 			for k,v in pairs(BR2_OURNOTEPAD.people) do
-				if pl:GetNWInt("BR_CharID") == v.ent then
+				if pl:GetNWInt("BR_CharID") == v.charid then
+					--print("found " .. pl:Nick() .. " " .. v.charid)
 					pl.br_showname = v.br_showname
 					pl.br_ci_agent = v.br_ci_agent
 					pl.br_role = v.br_role
@@ -704,12 +707,15 @@ function BR_AssignNotepadPlayers()
 				end
 			end
 		end
+	else
+		error("tried to update notepad of a dead player")
 	end
 end
 
 net.Receive("br_send_notepad", function(len)
 	local got_tab = net.ReadTable()
 	BR2_OURNOTEPAD = got_tab
+
 	for k,v in pairs(player.GetAll()) do
 		if v != LocalPlayer() then
 			v.br_info = nil
@@ -717,8 +723,8 @@ net.Receive("br_send_notepad", function(len)
 			v.br_role = nil
 		end
 	end
+
 	if BR2_OURNOTEPAD.people and table.Count(BR2_OURNOTEPAD.people) > 0 then
-		
 		--LocalPlayer().br_showname = BR2_OURNOTEPAD.people[1].br_showname
 		--LocalPlayer().br_ci_agent = BR2_OURNOTEPAD.people[1].br_ci_agent
 		--LocalPlayer().br_role = BR2_OURNOTEPAD.people[1].br_role
@@ -738,7 +744,10 @@ net.Receive("br_send_notepad", function(len)
 			end
 		end
 		*/
-		BR_AssignNotepadPlayers()
+		timer.Simple(0.1, BR_AssignNotepadPlayers)
+		--BR_AssignNotepadPlayers()
+	else
+		print("RECEIVED NO PEOPLE IN NOTEPAD")
 	end
 	--print("updated notepad")
 end)

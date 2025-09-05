@@ -37,11 +37,14 @@ function PANEL:Think()
 		local label_text = ""
 		if self.ply == LocalPlayer() or (self.ply:IsSpectator() and LocalPlayer():IsSpectator()) then
 			label_text = self.ply:Nick()
+
 		elseif isstring(self.ply.br_showname) then
 			label_text = self.ply.br_showname
+
 		else
 			label_text = "[Unknown]"
 		end
+
 		self.LabelName:SetText(label_text)
 	end
 
