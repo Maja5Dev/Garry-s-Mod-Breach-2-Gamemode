@@ -116,6 +116,7 @@ function BR2NetworkingTick()
 				net.Send(v)
 			end
 
+			-- Update Sanity
 			v.next_sanity_update = v.next_sanity_update or 0
 			if v.next_sanity_update < CurTime() then
 				net.Start("br_update_sanity")
@@ -123,6 +124,14 @@ function BR2NetworkingTick()
 				net.WriteInt(v.br_sanity, 16)
 				net.Send(v)
 				v.next_sanity_update = CurTime() + 2
+			end
+
+			-- Update Support Spawns
+			if v:IsSpectator() and v.br_support_spawns and v.nextSupportSpawnUpdate < CurTime() then
+				v.nextSupportSpawnUpdate = CurTime() + math.random(2, 6)
+				net.Start("br_update_support_spawns")
+					net.WriteTable(v.br_support_spawns)
+				net.Send(v)
 			end
 
 			if v.br_role == "SCP-049" and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then

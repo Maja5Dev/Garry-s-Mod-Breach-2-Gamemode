@@ -309,6 +309,10 @@ net.Receive("br_pregame_spawns", function(len)
 	br2_support_spawns = net.ReadTable()
 end)
 
+net.Receive("br_update_support_spawns", function(len)
+	br2_support_spawns = net.ReadTable()
+end)
+
 net.Receive("cl_playerescaped", function(len)
 	if br2_last_music then br2_last_music:Stop() end
 	--RunConsoleCommand("stopsound")

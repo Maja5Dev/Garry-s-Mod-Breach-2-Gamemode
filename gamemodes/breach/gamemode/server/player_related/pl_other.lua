@@ -63,6 +63,7 @@ function player_meta:FirstSetup()
 	self.nextHorrorDamage = 0
 	self.nextHorrorInsanityAttack = 0
 	self.nextHorrorInsanityAmbient = 0
+	self.nextSupportSpawnUpdate = 0
 	--self.next_mtf_team_update = self.next_mtf_team_update or 0
 end
 
