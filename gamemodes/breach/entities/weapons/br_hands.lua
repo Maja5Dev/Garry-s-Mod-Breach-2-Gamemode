@@ -261,19 +261,24 @@ SWEP.Contents = {
 		cl_effect = function(self)
 			local pl = lastseen_player
 			if !IsValid(pl) then return end
+
 			chat.AddText(Color(255,255,255,255), "Examining...")
+
 			if pl:GetClass() == "prop_ragdoll" then
 				if pl.Pulse then
 					if pl.Pulse == true then
 						chat.AddText(Color(255,0,0,255), " - He is dead")
 						local dmg_info = pl:GetNWString("ExamineDmgInfo", nil)
+
 						if dmg_info != nil then
 							chat.AddText(Color(255,0,0,255), dmg_info)
 						end
+
 						local death_time = pl:GetNWInt("DeathTime", nil)
 						if death_time != nil then
 							chat.AddText(Color(255,255,255,255), " - He died " .. string.ToMinutesSeconds(CurTime() - death_time) .. " minutes ago")
 						end
+
 						return
 					elseif isnumber(pl.Pulse) then
 						chat.AddText(Color(255,255,255,255), " - He is probably alive")
@@ -467,6 +472,40 @@ SWEP.Contents = {
 			WeaponFrame:Remove()
 		end
 	},
+	check_someones_notepad = {
+		id = 15,
+		enabled = false,
+		name = "Check their notepad",
+		desc = "Open their notepad",
+		background_color = Color(125,125,125),
+		cl_effect = function(self)
+			local pl = lastseen_player
+			if !IsValid(pl) then return end
+
+			if self.LootingSomeone then
+				EndProgressBar()
+				self.LootingSomeone = false
+			end
+			if self.ExaminingSomeone then
+				EndProgressBar()
+				self.ExaminingSomeone = false
+			end
+
+			self.PickpocketingSomeonesNotepad = true
+			targeted_player = lastseen_player
+
+			progress_bar_func = function()
+				EndPickpocketingNotepad()
+				self.ExaminingSomeone = false
+				self.LootingSomeone = false
+				self.PickpocketingSomeonesNotepad = false
+			end
+			InitiateProgressBar(3, "Checking notepad...")
+		end,
+		cl_after = function(self)
+			WeaponFrame:Remove()
+		end
+	},
 }
 
 function SWEP:CheckContents()
@@ -519,7 +558,6 @@ function SWEP:CreateFrame()
 		WeaponFrame:Remove()
 	end
 
-
 	for k,v in pairs(self.Contents) do
 		if isnumber(v.delete_after) then
 			v.delete_after = v.delete_after - 1
@@ -558,12 +596,17 @@ function SWEP:CreateFrame()
 	
 	self.Contents.identify_player.enabled = false
 	self.Contents.examine_someone.enabled = false
-	if IsValid(lastseen_player) and lastseen_player:GetClass() == "prop_ragdoll" or lastseen_player:IsPlayer() then
+	self.Contents.check_someones_notepad.enabled = false
+	if IsValid(lastseen_player) and lastseen_player:GetClass() == "prop_ragdoll" or lastseen_player:IsPlayer() and lastseen_player.br_team != TEAM_SCP then
 		if (CurTime() - lastseen) < 10 then
 			self.Contents.identify_player.enabled = true
 		end
+
 		if (CurTime() - lastseen) < 4 then
 			self.Contents.examine_someone.enabled = true
+			if lastseen_player:GetPos():Distance(self.Owner:GetPos()) < 150 then
+				self.Contents.check_someones_notepad.enabled = true
+			end
 		end
 	end
 	
@@ -1001,6 +1044,43 @@ function SWEP:Think()
 	if self.fixPlaybackRate == 0 then
 		self:GetOwner():GetViewModel():SetPlaybackRate(1)
 		self.fixPlaybackRate = 1
+	end
+
+	--TODO
+	if self.LootingSomeone and progress_bar_status > 0 then
+		if !IsValid(targeted_player or targeted_player:GetPos():Distance(LocalPlayer():GetPos()) > 250) then
+			EndProgressBar()
+		end
+		local tr = util.TraceLine({
+			start = LocalPlayer():EyePos(),
+			endpos = targeted_player:GetPos(),
+			filter = LocalPlayer()
+		})
+		if tr.Entity != targeted_player then
+			EndProgressBar()
+		end
+	end
+
+	--TODO
+	if self.ExaminingSomeone and progress_bar_status > 0 then
+		if !IsValid(targeted_player or targeted_player:GetPos():Distance(LocalPlayer():GetPos()) > 250) then
+			EndProgressBar()
+			chat.AddText(color_white, "They are too far away to properly examine...")
+		end
+		local tr = util.TraceLine({
+			start = LocalPlayer():EyePos(),
+			endpos = targeted_player:GetPos(),
+			filter = LocalPlayer()
+		})
+		if tr.Entity != targeted_player or LocalPlayer():GetAimVector():Dot((LocalPlayer():GetPos() - targeted_player:GetPos() + Vector(70)):GetNormalized()) > 0.3 then
+			EndProgressBar()
+			chat.AddText(color_white, "I can't see them...")
+		end
+	end
+
+	if self.PickpocketingSomeonesNotepad and progress_bar_status > 0 and (!IsValid(targeted_player) or targeted_player:GetPos():Distance(LocalPlayer():GetPos()) > 210) then
+		EndProgressBar()
+		chat.AddText(color_white, "They are too far away to check their notepad...")
 	end
 end
 

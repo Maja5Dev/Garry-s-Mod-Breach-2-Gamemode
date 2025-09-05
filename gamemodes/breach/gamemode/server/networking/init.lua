@@ -70,6 +70,7 @@ util.AddNetworkString("br_hide_in_closet")
 util.AddNetworkString("br_update_misc")
 util.AddNetworkString("br_scp173_mode")
 util.AddNetworkString("br2_notification")
+util.AddNetworkString("br_check_someones_notepad")
 
 include("net_supports.lua") -- top priority
 

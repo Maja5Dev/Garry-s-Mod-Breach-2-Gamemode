@@ -264,10 +264,28 @@ net.Receive("br_keypad", function(len, ply)
 				return
 			end
 		end
-		--print("got code")
-		--local code = net.ReadString()
-		--print(code)
-		--lastkeypad
+	end
+end)
+
+net.Receive("br_check_someones_notepad", function(len, ply)
+	if ply:IsSpectator() == false and ply:Alive() == true then
+		if ply.net_delay == nil then ply.net_delay = 0 end
+		if ply.net_delay > CurTime() then return end
+		ply.net_delay = CurTime() + 0.5
+		
+		local target_ply = net.ReadEntity()
+		if IsValid(target_ply) and target_ply:IsPlayer() and target_ply:Alive() and !target_ply:IsSpectator() and target_ply:GetPos():Distance(ply:GetPos()) < 170 and target_ply.br_team != TEAM_SCP then
+			local notepad = notepad_system.GetPlayerNotepad(target_ply)
+
+			if !istable(notepad) then
+				ply:BR2_ShowNotification("This person doesn't seem to have a notepad.")
+				return
+			end
+
+			net.Start("br_check_someones_notepad")
+				net.WriteTable(notepad)
+			net.Send(ply)
+		end
 	end
 end)
 

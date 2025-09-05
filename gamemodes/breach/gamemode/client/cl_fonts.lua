@@ -399,4 +399,22 @@ surface.CreateFont("BR_DEATH_SCREEN_1", font_structure)
 font_structure.size = 64
 surface.CreateFont("BR_DEATH_SCREEN_2", font_structure)
 
+surface.CreateFont("BR2_ProgressBarFont1", {
+	font = "Tahoma",
+	extended = false,
+	size = 28,
+	weight = 7000,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+})
+
 print("[Breach2] client/cl_fonts.lua loaded!")

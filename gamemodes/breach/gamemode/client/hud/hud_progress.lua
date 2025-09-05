@@ -1,37 +1,63 @@
 
-
 mat_progress_bar_1 = Material("breach2/progress_bar_1_2.png")
 mat_progress_bar_2 = Material("breach2/progress_bar_2.png")
 
 progress_bar_time = nil
 progress_bar_end = nil
-function InitiateProgressBar(end_time)
+progress_bar_text = nil
+function InitiateProgressBar(end_time, text)
 	progress_bar_time = end_time
+	if text then
+		progress_bar_text = text
+	end
 	progress_bar_end = CurTime() + end_time
+end
+
+function EndProgressBar()
+	progress_bar_end = nil
+	progress_bar_time = nil
+	progress_bar_status = 0
+end
+
+function FinishProgressBar()
+	EndProgressBar()
+	if progress_bar_func != nil then
+		progress_bar_func()
+	end
 end
 
 progress_bar_status = 0
 function DrawProgressBar()
 	if progress_bar_end and progress_bar_time then
 		if progress_bar_end < CurTime() then
-			progress_bar_end = nil
-			progress_bar_time = nil
-			progress_bar_status = 0
-			if progress_bar_func != nil then
-				progress_bar_func()
-			end
+			FinishProgressBar()
 			return
 		end
 		progress_bar_status = (1 - ((progress_bar_end - CurTime()) / progress_bar_time)) * 100
 	end
 	if progress_bar_status == 0 then return end
+
+	local x = ScrW()/2-158.5
+	local y = ScrH()/1.3
+
 	surface.SetDrawColor(Color(255,255,255,255))
 	surface.SetMaterial(mat_progress_bar_1)
-	surface.DrawTexturedRect(ScrW()/2-158.5, ScrH()/1.3, 317, 34)
+	surface.DrawTexturedRect(x, y, 317, 34)
 	
 	surface.SetDrawColor(Color(255,255,255,255))
 	surface.SetMaterial(mat_progress_bar_2)
-	surface.DrawTexturedRect(ScrW()/2-158.5+7, ScrH()/1.3, 303*(math.Clamp(progress_bar_status, 0, 100)/100), 34)
+	surface.DrawTexturedRect(x + 8, y, 303*(math.Clamp(progress_bar_status, 0, 100)/100), 34)
+
+	if progress_bar_text then
+		draw.Text({
+			text = progress_bar_text,
+			pos = {ScrW() / 2, y - 16},
+			font = "BR2_ProgressBarFont1",
+			color = Color(255,255,255,255),
+			xalign = TEXT_ALIGN_CENTER,
+			yalign = TEXT_ALIGN_BOTTOM,
+		})
+	end
 end
 
 mat_progress = {}
