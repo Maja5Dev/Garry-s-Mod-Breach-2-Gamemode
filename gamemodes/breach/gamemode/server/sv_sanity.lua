@@ -59,7 +59,7 @@ local function HandleSanity()
 				v:AddSanity(sanity_amount)
 			end
 
-			if v:SanityLevel() < 4 then
+			if v:SanityLevel() < 4 then -- Sanity level 3, 2 or 1, not really insane yet
 				v.nextHorrorFootstep = v.nextHorrorFootstep or (CurTime() + math.Rand(1, 7))
 				if v.nextHorrorFootstep < CurTime() then
 					if v:GetVelocity():Length() < 25 then
@@ -71,7 +71,7 @@ local function HandleSanity()
 				end
 			end
 
-			if v:SanityLevel() < 3 then
+			if v:SanityLevel() < 3 then -- Sanity level 2 or 1, on the verge of breaking
 				v.nextHorrorBlood = v.nextHorrorBlood or (CurTime() + math.Rand(2, 11))
 				if v.nextHorrorBlood < CurTime() then
 					v.nextHorrorBlood = CurTime() + math.Rand(2,4)
@@ -81,7 +81,7 @@ local function HandleSanity()
 				local afk_time = v:AfkTime()
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
 				if v.nextHorrorDamage < CurTime() and afk_time > 60 then
-					v.nextHorrorDamage = CurTime() + 4
+					v.nextHorrorDamage = CurTime() + 3
 
 					if v:Health() < 2 then
 						local fdmginfo = DamageInfo()
@@ -95,7 +95,7 @@ local function HandleSanity()
 				end
 			end
 
-			if v:SanityLevel() < 2 then
+			if v:SanityLevel() < 2 then -- Sanity level one is insanity
 				v.nextHorrorSCPS = v.nextHorrorSCPS or (CurTime() + math.Rand(13, 35))
 				if v.nextHorrorSCPS < CurTime() then
 					v.nextHorrorSCPS = CurTime() + math.Rand(10,20)
@@ -202,17 +202,17 @@ end
 function player_meta:NiceSanity()
 	local s = self.br_sanity
 	if s < 16 then
-		return "Insane"
+		return "Insane" -- 1
 	elseif s < 31 then
-		return "On verge of breaking"
+		return "On verge of breaking" -- 2
 	elseif s < 51 then
-		return "Very Anxious"
+		return "Very Anxious" -- 3
 	elseif s < 76 then
-		return "Stressed"
+		return "Stressed" -- 4
 	elseif s < 96 then
-		return "Sane"
+		return "Sane" -- 5
 	else
-		return "Fully Sane"
+		return "Fully Sane" -- 6
 	end
 end
 
