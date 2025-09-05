@@ -17,7 +17,6 @@ function BR_Check914()
 
 	if IsValid(tr_hull.Entity) then
 		local ent = tr_hull.Entity
-		print(ent)
 		if ent:GetClass() == "class C_BaseToggle" then
 			--print(ent, ent:GetPos())
 			local ent_pos = ent:GetPos()
