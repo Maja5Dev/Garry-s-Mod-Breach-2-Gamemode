@@ -4,9 +4,9 @@ local lcz_lockdown_delay = 0
 
 local function available_only_security(pl)
 	if CLIENT then
-		return (pl.br_team == TEAM_MTF or pl.br_team == TEAM_SECURITY  or pl.br_role == "CI Soldier") or
+		return (pl.br_team == TEAM_MTF or pl.br_team == TEAM_SECURITY or pl.br_role == "CI Soldier") or
 			(istable(BR2_OURNOTEPAD) and istable(BR2_OURNOTEPAD.people) and table.Count(BR2_OURNOTEPAD.people) > 0 and
-			(BR2_OURNOTEPAD.people[1].br_team == TEAM_MTF or BR2_OURNOTEPAD.people[1].br_team == TEAM_SECURITY) or BR2_OURNOTEPAD.people[1].br_role == "CI Soldier")
+			(BR2_OURNOTEPAD.people[1].br_team == TEAM_MTF or BR2_OURNOTEPAD.people[1].br_team == TEAM_SECURITY or BR2_OURNOTEPAD.people[1].br_role == "CI Soldier"))
 	end
 	return (pl.br_team == TEAM_MTF or pl.br_team == TEAM_SECURITY or pl.br_role == "CI Soldier")
 end
