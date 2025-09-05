@@ -355,11 +355,13 @@ function BR_Open_Terminal(options, loginInfo)
 	
 	terminal_all_buttons = {}
 	
-	for i,v in ipairs(options) do
-		terminal_create_button(terminal_options_panel, ((351 * size_mul) - (terminal_option_w * size_mul)) / 2, 16 + ((i - 1) * ((terminal_option_h * size_mul) + 16)), terminal_option_w, terminal_option_h, v[1], function(button, panel)
+	local num = 1
+	for k,v in pairs(options) do
+		terminal_create_button(terminal_options_panel, ((351 * size_mul) - (terminal_option_w * size_mul)) / 2, 16 + ((num - 1) * ((terminal_option_h * size_mul) + 16)), terminal_option_w, terminal_option_h, v[1], function(button, panel)
 		--terminal_create_button(terminal_options_panel, 16, 16 + ((i - 1) * ((terminal_option_h * size_mul) + 16)), terminal_option_w, terminal_option_h, v[1], function(button, panel)
 			v[2](button, panel)
 		end)
+		num = num + 1
 	end
 	
 	terminal_create_button(terminal_options_panel, ((351 * size_mul) - (terminal_option_w * size_mul)) / 2, (870 * size_mul) - (terminal_option_h * size_mul) - 8, terminal_option_w, terminal_option_h, "EXIT", function(button)

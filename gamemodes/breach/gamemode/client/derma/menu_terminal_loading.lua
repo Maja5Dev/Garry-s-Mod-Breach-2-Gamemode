@@ -23,6 +23,7 @@ function BR_Access_Terminal_Loading(terminal)
 	loading_terminal.endfunc = function(passed, info, loginInfo)
 		if passed then
 			loading_terminal:Remove()
+
 			if TERMINAL_INFOS[info.tab_set] then
 				BR_Open_Terminal(TERMINAL_INFOS[info.tab_set], loginInfo)
 				terminal_frame.CurrentInfo = info
@@ -42,6 +43,7 @@ function BR_Access_Terminal_Loading(terminal)
 	end
 	loading_terminal.Paint = function(self, w, h)
 		if terminal == nil then return end
+
 		draw.RoundedBox(0, 0, 0, w, h, Color(25,25,25,140))
 		draw.RoundedBox(0, gap, gap, w-(gap*2), h-(gap*2), Color(4, 4, 4, 180))
 		
@@ -58,20 +60,25 @@ function BR_Access_Terminal_Loading(terminal)
 			font = "BR_ACCESS_TERMINAL_1",
 			color = Color(255,255,255,255),
 		})
+
 		if next_loading_progress < CurTime() then
 			next_loading_progress = CurTime() + 0.1
 			loading_progress = loading_progress + 1
+
 			if loading_progress > 10 then
 				loading_progress = 0
+
 				net.Start("br_open_terminal")
 					net.WriteString(terminal.name)
 					net.WriteString(login)
 					net.WriteString(password)
 				net.SendToServer()
+
 				surface.PlaySound("breach2/Button.ogg")
 				return
 			end
 		end
+
 		local size_mul = ScrW()/1920
 		local size = 90 * size_mul
 		surface.SetDrawColor(Color(255,255,255,255))

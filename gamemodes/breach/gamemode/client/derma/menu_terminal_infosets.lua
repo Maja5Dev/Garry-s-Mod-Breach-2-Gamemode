@@ -42,6 +42,12 @@ local info_set_devices = {"DEVICES", function(button, panel)
 				--terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_text, func_after_creation)
 				--print(panel, size_mul, panel_h, terminal_option_h, br2_devices_info, br2_devices_info[v], button3)
 				--print(br2_devices_info[v].name)
+
+				if !IsValid(panel) then error("device terminal panel is invalid") end
+				if !istable(br2_devices_info) then error("br2_devices_info is invalid") end
+				if !istable(br2_devices_info) then error("devices button3 is invalid") end
+				if !istable(br2_devices_info[v.class]) then error("br2_devices_info[v.class] of class "..v.class.." is invalid") end
+
 				terminal_create_button(panel, 16 * size_mul, panel_h - (64 * size_mul) - terminal_option_h, 700, terminal_option_h, "INSTALL: " .. br2_devices_info[v.class].name, function(button3)
 					button3.OnClick = function()
 						net.Start("br_install_device")
@@ -86,7 +92,13 @@ local info_set_system = {"SYSTEM", function(button, panel)
 		end
 		panel.posx, panel.posy = panel:GetPos()
 
-		local spec_functions = terminal_frame.terminal.special_functions
+		local spec_functions = terminal_frame.terminal.special_functions or {}
+
+		for k,v in pairs(BR2_SPECIAL_TERMINAL_SETTINGS) do
+			if isfunction(v.canUse) and v.canUse(LocalPlayer()) then
+				table.ForceInsert(spec_functions, v)
+			end
+		end
 
 		panel.Paint = function(self, w, h)
 			DrawDefaultTerminalBackground(w, h)
@@ -106,6 +118,7 @@ local info_set_system = {"SYSTEM", function(button, panel)
 
 		if istable(spec_functions) then
 			local size_mul = ScrH() / 1080
+
 			for i,v in ipairs(spec_functions) do
 				local panel_w, panel_h = panel:GetSize()
 				
@@ -129,11 +142,13 @@ local info_set_information = {"INFO", function(button, panel)
 		for k,v in pairs(panel:GetChildren()) do
 			v:Remove()
 		end
+
 		local created_button = false
 		panel.posx, panel.posy = panel:GetPos()
 		panel.Paint = function(self, w, h)
 			DrawDefaultTerminalBackground(w, h)
 		end
+
 		BR_CURRENT_TERMINAL_PANEL = panel
 	end
 end}
@@ -145,7 +160,6 @@ TERMINAL_INFOS = {
 				for k,v in pairs(panel:GetChildren()) do
 					v:Remove()
 				end
-				
 
 				panel.Paint = function(self, w, h)
 					DrawDefaultTerminalBackground(w, h)

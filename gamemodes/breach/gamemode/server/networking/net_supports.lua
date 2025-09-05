@@ -74,7 +74,7 @@ function br2_mtf_teams_add(ply, num)
 					end
 
 					for k2,v2 in pairs(player.GetAll()) do
-						if v2:Alive() and !v2:IsSpectator() and v2.br_role == "MTF Operative" then
+						if v2:Alive() and !v2:IsSpectator() and (v2.br_role == "MTF Operative" or v2.br_team == TEAM_MTF) then
 							table.ForceInsert(existingMTFs, v2)
 						end
 					end
@@ -136,6 +136,7 @@ function br2_mtf_teams_add(ply, num)
 						net.Start("br_update_own_info")
 							net.WriteString(mtf1.br_showname)
 							net.WriteString(mtf1.br_role)
+							net.WriteInt(mtf1.br_team, 4)
 							net.WriteBool(false)
 							net.WriteBool(false)
 						net.Send(mtf1)

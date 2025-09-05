@@ -1,22 +1,32 @@
 
 net.Receive("br_use_terminal_function", function(len, ply)
-	if len < 256 and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false and ply.lastTerminal != nil then
+	if len < 1024 and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false and ply.lastTerminal != nil then
 		if ply.terminal_delay > CurTime() then return end
 		ply.terminal_delay = CurTime() + 0.1
 
 		local str_got = net.ReadString()
 
 		for k,v in pairs(BR2_TERMINALS) do
-			if ply.lastTerminal == v then
-				if v.pos:Distance(ply:GetPos()) < 170 and istable(v.Info.SettingsFunctions) then
+			if ply.lastTerminal.name == v.name and v.pos:Distance(ply:GetPos()) < 200 then
+				-- look through the SettingsFunctions of the terminal
+				if istable(v.Info.SettingsFunctions) then
 					for k2,v2 in pairs(v.Info.SettingsFunctions) do
-						if v2.class == str_got then
+						if v2.class == str_got and (!isfunction(v2.canUse) or v2.canUse(ply)) then
 							v2.server.func(ply)
 							return
 						end
 					end
 				end
-				return
+
+				-- look through global settings
+				for k2, v2 in pairs(BR2_SPECIAL_TERMINAL_SETTINGS) do
+					if v2.class == str_got then
+						if v2.canUse(ply) then
+							v2.server.func(ply)
+							return
+						end
+					end
+				end
 			end
 		end
 	end

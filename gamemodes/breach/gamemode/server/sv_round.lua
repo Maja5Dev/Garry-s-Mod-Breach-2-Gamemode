@@ -54,7 +54,7 @@ round_system.Force_MTF_Spawn = function()
 	local existingMTFs = {}
 
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and !v:IsSpectator() and v.br_role == "MTF Operative" then
+		if v:Alive() and !v:IsSpectator() and (v.br_role == "MTF Operative" or v.br_team == TEAM_MTF) then
 			table.ForceInsert(existingMTFs, v)
 		end
 	end
@@ -177,9 +177,9 @@ round_system.AssignPlayers = function()
 				Error("Role " .. role.class .. "(" .. role_num .. ")" .. " has no assign_function!")
 			end
 
+			pl.br_team = role.team
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
-			pl.br_team = role.team
 			pl.charid = i
 			--if pl.br_showname then
 			--	pl:PrintMessage(HUD_PRINTTALK, "Your role: " .. pl.br_showname .. " (" .. pl.br_role .. " at ".. pl:GetNiceSite() ..")")

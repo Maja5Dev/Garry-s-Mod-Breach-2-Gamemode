@@ -42,7 +42,10 @@ function ShouldPlayerUse(ply, ent)
 		if lvl < klvl then
 			ply.use_delay = CurTime() + 1.2
 			if usesounds == true then ply:EmitSound("breach2/keycarduse2.ogg", 75, 100, 0.7) end
-			ply:BR2_ShowNotification("I need a keycard level " .. tostring(klvl) .. " to unlock this keypad...")
+
+			if ent.br_info.unusable != true then
+				ply:BR2_ShowNotification("I need a keycard level " .. tostring(klvl) .. " to unlock this keypad...")
+			end
 			return false
 		else
 			if usesounds == true then ply:EmitSound("breach2/keycarduse1.ogg", 75, 100, 0.7) end

@@ -1,7 +1,17 @@
 ﻿
 local evac_shelter_delay = 0
+local lcz_lockdown_delay = 0
 
-local special_terminal_settings = {
+local function available_only_security(pl)
+	if CLIENT then
+		return (pl.br_team == TEAM_MTF or pl.br_team == TEAM_SECURITY) or
+			(istable(BR2_OURNOTEPAD) and istable(BR2_OURNOTEPAD.people) and table.Count(BR2_OURNOTEPAD.people) > 0 and
+			(BR2_OURNOTEPAD.people[1].br_team == TEAM_MTF or BR2_OURNOTEPAD.people[1].br_team == TEAM_SECURITY))
+	end
+	return (pl.br_team == TEAM_MTF or pl.br_team == TEAM_SECURITY)
+end
+
+BR2_SPECIAL_TERMINAL_SETTINGS = {
 	hcz_storage_room = {
 		class = "1",
 		name = "Open/Close Storage Room 2b",
@@ -39,10 +49,94 @@ local special_terminal_settings = {
 			end
 		}
 	},
+
+	lcz_lockdown_enable = {
+		class = "7",
+		name = "Enable LCZ Lockdown",
+		type = "button",
+		button_size = 720,
+		canUse = function(pl) return available_only_security(pl) end,
+		server = {
+			func = function(pl)
+				local lcz_lockdown = ents.FindByName("checkpoint_lockdown")
+				if !istable(lcz_lockdown) or #lcz_lockdown == 0 then
+					error("checkpoint_lockdown ENTITY NOT FOUND")
+				end
+
+				local enabled = tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 0
+
+				if enabled then
+					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already enabled")
+				end
+
+				if lcz_lockdown_delay < CurTime() then
+					local lcz_lockdown_button = ents.FindByName("lockdown_lever_roomccont")
+
+					if istable(lcz_lockdown_button) and #lcz_lockdown_button > 0 then
+						if !enabled then
+							lcz_lockdown_button[1]:Use(pl, pl, 3, 1)
+							lcz_lockdown_delay = CurTime() + 12.5
+							print("LCZ Lockdown enabled")
+							-- TODO: Make a loud sound
+						end
+					else
+						error("lockdown_lever_roomccont ENTITY NOT FOUND")
+					end
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds to be able to change the LCZ lockdown")
+				end
+			end
+		}
+	},
+
+	lcz_lockdown_disable = {
+		class = "8",
+		name = "Disable LCZ Lockdown",
+		type = "button",
+		button_size = 720,
+		canUse = function(pl) return available_only_security(pl) end,
+		/* not implemented
+		available = function(pl)
+			local lcz_lockdown = ents.FindByName("checkpoint_lockdown")
+			return istable(lcz_lockdown) and tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 32
+		end,
+		*/
+		server = {
+			func = function(pl)
+				local lcz_lockdown = ents.FindByName("checkpoint_lockdown")
+				if !istable(lcz_lockdown) or #lcz_lockdown == 0 then
+					error("checkpoint_lockdown ENTITY NOT FOUND")
+				end
+
+				local enabled = tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 0
+
+				if !enabled then
+					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already disabled")
+				end
+
+				if lcz_lockdown_delay < CurTime() then
+					local lcz_lockdown_button = ents.FindByName("lockdown_lever_roomccont")
+
+					if istable(lcz_lockdown_button) and #lcz_lockdown_button > 0 then
+						if enabled then
+							lcz_lockdown_button[1]:Use(pl, pl, 3, 1)
+							lcz_lockdown_delay = CurTime() + 12.5
+							print("LCZ Lockdown disabled")
+							-- TODO: Make a loud sound
+						end
+					else
+						error("lockdown_lever_roomccont ENTITY NOT FOUND")
+					end
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds to be able to change the LCZ lockdown")
+				end
+			end
+		}
+	},
 }
 
 for i=1, 4 do
-	special_terminal_settings["hcz_generator_"..i] = {
+	BR2_SPECIAL_TERMINAL_SETTINGS["hcz_generator_"..i] = {
 		class = tostring(i + 1),
 		name = "Restart Generator "..i.."",
 		type = "button",
@@ -72,7 +166,6 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 	end,
 	buttons = {
 	-- LCZ
-
 		--CAFETERIA
 		{name = "lcz_storage_area_3c-1a", pos = Vector(-2195,987,-8253), canSee = DefaultTerminalCanSee},
 		{name = "lcz_storage_area_3c-1b", pos = Vector(-2195,950,-8253), canSee = DefaultTerminalCanSee},
@@ -92,7 +185,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		-- STORAGE ROOMS
 		{name = "lcz_storage_room_1-1", pos = Vector(1027,-559,-8141), canSee = DefaultTerminalCanSee},
 		{name = "lcz_storage_room_2-1", pos = Vector(743,2156,-8142), canSee = DefaultTerminalCanSee},
-		{name = "lcz_storage_room_2-2a", pos = Vector(763,2001,-8139), canSee = DefaultTerminalCanSee, special_functions = {special_terminal_settings.hcz_generator_4}},
+		{name = "lcz_storage_room_2-2a", pos = Vector(763,2001,-8139), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_4}},
 		{name = "lcz_storage_room_2-2b", pos = Vector(763,1980,-8139), canSee = DefaultTerminalCanSee},
 		{name = "lcz_storage_room_2-2c", pos = Vector(744,2051,-8112), canSee = DefaultTerminalCanSee},
 		{name = "lcz_storage_room_2-2d", pos = Vector(744,2028,-8112), canSee = DefaultTerminalCanSee},
@@ -117,9 +210,12 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "lcz_checkpoint_2-1a", pos = Vector(-429,430,-8123), canSee = DefaultTerminalCanSee},
 		{name = "lcz_checkpoint_2-1b", pos = Vector(-429,466,-8123), canSee = DefaultTerminalCanSee},
 
+		-- LOCKDOWN ROOM
+		{name = "lcz_lockdown_control_room", pos = Vector(1584,21,-8142), canSee = DefaultTerminalCanSee},
+
 	--HCZ
 		-- OFFICES
-		{name = "hcz_office_4-1", pos = Vector(-226,4969,-7243), canSee = DefaultTerminalCanSee, special_functions = {special_terminal_settings.hcz_generator_2}},
+		{name = "hcz_office_4-1", pos = Vector(-226,4969,-7243), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_2}},
 
 
 		-- STORAGE ROOMS
@@ -143,8 +239,8 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "hcz_cont_room_3-1b", pos = Vector(-2561,2724,-7100), canSee = DefaultTerminalCanSee},
 		{name = "hcz_cont_room_3-2a", pos = Vector(-2659,3156,-7100), canSee = DefaultTerminalCanSee},
 		{name = "hcz_cont_room_3-2b", pos = Vector(-2623,3156,-7100), canSee = DefaultTerminalCanSee},
-		{name = "hcz_cont_room_4-1a", pos = Vector(-3004,3722,-7108), canSee = DefaultTerminalCanSee, special_functions = {special_terminal_settings.hcz_storage_room}},
-		{name = "hcz_cont_room_4-1b", pos = Vector(-3004,3686,-7108), canSee = DefaultTerminalCanSee, special_functions = {special_terminal_settings.hcz_generator_1}},
+		{name = "hcz_cont_room_4-1a", pos = Vector(-3004,3722,-7108), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_storage_room}},
+		{name = "hcz_cont_room_4-1b", pos = Vector(-3004,3686,-7108), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_1}},
 		{name = "hcz_cont_room_5-1a", pos = Vector(-2629,5155,-7355), canSee = DefaultTerminalCanSee},
 		{name = "hcz_cont_room_5-1b", pos = Vector(-2629,5155,-7355), canSee = DefaultTerminalCanSee},
 		{name = "hcz_cont_room_6-1", pos = Vector(-4070,4760,-7261), canSee = DefaultTerminalCanSee}, -- SCP_079_MAIN
@@ -181,7 +277,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "ez_office_3-2", pos = Vector(3168,4142,-7181), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_3-3", pos = Vector(3386,4078,-7182), canSee = DefaultTerminalCanSee},
 		{name = "ez_cafeteria-1", pos = Vector(4314,4653,-7244), canSee = DefaultTerminalCanSee},
-		{name = "ez_evac_shelter_1-1", pos = Vector(4688,5299,-7117), canSee = DefaultTerminalCanSee, is_evac_shelter = true, special_functions = {special_terminal_settings.evac_shelter}, auth = {"admin", true}},
+		{name = "ez_evac_shelter_1-1", pos = Vector(4688,5299,-7117), canSee = DefaultTerminalCanSee, is_evac_shelter = true, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.evac_shelter}, auth = {"admin", true}},
 		{name = "ez_head_office-2", pos = Vector(5320,6433,-7056), canSee = DefaultTerminalCanSee},
 		{name = "ez_head_office-1", pos = Vector(5149,6315,-7053), canSee = DefaultTerminalCanSee},
 		{name = "ez_security_gateway_1-1", pos = Vector(4520,6915,-7120), canSee = DefaultTerminalCanSee},
@@ -206,7 +302,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "ez_office_5-2", pos = Vector(3047,6682,-7118), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_5-3", pos = Vector(3196,7016,-7118), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_5-4a", pos = Vector(2878,7058,-7100), canSee = function() return CanSeeFrom(Vector(2894,7074,-7101)) end},
-		{name = "ez_office_5-4b", pos = Vector(2878,7099,-7100), canSee = function() return CanSeeFrom(Vector(2894,7074,-7101)) end, special_functions = {special_terminal_settings.hcz_generator_3}},
+		{name = "ez_office_5-4b", pos = Vector(2878,7099,-7100), canSee = function() return CanSeeFrom(Vector(2894,7074,-7101)) end, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_3}},
 		{name = "ez_office_5-5", pos = Vector(3151,7098,-7118), canSee = DefaultTerminalCanSee},
 		{name = "ez_server_hub-1", pos = Vector(5374,4857,-7374), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_6-1", pos = Vector(1427,6021,-7250), canSee = DefaultTerminalCanSee},
@@ -221,7 +317,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "ez_office_7-2", pos = Vector(3226,5996,-7181), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_7-3", pos = Vector(3102,5996,-7182), canSee = DefaultTerminalCanSee},
 		{name = "ez_storage_room_3e-1", pos = Vector(2232,6234,-7118), canSee = DefaultTerminalCanSee},
-		{name = "ez_serverfarm-server_main", pos = Vector(4693,4253,-7263), canSee = DefaultTerminalCanSee, special_functions = {special_terminal_settings.ez_servers}},
+		{name = "ez_serverfarm-server_main", pos = Vector(4693,4253,-7263), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.ez_servers}},
 
 
 		--{name = "ez_office_7-XXXXXXXXXXXXXX", pos = YYYYYYYYYYYYYYYY, canSee = DefaultTerminalCanSee},

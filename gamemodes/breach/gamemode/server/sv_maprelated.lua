@@ -333,8 +333,6 @@ function BR_DEFAULT_MAP_Organize_Terminals()
 		if math.random(1,7) == 4 then
 			v.Info.devices.device_cameras = true
 		end
-
-		v.Info.devices.device_cameras = true
 	end
 end
 

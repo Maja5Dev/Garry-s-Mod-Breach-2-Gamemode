@@ -1,9 +1,11 @@
 
 function BR_Access_Terminal(terminal)
 	create_terminal_fonts()
+	
 	if IsValid(access_terminal) then
 		return
 	end
+
 	local size_mul = ScrH() / 1080
 	local size_w = math.Clamp(ScrW() / 3.5, 400, ScrW())
 	local size_h = math.Clamp(ScrH() / 3.5, 225, ScrH())

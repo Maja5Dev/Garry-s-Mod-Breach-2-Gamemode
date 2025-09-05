@@ -112,13 +112,15 @@ MAPCONFIG.BUTTONS = {
 		name = "lcz_914_1",
 		pos = Vector(709, -832, -8131),
 		level = 7,
-		sounds = false
+		sounds = false,
+		unusable = true
 	},
 	{
 		name = "lcz_914_2",
 		pos = Vector(710.28997802734, -832, -8149),
 		level = 7,
-		sounds = false
+		sounds = false,
+		unusable = true
 	},
 
 

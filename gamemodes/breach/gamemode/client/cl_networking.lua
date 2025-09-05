@@ -177,6 +177,7 @@ net.Receive("br_update_own_info", function(len)
 	local client = LocalPlayer()
 	client.br_showname = net.ReadString()
 	client.br_role = net.ReadString()
+	client.br_team = net.ReadInt(4)
 	client.br_ci_agent = net.ReadBool()
 	client.br_zombie = net.ReadBool()
 

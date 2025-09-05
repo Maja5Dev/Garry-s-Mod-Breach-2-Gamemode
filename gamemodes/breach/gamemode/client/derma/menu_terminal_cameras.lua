@@ -2,7 +2,7 @@
 BR_CURRENT_CAMERA = nil
 BR_CURRENT_TERMINAL_PANEL = nil
 
-local info_set_camera = {"CAMERAS", function(button, panel)
+info_set_camera = {"CAMERAS", function(button, panel)
 	button.OnClick = function(button, panel)
 		for k,v in pairs(panel:GetChildren()) do
 			v:Remove()
