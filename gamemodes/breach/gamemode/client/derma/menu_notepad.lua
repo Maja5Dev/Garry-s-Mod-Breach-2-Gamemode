@@ -106,8 +106,15 @@ local notepad_pages = {
 						table.ForceInsert(our_known_people, v2)
 					end
 				end
+
+				local our_role = nil
+				if notepad_info.people[1].br_ci_agent then
+					our_role = notepad_info.people[1].br_role .. " CI Agent"
+				else
+					our_role = notepad_info.people[1].br_role
+				end
 				
-				our_showname = (notepad_info.people[1].br_showname .." ("..notepad_info.people[1].br_role..")")
+				our_showname = (notepad_info.people[1].br_showname .." ("..our_role..")")
 				our_name:SetText(our_showname)
 				
 				local pc_w, pc_h = panel_contents:GetSize()
