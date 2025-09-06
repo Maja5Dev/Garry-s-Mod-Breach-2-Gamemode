@@ -74,6 +74,10 @@ local notepad_pages = {
 					if tab_name == nil then
 						ErrorNoHalt(tostring(v) .. " has nil br_role")
 
+						if istable(v) then
+							PrintTable(v)
+						end
+
 						if IsValid(v) and v:IsPlayer() then
 							print(tostring(v:Alive()) .. " " .. tostring(v:IsSpectator()) .. " " .. tostring(v.br_team))
 						end
