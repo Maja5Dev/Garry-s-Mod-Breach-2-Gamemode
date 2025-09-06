@@ -710,7 +710,7 @@ function BR_AssignNotepadPlayers()
 			end
 		end
 	else
-		error("tried to update notepad of a dead player")
+		error("tried to update notepad of dead localplayer")
 	end
 end
 

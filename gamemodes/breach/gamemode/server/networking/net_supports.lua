@@ -90,6 +90,7 @@ function br2_mtf_teams_add(ply, num)
 
 					-- Spawn them
 					for plk, pl_mtf in pairs(all_mtfs) do
+						pl_mtf.br_team = TEAM_MTF
 						pl_mtf:SendLua("BR_ClearMenus()")
 
 						pl_mtf.charid = BR_GetUniqueCharID()
@@ -136,7 +137,7 @@ function br2_mtf_teams_add(ply, num)
 						net.Start("br_update_own_info")
 							net.WriteString(mtf1.br_showname)
 							net.WriteString(mtf1.br_role)
-							net.WriteInt(mtf1.br_team, 4)
+							net.WriteInt(mtf1.br_team or TEAM_MTF, 4)
 							net.WriteBool(false)
 							net.WriteBool(false)
 						net.Send(mtf1)

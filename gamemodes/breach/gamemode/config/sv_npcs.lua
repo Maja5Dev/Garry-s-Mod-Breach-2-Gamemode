@@ -11,6 +11,7 @@ BR_NO_TELEPORT_NPCS = {
 BR_DISABLE_NPCS = {
     ["npc_cpt_scp_106"] = true,
     ["npc_cpt_scp_173"] = true,
+    ["npc_cpt_scp_575"] = true,
 }
 
 print("[Breach2] config/sv_npcs.lua loaded!")

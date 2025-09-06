@@ -71,24 +71,28 @@ local notepad_pages = {
 					local tab = known_people_sorted
 					local tab_name = v.br_role
 
-					if v.br_ci_agent then
-						tab = known_people_sorted_ci
-					end
-
-					if tab[tab_name] == nil then
-						local color_to_use = Color(80, 80, 80,255)
-
-						if v.scp then
-							color_to_use = Color(255,0,0,200)
+					if tab_name == nil then
+						ErrorNoHalt(tostring(v) .. " has nil br_role " .. tostring(v:Alive()) .. " " .. tostring(v:IsSpectator()) .. " " .. tostring(v.br_team))
+					else
+						if v.br_ci_agent then
+							tab = known_people_sorted_ci
 						end
 
-						if scoreboard_role_colors[v.br_role] then
-							color_to_use = scoreboard_role_colors[v.br_role]
-						end
+						if tab[tab_name] == nil then
+							local color_to_use = Color(80, 80, 80,255)
 
-						tab[tab_name] = {clr = color_to_use, list = {}}
+							if v.scp then
+								color_to_use = Color(255,0,0,200)
+							end
+
+							if scoreboard_role_colors[v.br_role] then
+								color_to_use = scoreboard_role_colors[v.br_role]
+							end
+
+							tab[tab_name] = {clr = color_to_use, list = {}}
+						end
+						table.ForceInsert(tab[tab_name].list, v)
 					end
-					table.ForceInsert(tab[tab_name].list, v)
 				end
 
 				local our_known_people = {}
