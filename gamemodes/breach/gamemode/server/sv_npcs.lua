@@ -66,7 +66,7 @@ function BR_SpawnMapNPC(npcclass, zone)
 			npc:SetPos(best_spawn[1])
 			npc:Spawn()
 			npc:Activate()
-			return true
+			return npc
 		end
 	end
 	return false
@@ -195,7 +195,13 @@ function TrackNPCs()
 		-- No players nearby, so we need to move the NPC
 		local available_positions = {}
 
-		for _,pos_group in pairs(MAPCONFIG.RANDOM_NPC_SPAWNS) do
+        local spawns = MAPCONFIG.RANDOM_NPC_SPAWNS
+
+        if ent.lockedNPCSpawns then
+            spawns = {MAPCONFIG[ent.lockedNPCSpawns]}
+        end
+
+		for _,pos_group in pairs(spawns) do
             for _,pos in pairs(pos_group) do
                 if ent:GetPos():Distance(pos) > 700 then
                     local pos_available = true

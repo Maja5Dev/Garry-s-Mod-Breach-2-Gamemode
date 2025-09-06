@@ -80,7 +80,11 @@ function SpawnMapNPCs()
 
 	timer.Remove("NPC_SPAWN_457_TIMER")
 	timer.Create("NPC_SPAWN_457_TIMER", math.random(prep_time + 45, prep_time + 90), 1, function()
-		BR_SpawnMapNPC("npc_cpt_scp_457", MAPCONFIG.SPAWNS_HCZ)
+		local npc = BR_SpawnMapNPC("npc_cpt_scp_457", MAPCONFIG.SPAWNS_HCZ)
+
+		if IsValid(npc) and npc != false then
+			npc.lockedNPCSpawns = MAPCONFIG.SPAWNS_HCZ
+		end
 	end)
 
 	timer.Remove("NPC_SPAWN_575_TIMER")
