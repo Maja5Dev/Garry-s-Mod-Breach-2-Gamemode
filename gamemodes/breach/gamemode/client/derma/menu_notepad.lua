@@ -754,6 +754,7 @@ function BR_ShowNotepad(notepad_info)
 	panel_contents.Paint = function(self, w, h)
 		--draw.RoundedBox(0, 0, 0, w, h, Color(255, 0, 0, 50))
 	end
+
 	panel_contents.go_prev = function()
 		panel_contents.clear_contents()
 		current_page = current_page - 1
@@ -761,6 +762,7 @@ function BR_ShowNotepad(notepad_info)
 		notepad_pages[current_page].func(notepad_info)
 		surface.PlaySound("breach2/UI/turn_page.wav")
 	end
+
 	panel_contents.go_next = function()
 		panel_contents.clear_contents()
 		current_page = current_page + 1
@@ -768,6 +770,7 @@ function BR_ShowNotepad(notepad_info)
 		notepad_pages[current_page].func(notepad_info)
 		surface.PlaySound("breach2/UI/turn_page.wav")
 	end
+	
 	panel_contents.nextThink = 0
 	panel_contents.Think = function(self)
 		if self.nextThink > CurTime() then return end

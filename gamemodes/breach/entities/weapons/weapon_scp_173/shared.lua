@@ -176,9 +176,11 @@ function SWEP:ClearTrace(tr_structure)
 	local new_tr = nil
 	local ent173 = self.Owner:GetNWEntity("entity173")
 	local filerEnts = {self.Owner}
+
 	if IsValid(ent173) then
 		table.ForceInsert(filerEnts, ent173)
 	end
+
 	for i=1, 10 do
 		new_tr = util.TraceLine({
 			start = tr_structure.start,
@@ -186,12 +188,14 @@ function SWEP:ClearTrace(tr_structure)
 			mask = tr_structure.mask,
 			filter = filerEnts
 		})
+
 		local ent = new_tr.Entity
 		if IsValid(ent) == false or new_tr.Hit == false or new_tr.HitNonWorld == false or new_tr.HitSky == true then
 			return new_tr
 		end
+
 		if ent:IsPlayer() == true then
-			if ent:Alive() == false or ent:Team() == TEAM_SPEC or ent:Team() == TEAM_SCP then
+			if ent:Alive() == false or ent:Team() == TEAM_SPECTATOR or ent:Team() == TEAM_SCP then
 				table.ForceInsert(filerEnts, ent)
 			end
 		else
@@ -204,6 +208,7 @@ end
 
 function SWEP:Think()
 	self:Check173()
+
 	if CLIENT then
 		if IsValid(self.Owner:GetNWEntity("entity173")) then
 			self.entIsAttacking = self.Owner:GetNWEntity("entity173"):GetNWBool("IsAttacking")
@@ -214,6 +219,7 @@ function SWEP:Think()
 			self.Owner.entity173:SetPos(self.Owner:GetPos())
 		end
 	end
+
 	self:NextThink(CurTime() + 0.5)
 end
 
@@ -222,9 +228,11 @@ function SWEP:Check173()
 		if IsValid(self.Owner.entity173) == false then
 			local try_ent = ents.Create("breach_173ent")
 			if !IsValid(try_ent) then return end
+
 			if istable(MAPCONFIG) and istable(MAPCONFIG.SPAWNS_SCP_173) then
 				self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
 			end
+
 			self.Owner:SetEyeAngles(Angle(0, 90, 0))
 			self.Owner.entity173 = try_ent
 			self.Owner.entity173:SetCurrentOwner(self.Owner)
@@ -248,12 +256,14 @@ function SWEP:FrontTraceLine()
 	if IsValid(ent173) then
 		local ourpos = ent173:GetPos()
 		local eyeangles = self.Owner:EyeAngles()
+
 		local tr_front = util.TraceLine({
 			start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
 			endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 70,
 			filter = {self, self.Owner, ent173},
 			mask = MASK_ALL
 		})
+
 		return tr_front
 	end
 	return nil
@@ -265,6 +275,7 @@ SWEP.ViewLeftSide = false
 function SWEP:Tick()
 	if self.Owner:KeyDown(IN_MOVELEFT) then
 		self.ViewLeftSide = true
+
 	elseif self.Owner:KeyDown(IN_MOVERIGHT) then
 		self.ViewLeftSide = false
 	end
@@ -273,15 +284,19 @@ end
 local clc_trh_size = 7
 function SWEP:CalcViewInfo(ply, position, angles, fov)
 	local view = {origin = pos, angles = angles, fov = fov, drawviewer = false}
+
 	if self.TeleportingMode then
 		return view
 	end
+
 	view = {origin = pos, angles = self.Owner:EyeAngles(), fov = 90, drawviewer = false}
 
 	local ent173 = self.Owner:GetNWEntity("entity173")
 	if !IsValid(ent173) then return end
+
 	local ply_pos = ent173:GetPos() + Vector(0, 0, 10)
 	local ply_eyepos = self.Owner:EyePos()
+
 	local tr_up = util.TraceHull({
 		start = ply_pos,
 		endpos = ply_pos + Angle(-90, 0, 0):Forward() * 85,
@@ -306,6 +321,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 		maxs = Vector(clc_trh_size, clc_trh_size, clc_trh_size),
 		mask = MASK_SOLID
 	})
+
 	local tr_fr = util.TraceHull({
 		start = tr_lf.HitPos,
 		endpos = tr_lf.HitPos - Angle(0, view.angles.y, 0):Forward() * 45,
@@ -314,6 +330,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 		maxs = Vector(clc_trh_size, clc_trh_size, clc_trh_size),
 		mask = MASK_SOLID
 	})
+
 	view.origin = tr_up.HitPos
 	view.origin.z = tr_up.HitPos.z - 5
 	view.angles.yaw = view.angles.yaw + 2
@@ -336,17 +353,20 @@ function SWEP:TraceNextPos(ent173)
 
 	local smask = MASK_ALL
 	local filters = {self.Owner, ent173}
+	
 	local tr_start = util.TraceLine({
 		start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
 		endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 450,
 		filter = filters,
 		mask = smask
 	})
+
 	local tr = util.TraceLine({
 		start = tr_start.HitPos,
 		endpos = tr_start.HitPos - Angle(-90,0,0):Forward() * 2000,
 		filter = filters
 	})
+
 	local hittab = {}
 	local size1 = 20
 	local size2 = 100

@@ -27,7 +27,7 @@ end
 
 function player_meta:GetNiceSite()
 	local pl_team = self.br_team
-	if pl_team == TEAM_SPEC then return "None" end
+	if pl_team == TEAM_SPECTATOR then return "None" end
 	if pl_team == TEAM_SCP then return "SCP Foundation" end
 	if pl_team == TEAM_CLASSD then return "SCP Foundation" end
 	if pl_team == TEAM_RESEARCHER then return "SCP Foundation" end
@@ -40,7 +40,7 @@ end
 
 function player_meta:GetNiceBrTeam()
 	local pl_team = self.br_team
-	if pl_team == TEAM_SPEC then return "TEAM_SPEC" end
+	if pl_team == TEAM_SPECTATOR then return "TEAM_SPECTATOR" end
 	if pl_team == TEAM_SCP then return "TEAM_SCP" end
 	if pl_team == TEAM_CLASSD then return "TEAM_CLASSD" end
 	if pl_team == TEAM_RESEARCHER then return "TEAM_RESEARCHER" end

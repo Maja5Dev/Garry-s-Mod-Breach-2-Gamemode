@@ -33,6 +33,7 @@ notepad_system.AssignNewNotepad = function(ply, to_send)
                     {
                         br_showname = ply.br_showname,
                         br_role = ply.br_role,
+                        br_team = ply.br_team,
                         br_ci_agent = ply.br_ci_agent,
                         health = HEALTH_ALIVE,
 						scp = (ply.br_team == TEAM_SCP)
@@ -62,7 +63,7 @@ notepad_system.AddAutomatedInfo = function(ply, text)
     end
 end
 
-notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_ci_agent, info_health, info_scp, info_charid, info_ent)
+notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_team, info_ci_agent, info_health, info_scp, info_charid, info_ent)
     if IsValid(ply) and ply:IsPlayer() and istable(notepad_system.AllNotepads[ply.charid]) then
         for k,v in pairs(notepad_system.AllNotepads[ply.charid].people) do
             if v.br_showname == info_showname then
@@ -73,6 +74,7 @@ notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_ci_a
         local formed_info = {
             br_showname = info_showname,
             br_role = info_role,
+            br_team = info_team,
             br_ci_agent = info_ci_agent,
             health = info_health,
             scp = info_scp,

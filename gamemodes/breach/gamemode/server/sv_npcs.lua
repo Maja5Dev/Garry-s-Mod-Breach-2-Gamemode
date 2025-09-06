@@ -14,7 +14,7 @@ function BR_SpawnMapNPC(npcclass, zone)
                 return false
             end
 
-            if string.find(npcclass, "scp_049") and v.br_role == "SCP-049" then
+            if npcclass == "npc_cpt_scp_049" and v.br_role == "SCP-049" then
                 print("Not spawning SCP-049 because a player is SCP-049")
                 return false
             end

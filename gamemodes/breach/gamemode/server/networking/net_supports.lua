@@ -109,7 +109,7 @@ function br2_mtf_teams_add(ply, num)
 						notepad_system.AssignNewNotepad(pl_mtf, false)
 
 						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
-							notepad_system.AddPlayerInfo(pl_mtf, info[1], info[2], info[3], info[4], false, info[5], info[6])
+							notepad_system.AddPlayerInfo(pl_mtf, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, info.charid, info.ent)
 						end
 						
 						table.RemoveByValue(mtf_spawns, spawn)
@@ -119,12 +119,12 @@ function br2_mtf_teams_add(ply, num)
 					for k_mtf1,mtf1 in pairs(all_mtfs) do
 						for k_mtf2,mtf2 in pairs(all_mtfs) do
 							if mtf1 != mtf2 then
-								notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, false, HEALTH_ALIVE, false, mtf2.charid, mtf2)
+								notepad_system.AddPlayerInfo(mtf1, mtf2.br_showname, mtf2.br_role, mtf2.br_team, false, HEALTH_ALIVE, false, mtf2.charid, mtf2)
 							end
 						end
 
 						for k2,v2 in pairs(existingMTFs) do
-							notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+							notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, v2.br_team, false, HEALTH_ALIVE, false, v2.charid, v2)
 						end
 
 						if evac_code != nil then

@@ -3,8 +3,8 @@ local player_meta = FindMetaTable("Player")
 
 function player_meta:SendPlayerInfo(ply)
 	local info = ply:FormInfo(self)
+
 	if istable(info) then
-		bprint("sending pinfo to: " .. self:Nick())
 		net.Start("br_send_info")
 			net.WriteTable(info)
 			net.WriteEntity(ply)

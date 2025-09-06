@@ -1,4 +1,43 @@
 
+local player_scoreboard_groups = {
+	scps = {
+		sort = 6,
+		check = function(pl) return pl.br_team == TEAM_SCP end,
+		color = Color(232, 18, 39, 220),
+		text = "SCPs"
+	},
+	mtf = {
+		sort = 5,
+		check = function(pl) return pl.br_team == TEAM_MTF end,
+		color = Color(0, 0, 60, 220),
+		text = "Mobile Task Force"
+	},
+	security = {
+		sort = 4,
+		check = function(pl) return pl.br_team == TEAM_SECURITY end,
+		color = Color(29, 90, 198, 220),
+		text = "Security"
+	},
+	foundation = {
+		sort = 3,
+		check = function(pl) return pl:IsFromFoundation() and pl.br_team != TEAM_SCP and pl.br_team != TEAM_SECURITY and pl.br_team != TEAM_MTF and pl.br_team != TEAM_CLASSD end,
+		color = Color(120, 120, 120, 220),
+		text = "Foundation Staff"
+	},
+	classds = {
+		sort = 2,
+		check = function(pl) return pl.br_team == TEAM_CLASSD end,
+		color = Color(201, 87, 16, 220),
+		text = "Class Ds"
+	},
+	unknown = {
+		sort = 1,
+		check = function(pl) return !pl:Alive() or pl:IsSpectator() or pl.br_role == "CI Soldier" end,
+		color = Color(50, 50, 50, 220),
+		text = "Unknown"
+	},
+}
+
 function BR_ShowScoreboard()
 	if IsValid(BR_Scoreboard) then
 		BR_Scoreboard:Remove()
@@ -66,7 +105,6 @@ function BR_ShowScoreboard()
 	local gap = math.Round(4 * size_mul)
 	
 	playerlist = table.Copy(player.GetAll())
-	--table.sort(playerlist, function(a, b) return a:Frags() > b:Frags() end)
 	
 	pl_size = 38 * size_mul
 	local total_size = (#playerlist) * (pl_size + (gap * 2)) + (gap * 2)
@@ -92,7 +130,8 @@ function BR_ShowScoreboard()
 	local last_y = 0
 	
 	local panel_color = Color(50, 50, 50, 200)
-	local text_color = Color(220,220,220,200)
+	local text_color_white = Color(220,220,220,200)
+	local text_color_black = Color(35,35,35,200)
 	local SB_Panel_Top = vgui.Create("DPanel", BR_Scoreboard)
 	SB_Panel_Top:SetSize(sb_w - (gap * 4), (128 * size_mul))
 	last_y = (128 * size_mul) + (gap * 2)
@@ -105,7 +144,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_TOP,
 			font = "BR_Scoreboard_Logo",
-			color = text_color,
+			color = text_color_white,
 		})
 		draw.Text({
 			text = "made by Akko",
@@ -113,7 +152,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_BOTTOM,
 			font = "BR_Scoreboard_Creator",
-			color = text_color,
+			color = text_color_white,
 		})
 		draw.Text({
 			text = GetHostName(),
@@ -121,7 +160,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_RIGHT,
 			yalign = TEXT_ALIGN_TOP,
 			font = "BR_Scoreboard_Hostname",
-			color = text_color,
+			color = text_color_white,
 		})
 		draw.Text({
 			text = ""..#player.GetAll().."/"..game.MaxPlayers().." Players",
@@ -129,7 +168,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_RIGHT,
 			yalign = TEXT_ALIGN_BOTTOM,
 			font = "BR_Scoreboard_Players",
-			color = text_color,
+			color = text_color_white,
 		})
 	end
 	
@@ -141,6 +180,26 @@ function BR_ShowScoreboard()
 	SB_Panel_Middle.Paint = function(self, w, h)
 		--draw.RoundedBox(0, 0, 0, w, h, Color(255, 50, 50, 100))
 	end
+
+	for k,v in pairs(player.GetAll()) do
+		local found = false
+
+		for group_name, group in pairs(player_scoreboard_groups) do
+			if group.check(v) then
+				v.scoreboardGroup = group_name
+			v.scoreboardGroupSort = group.sort
+				found = true
+				break
+			end
+		end
+
+		if !found then
+			v.scoreboardGroup = "unknown"
+			v.scoreboardGroupSort = 1
+		end
+	end
+
+	table.sort(playerlist, function(a, b) return a.scoreboardGroupSort > b.scoreboardGroupSort end)
 	
 	for i,v in ipairs(playerlist) do
 		local SB_Panel_Player = vgui.Create("DPanel", SB_Panel_Middle)
@@ -162,6 +221,13 @@ function BR_ShowScoreboard()
 		avatarimage:SetPlayer(v, 64)
 		avatarimage:SetMouseInputEnabled(false)
 
+		local oppositecolor = text_color_white
+		local playercolor = player_scoreboard_groups[v.scoreboardGroup].color
+
+		if (playercolor.r + playercolor.g + playercolor.b) > 500 then
+			oppositecolor = text_color_black
+		end
+
 		SB_Panel_Player.Paint = function(self, w, h)
 			if IsValid(v) == false then
 				BR_Scoreboard:Remove()
@@ -169,15 +235,15 @@ function BR_ShowScoreboard()
 				return
 			end
 
-			draw.RoundedBox(0, 0, 0, w, h, panel_color)
+			draw.RoundedBox(0, 0, 0, w, h, playercolor)
 
-			local nameToDisplay = v:Nick()
+			-- country code
 			local flagwidth = 0
-
 			if !v:IsBot() then
 				-- country codes
 				local countrycode = v:GetNWString("CountryCode", nil)
 				countrycode = "fi"
+
 				if isstring(countrycode) and string.len(countrycode) > 0 then
 					local flag_mat = Material("flags16/" .. countrycode .. ".png", "smooth")
 					if flag_mat and flag_mat:IsError() == false then
@@ -191,26 +257,37 @@ function BR_ShowScoreboard()
 				end
 			end
 
+			-- name
 			draw.Text({
-				text = nameToDisplay,
+				text = v:Nick(),
 				pos = {flagwidth + pl_size + gap * 2, h/2},
 				xalign = TEXT_ALIGN_LEFT,
 				yalign = TEXT_ALIGN_CENTER,
 				font = "BR_Scoreboard_Names",
-				color = text_color,
+				color = oppositecolor,
 			})
 
+			-- group
 			local group = v:GetUserGroup()
 			if group != "user" then
 				draw.Text({
 					text = string.SetChar(group, 1, string.upper(group[1])),
-					pos = {w/2, h/2},
+					pos = {w/4, h/2},
 					xalign = TEXT_ALIGN_CENTER,
 					yalign = TEXT_ALIGN_CENTER,
 					font = "BR_Scoreboard_Names",
-					color = text_color,
+					color = oppositecolor,
 				})
 			end
+
+			draw.Text({
+				text = player_scoreboard_groups[v.scoreboardGroup].text,
+				pos = {w/2, h/2},
+				xalign = TEXT_ALIGN_CENTER,
+				yalign = TEXT_ALIGN_CENTER,
+				font = "BR_Scoreboard_Names",
+				color = oppositecolor,
+			})
 
 			local connection = "" .. v:Ping() .. ""
 			if v:IsBot() then
@@ -223,7 +300,7 @@ function BR_ShowScoreboard()
 				xalign = TEXT_ALIGN_RIGHT,
 				yalign = TEXT_ALIGN_CENTER,
 				font = "BR_Scoreboard_Names",
-				color = text_color,
+				color = oppositecolor,
 			})
 		end
 	end
@@ -240,7 +317,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_CENTER,
 			font = "BR_Scoreboard_Bottom",
-			color = text_color,
+			color = text_color_white,
 		})
 		draw.Text({
 			text = os.date("%H:%M:%S - %d/%m/%Y" , os.time()),
@@ -248,7 +325,7 @@ function BR_ShowScoreboard()
 			xalign = TEXT_ALIGN_RIGHT,
 			yalign = TEXT_ALIGN_CENTER,
 			font = "BR_Scoreboard_Bottom",
-			color = text_color,
+			color = text_color_white,
 		})
 	end
 	

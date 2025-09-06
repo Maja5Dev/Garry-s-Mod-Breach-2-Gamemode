@@ -703,6 +703,7 @@ function BR_AssignNotepadPlayers()
 					pl.br_showname = v.br_showname
 					pl.br_ci_agent = v.br_ci_agent
 					pl.br_role = v.br_role
+					pl.br_team = v.br_team
 					pl.health = v.health
 					pl.scp = v.scp
 				end
@@ -756,16 +757,20 @@ end)
 net.Receive("br_send_info", function(len)
 	local info_got = net.ReadTable()
 	local ply_got = net.ReadEntity()
-	--print("got player's info (" .. len .. ")")
-	--PrintTable(info_got)
-	--print("")
+
 	if IsValid(ply_got) and istable(info_got) then
 		if isstring(info_got.br_showname)  then
 			ply_got.br_showname = info_got.br_showname
 		end
+
 		if isstring(info_got.br_role) then
 			ply_got.br_role = info_got.br_role
 		end
+
+		ply_got.br_team = info_got.br_team
+
+		ply_got.br_ci_agent = info_got.br_ci_agent
+
 		ply_got.br_info = info_got
 	end
 end)

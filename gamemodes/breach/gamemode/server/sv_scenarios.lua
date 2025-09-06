@@ -213,7 +213,15 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 
 		--MTF INFO
 		if !(v.br_team == TEAM_CI and v.br_ci_agent == false) then
-			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true, v.charid, v})
+			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {
+				br_showname = v.br_showname,
+				br_role = v.br_role,
+				br_ci_agent = false,
+				health = HEALTH_MISSING,
+				isscp = true,
+				charid = v.charid,
+				ent = v
+			})
 		end 
 	end
 	
@@ -233,7 +241,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 		if v.br_team == TEAM_CI then
 			for k2,pl in pairs(players) do
 				if v != pl and pl.br_team == TEAM_CI and pl.br_ci_agent == false then
-					notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
+					notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_team, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
 				end
 			end
 		end
@@ -284,43 +292,65 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			-- corpses info
 			if istable(all_fake_corpses) then
 				for _,corpse in pairs(all_fake_corpses) do
-					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false, nil, nil)
+					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, corpse.br_team, corpse.br_ci_agent, HEALTH_MISSING, false, nil, nil)
 				end
 			end
 			
 			for k2,pl in pairs(players) do
 				if v != pl then
 					local isciagent = false
+					local sendteam = pl.br_team
+
+					if pl.br_team == TEAM_CI and pl.br_ci_agent then
+						if v.br_team != TEAM_CI then
+							sendteam = TEAM_RESEARCHER
+						end
+					end
+
 					if v.br_team == TEAM_CI then
 						isciagent = pl.br_ci_agent
 					end
 
 					if pl.br_team == TEAM_SCP then
-						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, true, pl.charid)
+						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_team, isciagent, HEALTH_MISSING, true, pl.charid)
+						v:SendPlayerInfo(pl)
 
 					elseif pl:IsFromFoundation() == true then
-						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid, pl)
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, sendteam, isciagent, HEALTH_MISSING, false, pl.charid, pl)
 					end
 				end
 			end
+
 		elseif v:IsFromFoundation() then
 			-- corpses info
 			if istable(all_fake_corpses) then
 				for _,corpse in pairs(all_fake_corpses) do
-					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, false, HEALTH_MISSING, false, nil, nil)
+					notepad_system.AddPlayerInfo(v, corpse.br_showname, corpse.br_role, corpse.br_team, corpse.br_ci_agent, HEALTH_MISSING, false, nil, nil)
 				end
 			end
 			
 			-- class d gets info
 			for k2,pl in pairs(players) do
-				if v != pl and pl:IsFromFoundation() and pl.br_team != TEAM_SCP then
-					local isciagent = false
+				if v != pl and pl:IsFromFoundation() then
+					if pl.br_team == TEAM_SCP then
+						v:SendPlayerInfo(pl)
 
-					if v.br_team == TEAM_CI then
-						isciagent = pl.br_ci_agent
+					else
+						local isciagent = false
+						local sendteam = pl.br_team
+
+						if pl.br_team == TEAM_CI and pl.br_ci_agent then
+							if v.br_team != TEAM_CI then
+								sendteam = TEAM_RESEARCHER
+							end
+						end
+
+						if v.br_team == TEAM_CI then
+							isciagent = pl.br_ci_agent
+						end
+
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, sendteam, isciagent, HEALTH_MISSING, false, pl.charid, pl)
 					end
-
-					notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, isciagent, HEALTH_MISSING, false, pl.charid, pl)
 				end
 			end
 		end
@@ -429,7 +459,7 @@ BREACH_SCENARIOS = {
 			for k,v in pairs(players) do
 				for k2,pl in pairs(players) do
 					if v != pl and v.br_team == pl.br_team then
-						notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
+						notepad_system.AddPlayerInfo(pl, v.br_showname, v.br_role, v.br_team, v.br_ci_agent, HEALTH_MISSING, false, v.charid, v)
 					end
 				end
 			end

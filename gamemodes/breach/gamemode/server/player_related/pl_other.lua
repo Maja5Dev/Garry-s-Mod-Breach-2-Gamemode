@@ -7,17 +7,29 @@ end
 
 function player_meta:FormInfo(ply)
 	local info = {}
+
 	if isstring(self.br_role) then
 		info["br_role"] = self.br_role
 	end
+
+	local sendteam = self.br_team
+
+	if self.br_team == TEAM_CI and ply.br_ci_agent == true and self.br_team == TEAM_CI then
+		sendteam = TEAM_RESEARCHER
+	end
+
+	info["br_team"] = sendteam
+
 	if ply.br_team == TEAM_CI and self.br_ci_agent == true then
 		info["br_ci_agent"] = true
 	else
 		info["br_ci_agent"] = false
 	end
+
 	if isstring(self.br_showname) then
 		info["br_showname"] = self.br_showname
 	end
+
 	return info
 end
 

@@ -74,7 +74,7 @@ round_system.Force_MTF_Spawn = function()
 			notepad_system.AssignNewNotepad(v, false)
 
 			for k_info,info in pairs(BR2_MTF_STARTING_INFORMATION) do
-				notepad_system.AddPlayerInfo(v, info[1], info[2], info[3], info[4], false, info[5])
+				notepad_system.AddPlayerInfo(v, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, info.charid, info.ent)
 			end
 
 			local evac_code = MTF_GetEvacInfo()
@@ -88,19 +88,15 @@ round_system.Force_MTF_Spawn = function()
 		end
 	end
 
-	print("existingMTFs")
-	PrintTable(existingMTFs)
-
 	for k,v in pairs(all_mtfs) do
 		for k2,v2 in pairs(all_mtfs) do
 			if v != v2 then
-				notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+				notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, v2.br_team, false, HEALTH_ALIVE, false, v2.charid, v2)
 			end
 		end
 
 		for k2,v2 in pairs(existingMTFs) do
-			print("giving info on existing mtf " .. v2:Nick() .. " to " .. v:Nick() .. "")
-			notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, false, HEALTH_ALIVE, false, v2.charid, v2)
+			notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, v2.br_team, false, HEALTH_ALIVE, false, v2.charid, v2)
 		end
 		
 		notepad_system.UpdateNotepad(v)

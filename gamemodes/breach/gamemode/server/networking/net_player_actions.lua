@@ -1,21 +1,4 @@
 
--- Not sure why this is disabled
-/*
-net.Receive("br_send_info", function(len, ply)
-	if ply.net_delay == nil then ply.net_delay = 0 end
-	if ply.net_delay > CurTime() then return end
-	local target_ply = net.ReadEntity()
-	if ply:Alive()
-	if IsValid(target_ply) == true then
-		if target_ply:IsPlayer() == true then
-			bprint(ply:Nick() .. " wants to get information about: " .. tostring(target_ply))
-			ply:SendPlayerInfo(target_ply)
-		end
-	end
-	ply.net_delay = CurTime() + 4
-end)
-*/
-
 net.Receive("br_hide_in_closet", function(len, ply)
 	if len < 512 and istable(MAPCONFIG.BUTTONS_2D.HIDING_CLOSETS) and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
 		local pos = net.ReadVector()
