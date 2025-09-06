@@ -24,7 +24,7 @@ function BR_SupportSpawnButtons()
 		--draw.RoundedBox(0, 0, 0, w, h, Color(50, 50, 50, 25))
     end
     
-    local button_w = 270 * size_mul
+    local button_w = 300 * size_mul
     local button_h = 40 * size_mul
 
     local font_info = {
@@ -75,11 +75,13 @@ function BR_SupportSpawnButtons()
             draw.RoundedBox(0, 0, 0, w, h, panel_color)
             local votes_needed = math.Round(#player.GetAll() * 0.75)
             local text = ""
+
             if br_voted_for_round_end then
                 text = "Remove your vote ("..br_round_end_votes.."/"..votes_needed..")"
             else
                 text = "Vote round end ("..br_round_end_votes.."/"..votes_needed..")"
             end
+
             draw.Text({
                 text = text,
                 pos = {w / 2, h / 2},
