@@ -77,31 +77,4 @@ function player_meta:UnDownPlayer(healer)
 	self.lastPlayerInfo = nil
 end
 
-local function FindClearSpawnPos(origin, ply, radius, step, max_attempts)
-    radius = radius or 32
-    step = step or 16
-    max_attempts = max_attempts or 10
-
-    local mins = ply:OBBMins()
-    local maxs = ply:OBBMaxs()
-
-    for i = 0, max_attempts do
-        local offset = VectorRand():GetNormalized() * (radius + i * step)
-        local pos = origin + offset
-        local tr = util.TraceHull({
-            start = pos,
-            endpos = pos,
-            mins = mins,
-            maxs = maxs,
-            mask = MASK_PLAYERSOLID,
-            filter = ply
-        })
-        if not tr.Hit then
-            return pos
-        end
-    end
-
-    return origin -- fallback, no empty spot found
-end
-
 print("[Breach2] server/player_related/pl_downing.lua loaded!")

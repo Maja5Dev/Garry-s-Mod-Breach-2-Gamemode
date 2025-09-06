@@ -131,6 +131,7 @@ function DrawTargetID()
 							progress_circle_time = 8
 							progress_circle_end = CurTime() + 8
 							progress_circle_color = Color(255,0,0,255)
+
 							progress_circle_func = function()
 							--progress_bar_func = function()
 								net.Start("br_end_reviving")
@@ -139,6 +140,7 @@ function DrawTargetID()
 							
 							net.Start("br_start_reviving")
 							net.SendToServer()
+
 							is_checking = true
 						end
 					else

@@ -68,6 +68,40 @@ function assign_system.Assign_SCP173(ply)
 	Post_Assign(ply)
 end
 
+local function FindClearSpawnPos(origin, ragdoll, ply, healer, radius, step, max_attempts)
+    step = step or 15
+    radius = radius or 80
+    max_attempts = max_attempts or math.floor(360 / step)
+
+	origin = healer:GetPos()
+
+    for i = 0, max_attempts - 1 do
+        local dir = Angle(0, i * step, 0):Forward()
+        local endpos = origin + dir * radius
+
+        local tr = util.TraceLine({
+            start = origin,
+            endpos = endpos,
+            filter = {ply, healer}
+        })
+
+        local tr_hull = util.TraceHull({
+            start = tr.HitPos,
+            endpos = tr.HitPos + Vector(0, 0, 30), -- upward clearance
+            mins = ply:OBBMins(),
+            maxs = ply:OBBMaxs(),
+            filter = ply
+        })
+
+        if tr_hull.Hit == false then
+			print("found pos!", tr.HitPos)
+            return tr.HitPos
+        end
+    end
+
+    return origin -- fallback
+end
+
 local player_meta = FindMetaTable("Player")
 function player_meta:UnDownPlayerAsZombie(healer)
 	self.DefaultWeapons = {"weapon_scp_049_2"}
@@ -107,10 +141,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	self:UnSpectate()
 	self:Spawn()
 
-	local spawn_pos = rag_pos
-	if IsValid(healer) then
-		spawn_pos = FindClearSpawnPos(rag_pos, healer, 32, 16, 10)
-	end
+	local spawn_pos = FindClearSpawnPos(rag_pos, self.Body, self, healer, 80, 10, 120)
 	self:SetPos(spawn_pos)
 	
 	if IsValid(self.Body) then
