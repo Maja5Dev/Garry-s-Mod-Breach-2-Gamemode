@@ -40,31 +40,31 @@ function SpawnMapNPCs()
 	print("prep_time_round", prep_time)
 
 	timer.Remove("NPC_SPAWN_049_TIMER")
-	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 30, prep_time + 60), 1, function()
+	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 50, prep_time + 120), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_049", MAPCONFIG.SPAWNS_LCZ)
 	end)
 
 	--zombies
 	timer.Remove("NPC_SPAWN_0492_TIMER1")
-	timer.Create("NPC_SPAWN_0492_TIMER1", math.random(prep_time + 15, prep_time + 40), 1, function()
+	timer.Create("NPC_SPAWN_0492_TIMER1", math.random(prep_time + 30, prep_time + 40), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_049_2", MAPCONFIG.SPAWNS_HCZ)
 	end)
 	timer.Remove("NPC_SPAWN_0492_TIMER2")
-	timer.Create("NPC_SPAWN_0492_TIMER2", math.random(prep_time + 20, prep_time + 60), 1, function()
+	timer.Create("NPC_SPAWN_0492_TIMER2", math.random(prep_time + 35, prep_time + 60), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_049_2", MAPCONFIG.SPAWNS_HCZ)
 	end)
 	timer.Remove("NPC_SPAWN_0493_TIMER2")
-	timer.Create("NPC_SPAWN_0493_TIMER2", math.random(prep_time + 25, prep_time + 120), 1, function()
+	timer.Create("NPC_SPAWN_0493_TIMER2", math.random(prep_time + 45, prep_time + 120), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_049_2", MAPCONFIG.SPAWNS_HCZ)
 	end)
 
 	timer.Remove("NPC_SPAWN_096_TIMER")
-	timer.Create("NPC_SPAWN_096_TIMER", math.random(prep_time + 120, prep_time + 200), 1, function()
+	timer.Create("NPC_SPAWN_096_TIMER", math.random(prep_time + 80, prep_time + 170), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_096", MAPCONFIG.SPAWNS_HCZ)
 	end)
 
 	timer.Remove("NPC_SPAWN_106_TIMER")
-	timer.Create("NPC_SPAWN_106_TIMER", math.random(prep_time + 45, prep_time + 60), 1, function()
+	timer.Create("NPC_SPAWN_106_TIMER", math.random(prep_time + 80, prep_time + 180), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_106", MAPCONFIG.SPAWNS_HCZ)
 	end)
 
@@ -74,12 +74,12 @@ function SpawnMapNPCs()
 	end)
 
 	timer.Remove("NPC_SPAWN_1048_TIMER")
-	timer.Create("NPC_SPAWN_1048_TIMER", math.random(prep_time + 60, prep_time + 90), 1, function()
+	timer.Create("NPC_SPAWN_1048_TIMER", math.random(prep_time + 60, prep_time + 100), 1, function()
 		BR_SpawnMapNPC("npc_cpt_scp_1048", MAPCONFIG.SPAWNS_LCZ)
 	end)
 
 	timer.Remove("NPC_SPAWN_457_TIMER")
-	timer.Create("NPC_SPAWN_457_TIMER", math.random(prep_time + 45, prep_time + 90), 1, function()
+	timer.Create("NPC_SPAWN_457_TIMER", math.random(prep_time + 50, prep_time + 90), 1, function()
 		local npc = BR_SpawnMapNPC("npc_cpt_scp_457", MAPCONFIG.SPAWNS_HCZ)
 
 		if IsValid(npc) and npc != false then
@@ -89,7 +89,11 @@ function SpawnMapNPCs()
 
 	timer.Remove("NPC_SPAWN_575_TIMER")
 	timer.Create("NPC_SPAWN_575_TIMER", math.random(prep_time + 60, prep_time + 90), 1, function()
-		BR_SpawnMapNPC("npc_cpt_scp_575", MAPCONFIG.SPAWNS_ENTRANCEZONE)
+		local npc = BR_SpawnMapNPC("npc_cpt_scp_575", MAPCONFIG.SPAWNS_ENTRANCEZONE)
+
+		if IsValid(npc) and npc != false then
+			npc.lockedNPCSpawns = MAPCONFIG.SPAWNS_ENTRANCEZONE
+		end
 	end)
 
 	timer.Remove("NPC_SPAWN_066_TIMER")
