@@ -15,6 +15,8 @@ function assign_system.Assign_ContSpec(ply)
 	ply.br_usesTemperature = true
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"cont_spec", 1}, {"mtf", 1}}
+		ply.first_info = "cont_spec"
+		ply.mission_set = "staff"
 	end
 	ply.br_support_team = SUPPORT_FOUNDATION
 	Post_Assign(ply)
@@ -196,7 +198,8 @@ function assign_system.Assign_ISDagent(ply)
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"mtf", 1}}
 		ply.first_info = "isd_agent"
-		ply.mission_set = "isd_agent"
+		--ply.mission_set = "isd_agent" TODO
+		ply.mission_set = "staff"
 	end
 
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)

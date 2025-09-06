@@ -25,13 +25,12 @@ BREACH_DEFAULT_ROLES = {
 		spawns = {"SPAWNS_LCZ"},
 		assign_function = "Assign_Researcher"
 	},
-	/*
 	roles_cont_spec = {
-		team = TEAM_SECURITY,
+		class = "cont_spec",
+		team = TEAM_MINORSTAFF,
 		spawns = {"SPAWNS_LCZ", "SPAWNS_HCZ"},
 		assign_function = "Assign_ContSpec"
 	},
-	*/
 	roles_security = {
 		class = "sd_officer",
 		team = TEAM_SECURITY,

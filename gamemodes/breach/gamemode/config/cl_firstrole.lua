@@ -1,5 +1,19 @@
 ﻿
 BR_ROLE_FIRST_TEXTS = {
+    /*
+    cont_spec = {
+        "You are a Containment Specialist, trained to handle and recontain escaped SCP objects",
+        "After an unexpected Chaos Insurgency attack the facility fell into chaos",
+        "Some SCP objects broke containment and class ds are on the loose",
+        "Your main focus will be securing breached SCPs and assisting security forces",
+    },
+    TODO */ 
+    cont_spec = {
+        "You are a Containment Specialist, trained to handle and recontain escaped SCP objects",
+        "After an unexpected Chaos Insurgency attack the facility fell into chaos",
+        "Some SCP objects broke containment and class ds are on the loose",
+        "Your main goal right now is to escape, it is too dangerous here",
+    },
 	isd_agent = {
         "You are an agent from the Internal Security Department INVESTIGATING staff members",
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
