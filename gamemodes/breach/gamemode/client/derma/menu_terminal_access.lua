@@ -232,9 +232,11 @@ function BR_Access_Terminal(terminal)
 
 	local findLogin = nil
 	local findPassword = nil
-	for k,v in pairs(BR2_OURNOTEPAD.automated_info) do
-		if string.find(v, "login: ") then
-			findLogin, findPassword = string.match(v, "login:%s*(.-)\n%s*- password:%s*(.-)\n")
+	if istable(BR2_OURNOTEPAD) and istable(BR2_OURNOTEPAD.automated_info) then
+		for k,v in pairs(BR2_OURNOTEPAD.automated_info) do
+			if string.find(v, "login: ") then
+				findLogin, findPassword = string.match(v, "login:%s*(.-)\n%s*- password:%s*(.-)\n")
+			end
 		end
 	end
 
