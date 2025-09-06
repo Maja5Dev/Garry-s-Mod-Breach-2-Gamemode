@@ -242,7 +242,6 @@ function BR_ShowScoreboard()
 			if !v:IsBot() then
 				-- country codes
 				local countrycode = v:GetNWString("CountryCode", nil)
-				countrycode = "fi"
 
 				if isstring(countrycode) and string.len(countrycode) > 0 then
 					local flag_mat = Material("flags16/" .. countrycode .. ".png", "smooth")
