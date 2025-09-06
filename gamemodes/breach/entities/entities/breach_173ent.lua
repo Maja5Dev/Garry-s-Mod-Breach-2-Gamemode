@@ -173,11 +173,14 @@ function ENT:Think()
 			self.LastBlink = curt + 1
 			local sstr = 'br_next_blink = ' .. self.LastBlink .. ''
 			for k,v in pairs(player.GetAll()) do
-				local dist = v:GetPos():Distance(self:GetPos())
-				local seen173 = v.seen_173 > CurTime()
-				if v:Alive() and !v:IsSpectator() and v.blinking_enabled and ((dist < 600) or seen173) then
-					--print(v, dist, seen173)
-					v:SendLua(sstr)
+				if v:Alive() and !v:IsSpectator()
+					local dist = v:GetPos():Distance(self:GetPos())
+
+					local seen173 = (v.seen_173 or 0) > CurTime()
+					if v.blinking_enabled and ((dist < 600) or seen173) then
+						--print(v, dist, seen173)
+						v:SendLua(sstr)
+					end
 				end
 			end
 		end
