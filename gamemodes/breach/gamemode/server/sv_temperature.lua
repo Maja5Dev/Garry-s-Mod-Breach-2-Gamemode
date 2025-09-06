@@ -81,15 +81,15 @@ function HandleTemperature()
 
 				if v.br_temperature < -999 then
 					health_to_decrease = 5
-					next_temp_damage = 0.5
+					next_temp_damage = 1
 	
 				elseif v.br_temperature < -800 then
 					health_to_decrease = 2
-					next_temp_damage = 0.5
+					next_temp_damage = 1
 	
 				elseif v.br_temperature < -400 then
 					health_to_decrease = 1
-					next_temp_damage = 0.5
+					next_temp_damage = 1
 
 				elseif v.br_temperature < -200 then
 					health_to_decrease = 1
@@ -99,11 +99,11 @@ function HandleTemperature()
 				if high_temp_enabled then
 					if v.br_temperature > 999 then
 						health_to_decrease = 2
-						next_temp_damage = 0.5
+						next_temp_damage = 1
 	
 					elseif v.br_temperature > 800 then
 						health_to_decrease = 1
-						next_temp_damage = 0.5
+						next_temp_damage = 1
 	
 					elseif v.br_temperature > 400 then
 						health_to_decrease = 1
