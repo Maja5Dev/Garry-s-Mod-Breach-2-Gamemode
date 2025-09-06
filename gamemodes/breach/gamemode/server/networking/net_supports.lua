@@ -134,15 +134,17 @@ function br2_mtf_teams_add(ply, num)
 
 						notepad_system.UpdateNotepad(mtf1)
 
-						net.Start("br_update_own_info")
-							net.WriteString(mtf1.br_showname)
-							net.WriteString(mtf1.br_role)
-							net.WriteInt(mtf1.br_team or TEAM_MTF, 4)
-							net.WriteBool(false)
-							net.WriteBool(false)
-						net.Send(mtf1)
+						timer.Simple(0.5, function()
+							net.Start("br_update_own_info")
+								net.WriteString(mtf1.br_showname)
+								net.WriteString(mtf1.br_role)
+								net.WriteInt(mtf1.br_team or TEAM_MTF, 4)
+								net.WriteBool(false)
+								net.WriteBool(false)
+							net.Send(mtf1)
 
-						BroadcastPlayerInfo(mtf1)
+							BroadcastPlayerInfo(mtf1)
+						end)
 					end
 					
 					if round_system.AlreadyAnnouncedMTF == false then

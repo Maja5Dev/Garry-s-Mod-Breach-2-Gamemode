@@ -710,6 +710,7 @@ function BR_AssignNotepadPlayers()
 			end
 		end
 	else
+		print(LocalPlayer(), LocalPlayer().br_role, LocalPlayer().br_team, LocalPlayer():Alive(), LocalPlayer():IsSpectator())
 		error("tried to update notepad of dead localplayer")
 	end
 end
