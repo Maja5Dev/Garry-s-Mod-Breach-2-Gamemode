@@ -484,6 +484,7 @@ BR2_SPECIAL_ITEMS = {
 					pl:SetHealth(pl:GetMaxHealth())
 					pl.br_infection = 0
 					pl.br_isInfected = false
+					pl.SCP_Inflicted_1048a = false
 					pl:ChatPrint("Your wounds heal instantly...")
 					return true
 				end
