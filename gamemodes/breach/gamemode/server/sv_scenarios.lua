@@ -169,8 +169,9 @@ BREACH_DEFAULT_ROLELIST = {
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_security,
-		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
+		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_scps,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
@@ -178,7 +179,7 @@ BREACH_DEFAULT_ROLELIST = {
 		BREACH_DEFAULT_ROLES.roles_security,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_scps,
-		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
 		BREACH_DEFAULT_ROLES.roles_researchers,
@@ -191,7 +192,7 @@ BREACH_DEFAULT_ROLELIST = {
 		BREACH_DEFAULT_ROLES.roles_security,
 		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_ci_agent_res,
+		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_security,
 		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_researchers,
@@ -410,7 +411,8 @@ BREACH_SCENARIOS = {
 		friendly_fire_enabled = true,
 		downing_enabled = true,
 		bleeding_enabled = true,
-		only_entrance_zone = false
+		only_entrance_zone = false,
+		enable_ci_researchers = true
 	},
 	{
 		name = "Deathmatch",
@@ -488,7 +490,8 @@ BREACH_SCENARIOS = {
 		friendly_fire_enabled = false,
 		downing_enabled = true,
 		bleeding_enabled = false,
-		only_entrance_zone = true
+		only_entrance_zone = true,
+		enable_ci_researchers = false
 	},
 	-- O5 IN SITE
 	-- BEFORE THE BREACH

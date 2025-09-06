@@ -157,6 +157,22 @@ round_system.AssignPlayers = function()
 	if MAPCONFIG != nil then
 		map_config = table.Copy(MAPCONFIG)
 	end
+
+	local researcher_num = 0
+
+	local i = 1
+	for k,v in pairs(round_system.current_scenario.role_list.roles) do
+		if i > player.GetCount() then break end
+		if v.class == "researcher" then
+			researcher_num = researcher_num + 1
+		end
+		i = i + 1
+	end
+
+	local ci_spies_num = math.Round(researcher_num * (SafeIntConVar("br2_ci_percentage") / 100))
+	print("ci_spies_num: ", ci_spies_num)
+
+	local ci_spies_spawned = 0
 	
 	local role_num = 1
 	for i,pl in ipairs(tab_players) do
@@ -175,6 +191,13 @@ round_system.AssignPlayers = function()
 
 			if role.assign_function == nil or assign_system[role.assign_function] == nil then
 				Error("Role " .. role.class .. "(" .. role_num .. ")" .. " has no assign_function!")
+			end
+
+			if role.class == "researcher" and round_system.current_scenario.enable_ci_researchers
+				and ci_spies_spawned < ci_spies_num and math.random(1,100) < SafeIntConVar("br2_ci_chance")
+			then
+				ci_spies_spawned = ci_spies_spawned + 1
+				role = BREACH_DEFAULT_ROLES.roles_ci_agent_res
 			end
 
 			pl.br_team = role.team
