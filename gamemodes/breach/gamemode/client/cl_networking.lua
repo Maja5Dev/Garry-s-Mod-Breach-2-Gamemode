@@ -868,4 +868,9 @@ function EndExaminingSomeone()
 	end
 end
 
+net.Receive("br_hack_terminal", function(len)
+	local logins = net.ReadTable()
+	BR_Hack_Terminal(logins)
+end)
+
 print("[Breach2] client/cl_networking.lua loaded!")

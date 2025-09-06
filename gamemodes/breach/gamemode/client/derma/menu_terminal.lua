@@ -208,6 +208,9 @@ function create_terminal_fonts()
 	font_structure.size = 30 * size_mul
 	surface.CreateFont("BR_TERMINAL_DATE_TEXT", font_structure)
 	
+	font_structure.size = 25 * size_mul
+	surface.CreateFont("BR_TERMINAL_HACKING", font_structure)
+	
 	font_structure.size = 58 * size_mul
 	font_structure.font = "Lorimer No 2 Stencil"
 	surface.CreateFont("BR_TERMINAL_INFO_BIG", font_structure)

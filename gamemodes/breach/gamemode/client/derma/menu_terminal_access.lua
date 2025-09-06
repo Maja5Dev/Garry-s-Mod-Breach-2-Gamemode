@@ -1,4 +1,93 @@
 
+function BR_Hack_Terminal(logins)
+	if !IsValid(access_terminal) then
+		return
+	end
+
+	local size_mul = ScrH() / 1080
+	local font_size = 25 * size_mul
+
+	size_mul = ScrH() / 1440
+
+	terminal_hack_panel = vgui.Create("DFrame")
+	terminal_hack_panel:ShowCloseButton(true)
+	terminal_hack_panel:SetSizable(false)
+	terminal_hack_panel:SetDraggable(true)
+	terminal_hack_panel:Center()
+	terminal_hack_panel:SetTitle("")
+	terminal_hack_panel:MakePopup()
+	terminal_hack_panel:SetSize(700 * size_mul, 600 * size_mul)
+	terminal_hack_panel.Paint = function(self, w, h)
+		draw.RoundedBox(0, 0, 0, w, h, Color(25,25,25,150))
+	end
+
+	local scroll_panel = vgui.Create("DScrollPanel", terminal_hack_panel)
+	scroll_panel:Dock(FILL)
+
+	for k,v in pairs(logins) do
+		local info = scroll_panel:Add("DPanel")
+		info:SetSize(700 * size_mul, 96 * size_mul)
+		info:Dock(TOP)
+		info.Paint = function(self, w, h)
+			draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,200))
+			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(25, 25, 25, 255))
+
+			draw.Text({
+				text = "Login: " .. v.login,
+				pos = {8, 10},
+				xalign = TEXT_ALIGN_LEFT,
+				yalign = TEXT_ALIGN_TOP,
+				font = "BR_TERMINAL_HACKING",
+				color = Color(255,255,255,235),
+			})
+
+			draw.Text({
+				text = "Password: " .. v.password,
+				pos = {8, h - 10},
+				xalign = TEXT_ALIGN_LEFT,
+				yalign = TEXT_ALIGN_BOTTOM,
+				font = "BR_TERMINAL_HACKING",
+				color = Color(255,255,255,235),
+			})
+
+			draw.Text({
+				text = v.nick,
+				pos = {w - 10 - (120 * size_mul), 10},
+				xalign = TEXT_ALIGN_RIGHT,
+				yalign = TEXT_ALIGN_TOP,
+				font = "BR_TERMINAL_HACKING",
+				color = Color(255,255,255,235),
+			})
+		end
+
+		local use_button = vgui.Create("DButton", info)
+		use_button:SetSize(120 * size_mul, 0)
+		use_button:Dock(RIGHT)
+		use_button:DockPadding(120 * size_mul, 0, 0, 0)
+		use_button:SetText("")
+		use_button.DoClick = function(self)
+			access_terminal.panel_login:SetText(v.login)
+			access_terminal.panel_password:SetText(v.password)
+			surface.PlaySound("breach2/Button.ogg")
+		end
+		use_button.Paint = function(self, w, h)
+			draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,200))
+			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(35, 35, 35, 255))
+
+			draw.Text({
+				text = "USE",
+				pos = {w/2, h/2},
+				xalign = TEXT_ALIGN_CENTER,
+				yalign = TEXT_ALIGN_CENTER,
+				font = "BR_TERMINAL_HACKING",
+				color = Color(255,255,255,235),
+			})
+		end
+
+		info:DockMargin(0, 0, 0, 10)
+	end
+end
+
 function BR_Access_Terminal(terminal)
 	create_terminal_fonts()
 	
@@ -178,6 +267,43 @@ function BR_Access_Terminal(terminal)
 		button_use_id_card.DoClick = function(self)
 			panel_2:SetText(findLogin)
 			panel_3:SetText(findPassword)
+			surface.PlaySound("breach2/Button.ogg")
+		end
+	end
+
+	if LocalPlayer().br_role == "CI Soldier" then
+		local panel_5 = vgui.Create("DPanel", access_terminal)
+		panel_5:SetSize(panel_w, panel_h * 0.7)
+		panel_5:SetPos(gap*2, last_y + gap)
+		last_y = last_y + (panel_h * 0.7) + (gap * 2)
+		panel_5.Paint = function(self, w, h)
+		end
+
+		local button_use_id_card = vgui.Create("DButton", panel_5)
+		button_use_id_card:SetSize(panel_w * 0.8, (panel_h * 0.7) * 0.8)
+		button_use_id_card:SetText("")
+		button_use_id_card:Center()
+
+		button_use_id_card.Paint = function(self, w, h)
+			draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,160))
+			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(0,0,0,255))
+
+			draw.Text({
+				text = "Hack into the terminal",
+				pos = {w/2, h/2},
+				xalign = TEXT_ALIGN_CENTER,
+				yalign = TEXT_ALIGN_CENTER,
+				font = "BR_ACCESS_TERMINAL_2_SMALL",
+				color = Color(255,255,255,170),
+			})
+		end
+		button_use_id_card.DoClick = function(self)
+			print(terminal.name)
+			
+			net.Start("br_hack_terminal")
+				net.WriteString(terminal.name)
+			net.SendToServer()
+
 			surface.PlaySound("breach2/Button.ogg")
 		end
 	end

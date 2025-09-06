@@ -289,4 +289,19 @@ net.Receive("br_check_someones_notepad", function(len, ply)
 	end
 end)
 
+net.Receive("br_hack_terminal", function(len, ply)
+	local name = net.ReadString()
+
+	if ply:Alive() and !ply:IsSpectator() and name then
+		for k,v in pairs(MAPCONFIG.BUTTONS_2D.TERMINALS.buttons) do
+			if v.name == name and v.pos:Distance(ply:GetPos()) < 200 then
+				net.Start("br_hack_terminal")
+					net.WriteTable(round_system.logins or {})
+				net.Send(ply)
+				return
+			end
+		end
+	end
+end)
+
 print("[Breach2] server/networking/net_player_actions.lua loaded!")
