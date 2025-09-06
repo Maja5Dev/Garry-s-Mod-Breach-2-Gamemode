@@ -97,7 +97,6 @@ function SWEP:HandleUse()
 	local tr_front = self:FrontTraceLine()
 	if tr_front != nil then
 		for k,v in pairs(ents.FindInSphere(tr_front.HitPos, 50)) do
-			print(v)
 			if v:GetClass() == "func_button" or v:GetClass() == "func_rot_button" then
 				if ShouldPlayerUse(self.Owner, v) == true then
 					self.Owner.usingBlock = true
