@@ -244,15 +244,6 @@ function SWEP:SecondaryAttack()
 				{"Light", "slider", {self.DLightLevel, 0, 5, 0}, function(value) self.DLightLevel = value end},
 			}
 
-			/*
-			for i,v in ipairs(nvg_settings) do
-				if v[2] == "slider" then
-					local perc = (v[3][1] - v[3][2]) / (v[3][3] - v[3][2])
-					print(i, perc)
-				end
-			end
-			*/
-
 			local im1s = 8 * size_mul
 
 			local nvg_w = 400

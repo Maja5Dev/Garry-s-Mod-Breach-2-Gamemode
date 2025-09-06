@@ -64,7 +64,6 @@ function SWEP:PrimaryAttack()
 	})
 	if SERVER then
 		if tr_hull.Entity.BatteryLevel then
-			print(tr_hull.Entity)
 			tr_hull.Entity.BatteryLevel = 100
 			self.Owner:StripWeapon(self:GetClass())
 		end

@@ -21,8 +21,8 @@ function ENT:OnTakeDamage(dmginfo)
 			
 			util.Effect("Explosion", effect, true, true)
 			util.Effect("HelicopterMegaBomb", effect, true, true)
-			print(self, " exploded!")
-			print(effect, IsValid(effect))
+			--print(self, " exploded!")
+			--print(effect, IsValid(effect))
 			for k,v in pairs(player.GetAll()) do
 				if v:GetViewEntity() == self then
 					v:SetViewEntity(v)

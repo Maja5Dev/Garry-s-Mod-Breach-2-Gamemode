@@ -141,7 +141,6 @@ function SWEP:Think()
 				net.WriteString(self.Code)
 			net.Send(self.Owner)
 			self.Owner.lastSentCode = self.Code
-			print("sent code to "..self.Owner:Nick())
 		end
 	end
 end
