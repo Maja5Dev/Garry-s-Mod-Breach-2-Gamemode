@@ -246,7 +246,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			end
 		end
 
-		if v:IsFromFoundation() then
+		if v:IsFromFoundation() and v.br_team != TEAM_CLASSD then
 			local login, password = BR2_GenerateTerminalAuth(v)
 			notepad_system.AddAutomatedInfo(v, "personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
 		end
