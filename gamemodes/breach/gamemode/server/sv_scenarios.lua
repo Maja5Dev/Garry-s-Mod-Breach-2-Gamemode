@@ -110,7 +110,7 @@ BREACH_DEFAULT_ROLES = {
 	roles_minor_janitor = {
 		class = "janitor",
 		team = TEAM_MINORSTAFF,
-		spawns = {"SPAWNS_LCZ"},
+		spawns = {"SPAWNS_HCZ"},
 		assign_function = "Assign_Janitor"
 	},
 	roles_minor_doctor = {

@@ -213,8 +213,8 @@ round_system.AssignPlayers = function()
 			end
 
 			local spawned = false
-			if isstring(pl.br_customspawn) == true then
-				if istable(map_config[pl.br_customspawn]) == true then
+			if isstring(pl.br_customspawn)then
+				if istable(map_config[pl.br_customspawn]) then
 					local rnd_spawn = table.Random(map_config[pl.br_customspawn])
 					pl.br_spawn_groups = map_config[pl.br_customspawn]
 					if isvector(rnd_spawn) == true then

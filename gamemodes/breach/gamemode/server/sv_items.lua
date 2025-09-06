@@ -392,6 +392,9 @@ BR2_SPECIAL_ITEMS = {
 			pl:PrintMessage(HUD_PRINTTALK, "Installed in terminals, used to check the cameras")
 		end,
 		onstart = function(pl)
+			if pl.br_role == "Engineer" and math.random(1,5) == 2 then
+				table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox"})
+			end
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "device_cameras", "WCR [Cameras]", "prop_physics", "models/props_lab/reciever01c.mdl")
@@ -522,7 +525,7 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		onstart = function(pl)
-			if pl.br_role == "Doctor" and math.random(1,3) == 2 then
+			if pl.br_role == "Doctor" then
 				table.ForceInsert(pl.br_special_items, {class = class})
 			end
 		end,
@@ -584,6 +587,9 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		onstart = function(pl)
+			if pl.br_role == "Doctor" and math.random(1,5) == 2 then
+				table.ForceInsert(pl.br_special_items, {class = "ssri_pills"})
+			end
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "ssri_pills", "SSRI Pills", "prop_physics", "models/props_lab/jar01b.mdl")

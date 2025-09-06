@@ -2,9 +2,14 @@
 function assign_system.Assign_ContSpec(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("hazmat")
-	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
-	ply:Give("keycard_level2")
+	
+	ply:AllowFlashlight(true)
+
+	if ply.dont_assign_items == false then
+		ply:Give("keycard_level1")
+	end
+	
 	ply.br_role = "Containment Specialist"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
@@ -27,12 +32,7 @@ function assign_system.Assign_Researcher(ply)
 	end
 	
 	if ply.dont_assign_items == false then
-		local rnd = math.random(1,100)
-		if rnd < 15 then
-			ply:Give("keycard_level2")
-		elseif rnd < 60 then
-			ply:Give("keycard_level1")
-		end
+		ply:Give("keycard_level2")
 	end
 
 	ply.br_role = "Researcher"
@@ -50,14 +50,41 @@ function assign_system.Assign_Researcher(ply)
 	ply.canEscape = true
 end
 
+local last_minorstaff_assign = nil
 function assign_system.Assign_MinorStaff(ply)
-	local rnd = math.random(1,3)
-	if rnd == 1 then
+	local rnd = math.random(1,2)
+	local possible = {}
+
+	if last_minorstaff_assign != "doctor" then
+		table.ForceInsert(possible, "doctor")
+	end
+	if last_minorstaff_assign != "janitor" then
+		table.ForceInsert(possible, "janitor")
+	end
+	if last_minorstaff_assign != "engineer" then
+		table.ForceInsert(possible, "engineer")
+	end
+	if last_minorstaff_assign != "contspec" and rnd == 2 then
+		table.ForceInsert(possible, "contspec")
+	end
+
+	local rnd_role = table.Random(possible)
+
+	if rnd_role == "doctor" then
 		assign_system.Assign_Doctor(ply)
-	elseif rnd == 2 then
+		last_minorstaff_assign = "doctor"
+
+	elseif rnd_role == "janitor" then
 		assign_system.Assign_Janitor(ply)
-	elseif rnd == 3 then
+		last_minorstaff_assign = "janitor"
+
+	elseif rnd_role == "engineer" then
 		assign_system.Assign_Engineer(ply)
+		last_minorstaff_assign = "engineer"
+
+	elseif rnd_role == "contspec" then
+		assign_system.Assign_ContSpec(ply)
+		last_minorstaff_assign = "contspec"
 	end
 end
 
@@ -65,6 +92,8 @@ function assign_system.Assign_Engineer(ply)
 	Pre_Assign(ply)
 	ply:ApplyOutfit("engineer")
 	ply:Give("br_hands")
+
+	ply:AllowFlashlight(true)
 
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
@@ -91,20 +120,17 @@ function assign_system.Assign_Janitor(ply)
 	ply:ApplyOutfit("janitor")
 	ply:Give("br_hands")
 
+	ply:AllowFlashlight(true)
+
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
-		local wep_rnd = math.random(1,100)
-		if wep_rnd < 10 then
-			ply:Give("kanade_tfa_crowbar")
-		end
-		if wep_rnd < 35 then
-			ply:Give("item_gasmask")
-		end
+		ply:Give("item_gasmask")
 	end
 
 	ply.br_role = "Janitor"
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
+	--ply.br_customspawn = "SPAWNS_HCZ"
 
 	if ply.support_spawning == false then
 		ply.br_support_spawns = {{"janitor", 2}, {"mtf", 1}}
@@ -126,10 +152,7 @@ function assign_system.Assign_Doctor(ply)
 
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level1")
-		local wep_rnd = math.random(1,100)
-		if wep_rnd < 70 then
-			ply:Give("item_medkit")
-		end
+		ply:Give("item_medkit")
 	end
 
 	ply.br_role = "Doctor"
