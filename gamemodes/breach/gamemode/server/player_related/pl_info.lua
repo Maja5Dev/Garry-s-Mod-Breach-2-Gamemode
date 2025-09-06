@@ -12,6 +12,17 @@ function player_meta:SendPlayerInfo(ply)
 	end
 end
 
+function BroadcastPlayerInfo(ply)
+	local info = ply:FormInfo()
+
+	if istable(info) then
+		net.Start("br_send_info")
+			net.WriteTable(info)
+			net.WriteEntity(ply)
+		net.Broadcast()
+	end
+end
+
 function player_meta:CopyPlayerInfo(attacker)
 	local player_info = {}
 	player_info.PlayerTeam = self:Team()

@@ -14,13 +14,13 @@ function player_meta:FormInfo(ply)
 
 	local sendteam = self.br_team
 
-	if self.br_team == TEAM_CI and ply.br_ci_agent == true and self.br_team == TEAM_CI then
+	if ply and self.br_team == TEAM_CI and ply.br_ci_agent == true and self.br_team == TEAM_CI then
 		sendteam = TEAM_RESEARCHER
 	end
 
 	info["br_team"] = sendteam
 
-	if ply.br_team == TEAM_CI and self.br_ci_agent == true then
+	if ply and ply.br_team == TEAM_CI and self.br_ci_agent == true then
 		info["br_ci_agent"] = true
 	else
 		info["br_ci_agent"] = false

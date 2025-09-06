@@ -140,6 +140,8 @@ function br2_mtf_teams_add(ply, num)
 							net.WriteBool(false)
 							net.WriteBool(false)
 						net.Send(mtf1)
+
+						BroadcastPlayerInfo(mtf1)
 					end
 					
 					if round_system.AlreadyAnnouncedMTF == false then
