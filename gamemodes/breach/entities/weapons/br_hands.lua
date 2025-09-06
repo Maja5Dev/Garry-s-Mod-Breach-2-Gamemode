@@ -1106,11 +1106,12 @@ function SWEP:PrimaryAttack()
 	local ent = tr.Entity
 	if IsValid(ent) and ent:IsPlayer() and ent:Alive() and !ent:IsSpectator() and ent.br_team != TEAM_SCP then
 		ent.lastPlayerInfo = ent:CopyPlayerInfo(self.Owner)
-		ent:TakeDamage(150, self.Owner, self.Owner)
+		ent:TakeDamage(60, self.Owner, self.Owner)
 		--ent:Kill()
 		self.Owner:EmitSound("breach2/scp/966/damage_966.ogg")
 		return
 	end
+
 	self.Owner:EmitSound("npc/zombie/claw_miss1.wav")
 end
 

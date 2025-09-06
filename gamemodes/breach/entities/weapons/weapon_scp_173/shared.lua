@@ -159,9 +159,11 @@ function SWEP:SetNextPos()
 		local ent173 = self.Owner:GetNWEntity("entity173")
 		if !IsValid(ent173) then return end
 		local nextpostab = self:TraceNextPos(ent173)
+
 		for k,v in pairs(nextpostab.hits) do
 			if v.Hit == true then return end
 		end
+
 		self.NextPos = nextpostab.start.HitPos
 		self.NextAng = Angle(0,self.Owner:EyeAngles().y,0)
 		--self:SetNWVector("NextPos", self.NextPos)
@@ -253,6 +255,7 @@ end
 
 function SWEP:FrontTraceLine()
 	local ent173 = self.Owner:GetNWEntity("entity173")
+
 	if IsValid(ent173) then
 		local ourpos = ent173:GetPos()
 		local eyeangles = self.Owner:EyeAngles()
@@ -266,6 +269,7 @@ function SWEP:FrontTraceLine()
 
 		return tr_front
 	end
+
 	return nil
 end
 
@@ -354,10 +358,12 @@ function SWEP:TraceNextPos(ent173)
 	local smask = MASK_ALL
 	local filters = {self.Owner, ent173}
 	
-	local tr_start = util.TraceLine({
+	local tr_start = util.TraceHull({
 		start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
-		endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 450,
+		endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 300,
 		filter = filters,
+		mins = Vector(-4, -4, -4),
+		maxs = Vector(4, 4, 4),
 		mask = smask
 	})
 

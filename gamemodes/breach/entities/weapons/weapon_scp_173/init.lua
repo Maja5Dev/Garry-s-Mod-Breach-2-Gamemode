@@ -1,3 +1,4 @@
+
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
@@ -12,6 +13,7 @@ end
 SWEP.NextMove = 0
 SWEP.NextMoveSound = 1
 SWEP.MoveSoundEvery = 3
+
 function SWEP:MoveToNextPos(mv)
 	if SERVER then
 		local ent173 = self.Owner.entity173
@@ -22,11 +24,13 @@ function SWEP:MoveToNextPos(mv)
 			--self.Owner:PrintMessage(HUD_PRINTCENTER, tostring(canWeMove) .. " " .. tostring(CurTime()))
 			if canWeMove == true then
 				mv:SetOrigin(self.NextPos)
+
 				if self.NextAng != nil then
 					ent173:SetAngles(Angle(0, self.Owner:EyeAngles().y, 0))
 				end
+
 				if self.NextMoveSound == self.MoveSoundEvery then
-					self.Owner:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300,100,1)
+					self.Owner:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
 					self.NextMoveSound = 0
 				end
 
@@ -45,7 +49,8 @@ function SWEP:MoveToNextPos(mv)
 						--self.Owner:PrintMessage(HUD_PRINTTALK, v:Nick() .. tostring(dist))
 						local dist = self.NextPos:Distance(v:GetPos())
 						if v.lastScare == nil then v.lastScare = CurTime() end
-						if dist < 75 then
+
+						if dist < 70 then
 							if target == nil then
 								target = v
 							else
@@ -77,7 +82,7 @@ function SWEP:MoveToNextPos(mv)
 					return true
 				end
 
-				self.NextMove = CurTime() + 0.5
+				self.NextMove = CurTime() + 0.7
 				return true
 			end
 		end

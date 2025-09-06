@@ -203,6 +203,7 @@ round_system.AssignPlayers = function()
 			--if pl.br_showname then
 			--	pl:PrintMessage(HUD_PRINTTALK, "Your role: " .. pl.br_showname .. " (" .. pl.br_role .. " at ".. pl:GetNiceSite() ..")")
 			--end
+			pl.br_team = role.team
 
 			for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
 				v2.onstart(pl)
