@@ -173,7 +173,7 @@ function ENT:Think()
 			self.LastBlink = curt + 1
 			local sstr = 'br_next_blink = ' .. self.LastBlink .. ''
 			for k,v in pairs(player.GetAll()) do
-				if v:Alive() and !v:IsSpectator()
+				if v:Alive() and !v:IsSpectator() then
 					local dist = v:GetPos():Distance(self:GetPos())
 
 					local seen173 = (v.seen_173 or 0) > CurTime()
@@ -196,7 +196,7 @@ function ENT:AttackNearbyPlayers()
 	self.Attacks = 0
 	self.Tries = 0
 	for k,v in pairs(ents.FindInSphere(self:GetPos(), 400)) do
-		if v:IsPlayer() and v:Alive() and v:IsSpectator() and v:Team() != TEAM_SCP and self:IsPlayerVisible(v, self:WorldSpaceCenter()) then
+		if v:IsPlayer() and v:Alive() and !v:IsSpectator() and v:Team() != TEAM_SCP and self:IsPlayerVisible(v, self:WorldSpaceCenter()) then
 			table.ForceInsert(self.CurrentTargets, {v, 0})
 			self.IsAttacking = true
 			self:SetNWBool("IsAttacking", true)
