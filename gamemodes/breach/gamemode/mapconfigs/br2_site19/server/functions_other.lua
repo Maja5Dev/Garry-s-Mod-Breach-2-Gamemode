@@ -146,6 +146,7 @@ function MAP_FemurBreaker()
 	print("FEMUR BREAKER")
 
 	timer.Remove("NPC_SPAWN_106_TIMER")
+	
 	local scp_106 = ents.FindByClass("npc_cpt_scp_106")
 	if table.Count(scp_106) > 0 then
 		scp_106 = scp_106[1]
@@ -153,6 +154,15 @@ function MAP_FemurBreaker()
 			scp_106:Remove()
 		end
 	end
+
+	local scp_1062 = ents.FindByClass("drg_uescp106ver2")
+	if table.Count(scp_1062) > 0 then
+		scp_1062 = scp_1062[1]
+		if IsValid(scp_1062) then
+			scp_1062:Remove()
+		end
+	end
+
 	BroadcastLua("surface.PlaySound('cpthazama/scp/106Contain.mp3')")
 
 	/*
