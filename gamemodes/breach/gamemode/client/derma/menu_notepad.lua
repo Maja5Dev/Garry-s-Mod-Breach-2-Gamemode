@@ -72,15 +72,16 @@ local notepad_pages = {
 					local tab_name = v.br_role
 
 					if tab_name == nil then
-						ErrorNoHalt(tostring(v) .. " has nil br_role")
-
 						if istable(v) then
+							print("error table " .. #v)
 							PrintTable(v)
 						end
 
 						if IsValid(v) and v:IsPlayer() then
 							print(tostring(v:Alive()) .. " " .. tostring(v:IsSpectator()) .. " " .. tostring(v.br_team))
 						end
+
+						ErrorNoHalt(tostring(v) .. " has nil br_role")
 					else
 						if v.br_ci_agent then
 							tab = known_people_sorted_ci

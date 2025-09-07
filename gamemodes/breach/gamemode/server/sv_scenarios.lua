@@ -215,9 +215,10 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {
 				br_showname = v.br_showname,
 				br_role = v.br_role,
+				br_team = v.br_team,
 				br_ci_agent = false,
 				health = HEALTH_MISSING,
-				isscp = true,
+				isscp = false,
 				charid = v.charid,
 				ent = v
 			})
@@ -256,7 +257,16 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			table.ForceInsert(all_ci_spies, v)
 		else
 			table.ForceInsert(all_non_spies, v)
-			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {v.br_showname, v.br_role, false, HEALTH_MISSING, true, v.charid, v})
+			table.ForceInsert(BR2_MTF_STARTING_INFORMATION, {
+				br_showname = v.br_showname,
+				br_role = v.br_role,
+				br_team = v.br_team,
+				br_ci_agent = false,
+				health = HEALTH_MISSING,
+				isscp = false,
+				charid = v.charid,
+				ent = v
+			})
 		end
 	end
 

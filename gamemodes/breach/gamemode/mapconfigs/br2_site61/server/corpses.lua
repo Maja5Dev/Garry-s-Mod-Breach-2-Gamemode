@@ -13,6 +13,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -86,6 +87,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -159,6 +161,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -232,6 +235,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -305,6 +309,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -381,6 +386,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -450,6 +456,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -519,6 +526,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
 			end,
@@ -588,6 +596,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
 			end,
@@ -657,6 +666,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
             end,
@@ -729,6 +739,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
             end,
@@ -798,6 +809,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
             end,
@@ -867,6 +879,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
             end,
@@ -936,6 +949,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
             end,
@@ -1008,6 +1022,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1077,6 +1092,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1146,6 +1162,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1218,6 +1235,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
 			end,
@@ -1287,6 +1305,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
 			end,
@@ -1356,6 +1375,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
 			end,
@@ -1425,6 +1445,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
 			end,
@@ -1497,6 +1518,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""
                 rag.br_role = "Class D"
+                rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1562,6 +1584,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""
                 rag.br_role = "Class D"
+                rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1627,6 +1650,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""
                 rag.br_role = "Class D"
+                rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
             end,
@@ -1695,6 +1719,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Doctor"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
             end,
@@ -1764,6 +1789,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Doctor"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
             end,
@@ -1833,6 +1859,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Doctor"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
             end,
@@ -1905,6 +1932,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level3", "keycard_level4", "item_c4", "item_radio"}))}
             end,
@@ -1974,6 +2002,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level3", "keycard_level4", "item_c4", "item_radio"}))}
             end,
@@ -2043,6 +2072,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level3", "keycard_level4", "item_c4", "item_radio"}))}
             end,
@@ -2112,6 +2142,7 @@ MAPCONFIG.STARTING_CORPSES = {
             setup = function(rag)
                 rag.br_showname = GetRandomName()
                 rag.br_role = "Researcher"
+                rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level3", "keycard_level4", "item_c4", "item_radio"}))}
             end,
@@ -2184,6 +2215,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"kanade_tfa_pipe", "item_medkit", "kanade_tfa_crowbar", "keycard_level3"}))}
 			end,
@@ -2253,6 +2285,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"kanade_tfa_pipe", "item_medkit", "kanade_tfa_crowbar", "keycard_level3"}))}
 			end,
@@ -2322,6 +2355,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "SD Officer"
+                rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"kanade_tfa_pipe", "item_medkit", "kanade_tfa_crowbar", "keycard_level3"}))}
 			end,
@@ -2394,6 +2428,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Containment Specialist"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_medkit", "kanade_tfa_crowbar", "keycard_level4", "item_gasmask"}))}
 			end,
@@ -2463,6 +2498,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Containment Specialist"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_medkit", "kanade_tfa_crowbar", "keycard_level4", "item_gasmask"}))}
 			end,
@@ -2532,6 +2568,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			setup = function(rag)
 				rag.br_showname = GetRandomName()
 				rag.br_role = "Containment Specialist"
+                rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
 				rag.Info.Loot = {form_basic_item_info(table.Random({"item_medkit", "kanade_tfa_crowbar", "keycard_level4", "item_gasmask"}))}
 			end,

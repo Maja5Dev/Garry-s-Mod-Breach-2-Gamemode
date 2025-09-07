@@ -112,6 +112,9 @@ function br2_mtf_teams_add(ply, num)
 						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
 							notepad_system.AddPlayerInfo(pl_mtf, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, info.charid, info.ent)
 						end
+
+						local login, password = BR2_GenerateTerminalAuth(pl_mtf)
+						notepad_system.AddAutomatedInfo(pl_mtf, "personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
 						
 						table.RemoveByValue(mtf_spawns, spawn)
 					end
