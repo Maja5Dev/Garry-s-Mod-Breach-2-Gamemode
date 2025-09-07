@@ -166,11 +166,10 @@ function ENT:Think()
 	if SERVER then
 		self:NextThink(CurTime() + 0.01)
 
-		local curt = CurTime()
 		if self.NextBlinkUpdate < CurTime() then
-			self.NextBlinkUpdate = curt + math.Rand(3,6)
+			self.NextBlinkUpdate = CurTime() + math.Rand(4.5, 6.5)
 
-			self.LastBlink = curt + 1
+			self.LastBlink = CurTime() + 1
 			local sstr = 'br_next_blink = ' .. self.LastBlink .. ''
 			for k,v in pairs(player.GetAll()) do
 				if v:Alive() and !v:IsSpectator() then
