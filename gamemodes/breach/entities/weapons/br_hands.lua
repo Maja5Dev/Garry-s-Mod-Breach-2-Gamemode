@@ -606,7 +606,6 @@ function SWEP:CreateFrame()
 		if (CurTime() - lastseen) < 4 then
 			self.Contents.examine_someone.enabled = true
 
-			print(LocalPlayer().br_team, TEAM_SECURITY, TEAM_MTF, TEAM_CI)
 			if lastseen_player:GetPos():Distance(self.Owner:GetPos()) < 150 and
 				(LocalPlayer().br_team == TEAM_SECURITY or LocalPlayer().br_team == TEAM_MTF or LocalPlayer().br_team == TEAM_CI)
 			then
