@@ -45,10 +45,10 @@ function GM:PlayerBindPress(ply, bind, pressed)
 		BR_CreateChatFrame(true)
 		return true
 	elseif bind == "+attack" then
-		if WepSwitchFrame and IsValid(wep_selected) then
+		if WepSwitchFrame and wep_selected != nil then
 			--LocalPlayer():SelectWeapon(wep_selected)
 			--input.SelectWeapon(wep_selected)
-			LocalPlayer():SafeSelectWeapon(wep_selected:GetClass())
+			LocalPlayer():SafeSelectWeapon(wep_selected)
 			CloseWEP()
 			return true
 		end

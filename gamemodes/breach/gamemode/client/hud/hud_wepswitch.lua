@@ -87,18 +87,68 @@ function Switch_SelectNext()
 	end
 end
 
+
+
 next_wepswitch = 0
-wepswitch_slot = 0
+wep_selected = nil
+wep_selected_slot = nil
+wep_current_slot_num = 1
+
+local function SelectNextWeapon(slot, weps)
+	-- we have selected a different slot, change selection
+	if wep_selected_slot != slot then
+		wep_selected = nil
+		wep_selected_slot = nil
+		wep_current_slot_num = 1
+	end
+   
+	-- we have already selected this slot, so change to a different weapon of the same slot
+	if wep_selected_slot == slot and wep_selected != nil then
+		local possbile_weps = {}
+
+		for k,v in pairs(weps) do
+			if slot == (v:GetSlot() + 1) then
+				table.ForceInsert(possbile_weps, v)
+			end
+		end
+
+		-- reached the end
+		if wep_current_slot_num >= #possbile_weps then
+			wep_current_slot_num = 0
+		end
+
+		local num = 1
+		for k,v in pairs(possbile_weps) do
+			if num == (wep_current_slot_num + 1) then
+				wep_selected = v:GetClass()
+				wep_selected_slot = slot
+				wep_current_slot_num = wep_current_slot_num + 1
+				break
+			end
+			num = num + 1
+		end
+	end
+
+	-- we have no weapon selected, select a new one
+	if wep_selected == nil then
+		for k,v in pairs(weps) do
+			if slot == (v:GetSlot() + 1) then
+				wep_selected = v:GetClass()
+				wep_selected_slot = slot
+				break
+			end
+		end
+	end
+end
+
 function OpenSlot(slot)
-	--if next_wepswitch > CurTime() then return end
-	--next_wepswitch = CurTime() + 0.2
 	local ply = LocalPlayer()
 	if LocalPlayer():IsSpectator() or !LocalPlayer():Alive() then return end
+
 	nextstop = CurTime() + 1
-	wepswitch_slot = slot
+
 	if WepSwitchFrame then
 		CloseWEP()
-		--return
 	end
 	
 	WepSwitchFrame = vgui.Create("DFrame")
@@ -118,10 +168,13 @@ function OpenSlot(slot)
 	local weps = {}
 	table.Add(weps, ply:GetWeapons())
 	table.sort(weps, function(a, b) return a:GetSlot() > b:GetSlot() end)
+
+	SelectNextWeapon(slot, weps)
 	
 	local num = 0
 	for k,v in ipairs(weps) do
 		if not v then return end
+
 		local panel_w = 500
 		local panel_h = 40
 		local panel = vgui.Create("DPanel", WepSwitchFrame)
@@ -134,12 +187,12 @@ function OpenSlot(slot)
 				end
 				return
 			end
+
 			local color = Color(25, 25, 25, 175)
-			if (v:GetSlot() + 1) == wepswitch_slot then
-				--wep_selected = v:GetClass()
-				wep_selected = v
+			if v:GetClass() == wep_selected then
 				color = Color(55, 64, 70, 245)
 			end
+
 			if !IsValid(v) or not v then
 				if WepSwitchFrame == nil then return end
 				WepSwitchFrame:SetVisible(false)
@@ -147,6 +200,7 @@ function OpenSlot(slot)
 				WepSwitchFrame = nil
 				return
 			end
+
 			draw.RoundedBox(0, 0, 0, w, h, color)
 			draw.Text({
 				text = v:GetPrintName(),
