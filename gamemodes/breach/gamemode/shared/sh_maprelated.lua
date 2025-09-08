@@ -35,6 +35,8 @@ br_default_mat_scpu_opened = Material("breach2/scpu/Handy2.png")
 br_default_mat_scpu_closed = Material("breach2/scpu/Handy.png")
 br_default_mat_hiding_icon = Material("breach2/scpu/hiding_2_icon.png")
 
+br_default_mat_map_teleport = Material("breach2/scpu/PDA_Tab_Icon_Map.png")
+
 br_default_scpu_lock_picking = {
 	mat = br_default_mat_lock_picking,
 	w = 66,
@@ -63,6 +65,12 @@ br_default_scpu_closed = {
 	mat = br_default_mat_scpu_closed,
 	w = 1173 / 15,
 	h = 1666 / 15
+}
+
+br_default_map_teleport = {
+	mat = br_default_mat_map_teleport,
+	w = 80,
+	h = 64
 }
 
 br_default_button_icons = {

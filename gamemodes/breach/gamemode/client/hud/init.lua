@@ -1,6 +1,7 @@
 
 include("hud_blinking.lua")
 include("hud_buttons.lua")
+include("hud_scp_actions.lua")
 include("hud_debug.lua")
 include("hud_healing.lua")
 include("hud_hiding.lua")

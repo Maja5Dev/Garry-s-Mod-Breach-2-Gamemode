@@ -33,8 +33,13 @@ function GM:PlayerBindPress(ply, bind, pressed)
 			return true
 		end
 	end
-	if string.find(bind, "+use") and pressed and istable(focus_button_ready) then
-		focus_button_ready.on_open(focus_button)
+	if string.find(bind, "+use") and pressed then
+		if istable(focus_button_ready) then
+			focus_button_ready.on_open(focus_button)
+		end
+		if istable(scp_action_focus_button) then
+			DoSCPAction()
+		end
 	elseif string.find(bind, "+menu_context") and debug_menu_enabled == false then
 		return true
 	elseif bind == "+menu" and debug_menu_enabled == false and pressed == true then

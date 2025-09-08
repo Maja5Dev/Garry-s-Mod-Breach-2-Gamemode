@@ -33,6 +33,7 @@ AddCSLuaFile("client/cl_chat.lua") -- all chat stuff, any load order
 /* HUD */
 AddCSLuaFile("client/hud/hud_blinking.lua")
 AddCSLuaFile("client/hud/hud_buttons.lua")
+AddCSLuaFile("client/hud/hud_scp_actions.lua")
 AddCSLuaFile("client/hud/hud_debug.lua")
 AddCSLuaFile("client/hud/hud_healing.lua")
 AddCSLuaFile("client/hud/hud_hiding.lua")

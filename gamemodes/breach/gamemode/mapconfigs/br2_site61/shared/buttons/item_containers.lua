@@ -56,8 +56,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-553,-42,-8147), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- NEAR_CHECKPOINT_STORAGE_ROOM-CRATE
 		{pos = Vector(237,97,-8165), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- SCARE_ROOM_HIDING-BOX
 		{pos = Vector(1518,880,-8167), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SCP_500"}, -- SCARE_ROOM_HIDING-BOX
-
-
+		{pos = Vector(-338,2070,-8036), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- 173CELL
 
 
 
@@ -87,11 +86,11 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-2744,4513,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-2
 		{pos = Vector(-2895,4320,-7126), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-BOX
 		{pos = Vector(456,3907,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_096-BOX
+		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_GUN"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER
 
 		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-BOX
-		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_GUN"}, -- HCZ_TUNNELS-BIGCRATE
+		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- HCZ_TUNNELS-BIGCRATE
 
-		
 
 
 
@@ -190,10 +189,10 @@ MAPCONFIG.BUTTONS_2D.OUTFITTERS = {
 		{pos = Vector(5352,5251,-7389), canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		{pos = Vector(2904,6648,-7133), canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		{pos = Vector(1104,6608,-7249), canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
+		{pos = Vector(3003,3942,-7197), canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		--{pos = XXXXXXXXXXXXXXXX, canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		--{pos = XXXXXXXXXXXXXXXX, canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		--{pos = XXXXXXXXXXXXXXXX, canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
 		--{pos = XXXXXXXXXXXXXXXX, canSee = DefaultOutfitterCanSee, item_gen_group = "EZ"},
-
 	}
 }

@@ -16,6 +16,7 @@ end
 -- lua_run Buttons_Containers_TestPos(XXXXXXXXXXXXXXXX)
 
 if SERVER then
+	AddCSLuaFile("buttons/scp_actions.lua")
 	AddCSLuaFile("buttons/item_containers.lua")
 	AddCSLuaFile("buttons/terminals.lua")
 	AddCSLuaFile("buttons/cameras.lua")
@@ -23,11 +24,13 @@ if SERVER then
 end
 
 if CLIENT then
+	include("buttons/scp_actions.lua")
 	include("buttons/item_containers.lua")
 	include("buttons/terminals.lua")
 	include("buttons/cameras.lua")
 	include("buttons/others.lua")
 else
+	include("/buttons/scp_actions.lua")
 	include("/buttons/item_containers.lua")
 	include("/buttons/terminals.lua")
 	include("/buttons/cameras.lua")
