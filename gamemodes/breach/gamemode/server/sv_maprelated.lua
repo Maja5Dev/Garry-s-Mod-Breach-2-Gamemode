@@ -305,8 +305,6 @@ function BR_DEFAULT_MAP_Organize_KeypadCodes()
 
 		print("Found a code button, setting a new code: ("..newcode..")", rnd_name)
 	end
-
-	print("ALL CODE BUTTONS: " .. numww)
 end
 
 local function GenerateRandomPassword()
@@ -315,7 +313,6 @@ local function GenerateRandomPassword()
     for i=1, 4 do
         ret = ret .. str[math.random(1,36)]
     end
-    print("random pass: " .. ret)
     return ret
 end
 

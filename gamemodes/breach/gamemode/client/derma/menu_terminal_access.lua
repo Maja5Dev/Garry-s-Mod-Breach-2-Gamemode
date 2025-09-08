@@ -300,8 +300,6 @@ function BR_Access_Terminal(terminal)
 			})
 		end
 		button_use_id_card.DoClick = function(self)
-			print(terminal.name)
-			
 			net.Start("br_hack_terminal")
 				net.WriteString(terminal.name)
 			net.SendToServer()

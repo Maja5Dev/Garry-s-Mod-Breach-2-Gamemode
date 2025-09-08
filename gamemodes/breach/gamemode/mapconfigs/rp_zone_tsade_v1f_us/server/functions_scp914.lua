@@ -82,7 +82,6 @@ function BR2_Handle914_Start()
 					local better_one = v:GetBetterOne()
 					if isstring(better_one) then
 						local ent = ents.Create(better_one)
-						print(better_one, ent, ent:GetPos())
 						if IsValid(ent) then
 							ent:SetPos(v:GetPos() + Vector(0,0,10))
 

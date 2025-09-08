@@ -38,7 +38,6 @@ local function GenerateRandomPassword()
     for i=1, 4 do
         ret = ret .. str[math.random(1,36)]
     end
-    print("random pass: " .. ret)
     return ret
 end
 
@@ -350,7 +349,6 @@ function Breach_Map_Organise()
 			numww = numww + 1
 		end
 	end
-	print("ALL CODE BUTTONS: " .. numww)
 end
 
 print("[Breach2] Server/Functions/Organise mapconfig loaded!")

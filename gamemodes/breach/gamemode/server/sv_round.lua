@@ -166,7 +166,6 @@ round_system.AssignPlayers = function()
 	end
 
 	local ci_spies_num = math.Round(researcher_num * (SafeIntConVar("br2_ci_percentage") / 100))
-	print("ci_spies_num: ", ci_spies_num)
 
 	local ci_spies_spawned = 0
 	
@@ -197,7 +196,6 @@ round_system.AssignPlayers = function()
 			end
 
 			pl.br_team = role.team
-			print(pl:Nick(), pl:GetNiceBrTeam())
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
 			pl.charid = i

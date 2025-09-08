@@ -84,9 +84,9 @@ local function DrawDebug914()
 		})
 		render.SetColorMaterial()
 		render.DrawSphere(tr.HitPos, 0.5, 30, 30, Color(255, 255, 255, 50))
-		if input.IsKeyDown(KEY_G) then
-			print(tr.HitPos)
-		end
+		--if input.IsKeyDown(KEY_G) then
+		--	print(tr.HitPos)
+		--end
 	cam.End3D()
 	
 	local pos_tab = {

@@ -3,7 +3,6 @@ notepad_system = {}
 notepad_system.AllNotepads = {} -- lua_run PrintTable(notepad_system.AllNotepads)
 
 notepad_system.ClearAllNotepads = function()
-    print("clearing notepads...")
     for k,v in pairs(player.GetAll()) do
         v.notepad = nil
     end

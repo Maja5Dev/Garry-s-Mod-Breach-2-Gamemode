@@ -102,7 +102,7 @@ BR2_SCP_294_OUTCOMES = {
 			scp_294_func(ply, info, text)
 		end,
 		use = function(ply)
-			print(ply)
+			
 		end
 	},
 }

@@ -7,7 +7,6 @@ local function GenerateRandomPassword()
     for i=1, 4 do
         ret = ret .. str[math.random(1,36)]
     end
-    print("random pass: " .. ret)
     return ret
 end
 
@@ -196,7 +195,6 @@ function Breach_Map_Organise()
 		print("Found a code button, setting a new code: ("..newcode..")", rnd_name)
 
 	end
-	print("ALL CODE BUTTONS: " .. numww)
 
 	print("rz_open_code: ", rz_open_code)
 

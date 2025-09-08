@@ -4,7 +4,6 @@ function BR2_Get914Status()
 	
 	for k,v in pairs(ents.GetAll()) do
 		if v:GetClass() == "func_button" and v:GetPos():Distance(Vector(10979, -3697, -10957)) < 5 then
-			print(v)
 			table.ForceInsert(skip_ents, v)
 		end
 	end
