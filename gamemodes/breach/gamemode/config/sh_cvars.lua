@@ -4,6 +4,7 @@ br2_add_cvar("br2_time_round", "1320", "Round time")
 br2_add_cvar("br2_time_postround", "30", "Post-round time")
 br2_add_cvar("br2_time_mtf_spawn", "400", "After x seconds MTF can spawn")
 br2_add_cvar("br2_time_008_open", "200", "After x seconds 008 open automatically")
+br2_add_cvar("br2_time_unlock_scps", "25", "Delay between unlocking the cells of SCPs")
 br2_add_cvar("br2_ci_percentage", "25", "Percentage of researchers that are CI out of all players")
 br2_add_cvar("br2_ci_chance", "50", "Chance for a researcher designated to be a spy to actually spawn as one")
 

@@ -36,6 +36,21 @@ function Breach_Map_Organise()
 		end
 	end
 
+	timer.Remove("BR_Unlock173")
+	timer.Remove("BR_Unlock173")
+	timer.Create("BR_Unlock173", cvars.Number("br2_time_preparing", 25) + cvars.Number("br2_time_unlock_scps", 25), 1, function()
+		for k,v in pairs(ents.GetAll()) do
+			local name = v:GetName():lower()
+			if name == "open173doors" then
+				local rnd_pl = table.Random(player.GetAll())
+				if IsValid(rnd_pl) then
+					v:Use(rnd_pl, rnd_pl, 1, 1)
+				end
+			end
+		end
+	end)
+
+	/*
 	timer.Remove("BR_SCP008")
 	timer.Remove("BR_SCP008_2")
 	timer.Create("BR_SCP008", 5, 1, function()
@@ -66,7 +81,7 @@ function Breach_Map_Organise()
 			end
 		end
 	end)
-
+	*/
 
 	for k,v in pairs(MAPCONFIG.RANDOM_ITEM_SPAWNS) do
 		local all_spawns = table.Copy(v.spawns)
