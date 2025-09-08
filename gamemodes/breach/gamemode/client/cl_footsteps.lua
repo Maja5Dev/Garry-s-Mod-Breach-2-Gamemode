@@ -15,19 +15,20 @@ function HandleFootstepsCL()
 				endpos = v:GetPos() + Angle(90,0,0):Forward() * 10000
 			})
 		
-			local volume = 0.9
+			local volume = 1
 			local running = false
 			local sound = ""
 			volume = volume * ((vel / 100) / 3)
 			
 			if vel < 80 then
 				volume = volume * 0.7
+
 			elseif vel > 150 then
 				volume = volume * 1.3
 				running = true
 			end
 			
-			local soundLevel = 70
+			local soundLevel = 80
 			
 			if LocalPlayer():IsInPD() then
 				EmitSound("breach2/steps/StepPD"..math.random(1,3)..".mp3", v:GetPos(), v:EntIndex(), CHAN_AUTO, math.Clamp(volume, 0, 1), soundLevel)
