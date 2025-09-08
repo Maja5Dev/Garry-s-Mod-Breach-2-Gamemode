@@ -13,7 +13,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"doc_scp1048", 1},
 	},
 	["LCZ_SECOND_LOOT"] = {
-		{"keycard_level2", 4},
+		{"keycard_level2", 3},
 		{"keycard_playing", 1},
 		{"keycard_master", 1},
 		{"item_battery_9v", 1},
@@ -24,7 +24,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"device_cameras", 1},
 	},
 	["LCZ_THIRD_LOOT"] = {
-		{"keycard_level3", 3},
+		{"keycard_level3", 2},
 		{"item_pills", 1},
 		{"item_nvg", 1},
 		{"kanade_tfa_crowbar", 1},
