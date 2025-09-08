@@ -40,7 +40,7 @@ function SWEP:Think()
 			self.NextBatteryCheck = CurTime() + self.BatterySpeed
 			net.Start("br_updatebattery")
 				net.WriteInt(self.BatteryLevel, 8)
-				net.WriteInt(self.Slot, 4)
+				net.WriteInt(self.Slot, 8)
 			net.Send(self.Owner)
 		end
 		return

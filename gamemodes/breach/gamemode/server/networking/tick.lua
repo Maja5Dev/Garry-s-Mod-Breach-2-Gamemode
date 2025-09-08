@@ -120,7 +120,7 @@ function BR2NetworkingTick()
 			v.next_sanity_update = v.next_sanity_update or 0
 			if v.next_sanity_update < CurTime() then
 				net.Start("br_update_sanity")
-				net.WriteInt(v:SanityLevel(), 4)
+				net.WriteInt(v:SanityLevel(), 8)
 				net.WriteInt(v.br_sanity, 16)
 				net.Send(v)
 				v.next_sanity_update = CurTime() + 2

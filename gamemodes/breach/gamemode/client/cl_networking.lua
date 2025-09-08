@@ -175,9 +175,10 @@ end)
 
 net.Receive("br_update_own_info", function(len)
 	local client = LocalPlayer()
+
 	client.br_showname = net.ReadString()
 	client.br_role = net.ReadString()
-	client.br_team = net.ReadInt(4)
+	client.br_team = net.ReadInt(8)
 	client.br_ci_agent = net.ReadBool()
 	client.br_zombie = net.ReadBool()
 
@@ -215,7 +216,7 @@ net.Receive("br_install_device", function(len)
 end)
 
 net.Receive("br_use_294", function(len)
-	local res = net.ReadInt(4)
+	local res = net.ReadInt(8)
 	--print("294 result: " .. res)
 	if res == 1 then
 		keyboard_294_text = "OUT OF RANGE"
@@ -252,7 +253,7 @@ end)
 br2_our_sanity2 = 100
 
 net.Receive("br_update_sanity", function(len)
-	br2_our_sanity = net.ReadInt(4)
+	br2_our_sanity = net.ReadInt(8)
 	br2_our_sanity2 = net.ReadInt(16)
 end)
 
@@ -354,7 +355,7 @@ end)
 
 br2_round_state_start = 0
 net.Receive("br_round_info", function(len)
-	local int1 = net.ReadInt(4)
+	local int1 = net.ReadInt(8)
 	local int2 = net.ReadInt(16)
 	local int3 = net.ReadInt(16)
 	game_state = int1
@@ -492,7 +493,7 @@ end
 
 net.Receive("br_updatebattery", function(len)
 	local int_got = net.ReadInt(8)
-	local int2_got = net.ReadInt(4)
+	local int2_got = net.ReadInt(8)
 	local wep = LocalPlayer():GetActiveWeapon()
 	for k,v in pairs(LocalPlayer():GetWeapons()) do
 		if v.Slot == int2_got then

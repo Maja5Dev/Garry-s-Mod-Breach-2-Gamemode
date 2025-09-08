@@ -1379,7 +1379,7 @@ function Open_MTF_SpawnMenu()
 
             elseif #BR2_MTF_TEAMS[i] < 4 then
                 net.Start("br_mtf_teams_join")
-                    net.WriteInt(i, 4)
+                    net.WriteInt(i, 8)
                 net.SendToServer()
             end
         end

@@ -584,6 +584,7 @@ function SWEP:CreateFrame()
 	self.Contents.pickup_bomb.enabled = false
 	self.Contents.loot_body.enabled = false
 	self.Contents.check_body_notepad.enabled = false
+
 	if IsValid(tr_ent) and tr_ent:GetPos():Distance(self.Owner:GetPos()) < 150 then
 		if tr_ent:GetClass() == "br2_c4_charge" then
 			self.Contents.pickup_bomb.enabled = true
@@ -604,7 +605,11 @@ function SWEP:CreateFrame()
 
 		if (CurTime() - lastseen) < 4 then
 			self.Contents.examine_someone.enabled = true
-			if lastseen_player:GetPos():Distance(self.Owner:GetPos()) < 150 then
+
+			print(LocalPlayer().br_team, TEAM_SECURITY, TEAM_MTF, TEAM_CI)
+			if lastseen_player:GetPos():Distance(self.Owner:GetPos()) < 150 and
+				(LocalPlayer().br_team == TEAM_SECURITY or LocalPlayer().br_team == TEAM_MTF or LocalPlayer().br_team == TEAM_CI)
+			then
 				self.Contents.check_someones_notepad.enabled = true
 			end
 		end

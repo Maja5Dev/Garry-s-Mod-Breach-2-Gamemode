@@ -24,7 +24,7 @@ net.Receive("br_use_294", function(len, ply)
 		for k,v in pairs(BR2_SCP_294_OUTCOMES) do
 			if table.HasValue(v.texts, text) then
 				net.Start("br_use_294")
-					net.WriteInt(v.type, 4)
+					net.WriteInt(v.type, 8)
 				net.Send(ply)
 				v.func(ply, v, text)
 				return
@@ -32,7 +32,7 @@ net.Receive("br_use_294", function(len, ply)
 		end
 
 		net.Start("br_use_294")
-			net.WriteInt(1, 4)
+			net.WriteInt(1, 8)
 		net.Send(ply)
 	end
 end)
@@ -257,7 +257,10 @@ net.Receive("br_check_someones_notepad", function(len, ply)
 		ply.net_delay = CurTime() + 0.5
 		
 		local target_ply = net.ReadEntity()
-		if IsValid(target_ply) and target_ply:IsPlayer() and target_ply:Alive() and !target_ply:IsSpectator() and target_ply:GetPos():Distance(ply:GetPos()) < 170 and target_ply.br_team != TEAM_SCP then
+		if IsValid(target_ply) and target_ply:IsPlayer() and target_ply:Alive() and !target_ply:IsSpectator()
+			and target_ply:GetPos():Distance(ply:GetPos()) < 170 and target_ply.br_team != TEAM_SCP
+			and (ply.br_team == TEAM_SECURITY or ply.br_team == TEAM_MTF or ply.br_team == TEAM_CI)
+		then
 			local notepad = notepad_system.GetPlayerNotepad(target_ply)
 
 			if !istable(notepad) then

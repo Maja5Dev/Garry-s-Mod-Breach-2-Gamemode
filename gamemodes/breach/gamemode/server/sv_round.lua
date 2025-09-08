@@ -197,6 +197,7 @@ round_system.AssignPlayers = function()
 			end
 
 			pl.br_team = role.team
+			print(pl:Nick(), pl:GetNiceBrTeam())
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
 			pl.charid = i
@@ -517,6 +518,7 @@ function WinCheck()
 				alive_players = alive_players + 1
 				if last_team == nil then
 					last_team = v.br_team
+					
 				elseif last_team != v.br_team then
 					all_same_team = false
 				end
@@ -543,7 +545,7 @@ function HandleRounds()
 	if isnumber(game_state) and isnumber(br2_round_state_end) then
 		if next_round_info_update < CurTime() then
 			net.Start("br_round_info")
-				net.WriteInt(game_state, 4)
+				net.WriteInt(game_state, 8)
 				net.WriteInt(br2_round_state_end, 16)
 				net.WriteInt(br2_round_state_start, 16)
 			net.Broadcast()

@@ -107,13 +107,17 @@ end
 
 function Post_Assign(ply)
 	ply:SetupHands()
-	net.Start("br_update_own_info")
-		net.WriteString(ply.br_showname)
-		net.WriteString(ply.br_role)
-		net.WriteInt(ply.br_team, 4)
-		net.WriteBool(ply.br_ci_agent)
-		net.WriteBool(ply.br_zombie)
-	net.Send(ply)
+
+	timer.Simple(1, function()
+		net.Start("br_update_own_info", ply.br_team)
+			net.WriteString(ply.br_showname)
+			net.WriteString(ply.br_role)
+			net.WriteInt(ply.br_team, 8)
+			net.WriteBool(ply.br_ci_agent)
+			net.WriteBool(ply.br_zombie)
+		net.Send(ply)
+	end)
+
 	ply.dont_assign_items = false
 	ply.support_spawning = false
 end

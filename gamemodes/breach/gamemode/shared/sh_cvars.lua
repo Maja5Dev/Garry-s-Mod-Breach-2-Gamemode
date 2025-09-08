@@ -1,7 +1,7 @@
 
 local all_br2_cvars = {}
 
-local function br2_add_cvar(name, value, helptext)
+function br2_add_cvar(name, value, helptext)
 	--if !ConVarExists(name) then CreateConVar(name, value, {FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY}, helptext) end
 	CreateConVar(name, value, {FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY}, helptext)
 	table.ForceInsert(all_br2_cvars, {name, value})

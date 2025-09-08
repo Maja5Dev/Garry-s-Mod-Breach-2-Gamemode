@@ -24,7 +24,7 @@ function BR_SupportSpawnButtons()
 		--draw.RoundedBox(0, 0, 0, w, h, Color(50, 50, 50, 25))
     end
     
-    local button_w = 300 * size_mul
+    local button_w = 320 * size_mul
     local button_h = 40 * size_mul
 
     local font_info = {

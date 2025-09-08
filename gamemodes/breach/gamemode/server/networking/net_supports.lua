@@ -143,7 +143,7 @@ function br2_mtf_teams_add(ply, num)
 							net.Start("br_update_own_info")
 								net.WriteString(mtf1.br_showname)
 								net.WriteString(mtf1.br_role)
-								net.WriteInt(mtf1.br_team or TEAM_MTF, 4)
+								net.WriteInt(mtf1.br_team or TEAM_MTF, 8)
 								net.WriteBool(false)
 								net.WriteBool(false)
 							net.Send(mtf1)
@@ -200,7 +200,7 @@ end
 br2_mtf_teams_reset()
 
 net.Receive("br_mtf_teams_join", function(len, ply)
-	local num = net.ReadInt(4)
+	local num = net.ReadInt(8)
 	br2_mtf_teams_add(ply, num)
 end)
 

@@ -123,7 +123,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 						net.Start("br_updatebattery")
 							net.WriteInt(wep.BatteryLevel, 8)
-							net.WriteInt(wep.Slot, 4)
+							net.WriteInt(wep.Slot, 8)
 						net.Send(wep.Owner)
 					end
 				end
