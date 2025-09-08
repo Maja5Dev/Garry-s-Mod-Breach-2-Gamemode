@@ -15,12 +15,16 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 	if IsValid(ply) then
 		ply:ForceRemoveFlashlight()
 		ply:DropCurrentWeapon()
+		ply.br_downed = false
+
 		if ply.isTheOne == true then
 			ply:SendLua('surface.PlaySound("breach2/save1.ogg")')
 			return
 		end
+
 		CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
 		ply:AddDeaths(1)
+		
 		if IsValid(attacker) and attacker:IsPlayer() then
 			if attacker == ply then
 				attacker:AddFrags(-1)
@@ -34,6 +38,7 @@ end
 function GM:PlayerDeath(ply, inflictor, attacker)
 	ply.NextSpawnTime = CurTime() + 2
 	ply.DeathTime = CurTime()
+	ply.br_downed = false
 
 	ply:ForceRemoveFlashlight()
 
@@ -48,6 +53,7 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 	if ply:HasWeapon("weapon_scp_173") then
 		ply:StripWeapon("weapon_scp_173")
 	end
+
 	ply:SetWalkSpeed(200)
 	ply:SetRunSpeed(200)
 	ply:SetJumpPower(200)
@@ -87,10 +93,12 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 			inflictor = attacker
 		end
 	end
+	
 	if attacker == ply then
 		print(attacker:Nick() .. " suicided!")
 		return
 	end
+
 	if attacker:IsPlayer() then
 		local gname = inflictor.PrintName or inflictor:GetClass()
 		--if gname.PrintName then
