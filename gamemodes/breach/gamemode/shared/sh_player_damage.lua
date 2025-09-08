@@ -81,6 +81,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		if victim:KeyDown(IN_DUCK) then
 			max_ply_z = max_ply_z * 1.2
 		end
+
 		local wep = victim:GetActiveWeapon()
 		if IsValid(wep) then
 			local hold_type = wep:GetHoldType()
@@ -173,10 +174,12 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 			dmg_mul = dmg_mul * 2.5
 			attacker.br_sanity = 0
 			attacker:SetHealth(math.Clamp(attacker:Health() + 6, 1, attacker:GetMaxHealth()))
+
 		elseif attacker.br_sanity < 35 then
 			dmg_mul = dmg_mul * 1.75
 			attacker.br_sanity = attacker.br_sanity - 5
 			attacker:SetHealth(math.Clamp(attacker:Health() + 4, 1, attacker:GetMaxHealth()))
+			
 		elseif attacker.br_sanity < 65 then
 			dmg_mul = dmg_mul * 1.5
 			attacker.br_sanity = attacker.br_sanity - 3
@@ -187,7 +190,9 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	end
 
 	local can_start_bleeding = false
+	
 	local outfit = victim:GetOutfit()
+
 	if SERVER and IsValid(inflictor) and inflictor.Category == "Breach 2 Weapons" then
 		dmg_mul = dmg_mul * SafeFloatConVar("br2_gun_damage")
 		if outfit.bullet_damage then
@@ -200,7 +205,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	if outfit.explosion_damage and dmginfo:GetDamageType() == DMG_BLAST then
 		dmg_mul = dmg_mul * outfit.explosion_damage
 	elseif outfit.fire_damage and dmginfo:GetDamageType() == DMG_BLAST then
-			dmg_mul = dmg_mul * outfit.fire_damage
+		dmg_mul = dmg_mul * outfit.fire_damage
 	end
 
 	if victim.br_role == "SCP-173" then
@@ -227,6 +232,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 				dmg_mul = 0
 				dmginfo:SetDamage(0)
 			end
+
 			can_start_bleeding = true
 			if IsValid(inflictor) and inflictor.IsStunBaton == true and inflictor.StunningEnabled then
 				can_start_bleeding = false
@@ -244,8 +250,10 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		print(victim:Nick() .. " (" .. victim:GetNiceBrTeam() .. ") got attacked by " .. attacker:Nick() .. " (" .. attacker:GetNiceBrTeam() .. ") health: "..victim:Health() - dmginfo:GetDamage().."")
 	end
 
-	if SERVER and dmginfo:GetDamage() > 4 then
-		victim:AddSanity(-2)
+	if SERVER and victim.br_team != TEAM_SCP and victim.br_usesSanity then
+		local lower_sanity_by = math.Round(dmginfo:GetDamage() * 0.4)
+		victim:AddSanity(-lower_sanity_by)
+		--print(victim, "sanity by damage", lower_sanity_by)
 	end
 
 	if SERVER then
