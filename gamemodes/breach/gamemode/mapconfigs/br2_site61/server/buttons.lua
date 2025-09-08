@@ -9,7 +9,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_armory_room",
 		pos = Vector(752, -1515, -8144),
-		level = 3,
+		level = 4,
 		sounds = true
 	},
 	{
@@ -247,6 +247,14 @@ MAPCONFIG.BUTTONS = {
 		level = 3,
 		sounds = true
 	},
+	{
+		name = "hcz_storage_room_outfitter",
+		pos = Vector(-3407.719971, 5407.799805, -7114.750000),
+		level = 3,
+		sounds = true
+	},
+
+
 
 
 
