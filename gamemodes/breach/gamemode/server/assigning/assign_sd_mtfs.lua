@@ -4,7 +4,9 @@ function assign_system.Assign_SDofficer(ply)
 	ply:PlayerSetSpeeds(DEF_SLOWWALKSPEED * 0.87, DEF_WALKSPEED * 0.87, DEF_RUNSPEED * 0.87)
 	ply:ApplyOutfit("guard")
 	ply.cantChangeOutfit = true
+
 	ply:AllowFlashlight(true)
+
 	ply:Give("br_hands")
 
 	if ply.dont_assign_items == false then
@@ -46,7 +48,9 @@ function assign_system.Assign_SDofficerLight(ply)
 	ply:PlayerSetSpeeds(DEF_SLOWWALKSPEED * 0.87, DEF_WALKSPEED * 0.87, DEF_RUNSPEED * 0.87)
 	ply:ApplyOutfit("guard")
 	ply.cantChangeOutfit = true
+
 	ply:AllowFlashlight(true)
+
 	ply:Give("br_hands")
 
 	if ply.dont_assign_items == false then
@@ -81,10 +85,13 @@ end
 
 function assign_system.Assign_MTF_NTF(ply)
 	Pre_Assign(ply)
+
 	ply:PlayerSetSpeeds(DEF_SLOWWALKSPEED * 0.85, DEF_WALKSPEED * 0.85, DEF_RUNSPEED * 0.85)
 	ply:ApplyOutfit("mtf")
 	ply.cantChangeOutfit = true
+
 	ply:AllowFlashlight(true)
+
 	ply:Give("br_hands")
 
 	if ply.dont_assign_items == false then
@@ -115,7 +122,9 @@ function assign_system.Assign_MTF_NTF(ply)
 
 	--ply:SetNWInt("br_support_team", SUPPORT_FOUNDATION)
 	ply.br_support_team = SUPPORT_FOUNDATION
+
 	Post_Assign(ply)
+	
 	ply.DefaultWeapons = {"br_hands"}
 	ply.canEscape = false
 end

@@ -48,7 +48,7 @@ local item_infos = {
 
 	flashlight_cheap = {name = "Regular Flashlight", desc = "Portable hand-held electric light"},
 	flashlight_normal = {name = "Heavy Duty Flashlight", desc = "Portable hand-held electric light"},
-	flashlight_tactical = {name = "Floodlight", desc = "Portable hand-held electric light"},
+	flashlight_tactical = {name = "Tactical Flashlight", desc = "Portable hand-held electric light"},
 
 	personal_medkit = {name = "Personal Medkit", desc = "Useful medical equipment"},
 	coin = {name = "Coin", desc = "Just a shiny coin"},

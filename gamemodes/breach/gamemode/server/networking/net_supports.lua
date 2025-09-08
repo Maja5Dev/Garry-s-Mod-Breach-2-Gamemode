@@ -102,6 +102,8 @@ function br2_mtf_teams_add(ply, num)
 						local spawn = table.Random(mtf_spawns)
 						pl_mtf:SetPos(spawn)
 
+						table.ForceInsert(pl_mtf.br_special_items, {class="flashlight_tactical"})
+
 						if IsValid(pl_mtf.Body) then
 							pl_mtf.Body.Info.Victim = nil
 						end

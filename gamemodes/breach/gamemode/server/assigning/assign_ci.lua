@@ -41,6 +41,7 @@ function assign_system.Assign_SDofficer_CI(ply)
 	
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_level3")
+		ply:Give("item_gasmask")
 
 		for k,v in pairs(BR2_WEAPON_SETS.sd_officer.additional) do
 			ply:Give(v)
