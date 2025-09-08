@@ -276,4 +276,4 @@ BREACH_OUTFITS = {
 	},
 }
 
-print("[Breach2] shared/sh_outfits.lua loaded!")
+print("[Breach2] config/sh_outfits.lua loaded!")

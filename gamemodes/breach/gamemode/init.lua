@@ -3,11 +3,13 @@ AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
 AddCSLuaFile("shared/sh_server_specific.lua") -- enums of server-related things, top priority
 AddCSLuaFile("shared/sh_npcs.lua") -- enums of NPC-related things, top priority
 AddCSLuaFile("shared/sh_enums.lua") -- just all the enums, top priority
-AddCSLuaFile("shared/sh_outfits.lua") -- contains just the table of outfits, top priority
+AddCSLuaFile("config/sh_enums.lua") -- after shared/sh_enums.lua
+AddCSLuaFile("config/sh_outfits.lua") -- contains just the table of outfits, top priority
 AddCSLuaFile("shared/sh_documents.lua") -- table of documents, top priority
 AddCSLuaFile("shared/sh_player_damage.lua") -- table containing missions, top priority
 
 AddCSLuaFile("shared/sh_cvars.lua") -- used in sv_round.lua, sh_player_damage.lua, sv_player.lua, sv_sanity.lua, sv_networking.lua, sv_temperature.lua, sv_functions_organise.lua
+AddCSLuaFile("config/sh_cvars.lua") -- after shared/sh_cvars.lua
 AddCSLuaFile("shared/sh_util.lua") -- things used in sv_round.lua, sv_sanity.lua, sv_player_meta.lua and br_hands.lua
 AddCSLuaFile("shared/sh_player_meta.lua") -- low priority
 AddCSLuaFile("shared.lua")

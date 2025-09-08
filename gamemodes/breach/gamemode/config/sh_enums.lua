@@ -1,0 +1,25 @@
+﻿
+GM_VERSION = "0.4"
+GM_VERSION_GROUP = "Alpha"
+GM_VERSION_NUM = 0.4
+
+SCP_173_MODEL = "models/breach2_models/scp_173.mdl"
+
+NAMES_TEAM_CI = {
+	"Hydra",
+	"Aion",
+	"Hemera",
+	"Ares",
+	"Ourea",
+	"Thor",
+}
+
+DEF_SLOWWALKSPEED = 85
+DEF_WALKSPEED = 145
+DEF_RUNSPEED = 235
+DEF_JUMPPOWER = 165
+
+DEF_FOV = 86
+
+FOG_LEVEL = 1000 -- 1000
+DEF_PLAYER_RANGE = FOG_LEVEL - 20
