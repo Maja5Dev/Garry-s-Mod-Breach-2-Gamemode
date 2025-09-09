@@ -54,9 +54,7 @@ function DrawTargetID()
 					else
 						lastseen_nick = "[Unknown]"
 					end
-					if LocalPlayer():IsAdmin() then
-						lastseen_nick = lastseen_nick .. " (" .. ent:Nick() .. ")"
-					end
+					lastseen_nick = lastseen_nick .. " (" .. ent:Nick() .. ")"
 				end
 				lastseen_color = Color(255,255,255)
 				lastseen = CurTime() + 2
