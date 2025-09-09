@@ -77,7 +77,7 @@ end)
 
 
 net.Receive("br_pickup_item", function(len, ply)
-	if len < 700 and ply:Alive() and ply:IsSpectator() == false then
+	if len < 700 and ply:Alive() and ply:IsSpectator() == false and ply.br_role != "SCP-049" and ply.br_role != "SCP-173" then
 		local ent_got = net.ReadEntity()
 
 		local nfilter = ply
