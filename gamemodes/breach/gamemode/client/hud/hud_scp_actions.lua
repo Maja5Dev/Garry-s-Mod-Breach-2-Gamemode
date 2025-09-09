@@ -53,6 +53,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
 	local size_mul = ScrH() / 1080
 	
     for i, button in ipairs(MAPCONFIG.SCP_ACTIONS) do
+        if button.pos == nil or pos == nil then continue end
         local d = button.pos - pos
         d = d:Dot(d)
         local d1 = d / (see_range^2)
