@@ -10,38 +10,38 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	if victim == attacker then
 		--print("dmg_type", dmgtype)
 		if dmgtype == DMG_CLUB then
-			rag:SetNWString("ExamineDmgInfo", " - He starved to death")
+			rag:SetNWString("ExamineDmgInfo", " - They starved to death")
 		elseif dmgtype == DMG_ENERGYBEAM then
-			rag:SetNWString("ExamineDmgInfo", " - He died of dehydration")
+			rag:SetNWString("ExamineDmgInfo", " - They died of dehydration")
 		elseif dmgtype == DMG_SLOWBURN then
 			if victim.br_temperature < -400 then
-				rag:SetNWString("ExamineDmgInfo", " - He froze to death")
+				rag:SetNWString("ExamineDmgInfo", " - They froze to death")
 			elseif victim.br_temperature > 400 then
-				rag:SetNWString("ExamineDmgInfo", " - Extreme heat lead to his death")
+				rag:SetNWString("ExamineDmgInfo", " - Extreme heat lead to their death")
 			end
 		elseif dmgtype == DMG_PARALYZE and victim.br_sanity < 50 then
-			rag:SetNWString("ExamineDmgInfo", " - He died of despair")
+			rag:SetNWString("ExamineDmgInfo", " - They died of despair")
 		end
 
 	elseif attacker:IsPlayer() then
 		local inflictor = attacker:GetActiveWeapon()
 		local item_infos = {
-			kanade_tfa_beretta = " - Looks like someone killed him using a pistol",
-			kanade_tfa_m1911 = " - Looks like someone killed him using a pistol",
-			kanade_tfa_crowbar = " - Looks like someone killed him using a blunt melee weapon",
-			kanade_tfa_stunbaton = " - Looks like someone killed him using a baton",
-			kanade_tfa_knife = " - Looks like someone killed him using a sharp melee weapon",
-			kanade_tfa_axe = " - Looks like someone killed him using a sharp melee weapon",
-			kanade_tfa_pipe = " - Looks like someone killed him using a blunt melee weapon",
-			kanade_tfa_mp5k = " - Looks like someone killed him using a submachine gun",
-			kanade_tfa_mk18 = " - Looks like someone killed him using a submachine gun",
-			kanade_tfa_ump45 = " - Looks like someone killed him using a submachine gun",
-			kanade_tfa_m4a1 = " - Looks like someone killed him using an assault rifle",
-			kanade_tfa_m16a4 = " - Looks like someone killed him using an assault rifle",
-			kanade_tfa_m249 = " - Looks like someone killed him using an assault rifle",
-			kanade_tfa_rpk = " - Looks like someone killed him using an assault rifle",
-			kanade_tfa_m590 = " - Looks like someone killed him using a shotgun",
-			br_hands = " - Looks like someone killed him in a fist-fight",
+			kanade_tfa_beretta = " - Looks like someone killed them using a pistol",
+			kanade_tfa_m1911 = " - Looks like someone killed them using a pistol",
+			kanade_tfa_crowbar = " - Looks like someone killed them using a blunt melee weapon",
+			kanade_tfa_stunbaton = " - Looks like someone killed them using a baton",
+			kanade_tfa_knife = " - Looks like someone killed them using a sharp melee weapon",
+			kanade_tfa_axe = " - Looks like someone killed them using a sharp melee weapon",
+			kanade_tfa_pipe = " - Looks like someone killed them using a blunt melee weapon",
+			kanade_tfa_mp5k = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_mk18 = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_ump45 = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_m4a1 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_m16a4 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_m249 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_rpk = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_m590 = " - Looks like someone killed them using a shotgun",
+			br_hands = " - Looks like someone killed them in a fist-fight",
 		}
 		if IsValid(inflictor) and isstring(item_infos[inflictor:GetClass()]) then
 			rag:SetNWString("ExamineDmgInfo", item_infos[inflictor:GetClass()])

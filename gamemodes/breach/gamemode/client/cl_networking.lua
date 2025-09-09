@@ -849,7 +849,7 @@ function EndExaminingSomeone()
 	end
 --PERSONAL INFOS
 	if examined_player.br_showname != nil then
-		chat.AddText(Color(255,255,255,255), " - You remember that his name was " .. examined_player.br_showname)
+		chat.AddText(Color(255,255,255,255), " - You remember that their name was " .. examined_player.br_showname)
 	else
 		chat.AddText(Color(255,255,255,255), " - You don't really know a lot about this person")
 	end

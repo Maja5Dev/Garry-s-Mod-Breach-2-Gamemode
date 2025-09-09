@@ -296,19 +296,19 @@ SWEP.Contents = {
 		--PERSONAL INFOS
 			if pl.br_showname != nil then
 				if pl.br_showname == "D-9341" then
-					chat.AddText(Color(255,255,255,255), " - You remember that he was the Class D-", Color(255,0,0), "9341")
+					chat.AddText(Color(255,255,255,255), " - You remember that they were the Class D-", Color(255,0,0), "9341")
 				else
-					chat.AddText(Color(255,255,255,255), " - You remember that his name was " .. pl.br_showname)
+					chat.AddText(Color(255,255,255,255), " - You remember that their name was " .. pl.br_showname)
 				end
 			else
 				chat.AddText(Color(255,255,255,255), " - You don't really know a lot about this person")
 			end
 			if pl.br_ci_agent == true then
-				chat.AddText(Color(195, 55, 255), " - You rememeber that he was a Chaos Insurgency Spy!")
+				chat.AddText(Color(195, 55, 255), " - You rememeber that they were a Chaos Insurgency Spy!")
 			end
 		--ARMOR
 			if pl:Armor() > 0 then
-				chat.AddText(Color(56, 205,255), " - He seems to be wearing some kind of armor")
+				chat.AddText(Color(56, 205,255), " - They seems to be wearing some kind of armor")
 			end
 		--WEAPONS
 			local has_wep = false
@@ -318,20 +318,20 @@ SWEP.Contents = {
 				end
 			end
 			if has_wep then
-				chat.AddText(Color(56, 205,255), " - He seems to be carrying lethal weapons")
+				chat.AddText(Color(56, 205,255), " - They seem to be carrying lethal weapons")
 			end
 		--WATER LEVEL
 			local water = pl:WaterLevel()
 			if water == 1 then
-				chat.AddText(Color(255,255,255), " - He is slightly submerged")
+				chat.AddText(Color(255,255,255), " - They are slightly submerged")
 			elseif water == 2 then
-				chat.AddText(Color(255,255,255), " - He is submerged")
+				chat.AddText(Color(255,255,255), " - They are submerged")
 			elseif water == 3 then
-				chat.AddText(Color(255, 255,255), " - He is completely submerged")
+				chat.AddText(Color(255, 255,255), " - They are completely submerged")
 			end
 		--FIRE
 			if pl:IsOnFire() then
-				chat.AddText(Color(255,0,0), " - He is on fire!")
+				chat.AddText(Color(255,0,0), " - They are on fire!")
 			end
 		end,
 		cl_after = function(self)
