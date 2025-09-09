@@ -6,7 +6,6 @@ end
 local see_range = 600
 
 local function canSeeSCPAction(cont, endpos, target_ent)
-    endpos = endpos or EyePos()
 	return (util.TraceLine({
         start = cont.pos,
         endpos = cont.pos + (endpos - cont.pos):Angle():Forward() * see_range
@@ -29,6 +28,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
 	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.SCP_ACTIONS == nil then return end
 
     local target_ent = LocalPlayer()
+    local target_pos = EyePos()
     local pos = LocalPlayer():GetPos()
     local wep = LocalPlayer():GetActiveWeapon()
     if IsValid(wep) then
@@ -43,6 +43,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             local ent173 = LocalPlayer():GetNWEntity("entity173")
             if IsValid(ent173) then
                 target_ent = ent173
+                target_pos = target_ent:GetPos()
             end
         end
     end
@@ -56,11 +57,11 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
         d = d:Dot(d)
         local d1 = d / (see_range^2)
         local d2 = d / (170^2)
-        pos = button.pos:ToScreen()
+        local spos = button.pos:ToScreen()
 
-        if d1 < 1 and !IsOffScreen(pos) and canSeeSCPAction(button, target_ent:GetPos(), target_ent) and !BR_AnyMenusOn() then
-            local x = math.abs(pos.x - mx)
-            local y = math.abs(pos.y - my)
+        if d1 < 1 and !IsOffScreen(spos) and canSeeSCPAction(button, target_pos, target_ent) and !BR_AnyMenusOn() and button.can_do(LocalPlayer()) then
+            local x = math.abs(spos.x - mx)
+            local y = math.abs(spos.y - my)
             
             if x < focus_range and y < focus_range and d2 < 1 then
                 if focus_stick < CurTime() or scp_action_focus_button == button then
@@ -77,7 +78,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             else
                 surface.SetDrawColor(255, 255, 255, 75 * (1 - d1))
                 surface.SetMaterial(button.mat.mat)
-                surface.DrawTexturedRect(pos.x - ( (button.mat.w * size_mul) / 2), pos.y - ( (button.mat.h * size_mul) / 2), button.mat.w, button.mat.h)
+                surface.DrawTexturedRect(spos.x - ( (button.mat.w * size_mul) / 2), spos.y - ( (button.mat.h * size_mul) / 2), button.mat.w, button.mat.h)
             end
         end
     end
