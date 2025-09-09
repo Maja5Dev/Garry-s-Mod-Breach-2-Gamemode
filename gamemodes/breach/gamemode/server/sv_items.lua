@@ -1104,6 +1104,56 @@ local function add_drink(class, name, model, thirst)
 	})
 end
 
+local function add_alcohol(class, name, model, thirst)
+	table.ForceInsert(BR2_SPECIAL_ITEMS, {
+		class = class,
+		name = name,
+		func = function(pl)
+			if #pl.br_special_items > 9 then
+				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+				return false
+			end
+			table.ForceInsert(pl.br_special_items, {class = class})
+			return true
+		end,
+		use = function(pl, item)
+			for k,v in pairs(pl.br_special_items) do
+				if spi_comp(v, item) then
+					table.RemoveByValue(pl.br_special_items, v)
+					if istable(thirst) then
+						for i=1, thirst[2] do
+							table.ForceInsert(pl.br_special_items, {class = thirst[1]})
+						end
+					else
+						pl:AddThirst(-thirst)
+					end
+
+					pl:AddSanity(30)
+					pl:BR2_ShowNotification("You drank the "..name..", it tasted nice...")
+
+					pl:StartCustomScreenEffects({
+						colour = 1.7,
+						blur1 = 0.2,
+						blur2 = 0.8,
+						blur3 = 0.01,
+					}, 30)
+
+					pl:EmitSound("breach2/drink.wav")
+
+					return true
+				end
+			end
+
+			return true
+		end,
+		onstart = function(pl)
+		end,
+		drop = function(pl)
+			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
+		end
+	})
+end
+
 add_food("food_cookies", "Cookies", "models/foodnhouseholditems/cookies.mdl", 10, 3)
 add_food("food_sandwich", "Sandwich", "models/foodnhouseholditems/sandwich.mdl", 20, 5)
 add_food("food_burger", "Burger", "models/foodnhouseholditems/mcdburgerbox.mdl", 30, 10)
@@ -1114,9 +1164,10 @@ add_food("food_pizzaslice", "Pizza Slice", "models/foodnhouseholditems/pizzaslic
 add_food("food_pizza", "Pizza", "models/foodnhouseholditems/pizzab.mdl", {"food_pizzaslice", 8, "Pizza Slice", "models/foodnhouseholditems/pizzaslice.mdl"}, 40)
 
 add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 20)
-add_drink("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 20)
 add_drink("drink_bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
 add_drink("drink_popcan", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
+
+add_alcohol("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 60)
 
 local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
