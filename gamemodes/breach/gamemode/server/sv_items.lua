@@ -180,6 +180,18 @@ BR2_SCP_294_OUTCOMES = {
 	},
 
 	{
+		texts = {"breach 1", "old scp sl", "scp cb"},
+		type = SCP294_RESULT_STRUGGLING,
+		sound = scp294_sound_slurp,
+		func = function(ply, info, text) scp_294_func(ply, info, text) end,
+		use = function(ply)
+			ply:BR2_ShowNotification("Nostalgia overwhelms you... you commit suicide.")
+			ply:Kill()
+			return true
+		end
+	},
+
+	{
 		texts = {"blood of jesus", "blood of christ", "blood of jesus christ"},
 		type = SCP294_RESULT_STRUGGLING,
 		sound = scp294_sound_slurp,
@@ -452,9 +464,14 @@ BR2_SPECIAL_ITEMS = {
 		use = function(pl, item)
 			for k,v in pairs(BR2_SCP_294_OUTCOMES) do
 				if table.HasValue(v.texts, item.type) then
-					pl:EmitSound(v.sound[1])
+					local delay = 0.1
 
-					timer.Create("scp294use_"..pl:SteamID64(), v.sound[2], 1, function()
+					if istable(v.sound) then
+						pl:EmitSound(v.sound[1])
+						delay = v.sound[2]
+					end
+
+					timer.Create("scp294use_"..pl:SteamID64(), delay, 1, function()
 						for k2,v2 in pairs(pl.br_special_items) do
 							if spi_comp(v2, item) then
 								table.RemoveByValue(pl.br_special_items, v2)
