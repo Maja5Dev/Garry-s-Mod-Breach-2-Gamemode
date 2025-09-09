@@ -830,20 +830,23 @@ function SWEP:Push()
 			endpos = pl:EyePos() + (pl:EyeAngles():Forward() * 100),
 			filter = pl
 		})
+		
 		local ent = tr.Entity
 		if tr.Hit and !tr.HitWorld and IsValid(ent) and table.HasValue(self.AllowToPush, ent:GetClass()) then
 			--print("Trying to push " .. ent:GetName() .. " ("..CurTime()..")")
 			local ang = Angle(0, pl:EyeAngles().yaw, 0)
 			if ent:IsPlayer() then
 				local vel = ent:GetVelocity()
-				ent:SetVelocity(vel + (ang:Forward() * 400))
+				ent:SetVelocity(vel + (ang:Forward() * 500))
 				self.NextPush = CurTime() + 2
+
 			elseif ent:GetClass() == "prop_ragdoll" then
 				local phys = ent:GetPhysicsObject()
 				if IsValid(phys) then
 					phys:ApplyForceCenter(ang:Forward() * 600)
 				end
 				self.NextPush = CurTime() + 0.01
+
 			else
 				local phys = ent:GetPhysicsObject()
 				if IsValid(phys) then
