@@ -1,5 +1,6 @@
 ﻿
 function assign_system.Assign_SCP049(ply)
+	ply.br_role = "SCP-049"
 	Pre_Assign(ply)
 	ply:SetHealth(1100)
 	ply:SetMaxHealth(1100)
@@ -26,6 +27,7 @@ function assign_system.Assign_SCP049(ply)
 	end
 	ply.br_support_team = SUPPORT_ROGUE
 	Post_Assign(ply)
+	ply.br_role = "SCP-049"
 end
 
 

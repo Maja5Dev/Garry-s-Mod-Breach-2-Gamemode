@@ -308,7 +308,6 @@ BR2_SCP_294_OUTCOMES = {
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
 			ply:AddRunStamina(-3000)
-			ply.CrippledStamina = CurTime() + 7
 			ply:BR2_ShowNotification("The drink tastes terrible. You feel tired and drained.")
 			return true
 		end
@@ -321,7 +320,6 @@ BR2_SCP_294_OUTCOMES = {
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
 			ply:AddRunStamina(-3000)
-			ply.CrippledStamina = CurTime() + 7
 			ply:AddSanity(30)
 			ply:AddThirst(-30)
 			ply:BR2_ShowNotification("Nice...")
