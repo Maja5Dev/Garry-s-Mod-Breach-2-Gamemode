@@ -1,8 +1,7 @@
 
 function GM:PlayerCanHearPlayersVoice(listener, talker)
 	if game_state == GAMESTATE_POSTROUND then return true end
-
-	if talker.br_downed then return false
+	if talker.br_downed then return false end
 
 	local dis = listener:GetPos():Distance(talker:GetPos())
 	if listener:IsSpectator() == true or listener:Alive() == false then
