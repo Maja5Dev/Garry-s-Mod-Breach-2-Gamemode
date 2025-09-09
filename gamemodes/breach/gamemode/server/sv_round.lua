@@ -63,6 +63,7 @@ round_system.Force_MTF_Spawn = function()
 		if v:IsSpectator() then
 			local spawn = table.Random(mtf_spawns)
 
+			v.br_team = TEAM_MTF
 			v.charid = BR_GetUniqueCharID()
 			assign_system.Assign_MTF_NTF(v)
 			v:SetPos(spawn)
