@@ -400,6 +400,12 @@ round_system.PreparingStart = function()
 		round_system.current_scenario.after_assign()
 	end
 
+	for k,v in pairs(player.GetAll()) do
+		if !v:IsBot() then
+			timer.Destroy("scp294use_"..v:SteamID64())
+		end
+	end
+
 	timer.Remove("PlayCommotionSounds")
 	timer.Remove("LockdownWait")
 	timer.Remove("GasLeak1")

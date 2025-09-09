@@ -193,7 +193,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	
 	local outfit = victim:GetOutfit()
 
-	if SERVER and IsValid(inflictor) and inflictor.Category == "Breach 2 Weapons" then
+	if SERVER and IsValid(inflictor) and isBreachWeapon(inflictor) then
 		dmg_mul = dmg_mul * SafeFloatConVar("br2_gun_damage")
 		if outfit.bullet_damage then
 			dmg_mul = dmg_mul * outfit.bullet_damage
@@ -239,9 +239,12 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 				victim:ViewPunch(Angle(math.random(-30,30), math.random(-30,30), 0))
 				victim:SendLua("StunBaton_GotStunned()")
 			end
-			if can_start_bleeding and victim.canStartBleeding == true and round_system.current_scenario.bleeding_enabled == true and dmginfo:GetDamage() > 12 and math.random(1,5) == 4 then
+
+			if can_start_bleeding and victim.canStartBleeding == true and !victim.br_isBleeding
+				and round_system.current_scenario.bleeding_enabled == true and dmginfo:GetDamage() > 12 and math.random(1,4) == 3
+			then
 				victim.br_isBleeding = true
-				--print(victim:Nick() .. " started bleeding")
+				print(victim:Nick() .. " started bleeding")
 			end
 		end
 	end

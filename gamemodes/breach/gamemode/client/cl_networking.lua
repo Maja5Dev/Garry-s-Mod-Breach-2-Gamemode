@@ -216,25 +216,31 @@ net.Receive("br_install_device", function(len)
 end)
 
 net.Receive("br_use_294", function(len)
-	local res = net.ReadInt(8)
-	--print("294 result: " .. res)
-	if res == 1 then
+	local res = net.ReadInt(16)
+
+	print("294 result: " .. res)
+
+	if res == SCP294_RESULT_OUTOFRANGE then
 		keyboard_294_text = "OUT OF RANGE"
 		surface.PlaySound("breach2/294/outofrange.ogg")
 
-	elseif res == 2 then
+	-- normal, nothing came out
+	elseif res == SCP294_RESULT_NOTHING then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense0.ogg")
 
-	elseif res == 3 then
+	-- normal fluid
+	elseif res == SCP294_RESULT_NORMAL then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense1.ogg")
 
-	elseif res == 4 then
+	-- struggling, fluid
+	elseif res == SCP294_RESULT_STRUGGLING then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense2.ogg")
 
-	elseif res == 5 then
+	-- some insanity happened, fluid
+	elseif res == SCP294_RESULT_INSANE then
 		keyboard_294_text = "DISPENSING..."
 		surface.PlaySound("breach2/294/dispense3.ogg")
 	end
@@ -443,6 +449,7 @@ net.Receive("br_round_prepstart", function(len)
 	primary_lights_on = false
 	br2_generators_on = 0
 	br2_generators_on_flash = false
+	BR_INSANITY_ATTACK = 0
 
 --RESET OTHER VARIABLES
 	BR2_MTF_TEAMS = {
@@ -878,6 +885,14 @@ end
 net.Receive("br_hack_terminal", function(len)
 	local logins = net.ReadTable()
 	BR_Hack_Terminal(logins)
+end)
+
+net.Receive("br_custom_screen_effects", function(len)
+	local duration = net.ReadFloat()
+	local tab = net.ReadTable()
+	
+	br_our_custom_screen_effects = tab
+	br_our_custom_screen_effects_for = CurTime() + duration
 end)
 
 print("[Breach2] client/cl_networking.lua loaded!")

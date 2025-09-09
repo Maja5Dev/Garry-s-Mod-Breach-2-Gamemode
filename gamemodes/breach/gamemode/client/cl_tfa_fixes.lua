@@ -32,13 +32,13 @@ if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 	end)
 
 	hook.Add("PlayerSwitchWeapon", "BR2_TFA_SWITCH_FIX", function(ply, oldWeapon, newWeapon)
-		if CLIENT and br2_tfa_fixed and newWeapon.Category == "Breach 2 Weapons" then
+		if CLIENT and br2_tfa_fixed and isBreachWeapon(newWeapon) then
 			newWeapon.VElements["sight_eotech_lens"] = TFA.INS2.GetHoloSightReticle("sight_eotech", "yes")
 		end
 	end)
 
 	hook.Add("HUDWeaponPickedUp", "BR2_TFA_DEPLOY_FIX", function(wep)
-		if CLIENT and br2_tfa_fixed and wep.Category == "Breach 2 Weapons" then
+		if CLIENT and br2_tfa_fixed and isBreachWeapon(wep) then
 			wep.VElements["sight_eotech_lens"] = TFA.INS2.GetHoloSightReticle("sight_eotech", "yes")
 		end
 	end)

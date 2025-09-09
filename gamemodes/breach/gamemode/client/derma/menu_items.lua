@@ -730,7 +730,7 @@ end
 
 
 
-local mat_294 = Material("breach2/294panel.jpg")
+local mat_294 = Material("breach2/294panel_upscaled.png")
 
 function OpenSCP_294()
 	if IsValid(frame_294) then
@@ -804,7 +804,6 @@ function OpenSCP_294()
 			else
 				frame_294:Remove()
 			end
-			--print("dispensing stopped")
 		end
 	end
 	
@@ -812,23 +811,28 @@ function OpenSCP_294()
 		surface.PlaySound("breach2/Button.ogg")
 		if (next_interaction > CurTime()) or dispensing then return end
 		local len = string.len(keyboard_294_text)
+
 		if key == "[" then
 			next_interaction = CurTime() + 4.201
 			dispensing = true
+
 			net.Start("br_use_294")
 				net.WriteString(string.lower(keyboard_294_text))
 			net.SendToServer()
+
 			return
-		elseif key == "]" and len < 10 then
+
+		elseif key == "]" and len < 18 then
 			keyboard_294_text = keyboard_294_text .. " "
 			return
+
 		elseif key == "}" then
 			keyboard_294_text = string.sub(keyboard_294_text, 1, len - 1)
 			return
 		end
 
-		if len < 10 then
-		keyboard_294_text = keyboard_294_text .. key
+		if len < 18 then
+			keyboard_294_text = keyboard_294_text .. key
 		end
 	end
 

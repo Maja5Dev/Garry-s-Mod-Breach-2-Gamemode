@@ -1,4 +1,7 @@
 
+br_our_custom_screen_effects = nil
+br_our_custom_screen_effects_for = nil
+
 br2_generators_on_flash = false
 temprature_strongness = 0
 
@@ -21,8 +24,29 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 		add_b = 0,
 		vignette_alpha = 160,
 		tt1 = 1,
-		tt2 = 2
+		tt2 = 2,
+		blur1 = 0,
+		blur2 = 0,
+		blur3 = 0
 	}
+
+	if br_our_custom_screen_effects and br_our_custom_screen_effects_for > CurTime() then
+		if br_our_custom_screen_effects.contrast then i.contrast = br_our_custom_screen_effects.contrast end
+		if br_our_custom_screen_effects.colour then i.colour = br_our_custom_screen_effects.colour end
+		if br_our_custom_screen_effects.brightness then i.brightness = br_our_custom_screen_effects.brightness end
+		if br_our_custom_screen_effects.clr_r then i.clr_r = br_our_custom_screen_effects.clr_r end
+		if br_our_custom_screen_effects.clr_g then i.clr_g = br_our_custom_screen_effects.clr_g end
+		if br_our_custom_screen_effects.clr_b then i.clr_b = br_our_custom_screen_effects.clr_b end
+		if br_our_custom_screen_effects.add_r then i.add_r = br_our_custom_screen_effects.add_r end
+		if br_our_custom_screen_effects.add_g then i.add_g = br_our_custom_screen_effects.add_g end
+		if br_our_custom_screen_effects.add_b then i.add_b = br_our_custom_screen_effects.add_b end
+		if br_our_custom_screen_effects.vignette_alpha then i.vignette_alpha = br_our_custom_screen_effects.vignette_alpha end
+		if br_our_custom_screen_effects.tt1 then i.tt1 = br_our_custom_screen_effects.tt1 end
+		if br_our_custom_screen_effects.tt2 then i.tt2 = br_our_custom_screen_effects.tt2 end
+		if br_our_custom_screen_effects.blur1 then i.blur1 = br_our_custom_screen_effects.blur1 end
+		if br_our_custom_screen_effects.blur2 then i.blur2 = br_our_custom_screen_effects.blur2 end
+		if br_our_custom_screen_effects.blur3 then i.blur3 = br_our_custom_screen_effects.blur3 end
+	end
 
 	if !client:Alive() or (CurTime() - br2_last_death) < 12 then
 		i.brightness = -1
@@ -139,6 +163,10 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				DrawBloom(1, 0.2, 2, 9, 1, 1, 1, 1, 1)
 				DrawToyTown(i.tt1, scrh / i.tt2)
 				DrawSharpen(0.5, 0.5)
+
+				if i.blur1 > 0 then
+					DrawMotionBlur(i.blur1, i.blur2, i.blur3)
+				end
 
 				if br2_generators_on_flash then
 					local left = br2_generators_on - CurTime()

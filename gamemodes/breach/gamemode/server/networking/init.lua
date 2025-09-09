@@ -73,6 +73,7 @@ util.AddNetworkString("br2_notification")
 util.AddNetworkString("br_check_someones_notepad")
 util.AddNetworkString("br_hack_terminal")
 util.AddNetworkString("br_scp_action")
+util.AddNetworkString("br_custom_screen_effects")
 
 include("net_supports.lua") -- top priority
 
@@ -87,6 +88,7 @@ include("net_scp.lua")
 include("net_country_codes.lua")
 include("net_notification.lua")
 include("net_scp_actions.lua")
+include("net_screen_effects.lua")
 
 include("tick.lua") -- lowest priority
 

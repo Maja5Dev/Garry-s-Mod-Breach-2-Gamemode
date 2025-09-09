@@ -18,21 +18,22 @@ net.Receive("br_hide_in_closet", function(len, ply)
 end)
 
 net.Receive("br_use_294", function(len, ply)
-	if len < 512 and istable(MAPCONFIG.SCP_294_CUP) and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
+	if len < 1024 and istable(MAPCONFIG.SCP_294_CUP) and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
 		local text = net.ReadString()
 
 		for k,v in pairs(BR2_SCP_294_OUTCOMES) do
-			if table.HasValue(v.texts, text) then
+			if table.HasValue(v.texts, string.lower(text)) then
 				net.Start("br_use_294")
-					net.WriteInt(v.type, 8)
+					net.WriteInt(v.type, 16)
 				net.Send(ply)
+
 				v.func(ply, v, text)
 				return
 			end
 		end
 
 		net.Start("br_use_294")
-			net.WriteInt(1, 8)
+			net.WriteInt(SCP294_RESULT_OUTOFRANGE, 16)
 		net.Send(ply)
 	end
 end)
