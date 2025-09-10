@@ -78,10 +78,13 @@ local function HandleSanity()
 					v:SendLua('HorrorCL_Blood()')
 				end
 
-				local afk_time = v:AfkTime()
 				v.nextHorrorDamage = v.nextHorrorDamage or 0
-				if v.nextHorrorDamage < CurTime() and afk_time > 60 then
-					v.nextHorrorDamage = CurTime() + 3
+				if v.nextHorrorDamage < CurTime() then
+					if v:AfkTime() > 60 then
+						v.nextHorrorDamage = CurTime() + 2
+					else
+						v.nextHorrorDamage = CurTime() + 5
+					end
 
 					if v:Health() < 2 then
 						local fdmginfo = DamageInfo()
