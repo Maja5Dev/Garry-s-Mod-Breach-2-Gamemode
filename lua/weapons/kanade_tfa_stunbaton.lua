@@ -156,7 +156,7 @@ function SWEP:DrawHUD()
 			text = "Reload to enable stunning",
 			pos = { ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
-			color = Color(255,255,255,50),
+			color = Color(255,255,255,80),
 			xalign = TEXT_ALIGN_CENTER,
 			yalign = TEXT_ALIGN_BOTTOM,
 		})

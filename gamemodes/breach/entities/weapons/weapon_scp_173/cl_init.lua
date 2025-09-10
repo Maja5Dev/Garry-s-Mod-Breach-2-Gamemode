@@ -17,10 +17,18 @@ end
 function SWEP:DrawHUD()
 	if BR2_ShouldDrawWeaponInfo() then
 		draw.Text({
-			text = "Shift shows the nest position, W teleports you to the next position if possible",
+			text = "Shift shows the next position, W teleports you to the next position if possible",
+			pos = {ScrW() / 2, ScrH() - 30},
+			font = "BR2_ItemFont",
+			color = Color(255,255,255,80),
+			xalign = TEXT_ALIGN_CENTER,
+			yalign = TEXT_ALIGN_BOTTOM,
+		})
+		draw.Text({
+			text = "Clicking R toggles free roaming mode, A and D switch shoulder",
 			pos = {ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
-			color = Color(255,255,255,50),
+			color = Color(255,255,255,80),
 			xalign = TEXT_ALIGN_CENTER,
 			yalign = TEXT_ALIGN_BOTTOM,
 		})

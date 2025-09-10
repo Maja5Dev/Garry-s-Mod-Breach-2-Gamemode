@@ -261,7 +261,7 @@ function SWEP:DrawHUD()
 			text = "Primary attack changes the channel and secondary attack toggles the radio",
 			pos = { ScrW() / 2, ScrH() - 15},
 			font = "BR2_ItemFont",
-			color = Color(255,255,255,50),
+			color = Color(255,255,255,80),
 			xalign = TEXT_ALIGN_CENTER,
 			yalign = TEXT_ALIGN_CENTER,
 		})
