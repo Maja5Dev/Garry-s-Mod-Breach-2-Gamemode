@@ -1,6 +1,6 @@
 
 net.Receive("br_take_outfit", function(len, ply)
-	if len < 100 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
+	if len < 128 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 		local str_got = net.ReadString()
 
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.OUTFITTERS.buttons) do
@@ -46,18 +46,23 @@ net.Receive("br_take_outfit", function(len, ply)
 					else
 						ply:ApplyOutfit(str_got)
 					end
-
-					/*
-					if isstring(outfit.model) then
-						ply:SetModel(outfit.model)
-					else
-						ply:SetModel(outfit.model[math.Clamp(our_pos, 1, table.Count(outfit.model))])
-					end
-					*/
 					
 					ply:EmitSound(Sound("npc/combine_soldier/zipline_clothing"..math.random(1,2)..".wav"))
 					table.RemoveByValue(v.items, str_got)
 					table.ForceInsert(v.items, our_model_class)
+
+					for _, otherply in pairs(player.GetAll()) do
+						local tr = util.TraceLine({
+							start = ply:GetPos(),
+							endpos = otherply:GetPos(),
+							filter = ply,
+							mask = MASK_SHOT_HULL
+						})
+
+						if otherply != ply and tr.Entity != otherply then
+							notepad_system.RemovePlayerInfo(otherply, ply.charid)
+						end
+					end
 				end
 			end
 		end
@@ -65,7 +70,7 @@ net.Receive("br_take_outfit", function(len, ply)
 end)
 
 net.Receive("br_use_outfitter", function(len, ply)
-	if len < 200 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
+	if len < 256 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 
 		if ply.cantChangeOutfit then
 			ply:PrintMessage(HUD_PRINTTALK, "You couldn't find anything useful...")

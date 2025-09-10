@@ -62,6 +62,22 @@ notepad_system.AddAutomatedInfo = function(ply, text)
     end
 end
 
+notepad_system.RemovePlayerInfo = function(ply, info_charid)
+    if notepad_system.AllNotepads[ply.charid] == nil then return end
+
+    local found = false
+    for i,v in ipairs(notepad_system.AllNotepads[ply.charid].people) do
+        if v.charid == info_charid then
+            table.remove(notepad_system.AllNotepads[ply.charid].people, i)
+            found = true
+        end
+    end
+
+    if found then
+        notepad_system.UpdateNotepad(ply)
+    end
+end
+
 notepad_system.AddPlayerInfo = function(ply, info_showname, info_role, info_team, info_ci_agent, info_health, info_scp, info_charid, info_ent)
     if IsValid(ply) and ply:IsPlayer() and istable(notepad_system.AllNotepads[ply.charid]) then
         for k,v in pairs(notepad_system.AllNotepads[ply.charid].people) do
