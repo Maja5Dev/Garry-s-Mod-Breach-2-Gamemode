@@ -739,6 +739,12 @@ end
 
 local mat_294 = Material("breach2/294panel_upscaled.png")
 
+function CloseSCP_294()
+	if IsValid(frame_294) then
+		frame_294:Remove()
+	end
+end
+
 function OpenSCP_294()
 	if IsValid(frame_294) then
 		frame_294:Remove()
