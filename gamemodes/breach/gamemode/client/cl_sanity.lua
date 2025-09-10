@@ -79,8 +79,9 @@ end
 next_horror_breath = 0
 function HorrorCL_Breath()
 	if next_horror_breath < CurTime() and br2_our_sanity < 2 and BR_INSANITY_ATTACK < CurTime() and math.random(1,3) < 3 then
-		surface.PlaySound("breach2/horror/breath.ogg")
-		next_horror_breath = CurTime() + math.random(3, 6)
+		chat.AddText("breath " .. CurTime() .. "")
+		surface.PlaySound("breach2/horror/breath.wav")
+		next_horror_breath = CurTime() + 5 + math.random(4, 12)
 	end
 end
 
