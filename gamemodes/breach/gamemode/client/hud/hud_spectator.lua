@@ -11,6 +11,22 @@ function DrawSpectatorHud()
 			spec_text = "Spectating " .. obv_target.SCPNAME
 		end
 		br2_current_spec_target = obv_target
+	else
+		for k,v in pairs(player.GetAll()) do
+			local dist = LocalPlayer():GetPos():Distance(v:GetPos())
+			if dist > 100 then
+				local pos2d = v:GetPos():ToScreen()
+
+				draw.Text({
+					text = v:Nick(),
+					pos = {pos2d.x, pos2d.y},
+					xalign = TEXT_ALIGN_CENTER,
+					yalign = TEXT_ALIGN_CENTER,
+					font = "BR_SPECTATOR_FONT",
+					color = Color(220,220,220, math.Clamp(dist - 255, 0, 255)),
+				})
+			end
+		end
 	end
 
 	draw.Text({
