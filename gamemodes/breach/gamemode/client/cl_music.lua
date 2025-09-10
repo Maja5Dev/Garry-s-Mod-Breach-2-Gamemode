@@ -1,56 +1,29 @@
 
 BR2_RANDOM_MUSIC = {
-	low = {},
-	medium = {},
-	high = {},
 }
 
 function RESET_RANDOM_MUSIC()
 	BR2_RANDOM_MUSIC = {
-		low = {
-			{"breach2/music/random_music_low_1.mp3", 294.08},
-			{"breach2/music/random_music_low_2.mp3", 76.77},
-			{"breach2/music/random_music_low_3.mp3", 154.02},
-			{"breach2/music/random_music_low_4.mp3", 184.63},
-			{"breach2/music/random_music_low_5.mp3", 110.59},
-
-			{"breach2/music/random_music_low_6.mp3", 90.2},
-			{"breach2/music/random_music_low_7.mp3", 108},
-			{"breach2/music/random_music_low_8.mp3", 55},
-			{"breach2/music/random_music_low_9.mp3", 167},
-			{"breach2/music/random_music_low_10.mp3", 280},
-		},
-		medium = {
-			{"breach2/music/random_music_medium_1.mp3", 172.17},
-			{"breach2/music/random_music_medium_2.mp3", 161.68},
-			{"breach2/music/random_music_medium_3.mp3", 184.65},
-			{"breach2/music/random_music_medium_4.mp3", 73.02},
-			{"breach2/music/random_music_medium_5.mp3", 270.01},
-
-			{"breach2/music/random_music_medium_6.mp3", 39},
-			{"breach2/music/random_music_medium_7.mp3", 62},
-			{"breach2/music/random_music_medium_8.mp3", 300},
-			{"breach2/music/random_music_medium_9.mp3", 255},
-			{"breach2/music/random_music_medium_10.mp3", 63},
-			{"breach2/music/random_music_medium_11.mp3", 250},
-		},
-		high = {
-			{"breach2/music/random_music_high_1.mp3", 67.42},
-			{"breach2/music/random_music_high_2.mp3", 239.71},
-			{"breach2/music/random_music_high_3.mp3", 144.01},
-			{"breach2/music/random_music_high_4.mp3", 144.01},
-
-			{"breach2/music/random_music_high_5.mp3", 105.5},
-			{"breach2/music/random_music_high_6.mp3", 264},
-			{"breach2/music/random_music_high_7.mp3", 69.0},
-			{"breach2/music/random_music_high_8.mp3", 145},
-		},
+		{"breach2/music/random_music_low_2.mp3", 76.77},
+		{"breach2/music/random_music_low_4.mp3", 184.63},
+		{"breach2/music/random_music_low_7.mp3", 108},
+		{"breach2/music/random_music_low_8.mp3", 55},
+		{"breach2/music/random_music_low_9.mp3", 167},
 	}
 
 	next_rmusic = nil
 end
 RESET_RANDOM_MUSIC()
 
+local last_sanity_music = nil
+BR2_SANITY_MUSIC = {
+	{ sound = "breach2/music/distance2.wav", length = 20, volume = 0.6 },
+	{ sound = "breach2/music/withinsight.ogg", length = 60.44, volume = 0.6 },
+	{ sound = "breach2/music/random_music_medium_1.mp3", length = 173, volume = 0.6 },
+	{ sound = "breach2/music/random_music_medium_3.mp3", length = 185, volume = 0.6 },
+	{ sound = "breach2/music/random_music_medium_5.mp3", length = 270, volume = 0.6 },
+	{ sound = "breach2/music/random_music_medium_11.mp3", length = 251, volume = 0.6 },
+}
 
 
 lastzone = nil
@@ -288,6 +261,29 @@ function HandleMusic()
 						local cur_zone = LocalPlayer():GetZone()
 						if cur_zone == nil or cur_zone.music == nil then return false end
 						return (cur_zone.music.sound == get_zone.music.sound)
+					end
+				}
+			elseif br2_our_sanity < 24 then
+				local possibleSanityMusic = {}
+
+				for k,v in pairs(BR2_SANITY_MUSIC) do
+					if last_sanity_music == nil or last_sanity_music.sound != v then
+						table.ForceInsert(possibleSanityMusic, v)
+					end
+				end
+
+				local randomSanityMusic = table.Random(possibleSanityMusic)
+				last_sanity_music = randomSanityMusic
+
+				br2_music_info = {
+					nextPlay = 0,
+					volume = randomSanityMusic.volume,
+					length = randomSanityMusic.length,
+					sound = randomSanityMusic.sound,
+					playUntil = function()
+						local cur_zone = LocalPlayer():GetZone()
+						if cur_zone == nil or randomSanityMusic == nil or br2_our_sanity >= 24 then return false end
+						return true
 					end
 				}
 			end
