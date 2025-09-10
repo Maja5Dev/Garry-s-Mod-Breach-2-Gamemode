@@ -631,9 +631,11 @@ function SWEP:CreateFrame()
 
 	for k,v in pairs(ents.FindInSphere(tr.HitPos, 40)) do
 		if v:GetNWBool("isDropped", false) == true and !IsValid(v.Owner) then
-			tr = util.TraceLine({
+			tr = util.TraceHull({
 				start = self.Owner:EyePos(),
 				endpos = v:GetPos(),
+				mins = Vector(-4, -4, -4),
+				maxs = Vector(4, 4, 4),
 				filter = nfilter
 			})
 			if tr.Entity == v then
@@ -643,6 +645,8 @@ function SWEP:CreateFrame()
 	end
 	
 	local entf = LocalPlayer():GetAllEyeTrace().Entity
+	local nearbyEnts = ents.FindInSphere(LocalPlayer():GetAllEyeTrace().HitPos, 30)
+
 	if IsValid(entf) and entf:GetNWBool("isDropped", false) == true and !IsValid(entf.Owner) and entf:GetPos():Distance(LocalPlayer():GetPos()) < 150 then
 		local found = false
 		for k,v in pairs(pickupable_items) do
