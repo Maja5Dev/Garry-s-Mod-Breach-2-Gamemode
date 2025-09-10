@@ -17,6 +17,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true
 	},
@@ -26,6 +27,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true
 	},
@@ -35,6 +37,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
 		code_available_for = function(ply)
 			return ply.br_role == "SD Officer" or ply.br_team == TEAM_CI
 		end,
@@ -47,6 +50,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true
 	},
@@ -89,6 +93,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = false,
+		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		evac_shelter = true,
 		sounds = true

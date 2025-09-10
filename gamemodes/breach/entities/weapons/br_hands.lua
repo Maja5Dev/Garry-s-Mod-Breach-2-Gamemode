@@ -433,6 +433,7 @@ SWEP.Contents = {
 				mins = Vector(-2, -2, -2), maxs = Vector(2, 2, 2),
 				mask = MASK_SHOT_HULL
 			})
+
 			if IsValid(tr_hull.Entity) then
 				local ent = tr_hull.Entity
 				if ent:GetClass() == "func_button" and ent:GetPos():Distance(BR2_Get_914_1_Pos()) < 4 then

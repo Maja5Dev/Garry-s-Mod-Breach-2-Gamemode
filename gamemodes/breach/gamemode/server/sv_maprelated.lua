@@ -440,6 +440,30 @@ function BR_DEFAULT_MAP_Organize_Cameras()
 	end
 end
 
+usable_radio_codes = {}
+
+function ResetRadioCodes()
+	usable_radio_codes = {}
+	for _,bt in pairs(MAPCONFIG.KEYPADS) do
+		if isnumber(bt.code) and bt.code_can_be_obtained_by_radio then
+			table.ForceInsert(usable_radio_codes, bt.code)
+		end
+	end
+end
+
+function GiveRadioACode(ent)
+	if #usable_radio_codes < 1 then
+		ResetRadioCodes()
+	end
+
+	local chosen_code = table.Random(usable_radio_codes)
+
+	if chosen_code then
+		table.RemoveByValue(usable_radio_codes, chosen_code)
+		ent.Code = chosen_code
+		print("gave a new code", chosen_code, ent)
+	end
+end
 
 function Kanade_DebugPrint1()
 	local ent = Entity(1):GetAllEyeTrace().Entity
