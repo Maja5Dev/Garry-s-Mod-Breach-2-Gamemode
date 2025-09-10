@@ -222,14 +222,19 @@ end
 
 function player_meta:SanityLevel()
 	local s = self.br_sanity
+
 	if s < 16 then
 		return 1
+
 	elseif s < 31 then
 		return 2
+
 	elseif s < 51 then
 		return 3
+
 	elseif s < 76 then
 		return 4
+		
 	elseif s < 96 then
 		return 5
 	else

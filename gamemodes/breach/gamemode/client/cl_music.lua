@@ -2,18 +2,15 @@
 BR2_RANDOM_MUSIC = {
 }
 
-function RESET_RANDOM_MUSIC()
-	BR2_RANDOM_MUSIC = {
-		{"breach2/music/random_music_low_2.mp3", 76.77},
-		{"breach2/music/random_music_low_4.mp3", 184.63},
-		{"breach2/music/random_music_low_7.mp3", 108},
-		{"breach2/music/random_music_low_8.mp3", 55},
-		{"breach2/music/random_music_low_9.mp3", 167},
-	}
-
-	next_rmusic = nil
-end
-RESET_RANDOM_MUSIC()
+local last_random_music = nil
+next_check_random_music = 0
+BR2_RANDOM_MUSIC = {
+	{ sound = "breach2/music/random_music_low_2.mp3", length = 76.77, volume = 0.6 },
+	{ sound = "breach2/music/random_music_low_4.mp3", length = 184.63, volume = 0.6 },
+	{ sound = "breach2/music/random_music_low_7.mp3", length = 108, volume = 0.6 },
+	{ sound = "breach2/music/random_music_low_8.mp3", length = 55, volume = 0.6 },
+	{ sound = "breach2/music/random_music_low_9.mp3", length = 167, volume = 0.6 },
+}
 
 local last_sanity_music = nil
 BR2_SANITY_MUSIC = {
@@ -213,10 +210,6 @@ function RESET_ONESHOT_AMBIENTS()
 end
 RESET_ONESHOT_AMBIENTS()
 
-local next_rmusic_check = 0
-local next_rmusic = nil
-local next_rmusic_end = 0
-
 function HandleMusic()
 	local client = LocalPlayer()
 
@@ -238,8 +231,11 @@ function HandleMusic()
 				end
 			*/
 
-			if next_rmusic_end > CurTime() then
+			if br2_last_music then
+				-- music is on!
+
 			elseif our_music_zone != nil and (br2_music_info.sound != our_music_zone.sound or br2_music_info == nil) then
+				-- music zone
 				br2_music_info = {
 					nextPlay = 0,
 					volume = our_music_zone.volume,
@@ -252,6 +248,7 @@ function HandleMusic()
 				}
 				
 			elseif get_zone != nil and get_zone.music != nil and br2_music_info.sound != get_zone.music.sound then
+				-- zone music
 				br2_music_info = {
 					nextPlay = 0,
 					volume = get_zone.music.volume,
@@ -263,7 +260,9 @@ function HandleMusic()
 						return (cur_zone.music.sound == get_zone.music.sound)
 					end
 				}
-			elseif br2_our_sanity < 24 then
+
+			elseif br2_our_sanity < 3 then -- on the verge of breaking
+				-- low sanity music
 				local possibleSanityMusic = {}
 
 				for k,v in pairs(BR2_SANITY_MUSIC) do
@@ -275,6 +274,8 @@ function HandleMusic()
 				local randomSanityMusic = table.Random(possibleSanityMusic)
 				last_sanity_music = randomSanityMusic
 
+				print("playing sanity music", randomSanityMusic.sound)
+
 				br2_music_info = {
 					nextPlay = 0,
 					volume = randomSanityMusic.volume,
@@ -282,10 +283,43 @@ function HandleMusic()
 					sound = randomSanityMusic.sound,
 					playUntil = function()
 						local cur_zone = LocalPlayer():GetZone()
-						if cur_zone == nil or randomSanityMusic == nil or br2_our_sanity >= 24 then return false end
+						if br2_our_sanity < 3 then return false end
 						return true
 					end
 				}
+				
+			elseif next_check_random_music < CurTime() then
+				if math.random(1,3) == 2 then
+					-- regular always on music
+					local possibleRandomMusic = {}
+
+					for k,v in pairs(BR2_RANDOM_MUSIC) do
+						if last_random_music == nil or last_random_music.sound != v then
+							table.ForceInsert(possibleRandomMusic, v)
+						end
+					end
+
+					local randomMusic = table.Random(possibleRandomMusic)
+					last_random_music = randomMusic
+
+					print("playing random music", randomMusic.sound)
+
+					br2_music_info = {
+						nextPlay = 0,
+						volume = randomMusic.volume,
+						length = randomMusic.length,
+						sound = randomMusic.sound,
+						playUntil = function()
+							local cur_zone = LocalPlayer():GetZone()
+							if (cur_zone != nil and cur_zone.music != nil) or br2_our_sanity < 3 then return false end
+							return true
+						end
+					}
+
+					next_check_random_music = randomMusic.length + math.random(18, 40)
+				else
+					next_check_random_music = math.random(3, 7)
+				end
 			end
 			
 			if br2_last_music != nil then
