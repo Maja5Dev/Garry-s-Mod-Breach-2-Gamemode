@@ -46,7 +46,7 @@ net.Receive("br_drop_special_item", function(len, ply)
 			if spi_comp(v, item) then
 				for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
 					if v2.class == v.class then
-						v2.drop(ply, item)
+						v2.drop(ply, v)
 						return
 					end
 				end
@@ -148,6 +148,10 @@ net.Receive("br_pickup_item", function(len, ply)
 
 				if entf.Code != nil then
 					new_ent.Code = entf.Code
+				end
+
+				if entf.Attributes != nil then
+					new_ent.Attributes = entf.Attributes
 				end
 				
 				if entf.BatteryLevel != nil then

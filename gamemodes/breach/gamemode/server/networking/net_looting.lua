@@ -142,8 +142,6 @@ net.Receive("br_take_loot", function(len, ply)
 					if swep == nil then
 						for k2,v2 in pairs(BR2_DOCUMENTS) do
 							if v2.class == class or v2.class == item.type then
-								print("doc debug")
-								PrintTable(item)
 								table.RemoveByValue(source_tab, v)
 								table.ForceInsert(ply.br_special_items, {class = "document", name = v2.name, type = v2.class, attributes = item.attributes})
 								return

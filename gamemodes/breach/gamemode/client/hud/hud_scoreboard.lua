@@ -147,7 +147,7 @@ function BR_ShowScoreboard()
 			color = text_color_white,
 		})
 		draw.Text({
-			text = "made by Akko",
+			text = "made by Maya",
 			pos = {gap * 4, h - (gap * 2)},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_BOTTOM,

@@ -7,16 +7,19 @@ function form_basic_item_info(class, amount)
 			return {class = class, ammo = 0, name = v.name}
 		end
 	end
+
 	for k,v in pairs(BR2_SPECIAL_ITEMS) do
 		if v.class == class then
 			return {class = class, ammo = 0, v.name}
 		end
 	end
+
 	--print("TEST ITEM", class, weapons.Get(class), weapons.Get(class).PrintName)
 	local wwep = weapons.Get(class)
 	if wwep == nil then
 		ErrorNoHalt("Couldn't find a weapon class: " .. class)
 	end
+	
 	return {class = class, ammo = amount or 0, name = wwep.PrintName}
 end
 

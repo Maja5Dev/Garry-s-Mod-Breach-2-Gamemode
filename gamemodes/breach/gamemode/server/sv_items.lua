@@ -26,8 +26,9 @@ function LockPickFunc(ply, v)
 	ply:EmitSound("breach2/lockpick.mp3")
 end
 
-local function br2_special_item_drop(pl, class, name, force_class, mdl)
+local function br2_special_item_drop(pl, class, name, force_class, mdl, item)
 	--print(pl, class, name)
+
 	local dropped_ent = ents.Create(force_class)
 	if IsValid(dropped_ent) then
 		local tr = util.TraceLine({
@@ -35,14 +36,17 @@ local function br2_special_item_drop(pl, class, name, force_class, mdl)
 			endpos = pl:EyePos() + (pl:EyeAngles():Forward() * 30),
 			filter = pl
 		})
+
 		if tr.Hit == false then
 			dropped_ent:SetPos(tr.HitPos)
 		else
 			dropped_ent:SetPos(pl:EyePos())
 		end
+
 		if mdl then
 			dropped_ent:SetModel(mdl)
 		end
+
 		dropped_ent:SetAngles(Angle(-10, pl:EyeAngles().yaw, 0))
 		dropped_ent:Spawn()
 		dropped_ent.SI_Class = class
@@ -50,13 +54,19 @@ local function br2_special_item_drop(pl, class, name, force_class, mdl)
 		ForceSetPrintName(dropped_ent, name)
 		dropped_ent:SetNWBool("isDropped", true)
 		
+		if item and item.attributes then
+			dropped_ent.Attributes = item.attributes
+		end
+		
 		local phys = dropped_ent:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
 			phys:SetMass(5)
 			phys:ApplyForceCenter(pl:EyeAngles():Forward() * 1000)
 		end
+
 		for k,v in pairs(pl.br_special_items) do
+			if item and !spi_comp(item, v) then continue end
 			if v.class == class then
 				table.RemoveByValue(pl.br_special_items, v)
 				return true, dropped_ent
@@ -445,7 +455,7 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl, item)
 			--local res, ent = br2_special_item_drop(pl, "document", "Document", "prop_physics", "models/props_interiors/paper_tray.mdl")
-			local res, ent = br2_special_item_drop(pl, "document", "Document", "prop_physics", "models/foodnhouseholditems/newspaper2.mdl")
+			local res, ent = br2_special_item_drop(pl, "document", "Document", "prop_physics", "models/foodnhouseholditems/newspaper2.mdl", item)
 			ent.PrintName = item.name
 			ent.DocType = item.type
 			ent.DocAttributes = item.attributes
@@ -513,7 +523,7 @@ BR2_SPECIAL_ITEMS = {
 		onstart = function(pl)
 		end,
 		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")
+			br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")
 		end,
 		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
@@ -530,8 +540,12 @@ BR2_SPECIAL_ITEMS = {
 				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
 				return false
 			end
+
+			print("picked up attributes", ent.Attributes)
+			if istable(ent.Attributes) then
+				PrintTable(ent.Attributes)
+			end
 			table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox", attributes = ent.Attributes})
-			pl.sp_toolbox_uses = 3
 			return true
 		end,
 		use = function(pl, item)
@@ -567,8 +581,8 @@ BR2_SPECIAL_ITEMS = {
 				table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox"})
 			end
 		end,
-		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "crafting_toolbox", "Toolbox", "prop_physics", "models/cultist/items/toolbox/tool_box.mdl")
+		drop = function(pl, item)
+			br2_special_item_drop(pl, "crafting_toolbox", "Toolbox", "prop_physics", "models/cultist/items/toolbox/tool_box.mdl", item)
 		end,
 		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
@@ -624,7 +638,7 @@ BR2_SPECIAL_ITEMS = {
 			end
 		end,
 		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "lockpick", "Lockpick", "br2_item")
+			br2_special_item_drop(pl, "lockpick", "Lockpick", "br2_item")
 		end,
 		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)

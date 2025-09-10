@@ -153,6 +153,11 @@ function BR_OpenInventoryMenu(items)
 				panel.text2 = item_infos[v.class].desc
 			end
 		end
+
+		if v.attributes and v.attributes["uses"] then
+			panel.text1 = panel.text1 .. " [" .. v.attributes["uses"] .. " uses]"
+		end
+
 		panel.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(100, 100, 100, 100))
 			draw.Text({
@@ -301,12 +306,14 @@ function BR_OpenLootingMenu(items, source)
 				panel.text2 = item_info.desc
 			end
 		end
+
 		for k2,v2 in pairs(BR2_DOCUMENTS) do
 			if v2.class == v.class then
 				panel.text1 = v2.name
 				panel.text2 = item_infos["document"].desc
 			end
 		end
+
 		panel.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(100, 100, 100, 100))
 			draw.Text({

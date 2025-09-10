@@ -30,7 +30,19 @@ team.SetUp(TEAM_ALIVE, "Default", Color(255, 255, 0))
 
 -- Compare two items
 function spi_comp(item1, item2)
-	--return (item1.class == item2.class) and (item1.name == item2.name) and (item1.type == item2.type) and (item1.attributes == item2.attributes)
+	if item1.attributes and item1.attributes then
+		if item2.attributes then
+			for attrib_name, attrib_value in pairs(item2.attributes) do
+				if item1.attributes[attrib_name] != attrib_value then
+					return false
+				end
+			end
+			return true
+		else
+			return false
+		end
+	end
+
 	return (item1.class == item2.class) and (item1.name == item2.name) and (item1.type == item2.type)
 end
 

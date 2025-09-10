@@ -192,13 +192,13 @@ function OpenInfoMenu1()
         last_y = last_y + ((info_menu_exit_size_o * 1.5) * size_mul) + im1s
         
         local info_table = {
-            "Gamemode developed by Akko",
+            "Gamemode developed by Maya",
             true,
-            --"Map originally made by Default_OS, heavily edited by Akko",
+            --"Map originally made by Default_OS, heavily edited by Maya",
             "Models, textures and sounds were made by the Undertow Games",
-            --"The whole entrance zone was made by Akko",
+            --"The whole entrance zone was made by Maya",
             "Playermodels were made by KERRY and maJor",
-            --"NPCs were made by Cpt. Hazama, edited by Akko",
+            --"NPCs were made by Cpt. Hazama, edited by Maya",
             "Weapons are using the TFA Base made by The Forgotten Architect",
             "Some SCP:CB prop models were made by nasvaykid",
             "Music and some ambients were made by Creative Assembly",
@@ -1063,7 +1063,7 @@ function OpenInfoMenu5()
         
         local info_table = {
             "Development of Breach 2 started in january of 2018",
-            "This gamemode, like Breach is being developed only by Akko",
+            "This gamemode, like Breach is being developed only by Maya",
             "Because of that the development is very slow and hard",
             true,
             {"Current goals of the gamemode:", Color(255,128,0,175)},
