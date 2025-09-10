@@ -696,8 +696,8 @@ BR2_SPECIAL_ITEMS = {
 					pl:AddJumpStamina(200)
 					pl.CrippledStamina = 0
 					pl.nextNormalRun = CurTime()
-					pl.br_speed_boost = CurTime() + 10
-					pl:SetFOV(120, 1)
+					pl.br_speed_boost = CurTime() + 15
+					pl:SetFOV(110, 1)
 					pl.br_used_syringe = true
 					pl:SendLua('surface.PlaySound("breach2/adrenaline_needle_in.wav")')
 					return true
