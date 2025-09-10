@@ -152,12 +152,6 @@ MAPCONFIG.BUTTONS = {
 		sounds = true
 	},
 	{
-		name = "hcz_toxic_room2",
-		pos = Vector(757, 2304, -7115.25),
-		level = 2,
-		sounds = true
-	},
-	{
 		name = "hcz_near_checkpoint_item_room",
 		pos = Vector(1448, 576, -7114.75),
 		level = 3,
