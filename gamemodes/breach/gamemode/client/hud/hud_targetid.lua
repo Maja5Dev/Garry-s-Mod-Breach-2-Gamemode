@@ -68,7 +68,7 @@ function DrawTargetID()
 			lastseen = CurTime() + 2
 			lastseen_alpha = 255
 
-		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 then
+		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 and LocalPlayer().br_role != "SCP-173" then
 			lastseen_player = ent
 			--print(ent)
 			--print(ent.Pulse)

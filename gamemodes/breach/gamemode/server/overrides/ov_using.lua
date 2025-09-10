@@ -57,8 +57,11 @@ function ShouldPlayerUse(ply, ent)
 end
 
 function GM:PlayerUse(ply, ent)
-	if ply.entity173 and !ply.TeleportingMode then
-		return false
+	if ply.entity173 then
+		local wep = ply:GetActiveWeapon()
+		if wep and wep.TeleportingMode then
+			return false
+		end
 	end
 
 	if ply.usingBlock then

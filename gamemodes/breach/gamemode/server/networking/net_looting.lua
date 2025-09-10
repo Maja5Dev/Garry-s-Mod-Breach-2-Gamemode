@@ -83,7 +83,7 @@ net.Receive("br_get_loot_info", function(len, ply)
 end)
 
 net.Receive("br_take_loot", function(len, ply)
-	if len > 1500 or !ply:Alive() or ply:IsSpectator() then return end
+	if len > 1500 or !ply:Alive() or ply:IsSpectator() or ply.br_role == "SCP-173" then return end
 	local item = net.ReadTable()
 	local source = net.ReadTable()
 
@@ -142,6 +142,8 @@ net.Receive("br_take_loot", function(len, ply)
 					if swep == nil then
 						for k2,v2 in pairs(BR2_DOCUMENTS) do
 							if v2.class == class or v2.class == item.type then
+								print("doc debug")
+								PrintTable(item)
 								table.RemoveByValue(source_tab, v)
 								table.ForceInsert(ply.br_special_items, {class = "document", name = v2.name, type = v2.class, attributes = item.attributes})
 								return
@@ -161,9 +163,6 @@ net.Receive("br_take_loot", function(len, ply)
 								return
 							end
 						end
-
-						print("DOCUMENT'S ASSDDD")
-
 					end
 
 					for k2,v2 in pairs(ply:GetWeapons()) do
