@@ -58,7 +58,7 @@ local item_infos = {
 	eyedrops = {name = "Eyedrops", desc = "Saline-containing drops"},
 	ssri_pills = {name = "SSRI Pills", desc = "Pills that help with your mental health"},
 	drink_bottle_water = {name = "Water Bottle", desc = "Bottle of purified water"},
-	drink_popcan = {name = "Can of Soda", desc = "Tasty soda!"},
+	drink_soda = {name = "Can of Soda", desc = "Tasty soda!"},
 	device_cameras = {name = "WCR [Cameras]", desc = "Used to check the cameras"},
 	--cup = {name = "Cup", desc = "Just a cup"},
 	cup = {desc = "Just a cup"},
@@ -99,7 +99,7 @@ local item_infos = {
 	syringe = {name = "Syringe", desc = "Quick stamina boost!"},
 
 	-- drink_bottle_water
-	-- drink_popcan
+	-- drink_soda
 }
 
 function BR_OpenInventoryMenu(items)

@@ -470,6 +470,8 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
+			if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
+
 			for k,v in pairs(BR2_SCP_294_OUTCOMES) do
 				if table.HasValue(v.texts, item.type) then
 					local delay = 0.1
@@ -479,7 +481,7 @@ BR2_SPECIAL_ITEMS = {
 						delay = v.sound[2]
 					end
 
-					timer.Create("scp294use_"..pl:SteamID64(), delay, 1, function()
+					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
 						for k2,v2 in pairs(pl.br_special_items) do
 							if spi_comp(v2, item) then
 								table.RemoveByValue(pl.br_special_items, v2)
@@ -1089,37 +1091,44 @@ local function add_drink(class, name, model, thirst)
 			return true
 		end,
 		use = function(pl, item)
+			if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
+
 			if pl.br_thirst > 100 then
 				pl:PrintMessage(HUD_PRINTTALK, "You are not thirsty")
 				return false
 			end
 
+			local delay = 0.1
+			if string.find(class, "soda") then
+				pl:EmitSound("breach2/soda.wav")
+				delay = 2.4
+			end
+
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					if istable(thirst) then
-						for i=1, thirst[2] do
-							table.ForceInsert(pl.br_special_items, {class = thirst[1]})
+					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
+						table.RemoveByValue(pl.br_special_items, v)
+
+						if istable(thirst) then
+							for i=1, thirst[2] do
+								table.ForceInsert(pl.br_special_items, {class = thirst[1]})
+							end
+						else
+							pl:AddThirst(-thirst)
 						end
-					else
-						pl:AddThirst(-thirst)
-					end
 
-					if pl.br_thirst > 70 then
-						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
-					elseif pl.br_thirst > 35 then
-						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
-					else
-						pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
-					end
-
-					if string.find(class, "soda") then
-						pl:EmitSound("breach2/soda.wav")
-					else
 						pl:EmitSound("breach2/drink.wav")
-					end
 
-					return true
+						if pl.br_thirst > 70 then
+							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
+						elseif pl.br_thirst > 35 then
+							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
+						else
+							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
+						end
+					end)
+
+					return false
 				end
 			end
 
@@ -1146,28 +1155,34 @@ local function add_alcohol(class, name, model, thirst)
 			return true
 		end,
 		use = function(pl, item)
+			if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
+
+			local delay = 0.1
+
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					if istable(thirst) then
-						for i=1, thirst[2] do
-							table.ForceInsert(pl.br_special_items, {class = thirst[1]})
+					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
+						table.RemoveByValue(pl.br_special_items, v)
+						if istable(thirst) then
+							for i=1, thirst[2] do
+								table.ForceInsert(pl.br_special_items, {class = thirst[1]})
+							end
+						else
+							pl:AddThirst(-thirst)
 						end
-					else
-						pl:AddThirst(-thirst)
-					end
 
-					pl:AddSanity(30)
-					pl:BR2_ShowNotification("You drank the "..name..", it tasted nice...")
+						pl:AddSanity(30)
+						pl:BR2_ShowNotification("You drank the "..name..", it tasted nice...")
 
-					pl:StartCustomScreenEffects({
-						colour = 1.7,
-						blur1 = 0.2,
-						blur2 = 0.8,
-						blur3 = 0.01,
-					}, 30)
+						pl:StartCustomScreenEffects({
+							colour = 1.7,
+							blur1 = 0.2,
+							blur2 = 0.8,
+							blur3 = 0.01,
+						}, 30)
 
-					pl:EmitSound("breach2/drink.wav")
+						pl:EmitSound("breach2/drink.wav")
+					end)
 
 					return true
 				end
@@ -1194,7 +1209,7 @@ add_food("food_pizza", "Pizza", "models/foodnhouseholditems/pizzab.mdl", {"food_
 
 add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 20)
 add_drink("drink_bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
-add_drink("drink_popcan", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
+add_drink("drink_soda", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
 
 add_alcohol("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 60)
 

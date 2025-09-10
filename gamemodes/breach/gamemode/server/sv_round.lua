@@ -403,7 +403,7 @@ round_system.PreparingStart = function()
 
 	for k,v in pairs(player.GetAll()) do
 		if !v:IsBot() then
-			timer.Destroy("scp294use_"..v:SteamID64())
+			timer.Destroy("drinkuse"..v:SteamID64())
 		end
 		timer.Destroy("deletenotepad"..v:SteamID64())
 	end

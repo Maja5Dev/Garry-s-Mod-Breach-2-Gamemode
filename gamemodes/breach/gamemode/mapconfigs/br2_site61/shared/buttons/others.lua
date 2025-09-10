@@ -161,7 +161,7 @@ MAPCONFIG.BUTTONS_2D.SODAMACHINES = {
 			pos_inside = Vector(3842,4936,-7242),
 			canSee = DefaultItemContainerCanSee,
 			mdl = "models/props_junk/PopCan01a.mdl",
-			class = "drink_popcan",
+			class = "drink_soda",
 			name = "Can of Soda"
 		}
 	}
