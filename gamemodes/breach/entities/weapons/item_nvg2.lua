@@ -96,7 +96,7 @@ SWEP.DefaultNVG = {
 		tab.add_b = nvg.add_b
 		tab.vignette_alpha = nvg.vignette_alpha
 	end,
-	fog = function()
+	fog = function(fog_mul)
 		render.FogStart(0)
 		render.FogEnd((FOG_LEVEL * fog_mul) * 1.75)
 		render.FogColor(2, 1, 1)

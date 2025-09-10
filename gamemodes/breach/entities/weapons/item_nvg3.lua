@@ -210,7 +210,7 @@ SWEP.DefaultNVG = {
 
 		DrawNVG3EntitiesInfo()
 	end,
-	fog = function()
+	fog = function(fog_mul)
 		render.FogStart(0)
 		render.FogEnd((FOG_LEVEL * fog_mul) * 1.75)
 		render.FogColor(1, 1, 2)
