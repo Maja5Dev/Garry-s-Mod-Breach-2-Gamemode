@@ -60,7 +60,6 @@ end
 function SWEP:PrimaryAttack()
 	if SERVER then
 		self.Owner:AddSanity(100)
-		self.Owner:SetHealth(math.Clamp(self.Owner:Health() + 20, 1, self.Owner:GetMaxHealth()))
 		self.Owner:StripWeapon(self:GetClass())
 		self.Owner.nextHorrorSCP = CurTime() + 45
 	end

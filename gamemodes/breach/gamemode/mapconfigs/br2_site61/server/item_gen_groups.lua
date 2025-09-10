@@ -25,7 +25,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_THIRD_LOOT"] = {
 		{"keycard_level3", 2},
-		{"item_pills", 1},
+		{"ssri_pills", 1},
 		{"item_nvg", 1},
 		{"kanade_tfa_crowbar", 1},
 
@@ -51,7 +51,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_nvg", 1},
 		{"item_medkit", 1},
 		{"item_radio", 1},
-		{"item_pills", 1},
+		{"ssri_pills", 1},
 	},
 	["LCZ_012_LOOT"] = {
 		{"item_medkit", 1}
@@ -84,7 +84,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_gasmask", 1},
 		{"item_medkit", 1},
 		{"item_radio", 1},
-		{"item_pills", 1},
+		{"ssri_pills", 1},
 		{"item_battery_9v", 3},
 
 		{"ammo_pistol16", 1},
@@ -156,7 +156,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["EZ_MEDBAY"] = {
 		{"item_medkit", 3},
-		{"item_pills", 2},
+		{"ssri_pills", 2},
 		{"syringe", 2}
 	},
 	["EZ_DOC_MSP"] = {

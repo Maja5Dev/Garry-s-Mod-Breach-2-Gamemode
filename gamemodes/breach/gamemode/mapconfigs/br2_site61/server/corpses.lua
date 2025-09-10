@@ -15,7 +15,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "SD Officer"
                 rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(2996.009765625,3031.3657226563,-6136.9877929688),
             bones = {
@@ -89,7 +89,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "SD Officer"
                 rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(3051.2819824219,3066.5541992188,-6136.8051757813),
             bones = {
@@ -163,7 +163,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "SD Officer"
                 rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(2966.6997070313,2995.7243652344,-6135.9702148438),
             bones = {
@@ -237,7 +237,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "SD Officer"
                 rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(3022.48046875,2958.8293457031,-6135.7880859375),
             bones = {
@@ -311,7 +311,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "SD Officer"
                 rag.br_team = TEAM_SECURITY
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(1991.4487304688,2962.4885253906,-6136.5551757813),
             bones = {
@@ -388,7 +388,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(-895.53167724609,-1302.8104248047,-8312.4326171875),
             bones = {
@@ -458,7 +458,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(-730.98565673828,-1256.0739746094,-8312.6982421875),
             bones = {
@@ -528,7 +528,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
 			end,
             ragdoll_pos = Vector(-812.85205078125,-1010.9233398438,-8289.9228515625),
             bones = {
@@ -598,7 +598,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
 			end,
             ragdoll_pos = Vector(-538.68768310547,-1277.4289550781,-8312.9013671875),
             bones = {
@@ -668,7 +668,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}))}
             end,
             ragdoll_pos = Vector(-557.21173095703,-1059.7369384766,-8292.8740234375),
             bones = {
@@ -741,7 +741,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "item_medkit", "item_nvg"}))}
             end,
             ragdoll_pos = Vector(-1442.8009033203,-10.502799034119,-8436.583984375),
             bones = {
@@ -811,7 +811,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "item_medkit", "item_nvg"}))}
             end,
             ragdoll_pos = Vector(-1192.7532958984,-153.01545715332,-8440.1494140625),
             bones = {
@@ -881,7 +881,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "item_medkit", "item_nvg"}))}
             end,
             ragdoll_pos = Vector(-1183.8510742188,-68.733131408691,-8440.1875),
             bones = {
@@ -951,7 +951,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "item_medkit", "item_nvg"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "item_medkit", "item_nvg"}))}
             end,
             ragdoll_pos = Vector(-1242.89453125,207.42330932617,-8440.2353515625),
             bones = {
@@ -1024,7 +1024,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(854.48120117188,839.36370849609,-8184.6196289063),
             bones = {
@@ -1094,7 +1094,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(839.44268798828,832.66162109375,-8184.8120117188),
             bones = {
@@ -1164,7 +1164,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(813.62487792969,948.10858154297,-8184.5185546875),
             bones = {
@@ -1237,7 +1237,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
 			end,
 			ragdoll_pos = Vector(-896.93884277344,200.62715148926,-8163.1616210938),
 			bones = {
@@ -1307,7 +1307,7 @@ MAPCONFIG.STARTING_CORPSES = {
 				rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
 			end,
 			ragdoll_pos = Vector(-790.32928466797,263.26577758789,-8186.7993164063),
 			bones = {
@@ -1377,7 +1377,7 @@ MAPCONFIG.STARTING_CORPSES = {
 				rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
 			end,
 			ragdoll_pos = Vector(-562.91674804688,455.66091918945,-8185.4165039063),
 			bones = {
@@ -1447,7 +1447,7 @@ MAPCONFIG.STARTING_CORPSES = {
 				rag.br_role = "Researcher"
                 rag.br_team = TEAM_RESEARCHER
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
 			end,
 			ragdoll_pos = Vector(-540.35748291016,222.44491577148,-8184.9301757813),
 			bones = {
@@ -1520,7 +1520,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Class D"
                 rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(-156.04522705078,1978.7755126953,-8056.556640625),
             bones = {
@@ -1586,7 +1586,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Class D"
                 rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(-248.37199401855,1925.1059570313,-8056.5595703125),
             bones = {
@@ -1652,7 +1652,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Class D"
                 rag.br_team = TEAM_CLASSD
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "item_pills", "keycard_master", "keycard_playing"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "keycard_master", "keycard_playing"}))}
             end,
             ragdoll_pos = Vector(-26.329875946045,1811.8350830078,-8056.203125),
             bones = {
@@ -1721,7 +1721,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
             end,
             ragdoll_pos = Vector(4109.3212890625,-6857.0693359375,-8600.4912109375),
             bones = {
@@ -1791,7 +1791,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
             end,
             ragdoll_pos = Vector(4170.818359375,-6971.505859375,-8601.8623046875),
             bones = {
@@ -1861,7 +1861,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"item_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
             end,
             ragdoll_pos = Vector(4227.9760742188,-6818.7368164063,-8601.453125),
             bones = {
