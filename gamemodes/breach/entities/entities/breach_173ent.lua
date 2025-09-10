@@ -176,7 +176,7 @@ function ENT:Think()
 					local dist = v:GetPos():Distance(self:GetPos())
 
 					local seen173 = (v.seen_173 or 0) > CurTime()
-					if v.blinking_enabled and ((dist < 600) or seen173) then
+					if v.blinking_enabled and ((dist < 600) or seen173) and v.usedEyeDrops < CurTime() then
 						--print(v, dist, seen173)
 						v:SendLua(sstr)
 					end
