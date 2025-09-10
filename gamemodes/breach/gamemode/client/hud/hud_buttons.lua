@@ -13,7 +13,7 @@ br_render_buttons = true
 hook.Add("HUDPaint", "BR2_DrawButtons", function()
 	focus_button_ready = nil
 	--if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.BUTTONS_2D == nil or BR2_HANDS_ACTIVE == false then return end
-	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.BUTTONS_2D == nil then return end
+	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.BUTTONS_2D == nil or LocalPlayer().br_role == "SCP-173" then return end
 	
 	local mx = ScrW() / 2
 	local my = ScrH() / 2
