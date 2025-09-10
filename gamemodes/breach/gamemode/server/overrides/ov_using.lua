@@ -57,6 +57,10 @@ function ShouldPlayerUse(ply, ent)
 end
 
 function GM:PlayerUse(ply, ent)
+	if ply.entity173 and !ply.TeleportingMode then
+		return false
+	end
+
 	if ply.usingBlock then
 		ply.usingBlock = false
 		return true
