@@ -1,7 +1,4 @@
 
-BR2_RANDOM_MUSIC = {
-}
-
 local last_random_music = nil
 next_check_random_music = 0
 BR2_RANDOM_MUSIC = {
@@ -274,8 +271,6 @@ function HandleMusic()
 				local randomSanityMusic = table.Random(possibleSanityMusic)
 				last_sanity_music = randomSanityMusic
 
-				print("playing sanity music", randomSanityMusic.sound)
-
 				br2_music_info = {
 					nextPlay = 0,
 					volume = randomSanityMusic.volume,
@@ -283,7 +278,7 @@ function HandleMusic()
 					sound = randomSanityMusic.sound,
 					playUntil = function()
 						local cur_zone = LocalPlayer():GetZone()
-						if br2_our_sanity < 3 then return false end
+						if br2_our_sanity >= 3 then return false end
 						return true
 					end
 				}
@@ -294,31 +289,33 @@ function HandleMusic()
 					local possibleRandomMusic = {}
 
 					for k,v in pairs(BR2_RANDOM_MUSIC) do
-						if last_random_music == nil or last_random_music.sound != v then
+						if last_random_music == nil or last_random_music.sound != v.sound then
 							table.ForceInsert(possibleRandomMusic, v)
 						end
 					end
 
 					local randomMusic = table.Random(possibleRandomMusic)
-					last_random_music = randomMusic
+					if randomMusic != nil and randomMusic.length != nil then
+						last_random_music = randomMusic
 
-					print("playing random music", randomMusic.sound)
+						br2_music_info = {
+							nextPlay = 0,
+							volume = randomMusic.volume,
+							length = randomMusic.length,
+							sound = randomMusic.sound,
+							playUntil = function()
+								local cur_zone = LocalPlayer():GetZone()
+								if (cur_zone != nil and cur_zone.music != nil) or br2_our_sanity < 3 then return false end
+								return true
+							end
+						}
 
-					br2_music_info = {
-						nextPlay = 0,
-						volume = randomMusic.volume,
-						length = randomMusic.length,
-						sound = randomMusic.sound,
-						playUntil = function()
-							local cur_zone = LocalPlayer():GetZone()
-							if (cur_zone != nil and cur_zone.music != nil) or br2_our_sanity < 3 then return false end
-							return true
-						end
-					}
-
-					next_check_random_music = randomMusic.length + math.random(18, 40)
+						next_check_random_music = CurTime() + randomMusic.length + math.random(18, 40)
+					else
+						next_check_random_music = CurTime() + math.random(1, 2)
+					end
 				else
-					next_check_random_music = math.random(3, 7)
+					next_check_random_music = CurTime() + math.random(3, 7)
 				end
 			end
 			

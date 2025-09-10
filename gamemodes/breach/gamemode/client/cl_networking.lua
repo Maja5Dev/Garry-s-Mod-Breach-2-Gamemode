@@ -424,7 +424,6 @@ net.Receive("br_round_prepstart", function(len)
 	end
 	RADIO4SOUNDS = table.Copy(RADIO4SOUNDSHC)
 	RESET_ONESHOT_AMBIENTS()
-	RESET_RANDOM_MUSIC()
 	BR2_RESET_MUSIC_INFO()
 	if br2_last_music != nil then
 		br2_last_music:Stop()
@@ -470,7 +469,7 @@ net.Receive("br_round_prepstart", function(len)
 	temprature_strongness = 0
 	temprature_strongness = 0
 	br_voted_for_round_end = false
-	next_check_random_music = 0
+	next_check_random_music = CurTime() + math.random(3, 10)
 
 --REMOVE CLIENTSIDE ENTITIES
 	if IsValid(horror_scp_ent) then

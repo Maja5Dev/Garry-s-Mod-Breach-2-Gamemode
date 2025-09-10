@@ -13,6 +13,7 @@ function CLTick()
 	end
 	*/
 	HandleFootstepsCL()
+	HorrorCL_Breath()
 
 	if our_last_zone_stage == 0 then
 		local our_zone = client:GetSubAreaName()

@@ -56,8 +56,7 @@ function HorrorCL_SCPSound()
 end
 
 local insanity_attack_sounds = {
-	"breach2/horror/insane1.wav",
-	"breach2/horror/insane2.wav",
+	"breach2/horror/insanityambient.ogg"
 }
 
 -- More chill insanity ambient
@@ -75,6 +74,14 @@ BR_INSANITY_ATTACK = 0
 function HorrorCL_InsanityAttack()
 	surface.PlaySound(table.Random(insanity_attack_sounds))
 	BR_INSANITY_ATTACK = CurTime() + 12
+end
+
+next_horror_breath = 0
+function HorrorCL_Breath()
+	if next_horror_breath < CurTime() and br2_our_sanity < 2 and BR_INSANITY_ATTACK < CurTime() and math.random(1,3) < 3 then
+		surface.PlaySound("breach2/horror/breath.ogg")
+		next_horror_breath = CurTime() + math.random(3, 6)
+	end
 end
 
 function HorrorCL_SCP()
