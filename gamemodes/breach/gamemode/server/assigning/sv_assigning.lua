@@ -89,6 +89,7 @@ function Pre_Assign(ply)
 	ply.nextRunStaminaCheck =  0
 	ply.lastRunning = 0
 	ply.seen_173 = 0
+	ply.usedEyeDrops = 0
 
 	if IsValid(ply.flashlight3d) then
 		ply.flashlight3d:Remove()

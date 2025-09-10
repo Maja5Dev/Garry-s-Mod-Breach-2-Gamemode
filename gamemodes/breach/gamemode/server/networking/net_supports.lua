@@ -170,6 +170,7 @@ function br2_mtf_teams_add(ply, num)
 						net.WriteTable(BR2_MTF_TEAMS)
 					net.Send(ply)
 				end
+				
 				return
 			end
 		end

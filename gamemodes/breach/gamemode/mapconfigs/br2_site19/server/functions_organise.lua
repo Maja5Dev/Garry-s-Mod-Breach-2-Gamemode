@@ -214,7 +214,7 @@ function Breach_Map_Organise()
 				rag:SetNWInt("DeathTime", rag.Info.Time)
 				rag:SetNWString("ExamineDmgInfo", " - Cause of death is unknown")
 				rag.Info.Loot = {}
-				--local random_item = table.Random({"item_radio", "item_medkit", "item_pills", "item_gasmask", "item_nvg", "keycard_level1", "keycard_level2", "kanade_tfa_crowbar"})
+				--local random_item = table.Random({"item_radio", "item_medkit", "item_gasmask", "item_nvg", "keycard_level1", "keycard_level2", "kanade_tfa_crowbar"})
 				--table.ForceInsert(rag.Info.Loot, form_basic_item_info(random_item))
 				rag.RagdollHealth = 0
 				rag.nextReviveMove = 0

@@ -95,6 +95,11 @@ net.Receive("br_pickup_item", function(len, ply)
 
 					if isstring(ent.SI_Class) then
 						for k,v in pairs(BR2_SPECIAL_ITEMS) do
+							if ply:IsBackPackFull() then
+								ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+								return
+							end
+
 							if v.class == ent.SI_Class then
 								local res = v.func(ply, ent) or false
 								if res == true then

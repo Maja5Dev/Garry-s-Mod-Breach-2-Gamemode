@@ -30,6 +30,8 @@ team.SetUp(TEAM_ALIVE, "Default", Color(255, 255, 0))
 
 -- Compare two items
 function spi_comp(item1, item2)
+	--print("item1") PrintTable(item1) print("item2") PrintTable(item2)
+
 	if item1.attributes and item1.attributes then
 		if item2.attributes then
 			for attrib_name, attrib_value in pairs(item2.attributes) do

@@ -97,9 +97,6 @@ local item_infos = {
 	scp_420 = {name = "SCP-420-J", desc = "The Best ████ in the World"},
 	scp_500 = {name = "SCP-500", desc = "Pill that heals all wounds"},
 	syringe = {name = "Syringe", desc = "Quick stamina boost!"},
-
-	-- drink_bottle_water
-	-- drink_soda
 }
 
 function BR_OpenInventoryMenu(items)
@@ -120,7 +117,7 @@ function BR_OpenInventoryMenu(items)
 	BR_Looting_Menu:MakePopup()
 	BR_Looting_Menu.Paint = function(self, w, h)
 		draw.Text({
-			text = "INVENTORY",
+			text = "INVENTORY [" .. table.Count(items) .. "/" .. LocalPlayer():MaxBackpackSpaces() .. "]",
 			pos = {4, 4},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_TOP,

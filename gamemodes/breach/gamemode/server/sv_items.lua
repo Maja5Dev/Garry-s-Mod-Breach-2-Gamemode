@@ -27,9 +27,8 @@ function LockPickFunc(ply, v)
 end
 
 local function br2_special_item_drop(pl, class, name, force_class, mdl, item)
-	--print(pl, class, name)
-
 	local dropped_ent = ents.Create(force_class)
+
 	if IsValid(dropped_ent) then
 		local tr = util.TraceLine({
 			start = pl:EyePos(),
@@ -72,8 +71,12 @@ local function br2_special_item_drop(pl, class, name, force_class, mdl, item)
 				return true, dropped_ent
 			end
 		end
+
+		-- scp 1162 uses this
+		--error("created item but didn't find it " .. class .. " " .. name .. " " .. mdl)
 	end
-	return false, NULL
+
+	return false, dropped_ent
 end
 
 local scp_294_func = function(ply, info, text)
@@ -389,11 +392,6 @@ BR2_SPECIAL_ITEMS = {
 		class = "personal_medkit",
 		name = "Personal Medkit",
 		func = function(pl, ent)
-			--print("funcky", pl, ent, ent.attributes, ent.Attrubutes)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "personal_medkit", attributes = ent.Attributes})
 			pl.sp_medkit_uses = 4
 			return true
@@ -429,19 +427,14 @@ BR2_SPECIAL_ITEMS = {
 		onstart = function(pl)
 		end,
 		drop = function(pl, item)
-			--local res, ent = br2_special_item_drop(pl, "personal_medkit", "Personal Medkit", "prop_physics", "models/items/healthkit.mdl")
-			--ent.Attributes = item.attributes
-			pl:ChatPrint("This item cannot be dropped")
+			local res, item = br2_special_item_drop(pl, "personal_medkit", "Personal Medkit", "prop_physics", "models/items/healthkit.mdl")
+			return item
 		end
 	},
 	{
 		class = "document",
 		name = "Document",
 		func = function(pl, ent)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "document", name = ent.PrintName, type = ent.DocType, attributes = ent.DocAttributes})
 			return true
 		end,
@@ -460,6 +453,8 @@ BR2_SPECIAL_ITEMS = {
 			ent.DocType = item.type
 			ent.DocAttributes = item.attributes
 			ForceSetPrintName(ent, ent.PrintName)
+
+			return ent
 		end
 	},
 	{
@@ -503,19 +498,21 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		onstart = function(pl)
 		end,
-		drop = function(pl, ent)
-			--local res, ent = br2_special_item_drop(pl, "cup", "Cup", "br2_cup")
-			pl:PrintMessage(HUD_PRINTTALK, "This item cannot be dropped")
+		drop = function(pl, item)
+			local res, ent = br2_special_item_drop(pl, "cup", "Cup", "prop_physics", "models/mishka/models/plastic_cup.mdl")
+			ent.SI_Class = "cup"
+			ent.PrintName = item.name
+			ent.CupType = item.type
+			ent:Spawn()
+			
+			ForceSetPrintName(ent, ent.PrintName)
+			return ent
 		end
 	},
 	{
 		class = "coin",
 		name = "Coin",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "coin"})
 			return true
 		end,
@@ -525,9 +522,9 @@ BR2_SPECIAL_ITEMS = {
 		onstart = function(pl)
 		end,
 		drop = function(pl)
-			br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")
+			local res, item = br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")
+			return item
 		end,
-		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
 			ent.PrintName = "Coin"
 			ent.SI_Class = "coin"
@@ -538,21 +535,17 @@ BR2_SPECIAL_ITEMS = {
 		class = "crafting_toolbox",
 		name = "Toolbox",
 		func = function(pl, ent)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
-
-			print("picked up attributes", ent.Attributes)
-			if istable(ent.Attributes) then
-				PrintTable(ent.Attributes)
-			end
 			table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox", attributes = ent.Attributes})
 			return true
 		end,
 		use = function(pl, item)
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
+					if pl:IsBackPackFull() then
+						pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+						return
+					end
+
 					--print("tries to use", item, item.attributes)
 					if !istable(item.attributes) then
 						item.attributes = {}
@@ -584,9 +577,9 @@ BR2_SPECIAL_ITEMS = {
 			end
 		end,
 		drop = function(pl, item)
-			br2_special_item_drop(pl, "crafting_toolbox", "Toolbox", "prop_physics", "models/cultist/items/toolbox/tool_box.mdl", item)
+			local res, item = br2_special_item_drop(pl, "crafting_toolbox", "Toolbox", "prop_physics", "models/cultist/items/toolbox/tool_box.mdl", item)
+			return item
 		end,
-		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
 			ent.PrintName = "Toolbox"
 			ent.SI_Class = "crafting_toolbox"
@@ -597,10 +590,6 @@ BR2_SPECIAL_ITEMS = {
 		class = "lockpick",
 		name = "Lockpick",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "lockpick"})
 			return true
 		end,
@@ -640,9 +629,9 @@ BR2_SPECIAL_ITEMS = {
 			end
 		end,
 		drop = function(pl)
-			br2_special_item_drop(pl, "lockpick", "Lockpick", "br2_item")
+			local res, item = br2_special_item_drop(pl, "lockpick", "Lockpick", "br2_item")
+			return item
 		end,
-		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
 			ent.PrintName = "Lockpick"
 			ent.SI_Class = "lockpick"
@@ -653,10 +642,6 @@ BR2_SPECIAL_ITEMS = {
 		class = "device_cameras",
 		name = "WCR [Cameras]",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "device_cameras"})
 			return true
 		end,
@@ -670,16 +655,13 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "device_cameras", "WCR [Cameras]", "prop_physics", "models/props_lab/reciever01c.mdl")
+			return item
 		end
 	},
 	{
 		class = "scp_420",
 		name = "SCP-420-J",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "scp_420"})
 			return true
 		end,
@@ -691,16 +673,13 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "scp_420", "SCP-420-J", "prop_physics", "models/mishka/models/scp420.mdl")
+			return item
 		end
 	},
 	{
 		class = "syringe",
 		name = "Syringe",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "syringe"})
 			return true
 		end,
@@ -725,16 +704,13 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "syringe", "Syringe", "prop_physics", "models/mishka/models/syringe.mdl")
+			return item
 		end
 	},
 	{
 		class = "scp_500",
 		name = "SCP-500",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "scp_500"})
 			return true
 		end,
@@ -763,16 +739,13 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "scp_500", "SCP-500", "prop_physics", "models/cpthazama/scp/500.mdl")
+			return item
 		end
 	},
 	{
 		class = "medicine",
 		name = "Medicine",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "medicine"})
 			return true
 		end,
@@ -800,48 +773,41 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "medicine", "Medicine", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
+			return item
 		end
 	},
 	{
 		class = "eyedrops",
 		name = "Eyedrops",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "eyedrops"})
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-
-					pl:ChatPrint("Your used the eyedrops...")
-					return true
-				end
-			end
+			pl.usedEyeDrops = CurTime() + 10
+			pl:ChatPrint("Your used the eyedrops...")
 			return true
 		end,
 		onstart = function(pl)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "eyedrops", "Eyedrops", "prop_physics", "models/cultist/items/eyedrops/eyedrops.mdl")
+			return item
 		end
 	},
 	{
 		class = "ssri_pills",
 		name = "SSRI Pills",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "ssri_pills"})
 			return true
 		end,
 		use = function(pl, item)
+			if pl:SanityLevel() > 4 then
+				pl:PrintMessage(HUD_PRINTTALK, "Your sanity is fine, you don't need to use them.")
+				return false
+			end
+
 			for k,v in pairs(pl.br_special_items) do
 				if spi_comp(v, item) then
 					table.RemoveByValue(pl.br_special_items, v)
@@ -856,22 +822,19 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		onstart = function(pl)
-			if pl.br_role == "Doctor" and math.random(1,5) == 2 then
+			if pl.br_role == "Doctor" and math.random(1, 4) == 2 then
 				table.ForceInsert(pl.br_special_items, {class = "ssri_pills"})
 			end
 		end,
 		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "ssri_pills", "SSRI Pills", "prop_physics", "models/props_lab/jar01b.mdl")
+			local res, item = br2_special_item_drop(pl, "ssri_pills", "SSRI Pills", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
+			return item
 		end
 	},
 	{
 		class = "conf_folder",
 		name = "Confidential Folder",
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = "conf_folder"})
 			return true
 		end,
@@ -892,6 +855,7 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "conf_folder", "Confidential Folder", "prop_physics", "models/scp_documents/secret_document.mdl")
+			return item
 		end
 	},
 }
@@ -972,10 +936,6 @@ local function add_flashlight(fl_info)
 		class = fl_info.class,
 		name = fl_info.name,
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			if !pl:CanUseFlashlight() then
 				table.ForceInsert(pl.br_special_items, {class = fl_info.class})
 				pl:AllowFlashlight(true)
@@ -995,8 +955,9 @@ local function add_flashlight(fl_info)
 				end
 				pl:AllowFlashlight("false")
 			--end
+
+			return item
 		end,
-		scp_1162_class = "br2_item",
 		scp_1162 = function(pl, ent)
 			ent.PrintName = fl_info.name
 			ent.SI_Class = fl_info.class
@@ -1025,10 +986,6 @@ local function add_food(class, name, model, hunger, health)
 		class = class,
 		name = name,
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = class})
 			return true
 		end,
@@ -1074,6 +1031,7 @@ local function add_food(class, name, model, hunger, health)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
+			return item
 		end
 	})
 end
@@ -1083,10 +1041,6 @@ local function add_drink(class, name, model, thirst)
 		class = class,
 		name = name,
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = class})
 			return true
 		end,
@@ -1138,6 +1092,7 @@ local function add_drink(class, name, model, thirst)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
+			return item
 		end
 	})
 end
@@ -1147,10 +1102,6 @@ local function add_alcohol(class, name, model, thirst)
 		class = class,
 		name = name,
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = class})
 			return true
 		end,
@@ -1194,6 +1145,7 @@ local function add_alcohol(class, name, model, thirst)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
+			return item
 		end
 	})
 end
@@ -1219,10 +1171,6 @@ local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 		name = name,
 		ammo_info = {ammo_type, ammo_amount},
 		func = function(pl)
-			if #pl.br_special_items > 9 then
-				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-				return false
-			end
 			table.ForceInsert(pl.br_special_items, {class = class})
 			return true
 		end,
@@ -1239,6 +1187,7 @@ local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
+			return item
 		end
 	})
 end

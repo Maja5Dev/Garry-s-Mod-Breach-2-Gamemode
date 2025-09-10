@@ -150,10 +150,11 @@ net.Receive("br_take_loot", function(len, ply)
 
 						for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
 							if v2.class == class then
-								--PrintTable(item)
-								--v2.PrintName = item.name
-								--v2.DocType = item.type
-								--v2.DocAttributes = item.attrubutes
+								if ply:IsBackPackFull() then
+									ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+									return
+								end
+
 								local res = v2.func(ply, v2) or false
 								if res == true then
 									table.RemoveByValue(source_tab, v)

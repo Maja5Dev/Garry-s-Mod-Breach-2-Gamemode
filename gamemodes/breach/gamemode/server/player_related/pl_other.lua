@@ -8,9 +8,7 @@ end
 function player_meta:FormInfo(ply)
 	local info = {}
 
-	if isstring(self.br_role) then
-		info["br_role"] = self.br_role
-	end
+	info["br_role"] = self.br_role
 
 	local sendteam = self.br_team
 

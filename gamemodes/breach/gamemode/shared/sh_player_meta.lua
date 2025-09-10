@@ -201,4 +201,12 @@ function player_meta:GetOutfit()
 	return BR_DEFAULT_OUTFIT
 end
 
+function player_meta:IsBackPackFull()
+	return #self.br_special_items > 10
+end
+
+function player_meta:MaxBackpackSpaces()
+	return 10
+end
+
 print("[Breach2] shared/sh_player_meta.lua loaded!")

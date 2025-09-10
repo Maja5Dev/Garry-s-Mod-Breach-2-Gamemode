@@ -68,36 +68,57 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 		end},
 
 		{name = "SCP-1162", pos = Vector(903,882,-8143), canSee = DefaultItemContainerCanSee, func_cl = function() surface.PlaySound("breach2/pickitem2.ogg") end,  func_sv = function(ply)
-			local weps = {}
+			local owned_weps = {}
 			for k,v in pairs(ply:GetWeapons()) do
 				if v.Pickupable == true or v.droppable == true then
-					table.ForceInsert(weps, v)
+					table.ForceInsert(owned_weps, v)
 				end
 			end
-			if table.Count(weps) == 0 then
+
+			if table.Count(owned_weps) == 0 and table.Count(ply.br_special_items) == 0 then
 				ply:TakeDamage(20, ply, ply)
 			else
-				local rnd_wep = table.Random(weps)
-				local rnd_classes = {"keycard_master", "keycard_playing", "item_battery_9v", "item_pills", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask"}
-				--for k,v in pairs(BR2_SPECIAL_ITEMS) do
-				--	if v.scp_1162_class then table.ForceInsert(rnd_classes, {v.scp_1162_class, v.scp_1162}) end
-				--end
-				
+				local rnd_classes = {
+					"keycard_master", "keycard_playing", "item_battery_9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask",
+					"lockpick", "medicine", "syringe", "coin", "cup_useless", "ssri_pills", "eyedrops", "conf_folder", "scp_420"
+				}
+
 				local rnd_class = table.Random(rnd_classes)
+
 				local ent = nil
-				if istable(rnd_class) then
-					ent = ents.Create(rnd_class[1])
-				else
-					ent = ents.Create(rnd_class)
+				for k,v in pairs(BR2_SPECIAL_ITEMS) do
+					if v.class == rnd_class then
+						ent = v.drop(ply)
+						break
+					end
 				end
-				if IsValid(ent) then
+				
+				if ent == nil then
+					if istable(rnd_class) then
+						ent = ents.Create(rnd_class[1])
+					else
+						ent = ents.Create(rnd_class)
+					end
+				end
+
+				if ent != nil then
 					ent:SetPos(Vector(893,882,-8144))
 					ent:SetNWBool("isDropped", true)
 					ent:Spawn()
+
 					if istable(rnd_class) then
 						rnd_class[2](ply, ent)
 					end
-					ply:StripWeapon(rnd_wep:GetClass())
+
+					local rnd_wep = table.Random(owned_weps)
+					if IsValid(rnd_wep) then
+						print("stripping weapon", rnd_wep)
+						ply:StripWeapon(rnd_wep:GetClass())
+					else
+						local rnd_item = table.Random(ply.br_special_items)
+						print("removing ... ", rnd_item.class)
+						table.RemoveByValue(ply.br_special_items, rnd_item)
+					end
 				end
 			end
 		end},
