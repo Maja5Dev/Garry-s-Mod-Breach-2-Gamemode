@@ -32,30 +32,6 @@ function BR2_914_End_Stage()
 	end)
 end
 
-usable_radio_codes = {}
-
-function ResetRadioCodes()
-	usable_radio_codes = {}
-	for _,bt in pairs(MAPCONFIG.KEYPADS) do
-		if isnumber(bt.code) and bt.code_can_be_obtained_by_radio then
-			table.ForceInsert(usable_radio_codes, bt.code)
-		end
-	end
-end
-
-function GiveRadioACode(ent)
-	if #usable_radio_codes < 1 then
-		ResetRadioCodes()
-	end
-
-	local chosen_code = table.Random(usable_radio_codes)
-
-	if chosen_code then
-		table.RemoveByValue(usable_radio_codes, chosen_code)
-		ent.Code = chosen_code
-	end
-end
-
 br2_914_disabled = false
 function BR2_Handle914_Start()
 	if br2_914_disabled == true then

@@ -72,14 +72,32 @@ function BR2_Handle914_Start()
 		br2_914_disabled = true
 		timer.Create("BR2_914_NextStage", 4, 1, function()
 			br_914status = BR2_Get914Status()
+
 			for k,v in pairs(BR2_Get_914_Enter_Entities()) do
 				v:SetPos(Vector(768.773560, -1062.487549, -8190.468750))
+
 				if v:IsPlayer() then
-					v:Kill()
+					local rndnum = math.random(1,4)
+
+					if rndnum == 1 then
+						v:AddSanity(-100)
+
+					elseif rndnum == 2 then
+						v:AddSanity(100)
+
+					elseif rndnum == 3 then
+						v:TakeDamage(50, v, nil)
+
+					elseif rndnum == 4 then
+						v:AddHealth(50)
+					end
+
 				elseif isfunction(v.GetBetterOne) then
 					local better_one = v:GetBetterOne()
+
 					if isstring(better_one) then
 						local ent = ents.Create(better_one)
+						
 						if IsValid(ent) then
 							ent:SetPos(v:GetPos() + Vector(0,0,10))
 
@@ -87,15 +105,13 @@ function BR2_Handle914_Start()
 							ent:Spawn()
 							ent:SetNWBool("isDropped", true)
 						end
+
 						if isnumber(ent.BatteryLevel) then
 							ent.BatteryLevel = 100
 						end
-						if ent:GetClass() == "item_radio2" then
-							for _,bt in pairs(MAPCONFIG.BUTTONS) do
-								if ent.Code == nil and isnumber(bt.code) and bt.code_type == "radio" then
-									ent.Code = bt.code
-								end
-							end
+
+						if ent:GetClass() == "item_radio2" and ent.Code == nil then
+							GiveRadioACode(ent)
 						end
 					end
 					v:Remove()
