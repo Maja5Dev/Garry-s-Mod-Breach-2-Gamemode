@@ -405,6 +405,7 @@ round_system.PreparingStart = function()
 		if !v:IsBot() then
 			timer.Destroy("scp294use_"..v:SteamID64())
 		end
+		timer.Destroy("deletenotepad"..v:SteamID64())
 	end
 
 	timer.Remove("PlayCommotionSounds")

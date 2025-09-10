@@ -32,6 +32,13 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 				attacker:AddFrags(1)
 			end
 		end
+
+		timer.Create("deletenotepad" .. ply:SteamID64(), 1, 0, function()
+			if ply.retrievingNotes != false then
+				print("notes not retrieved, delete notepad", ply.retrievingNotes)
+				notepad_system.DeleteNotepad(ply)
+			end
+		end)
 	end
 end
 

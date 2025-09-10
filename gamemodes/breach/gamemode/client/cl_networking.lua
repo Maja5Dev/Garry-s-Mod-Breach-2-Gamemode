@@ -732,6 +732,7 @@ net.Receive("br_send_notepad", function(len)
 			v.br_info = nil
 			v.br_showname = nil
 			v.br_role = nil
+			v.br_team = nil
 		end
 	end
 

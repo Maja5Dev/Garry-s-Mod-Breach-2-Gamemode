@@ -108,21 +108,21 @@ net.Receive("br_retrieve_own_notes", function(len, ply)
     if ply.retrievingNotes == true or isentity(ply.retrievingNotes) then
         if ply.lastRetrievingNotes > (CurTime() + 2) then
             ply.retrievingNotes = false
+			notepad_system.DeleteNotepad(ply)
             return
         end
 
         if len < 10000 then
             local tab = net.ReadTable()
-            --PrintTable(tab)
+            
             if tab != nil and istable(tab) then
                 if isentity(ply.retrievingNotes) then
-                    print("retrieved notes")
                     local ent = ply.retrievingNotes
                     if istable(ent.Info.notepad) then
                         ent.Info.notepad.own_notes = tab
                     end
-                else
 
+                else
                     if istable(ply.notepad) then
                         notepad_system.AllNotepads[ply.charid].own_notes = tab
                         ply.notepad = notepad_system.AllNotepads[ply.charid]
@@ -131,6 +131,8 @@ net.Receive("br_retrieve_own_notes", function(len, ply)
                 ply.retrievingNotes = false
             end
         end
+
+		notepad_system.DeleteNotepad(ply)
     end
 end)
 
