@@ -218,8 +218,6 @@ end)
 net.Receive("br_use_294", function(len)
 	local res = net.ReadInt(16)
 
-	print("294 result: " .. res)
-
 	if res == SCP294_RESULT_OUTOFRANGE then
 		keyboard_294_text = "OUT OF RANGE"
 		surface.PlaySound("breach2/294/outofrange.ogg")
@@ -769,19 +767,13 @@ net.Receive("br_send_info", function(len)
 	local ply_got = net.ReadEntity()
 
 	if IsValid(ply_got) and istable(info_got) then
-		if isstring(info_got.br_showname)  then
-			ply_got.br_showname = info_got.br_showname
-		end
-
-		if isstring(info_got.br_role) then
-			ply_got.br_role = info_got.br_role
-		end
-
+		ply_got.br_showname = info_got.br_showname
+		ply_got.br_role = info_got.br_role
 		ply_got.br_team = info_got.br_team
-
 		ply_got.br_ci_agent = info_got.br_ci_agent
-
 		ply_got.br_info = info_got
+	else
+		error("Got info on a player but its invalid " .. tostring(ply_got) .. " " .. tostring(info_got))
 	end
 end)
 
