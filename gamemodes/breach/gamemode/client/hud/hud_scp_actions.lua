@@ -23,6 +23,24 @@ function DoSCPAction()
     net.SendToServer()
 end
 
+surface.CreateFont("BR2_SCPActionToolTip", {
+	font = "Tahoma",
+	extended = false,
+	size = 24,
+	weight = 1000,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+})
+
 hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
 	scp_action_focus_button_ready = nil
 	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.SCP_ACTIONS == nil then return end
@@ -60,7 +78,15 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
         local d2 = d / (170^2)
         local spos = button.pos:ToScreen()
 
-        if d1 < 1 and !IsOffScreen(spos) and canSeeSCPAction(button, target_pos, target_ent) and !BR_AnyMenusOn() and button.can_do(LocalPlayer()) then
+        if button.canDoFor == nil or button.canDoFor < CurTime() then
+            if button.can_do(LocalPlayer()) then
+                button.canDoFor = CurTime() + 0.1
+            else
+                button.canDoFor = nil
+            end
+        end
+
+        if d1 < 1 and !IsOffScreen(spos) and canSeeSCPAction(button, target_pos, target_ent) and !BR_AnyMenusOn() and button.canDoFor and button.canDoFor > CurTime() then
             local x = math.abs(spos.x - mx)
             local y = math.abs(spos.y - my)
             
@@ -74,12 +100,21 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             if button == scp_action_focus_button then
                 surface.SetDrawColor(255, 255, 255, 200)
                 surface.SetMaterial(button.mat.mat)
-                surface.DrawTexturedRect(mx-( (button.mat.w * size_mul) /2), my-( (button.mat.h * size_mul) /2), button.mat.w, button.mat.h)
+                surface.DrawTexturedRect(mx-( (button.mat.w * size_mul) /2), my-( (button.mat.h * size_mul) /2), button.mat.w * size_mul, button.mat.h * size_mul)
                 scp_action_focus_button_ready = button
+
+                draw.Text({
+                    text = button.tooltip,
+                    pos = {mx, my - 60},
+                    xalign = TEXT_ALIGN_CENTER,
+                    yalign = TEXT_ALIGN_CENTER,
+                    font = "BR2_SCPActionToolTip",
+                    color = Color(255,255,255,255),
+                })
             else
                 surface.SetDrawColor(255, 255, 255, 75 * (1 - d1))
                 surface.SetMaterial(button.mat.mat)
-                surface.DrawTexturedRect(spos.x - ( (button.mat.w * size_mul) / 2), spos.y - ( (button.mat.h * size_mul) / 2), button.mat.w, button.mat.h)
+                surface.DrawTexturedRect(spos.x - ( (button.mat.w * size_mul) / 2), spos.y - ( (button.mat.h * size_mul) / 2), button.mat.w * size_mul, button.mat.h * size_mul)
             end
         end
     end
