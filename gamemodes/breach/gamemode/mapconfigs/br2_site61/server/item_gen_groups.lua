@@ -6,6 +6,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"keycard_master", 1},
 		{"item_battery_9v", 3},
 		{"item_radio", 1},
+		{"eyedrops", 2},
 
 		{"ammo_pistol16", 1},
 		{"flashlight_normal", 2},
@@ -17,6 +18,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"keycard_playing", 1},
 		{"keycard_master", 1},
 		{"item_battery_9v", 1},
+		{"eyedrops", 1},
 
 		{"ammo_pistol16", 1},
 		{"flashlight_tactical", 1},
