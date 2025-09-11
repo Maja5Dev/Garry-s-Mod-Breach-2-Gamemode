@@ -114,12 +114,14 @@ end
 
 function ENT:CanMove(pos)
 	local cpos = nil
+
 	if pos == self:GetPos() then
 		cpos = self:WorldSpaceCenter()
 	else
 		cpos = pos
 	end
-	local timep = CurTime() - self.LastBlink
+
+	local timep = CurTime() - self.NextBlinkUpdate
 	if !((timep > 0.08) and (timep < 0.18)) then
 		for k,v in pairs(ents.FindInSphere(pos, 1100)) do
 			--print("VisibleVec: " .. tostring(v:VisibleVec(pos)))
@@ -159,7 +161,6 @@ end
 
 ENT.LastBlink = 0
 ENT.BlinkTime = 0.2
-
 ENT.NextBlinkUpdate = 0
 
 function ENT:Think()
@@ -167,18 +168,23 @@ function ENT:Think()
 		self:NextThink(CurTime() + 0.01)
 
 		if self.NextBlinkUpdate < CurTime() then
-			self.NextBlinkUpdate = CurTime() + math.Rand(4.5, 6.5)
+			local next_blink = math.Rand(4.5, 6.5)
+			self.NextBlinkUpdate = CurTime() + next_blink
 
-			self.LastBlink = CurTime() + 1
-			local sstr = 'br_next_blink = ' .. self.LastBlink .. ''
 			for k,v in pairs(player.GetAll()) do
 				if v:Alive() and !v:IsSpectator() then
 					local dist = v:GetPos():Distance(self:GetPos())
 
 					local seen173 = (v.seen_173 or 0) > CurTime()
 					if v.blinking_enabled and ((dist < 600) or seen173) and v.usedEyeDrops < CurTime() then
-						--print(v, dist, seen173)
-						v:SendLua(sstr)
+						v.seen_173 = CurTime() + 10
+
+						net.Start("br_blinking")
+							net.WriteFloat(next_blink)
+							net.WriteFloat(v.seen_173)
+						net.Send(v)
+
+						v:AddSanity(-2)
 					end
 				end
 			end
@@ -194,8 +200,11 @@ function ENT:AttackNearbyPlayers()
 	self.CurrentTargets = {}
 	self.Attacks = 0
 	self.Tries = 0
+
 	for k,v in pairs(ents.FindInSphere(self:GetPos(), 400)) do
-		if v:IsPlayer() and v:Alive() and !v:IsSpectator() and v:Team() != TEAM_SCP and self:IsPlayerVisible(v, self:WorldSpaceCenter()) then
+		if v:IsPlayer() and v:Alive() and !v:IsSpectator() and v:Team() != TEAM_SCP
+			and self:IsPlayerVisible(v, self:WorldSpaceCenter())
+		then
 			table.ForceInsert(self.CurrentTargets, {v, 0})
 			self.IsAttacking = true
 			self:SetNWBool("IsAttacking", true)

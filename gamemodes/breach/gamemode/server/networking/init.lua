@@ -74,6 +74,7 @@ util.AddNetworkString("br_check_someones_notepad")
 util.AddNetworkString("br_hack_terminal")
 util.AddNetworkString("br_scp_action")
 util.AddNetworkString("br_custom_screen_effects")
+util.AddNetworkString("br_blinking")
 
 include("net_supports.lua") -- top priority
 

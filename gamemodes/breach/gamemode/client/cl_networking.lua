@@ -468,6 +468,8 @@ net.Receive("br_round_prepstart", function(len)
 	temprature_strongness = 0
 	br_voted_for_round_end = false
 	next_check_random_music = CurTime() + math.random(3, 10)
+	br_next_blink = 0
+	br_blink_time = 0
 
 --REMOVE CLIENTSIDE ENTITIES
 	if IsValid(horror_scp_ent) then
@@ -886,6 +888,11 @@ net.Receive("br_custom_screen_effects", function(len)
 	
 	br_our_custom_screen_effects = tab
 	br_our_custom_screen_effects_for = CurTime() + duration
+end)
+
+net.Receive("br_blinking", function(len)
+	br_blink_time = net.ReadFloat()
+	br_next_blink = CurTime() + br_blink_time
 end)
 
 print("[Breach2] client/cl_networking.lua loaded!")
