@@ -5,8 +5,7 @@ SWEP.Spawnable		= true
 SWEP.AdminSpawnable	= true
 SWEP.Category		= "Breach 2"
 SWEP.clevel			= 0
---SWEP.ForceSkin 		= 12
-SWEP.ForceSkin 		= 11
+SWEP.ForceSkin 		= 19
 
 function SWEP:GetBetterOne()
 	local r = math.random(1,10)
