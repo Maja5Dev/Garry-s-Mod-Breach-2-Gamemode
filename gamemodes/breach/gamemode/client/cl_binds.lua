@@ -2,12 +2,6 @@
 local next_duck = 0
 
 function GM:PlayerBindPress(ply, bind, pressed)
-	if string.find(bind, "+reload") and pressed then
-		local wep = ply:GetActiveWeapon()
-		if IsValid(wep) and isfunction(wep.SingleReload) then
-			wep:SingleReload()
-		end
-	end
 	if string.find(bind, "+use") and pressed then
 		local view_ent = ply:GetViewEntity()
 		if IsValid(view_ent) and view_ent != ply then
@@ -17,10 +11,20 @@ function GM:PlayerBindPress(ply, bind, pressed)
 			return true
 		end
 	end
+
 	if BR_IS_HIDING then return true end
+	
+	if string.find(bind, "+reload") and pressed then
+		local wep = ply:GetActiveWeapon()
+		if IsValid(wep) and isfunction(wep.SingleReload) then
+			wep:SingleReload()
+		end
+	end
+
 	if string.find(bind, "act") then
 		return true
 	end
+
 	if string.find(bind, "+duck") then
 		if ply:Crouching() or next_duck > CurTime() then
 			return true
@@ -28,27 +32,34 @@ function GM:PlayerBindPress(ply, bind, pressed)
 		next_duck = CurTime() + 0.35
 		return false
 	end
+
 	if string.find(bind, "+jump") then
 		if ply:GetJumpPower() < 5 or ply:IsSprinting() then
 			return true
 		end
 	end
+
 	if string.find(bind, "+use") and pressed then
 		if istable(focus_button_ready) then
 			focus_button_ready.on_open(focus_button)
 		end
+
 		if istable(scp_action_focus_button) then
 			DoSCPAction()
 		end
+
 	elseif string.find(bind, "+menu_context") and debug_menu_enabled == false then
 		return true
+
 	elseif bind == "+menu" and debug_menu_enabled == false and pressed == true then
 		net.Start("br_drop_weapon")
 		net.SendToServer()
 		return true
+
 	elseif bind == "messagemode" or bind == "messagemode2" then
 		BR_CreateChatFrame(true)
 		return true
+
 	elseif bind == "+attack" then
 		if WepSwitchFrame and wep_selected != nil then
 			--LocalPlayer():SelectWeapon(wep_selected)
@@ -57,6 +68,7 @@ function GM:PlayerBindPress(ply, bind, pressed)
 			CloseWEP()
 			return true
 		end
+		
 	elseif bind == "invnext" and pressed then
 		Switch_SelectNext()
 		return true
@@ -76,6 +88,7 @@ function GM:PlayerBindPress(ply, bind, pressed)
 		OpenInfoMenu4()
 		return true
 	end
+
 	if pressed then
 		for i=1,10 do
 			local b = "slot" .. tostring(i)
