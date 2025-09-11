@@ -65,7 +65,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-1176,1099,-7111), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_GUNS"}, -- KINDA_ARMORY-BIGCRATE
 		{pos = Vector(-2188,3126,-7141), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_457-BOX
 		{pos = Vector(-2468,3125,-7152), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_457-1
-		{pos = Vector(1554,1725,-7379), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- TOXIC_ROOM-CRATE
+		{pos = Vector(1554,1725,-7379), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TOXIC_ROOM"}, -- TOXIC_ROOM-CRATE
 		{pos = Vector(1691,2824,-7134), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- NEAR_EZ_CHECKPOINT-1
 		{pos = Vector(1258,538,-7124), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- NEAR_CHECKPOINT-CRATE
 		{pos = Vector(368,643,-7141), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-BOX
@@ -86,10 +86,11 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-2744,4513,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-2
 		{pos = Vector(-2895,4320,-7126), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-BOX
 		{pos = Vector(456,3907,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_096-BOX
-		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_GUN"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER
+		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_STORAGEROOM_GUN"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER-1
+		{pos = Vector(-1555,4633,-7145), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_008"}, -- HCZ-008-1
 
 		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-BOX
-		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- HCZ_TUNNELS-BIGCRATE
+		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_LOOT"}, -- HCZ_TUNNELS-BIGCRATE
 
 
 

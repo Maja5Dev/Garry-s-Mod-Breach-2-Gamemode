@@ -80,7 +80,7 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 			else
 				local rnd_classes = {
 					"keycard_master", "keycard_playing", "item_battery_9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask",
-					"lockpick", "medicine", "syringe", "coin", "cup_useless", "ssri_pills", "eyedrops", "conf_folder", "scp_420"
+					"lockpick", "antibiotics", "syringe", "coin", "cup_useless", "ssri_pills", "eyedrops", "conf_folder", "scp_420"
 				}
 
 				local rnd_class = table.Random(rnd_classes)

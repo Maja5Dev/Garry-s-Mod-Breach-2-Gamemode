@@ -49,7 +49,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_1"] = {
 		{"keycard_level2", 1},
-		{"medicine", 1},
+		{"antibiotics", 1},
 		{"food_chips", 1},
 		{"drink_orange_juice", 1},
 	},
@@ -64,7 +64,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_cheap", 1},
 		{"ssri_pills", 1},
 		{"drink_bottle_water", 1},
-		{"medicine", 1},
+		{"antibiotics", 1},
 	},
 	["LCZ_3"] = {
 		{"drink_bottle_water", 1},
@@ -84,13 +84,13 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["RZ_2"] = {
 		{"keycard_level2", 2},
 		{"flashlight_normal", 1},
-		{"medicine", 1},
+		{"antibiotics", 1},
 		{"ssri_pills", 1},
 		{"drink_bottle_water", 1},
 	},
 	["RZ_3"] = {
 		{"keycard_level3", 2},
-		{"medicine", 1},
+		{"antibiotics", 1},
 		{"item_battery_9v", 1},
 		{"conf_folder", 1},
 		{"syringe", 1},

@@ -1,9 +1,8 @@
 ﻿
 MAPCONFIG.ITEM_GENERATION_GROUPS = {
+-- LIGHT CONTAINMENT ZONE
 	["LCZ_FIRST_LOOT"] = {
-		{"keycard_level1", 4},
-		{"keycard_playing", 1},
-		{"keycard_master", 1},
+		{"keycard_level1", 4}, {"keycard_playing", 1}, {"keycard_master", 1},
 		{"item_battery_9v", 3},
 		{"item_radio", 1},
 		{"eyedrops", 2},
@@ -14,9 +13,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"doc_scp1048", 1},
 	},
 	["LCZ_SECOND_LOOT"] = {
-		{"keycard_level2", 3},
-		{"keycard_playing", 1},
-		{"keycard_master", 1},
+		{"keycard_level2", 3}, {"keycard_playing", 1}, {"keycard_master", 1},
 		{"item_battery_9v", 1},
 		{"eyedrops", 1},
 
@@ -24,6 +21,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_tactical", 1},
 		{"coin", 2},
 		{"device_cameras", 1},
+		{"antibiotics", 1},
 	},
 	["LCZ_THIRD_LOOT"] = {
 		{"keycard_level3", 2},
@@ -33,7 +31,9 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 
 		{"ammo_pistol16", 1},
 		{"device_cameras", 1},
-		{"syringe", 1}
+		{"syringe", 1},
+		{"conf_folder", 1},
+		{"antibiotics", 1},
 	},
 	["LCZ_WEAPON_LOOT"] = {
 		{"kanade_tfa_pipe", 1},
@@ -44,19 +44,18 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"kanade_tfa_m1911", 1},
 		{"item_medkit", 1},
 		{"item_gasmask", 1},
-		
 		{"ammo_pistol16", 1},
-		{"ammo_smg30", 1},
+		{"kanade_tfa_stunbaton", 1},
 	},
 	["LCZ_ADDITIONAL_LOOT"] = {
 		{"item_gasmask", 1},
 		{"item_nvg", 1},
-		{"item_medkit", 1},
+		{"personal_medkit", 1},
 		{"item_radio", 1},
 		{"ssri_pills", 1},
 	},
 	["LCZ_012_LOOT"] = {
-		{"item_medkit", 1}
+		{"personal_medkit", 1}
 	},
 	["LCZ_012_DOC"] = {
 		{"doc_scp012", 1},
@@ -74,6 +73,8 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_pistol16", 1},
 	},
 
+
+-- HEAVY CONTAINMENT ZONE
 	["HCZ_049"] = {
 		{"doc_scp049", 1},
 	},
@@ -81,33 +82,52 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"doc_scp682", 1},
 	},
 	["HCZ_FIRST"] = {
-		{"keycard_level2", 2},
-		{"keycard_level3", 2},
-		{"item_gasmask", 1},
-		{"item_medkit", 1},
+		{"keycard_level4", 1},
+		{"item_gasmask", 2},
+		{"personal_medkit", 1},
 		{"item_radio", 1},
 		{"ssri_pills", 1},
 		{"item_battery_9v", 3},
 
 		{"ammo_pistol16", 1},
+		{"ammo_smg30", 1},
 		{"ammo_rifle30", 1},
 		{"flashlight_normal", 1},
 		{"coin", 2},
+		{"kanade_tfa_pipe", 1},
+		{"conf_folder", 1},
+		{"eyedrops", 1},
+		{"scp_420", 1},
+		{"drink_soda", 1},
+		{"antibiotics", 1},
 	},
 	["HCZ_SECOND"] = {
 		{"keycard_level4", 2},
-		{"item_nvg", 1},
-		{"item_medkit", 1},
+		{"item_gasmask", 1},
+		{"item_radio", 1},
+		{"item_nvg_military", 1},
+		{"personal_medkit", 1},
 		{"kanade_tfa_axe", 1},
 
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
 		{"ammo_smg30", 1},
 		{"flashlight_tactical", 2},
 		{"device_cameras", 1},
-		{"syringe", 1}
+		{"syringe", 1},
+		{"item_c4", 1},
+		{"kanade_tfa_stunbaton", 1},
+		{"kanade_tfa_pipe", 1},
+		{"ammo_pistol16", 1},
+		{"ammo_rifle30", 1},
+		{"ammo_shotgun10", 1},
+		{"conf_folder", 1},
+		{"eyedrops", 1},
+		{"drink_wine", 1},
+		{"antibiotics", 1},
 	},
 	["HCZ_GUNS"] = {
 		{"kanade_tfa_m590", 1},
-		{"kanade_tfa_ump45", 1},
+		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},
 		{"kanade_tfa_beretta", 1},
 		{"ammo_pistol16", 1},
 		{"ammo_smg30", 1},
@@ -115,24 +135,41 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_shotgun10", 1},
 	},
 	["HCZ_035"] = {
-		{"kanade_tfa_mp5k", 1},
-		{"kanade_tfa_beretta", 1},
+		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
 		{"item_c4", 1},
 		{"item_medkit", 1},
 		
-		{"ammo_pistol16", 1},
-		{"ammo_smg30", 1},
+		{"ammo_pistol16", 2},
+		{"ammo_smg30", 2},
+		{"conf_folder", 1},
 	},
-	["HCZ_TUNNELS_GUN"] = {
+	["HCZ_STORAGEROOM_GUN"] = {
 		{"kanade_tfa_m40a1", 1},
-
 		{"ammo_sniper10", 1},
 	},
+	["HCZ_TUNNELS_LOOT"] = {
+		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},
+		{"ammo_smg60", 1},
+		{"item_medkit", 1},
+		{"ssri_pills", 1},
+		{"keycard_level3", 1},
+	},
+	["HCZ_TOXIC_ROOM"] = {
+		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},
+		{"ammo_smg60", 1},
+		{"item_medkit", 1},
+		{"keycard_level3", 1},
+	},
+	["HCZ_008"] = {
+		{"personal_medkit", 1},
+		{"conf_folder", 1},
+	},
 
+-- ENTRANCE ZONE
 	["EZ"] = {
 		{"keycard_level4", 3},
-		{"keycard_level3", 1},
-		{"kanade_tfa_beretta", 1},
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
 		{"item_c4", 1},
 		{"item_medkit", 1},
 		{"item_radio", 1},
@@ -140,21 +177,22 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_normal", 2},
 		{"ammo_pistol16", 1},
 		{"coin", 3},
+		{"conf_folder", 2},
 	},
 	["EZ_SPECIAL"] = {
 		{"kanade_tfa_m4a1", 1},
 		{"kanade_tfa_mk18", 1},
 		{"kanade_tfa_beretta", 1},
-		{"kanade_tfa_ump45", 1},
-		{"ammo_pistol16", 1},
-		{"ammo_smg30", 1},
-		{"ammo_rifle30", 1},
-		{"ammo_shotgun10", 1},
+		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},
+		{"ammo_pistol16", 2},
+		{"ammo_smg30", 2},
+		{"ammo_rifle30", 2},
+		{"ammo_shotgun10", 2},
 	},
 	["EZ_OFFICES"] = {
-		{"keycard_level5", 1},
-
+		{"keycard_level5", 2},
 		{"flashlight_tactical", 1},
+		{"conf_folder", 2},
 	},
 	["EZ_MEDBAY"] = {
 		{"item_medkit", 3},

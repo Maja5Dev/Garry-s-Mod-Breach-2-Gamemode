@@ -11,6 +11,10 @@ function form_basic_item_info(class, amount)
 			return {class = class, ammo = 0, v.name}
 		end
 	end
+
+	if istable(class) then
+		class = table.Random(class)
+	end
 	
 	--print("TEST ITEM", class, weapons.Get(class), weapons.Get(class).PrintName)
 	local wwep = weapons.Get(class)

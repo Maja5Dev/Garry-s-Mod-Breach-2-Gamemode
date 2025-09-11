@@ -95,7 +95,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"kanade_tfa_pipe", 1},
 		{"kanade_tfa_crowbar", 1},
 		{"food_chips", 1},
-		{"medicine", 1},
+		{"antibiotics", 1},
 		{"item_gasmask", 1},
 		{"crafting_toolbox", 1},
 	},

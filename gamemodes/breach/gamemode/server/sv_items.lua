@@ -743,10 +743,10 @@ BR2_SPECIAL_ITEMS = {
 		end
 	},
 	{
-		class = "medicine",
+		class = "antibiotics",
 		name = "Medicine",
 		func = function(pl)
-			table.ForceInsert(pl.br_special_items, {class = "medicine"})
+			table.ForceInsert(pl.br_special_items, {class = "antibiotics"})
 			return true
 		end,
 		use = function(pl, item)
@@ -760,7 +760,7 @@ BR2_SPECIAL_ITEMS = {
 					if pl.br_infection < 3 then
 						pl.br_isInfected = false
 					end
-					pl:ChatPrint("Your took some medicine...")
+					pl:ChatPrint("Your took some antibiotics...")
 					return true
 				end
 			end
@@ -772,7 +772,7 @@ BR2_SPECIAL_ITEMS = {
 			end
 		end,
 		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, "medicine", "Medicine", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
+			local res, item = br2_special_item_drop(pl, "antibiotics", "Medicine", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
 			return item
 		end
 	},

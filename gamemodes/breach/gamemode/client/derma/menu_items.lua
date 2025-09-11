@@ -54,7 +54,7 @@ local item_infos = {
 	coin = {name = "Coin", desc = "Just a shiny coin"},
 	lockpick = {name = "Lockpick", desc = "Universal lockpick for opening stuff"},
 	crafting_toolbox = {name = "Toolbox", desc = "Toolbox used for crafting things"},
-	medicine = {name = "Medicine", desc = "Cures diseases"},
+	antibiotics = {name = "Antibiotics", desc = "Cures bacterial infections"},
 	eyedrops = {name = "Eyedrops", desc = "Saline-containing drops"},
 	ssri_pills = {name = "SSRI Pills", desc = "Pills that help with your mental health"},
 	drink_bottle_water = {name = "Water Bottle", desc = "Bottle of purified water"},

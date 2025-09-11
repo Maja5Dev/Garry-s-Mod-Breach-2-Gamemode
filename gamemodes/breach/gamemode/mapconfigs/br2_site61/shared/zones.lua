@@ -108,7 +108,7 @@ MAPCONFIG.ZONES.HCZ = {
 		music 						= {sound = "breach2/music/Room049.ogg", length = 39.6, volume = 1},
 		ambients 					= br_default_ambient_hcz,
 		fog_enabled 				= true,
-		fog_mul						= 0.8,
+		fog_mul						= 0.6,
 		use_general_ambients 		= true,
 		color 						= Color(0,0,255,50),
 		sanity 						= -1,
