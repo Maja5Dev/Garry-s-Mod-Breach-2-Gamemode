@@ -92,10 +92,25 @@ local info_set_system = {"SYSTEM", function(button, panel)
 		end
 		panel.posx, panel.posy = panel:GetPos()
 
+		if terminal_frame.terminal.special_functions then
+			for k,v in pairs(terminal_frame.terminal.special_functions) do
+				if isfunction(v.canUse) and !v.canUse(LocalPlayer()) then
+					table.RemoveByValue(terminal_frame.terminal.special_functions, v)
+				end
+			end
+		end
+
 		local spec_functions = terminal_frame.terminal.special_functions or {}
 
 		for k,v in pairs(BR2_SPECIAL_TERMINAL_SETTINGS) do
-			if isfunction(v.canUse) and v.canUse(LocalPlayer()) then
+			local already_in = false
+			for k2,v2 in pairs(terminal_frame.terminal.special_functions) do
+				if v2.name == v.name then
+					already_in = true
+					break
+				end
+			end
+			if !already_in and isfunction(v.canUse) and v.canUse(LocalPlayer()) then
 				table.ForceInsert(spec_functions, v)
 			end
 		end
