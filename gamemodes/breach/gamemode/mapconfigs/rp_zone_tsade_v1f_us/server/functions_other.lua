@@ -18,7 +18,7 @@ MAP_ResetGenerators()
 function Map_GeneratorOn()
 	if MAP_GENERATOR_1_ON and MAP_GENERATOR_2_ON and MAP_GENERATOR_3_ON and MAP_GENERATOR_4_ON then
 		print("ALL GENERATORS ON")
-		net.Start("br_all_generators_on")
+		net.Start("br_enable_primary_lights")
 		net.Broadcast()
 	end
 end
@@ -46,7 +46,7 @@ end
 function MAP_PrimaryLights_Enable()
 	if MAP_GENERATOR_1_ON and MAP_GENERATOR_2_ON and MAP_GENERATOR_3_ON and MAP_GENERATOR_4_ON then
 		print("ALL GENERATORS ON")
-		net.Start("br_all_generators_on")
+		net.Start("br_enable_primary_lights")
 		net.Broadcast()
 	end
 end

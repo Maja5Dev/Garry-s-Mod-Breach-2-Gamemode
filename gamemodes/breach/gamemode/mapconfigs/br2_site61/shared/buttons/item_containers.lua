@@ -49,7 +49,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-2517,-579,-8165), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCP_372-BOX
 		{pos = Vector(-1952,-1103,-8179), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SCP_372"}, -- SCP_372-CRATE
 		{pos = Vector(2262,492,-8165), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- LONG_HALLWAY-BOX
-		{pos = Vector(617,-2392,-8170), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- SECURITY_GATEWAY-BOX
+		{pos = Vector(617,-2392,-8170), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECURITY_GATEWAY"}, -- SECURITY_GATEWAY-BOX
 		{pos = Vector(441,-1421,-8134), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ARMORY_LOOT"}, -- ARMORY-CRATE1
 		{pos = Vector(712,-1684,-8159), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ARMORY_LOOT"}, -- ARMORY-CRATE2
 		{pos = Vector(-176,-1202,-8176), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- SKULL-1
@@ -61,8 +61,8 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 
 
 		--HCZ
-		{pos = Vector(-1179,1096,-7128), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- KINDA_ARMORY-CRATE
-		{pos = Vector(-1176,1099,-7111), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_GUNS"}, -- KINDA_ARMORY-BIGCRATE
+		{pos = Vector(-1179,1096,-7128), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- OLD_KINDA_ARMORY-CRATE  TODOoo
+		{pos = Vector(-1176,1099,-7111), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- OLD_KINDA_ARMORY-BIGCRATE
 		{pos = Vector(-2188,3126,-7141), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_457-BOX
 		{pos = Vector(-2468,3125,-7152), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_457-1
 		{pos = Vector(1554,1725,-7379), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TOXIC_ROOM"}, -- TOXIC_ROOM-CRATE
@@ -86,7 +86,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-2744,4513,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-2
 		{pos = Vector(-2895,4320,-7126), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- STORAGE_ROOM-BOX
 		{pos = Vector(456,3907,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_096-BOX
-		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_STORAGEROOM_GUN"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER-1
+		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_GUNS"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER-1
 		{pos = Vector(-1555,4633,-7145), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_008"}, -- HCZ-008-1
 
 		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-BOX

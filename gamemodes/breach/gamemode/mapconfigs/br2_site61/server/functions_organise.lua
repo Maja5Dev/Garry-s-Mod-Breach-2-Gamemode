@@ -17,6 +17,19 @@ end
 hook.Add("BR2_RoundStart", "MAP_ROUNDSTART", MAP_ON_ROUND_START)
 */
 
+local function fix914()
+	if table.Count(player.GetAll()) == 0 then
+		timer.Create("BR_Map_Fix914", 5, 1, fix914)
+		return
+	end
+
+	for k,v in pairs(ents.GetAll()) do
+		if v:GetClass() == "func_button" and v:GetPos():Distance(BR2_Get_914_1_Pos()) < 4 then
+			v:Use(player.GetAll()[1], player.GetAll()[1], USE_ON, 1)
+		end
+	end
+end
+
 function Breach_Map_Organise()
 	print("organising the map...")
 
@@ -28,24 +41,19 @@ function Breach_Map_Organise()
 
 	MAP_SCP_294_Coins = 0
 
-	timer.Remove("BR_Map_Fix914")
 	BR2_SPECIAL_BUTTONS = {}
-	for k,v in pairs(ents.GetAll()) do
-		if IsValid(ent) then
-			local name = v:GetName():lower()
-			if string.find(name, "spec_button") then
-				BR2_SPECIAL_BUTTONS[name] = v
-			end
 
-			-- fix 914
-			if v:GetClass() == "func_button" and v:GetPos():Distance(BR2_Get_914_1_Pos()) < 4 then
-				timer.Create("BR_Map_Fix914", 1, 1, function()
-					v:Use(player.GetAll()[1], player.GetAll()[1], USE_ON, 1)
-				end)
-			end
+	timer.Remove("BR_Map_Fix914")
+
+	for k,v in pairs(ents.GetAll()) do
+		local name = v:GetName():lower()
+		if string.find(name, "spec_button") then
+			BR2_SPECIAL_BUTTONS[name] = v
 		end
 	end
 
+	timer.Create("BR_Map_Fix914", 1, 1, fix914)
+	
 	timer.Remove("BR_Unlock173")
 	timer.Remove("BR_Unlock173")
 	timer.Create("BR_Unlock173", cvars.Number("br2_time_preparing", 25) + cvars.Number("br2_time_unlock_scps", 25), 1, function()

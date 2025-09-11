@@ -89,12 +89,17 @@ end)
 
 function BR2_CL_GENERATORS_ON()
 	surface.PlaySound("breach2/intro/Light2.ogg")
-	br2_generators_on = CurTime() + 1.75
+	br2_generators_on = CurTime() + 1
 	br2_generators_on_flash = true
+	primary_lights_on = true
 end
 
-net.Receive("br_all_generators_on", function(len)
+net.Receive("br_enable_primary_lights", function(len)
 	BR2_CL_GENERATORS_ON()
+end)
+
+net.Receive("br_disable_primary_lights", function(len)
+	primary_lights_on = false
 end)
 
 net.Receive("br_use_document", function(len)

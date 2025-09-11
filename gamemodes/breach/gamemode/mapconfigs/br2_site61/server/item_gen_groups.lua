@@ -72,14 +72,25 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["LCZ_SCP_372"] = {
 		{"ammo_pistol16", 1},
 	},
+	["LCZ_SECURITY_GATEWAY"] = {
+		{"keycard_level1", 1},
+	},
 
 
 -- HEAVY CONTAINMENT ZONE
 	["HCZ_049"] = {
 		{"doc_scp049", 1},
+		{"conf_folder", 1},
+		{"antibiotics", 2},
+		{"item_medkit", 2},
+		{"ssri_pills", 1},
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
+		{"ammo_pistol16", 2},
 	},
 	["HCZ_SCP_682_DOC"] = {
 		{"doc_scp682", 1},
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
+		{"ammo_pistol16", 1},
 	},
 	["HCZ_FIRST"] = {
 		{"keycard_level4", 1},
@@ -143,10 +154,6 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_pistol16", 2},
 		{"ammo_smg30", 2},
 		{"conf_folder", 1},
-	},
-	["HCZ_STORAGEROOM_GUN"] = {
-		{"kanade_tfa_m40a1", 1},
-		{"ammo_sniper10", 1},
 	},
 	["HCZ_TUNNELS_LOOT"] = {
 		{{"kanade_tfa_mp5k", "kanade_tfa_mp7", "kanade_tfa_p90", "kanade_tfa_ump45", "kanade_tfa_mp5a5"}, 1},

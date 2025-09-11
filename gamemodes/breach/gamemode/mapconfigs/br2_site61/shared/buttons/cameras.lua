@@ -25,7 +25,7 @@ MAPCONFIG.CAMERAS = {
 			{name = "hcz_corridor_3", pos = Vector(-1265,4224,-7034), ang = Angle(0,180,0)},
 			{name = "hcz_corridor_4", pos = Vector(-768,2441,-7055), ang = Angle(0,-90,0)},
 			{name = "hcz_cont_room_2", pos = Vector(960,2238,-7014), ang = Angle(0,-90,0)},
-			{name = "hcz_cont_room_scp682", pos = Vector(-376,5011,-7048), ang = Angle(0,-90,0)},
+			{name = "hcz_cont_room_scp682", pos = Vector(-2465,5408,-7312), ang = Angle(0,180,0)},
 			{name = "hcz_cont_room_scp457", pos = Vector(-2680,3083,-7014), ang = Angle(0,-90,0)},
 			{name = "hcz_cont_room_scp106", pos = Vector(-2143,6712,-6962), ang = Angle(0,180,0)},
 			{name = "hcz_cont_room_scp008", pos = Vector(-1610,4520,-7061), ang = Angle(0,0,0)},
