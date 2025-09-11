@@ -78,7 +78,9 @@ end
 
 next_horror_breath = 0
 function HorrorCL_Breath()
-	if next_horror_breath < CurTime() and br2_our_sanity < 2 and BR_INSANITY_ATTACK < CurTime() and math.random(1,3) < 3 then
+	if LocalPlayer():Alive() and !LocalPlayer():IsSpectator() and next_horror_breath < CurTime()
+		and br2_our_sanity < 2 and BR_INSANITY_ATTACK < CurTime() and math.random(1,3) < 3
+	then
 		surface.PlaySound("breach2/horror/breath.wav")
 		next_horror_breath = CurTime() + 5 + math.random(5, 13)
 	end
