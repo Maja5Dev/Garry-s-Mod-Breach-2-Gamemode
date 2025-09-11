@@ -31,16 +31,18 @@ function Breach_Map_Organise()
 	timer.Remove("BR_Map_Fix914")
 	BR2_SPECIAL_BUTTONS = {}
 	for k,v in pairs(ents.GetAll()) do
-		local name = v:GetName():lower()
-		if string.find(name, "spec_button") then
-			BR2_SPECIAL_BUTTONS[name] = v
-		end
+		if IsValid(ent) then
+			local name = v:GetName():lower()
+			if string.find(name, "spec_button") then
+				BR2_SPECIAL_BUTTONS[name] = v
+			end
 
-		-- fix 914
-		if v:GetClass() == "func_button" and v:GetPos():Distance(BR2_Get_914_1_Pos()) < 4 then
-			timer.Create("BR_Map_Fix914", 1, 1, function()
-				v:Use(player.GetAll()[1], player.GetAll()[1], USE_ON, 1)
-			end)
+			-- fix 914
+			if v:GetClass() == "func_button" and v:GetPos():Distance(BR2_Get_914_1_Pos()) < 4 then
+				timer.Create("BR_Map_Fix914", 1, 1, function()
+					v:Use(player.GetAll()[1], player.GetAll()[1], USE_ON, 1)
+				end)
+			end
 		end
 	end
 
