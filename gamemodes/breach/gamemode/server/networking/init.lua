@@ -76,6 +76,7 @@ util.AddNetworkString("br_hack_terminal")
 util.AddNetworkString("br_scp_action")
 util.AddNetworkString("br_custom_screen_effects")
 util.AddNetworkString("br_blinking")
+util.AddNetworkString("br_getlightlevel")
 
 include("net_supports.lua") -- top priority
 
@@ -93,5 +94,11 @@ include("net_scp_actions.lua")
 include("net_screen_effects.lua")
 
 include("tick.lua") -- lowest priority
+
+net.Receive("br_getlightlevel", function(len, ply)
+    if len < 1024 then
+	    ply.lightLevel = net.ReadFloat()
+    end
+end)
 
 print("[Breach2] server/networking/init.lua loaded!")

@@ -2,6 +2,7 @@
 
 include("shared.lua")
 
+include("client/cl_light_level.lua") -- just contains functions
 include("shared/sh_maprelated.lua")
 include("client/cl_maprelated.lua")
 include("mapconfigs/"..game.GetMap().."/cl_init.lua")

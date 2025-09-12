@@ -35,6 +35,7 @@ resource.AddWorkshop( '3430729756' ) -- DREAMS module (v1.1)
 resource.AddWorkshop( '2455580712' ) -- SCP-049 Ultimate Edition SNPCs [DRGBASE]
 resource.AddWorkshop( '2988173290' ) -- [DrGBase] SCP: Containment Breach NEXTBOTS
 
+AddCSLuaFile("client/cl_light_level.lua") -- just contains functions
 AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
 AddCSLuaFile("shared/sh_server_specific.lua") -- enums of server-related things, top priority
 AddCSLuaFile("shared/sh_npcs.lua") -- enums of NPC-related things, top priority

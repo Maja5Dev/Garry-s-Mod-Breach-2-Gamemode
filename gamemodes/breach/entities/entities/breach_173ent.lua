@@ -119,6 +119,10 @@ function ENT:CanMove(pos)
 		cpos = pos
 	end
 
+	if self.Owner:IsInLowLight() then
+		return true
+	end
+
 	for k,v in pairs(ents.FindInSphere(pos, 1000)) do
 		local timep = CurTime() - (v.nextBlink or 0)
 
@@ -175,6 +179,7 @@ function ENT:Think()
 			end
 		end
 	else
-		self:NextThink(CurTime() + 1000)
+		self:NextThink(CurTime() + 0.2)
+		SendLightLevelInfo()
 	end
 end
