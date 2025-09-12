@@ -14,7 +14,7 @@ function DrawSpectatorHud()
 	else
 		for k,v in pairs(player.GetAll()) do
 			local dist = LocalPlayer():GetPos():Distance(v:GetPos())
-			if dist > 100 then
+			if dist > 100 and !v:IsSpectator() and v:Alive() then
 				local pos2d = v:GetPos():ToScreen()
 
 				draw.Text({
