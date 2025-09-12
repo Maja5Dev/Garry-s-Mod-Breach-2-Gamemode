@@ -283,4 +283,13 @@ function player_meta:PreGameSpawns()
 	net.Send(self)
 end
 
+function player_meta:GetLightLevel()
+	net.Start("br_getlightlevel")
+	net.Send(self)
+end
+
+function player_meta:IsInLowLight()
+	return self.lightLevel and self.lightLevel < 0.5
+end
+
 print("[Breach2] server/player_related/pl_other.lua loaded!")
