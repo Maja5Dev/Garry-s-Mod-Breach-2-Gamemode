@@ -213,7 +213,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 
 MAPCONFIG.OUTFIT_GENERATION_GROUPS = {
 	["LCZ"] = {
-		{"class_d", 4},
+		{"class_d", 3},
 		{"scientist", 3},
 		{"janitor", 2},
 		{"medic", 1},
@@ -221,13 +221,18 @@ MAPCONFIG.OUTFIT_GENERATION_GROUPS = {
 	["LCZ_ARMORY"] = {
 		{"guard", 2},
 	},
+
 	["HCZ"] = {
-		{"guard", 1},
+		{"guard", 2},
 		{"hazmat", 2},
 	},
+
 	["EZ"] = {
 		{"guard", 2},
 		{"scientist", 3},
+		{"hazmat", 1},
+	},
+	["EZ_HOFFICE"] = {
 		{"hazmat", 1},
 	},
 }
