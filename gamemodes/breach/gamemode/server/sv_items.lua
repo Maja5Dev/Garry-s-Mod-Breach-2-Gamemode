@@ -862,7 +862,7 @@ BR2_SPECIAL_ITEMS = {
 
 function gvi_d(name)
 	table.ForceInsert(Entity(1).br_special_items,
-		{class = "document", name = "Printed Document", type = name, attributes = {doc_code = "2137"}
+		{class = "document", name = "Printed Document", type = name, attributes = {doc_code = "9999"}
 	})
 end
 

@@ -175,4 +175,5 @@ function WMeta:PlaySequence(seq_id, idle)
 	vm:SendViewModelMatchingSequence(seq_id)
 end
 
+
 print("[Breach2] shared.lua loaded!")

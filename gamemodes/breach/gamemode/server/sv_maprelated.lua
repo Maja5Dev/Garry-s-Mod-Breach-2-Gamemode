@@ -465,7 +465,7 @@ function GiveRadioACode(ent)
 	if chosen_code then
 		table.RemoveByValue(usable_radio_codes, chosen_code)
 		ent.Code = chosen_code
-		print("gave a new code", chosen_code, ent)
+		--print("gave a new code", chosen_code, ent)
 	end
 end
 

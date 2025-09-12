@@ -1510,7 +1510,7 @@ MAPCONFIG.STARTING_CORPSES = {
 			},
 		},
 	},
-    --SCP-173
+    --173 CHAMBER
     {
         {
             items = {},

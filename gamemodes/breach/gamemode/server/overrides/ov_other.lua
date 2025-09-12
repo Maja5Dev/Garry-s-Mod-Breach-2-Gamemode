@@ -117,6 +117,7 @@ end
 
 function GM:GetFallDamage(ply, speed)
 	if ply.br_role == "SCP-173" then return 0 end
+	
 	return (speed / 9)
 end
 

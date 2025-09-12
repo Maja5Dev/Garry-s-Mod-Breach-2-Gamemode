@@ -330,6 +330,7 @@ function BR_OpenLootingMenu(items, source)
 				color = Color(255,255,255,255),
 			})
 		end
+
 		local panel2 = vgui.Create("DButton", panel)
 		if table.Count(items) > 10 then
 			panel2:SetPos(looting_menu_w - 80 - 16, 0)
@@ -341,6 +342,7 @@ function BR_OpenLootingMenu(items, source)
 		if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] then
 			if BR2_OURNOTEPAD.people[1].br_role == "SCP-049" or BR2_OURNOTEPAD.people[1].br_role == "SCP-173" then
 				local swep = weapons.Get(v.class)
+
 				if (swep or v.ammo_info or string.find(v.class, "ammo") or string.find(v.class, "food") or string.find(v.class, "drink"))
 					and !string.find(v.class, "keycard")
 				then
@@ -366,6 +368,7 @@ function BR_OpenLootingMenu(items, source)
 				color = Color(255,255,255,255),
 			})
 		end
+		
 		panel2.DoClick = function()
 			if !item_disabled then
 				surface.PlaySound("breach2/pickitem2.ogg")

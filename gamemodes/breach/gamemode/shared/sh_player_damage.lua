@@ -212,6 +212,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		dmginfo:ScaleDamage(0)
 		dmg_mul = 0
 		dmginfo:SetDamage(0)
+		
 	elseif victim.br_team != TEAM_SCP then
 		if SERVER and SafeBoolConVar("br2_down_players") and round_system.current_scenario.downing_enabled == true then
 			if victim:IsDowned() == false then

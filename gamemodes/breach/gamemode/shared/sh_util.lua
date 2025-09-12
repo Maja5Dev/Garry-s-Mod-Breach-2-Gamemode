@@ -8,10 +8,24 @@ function TableRandom(tbl)
 end
 
 function NiceVector(pos) -- used only for debugging
-	return "Vector("..pos.x..","..pos.y..","..pos.z..")"
+	return "Vector("..pos.x..", "..pos.y..", "..pos.z..")"
 end
 
-function bprint(data) -- used only for debugging
+function NiceAngle(ang) -- used only for debugging
+	return "Angle("..ang.yaw..", "..ang.pitch..", "..ang.roll..")"
+end
+
+function DebugNiceVecAngTab()
+	local tr = Entity(1):GetEyeTrace()
+	if tr.HitWorld then
+		return "hit world"
+	end
+	local pos = tr.Entity:GetPos()
+	local ang = tr.Entity:GetAngles()
+	return "{" .. NiceVector(pos) .. ", " .. NiceAngle(ang) .. "},"
+end
+
+function devprint(data) -- used only for debugging
 	if GetConVar("developer"):GetInt() > 0 then
 		print(data)
 	end
@@ -67,6 +81,36 @@ local lethal_weapons = {
 	"kanade_tfa_glock",
 	"kanade_tfa_g36c",
 	"kanade_tfa_ak12",
+	"kanade_tfa_acr",
+	"kanade_tfa_ak103",
+	"kanade_tfa_ar15",
+	"kanade_tfa_aug",
+	"kanade_tfa_cobra",
+	"kanade_tfa_colt",
+	"kanade_tfa_cz805",
+	"kanade_tfa_deagle",
+	"kanade_tfa_dsr1",
+	"kanade_tfa_f90mbr",
+	"kanade_tfa_famas",
+	"kanade_tfa_fnfal",
+	"kanade_tfa_fnp45",
+	"kanade_tfa_g3",
+	"kanade_tfa_g36",
+	"kanade_tfa_hkg36c",
+	"kanade_tfa_gry",
+	"kanade_tfa_krissv",
+	"kanade_tfa_l85a2",
+	"kanade_tfa_makarov",
+	"kanade_tfa_mosin",
+	"kanade_tfa_mp5a5",
+	"kanade_tfa_p90",
+	"kanade_tfa_remington",
+	"kanade_tfa_sawedoff",
+	"kanade_tfa_scar",
+	"kanade_tfa_scarh",
+	"kanade_tfa_sg552",
+	"kanade_tfa_tac338",
+	"kanade_tfa_vhs",
 }
 
 function isLethalWeapon(ent)
