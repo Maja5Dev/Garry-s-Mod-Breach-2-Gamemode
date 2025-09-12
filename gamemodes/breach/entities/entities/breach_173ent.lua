@@ -13,10 +13,6 @@ ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Owner = nil
-ENT.IsAttacking = false
-ENT.CurrentTargets = {}
-ENT.Attacks = 0
-ENT.SnapSound = Sound("snap.wav")
 
 function ENT:SetCurrentOwner(ply)
 	self.Owner = ply
@@ -43,150 +39,70 @@ function ENT:Initialize()
 	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 end
 
-function ENT:AttackPlayer()
-	self.Attacks = self.Attacks + 1
-	for i,v in ipairs(self.CurrentTargets) do
-		if v[1]:IsPlayer() and (v[1]:Alive() == false or v[1]:IsSpectator() or v[1].br_team == TEAM_SCP or self:IsPlayerVisible(v[1], self:GetPos()) == false) then
-			table.RemoveByValue(self.CurrentTargets, v)
-		else
-			self.CurrentTargets[i] = {v[1], v[1]:GetPos():Distance(self:GetPos())}
-		end
-	end
-	if self.CurrentTargets[1] and self.CurrentTargets[1][1]:IsPlayer() then
-		local pl = self.CurrentTargets[1][1]
-		if self:CanMove(pl:GetPos() - pl:EyeAngles():Forward() * 10) == false then
-			return
-		end
-		self:SetAngles(Angle(0,pl:EyeAngles().y,0))
-		self:SetPos(pl:GetPos() - pl:EyeAngles():Forward() * 10)
-		pl:TakeDamage(5000, self.Owner, self.Entity)
-
-		pl:EmitSound(self.SnapSound, 75, 100, 1)
-		self.Owner:SetPos(self:GetPos())
-	else
-		self.Attacks = 10
-	end
-	--PrintTable(self.CurrentTargets)
-end
-
 function ENT:IsPlayerLooking(ply)
-	return (ply:GetAimVector():Dot((self:GetPos() - ply:GetPos() + Vector(70)):GetNormalized()) > 0.39)
+    local dirToEnt = (self:WorldSpaceCenter() - ply:EyePos()):GetNormalized()
+    local dot = ply:EyeAngles():Forward():Dot(dirToEnt)
+    return dot > 0.8 -- ~36° cone
 end
 
 function ENT:IsPlayerVisible(ply, fromPos)
-	local ent173_ang = self:GetAngles()
-	local pl_pos = ply:GetPos()
-	local pl_posc = ply:WorldSpaceCenter()
-	 
-	local traces = {
-		{
-			start = fromPos,
-			endpos = pl_posc,
-		},
-		{
-			start = fromPos,
-			endpos = pl_pos,
-		},
-		{
-			start = Vector(fromPos.x,fromPos.y,fromPos.z + 45),
-			endpos = Vector(pl_posc.x,pl_posc.y,pl_posc.z + 30),
-		},
-		{
-			start = Vector(fromPos.x,fromPos.y,fromPos.z - 45),
-			endpos = Vector(pl_pos.x,pl_pos.y,pl_pos.z + 10),
-		},
-		{
-			start = fromPos + ent173_ang:Right() * 25,
-			endpos = pl_posc,
-		},
-		{
-			start = fromPos - ent173_ang:Right() * 25,
-			endpos = pl_posc,
-		},
-	}
+    local target = ply:EyePos()
+    local filter = { self, self.Owner, ply:GetActiveWeapon() }
 
-	for k,v in pairs(traces) do
-		v.filter = {self, self.Owner}
-		if util.TraceLine(v).Entity == ply then return true end
-	end
-	return false
+    local trace = util.TraceLine({
+        start = fromPos,
+        endpos = target,
+        filter = filter
+    })
+
+    if trace.Entity == ply then return true end
+
+    -- fallback hull check
+    trace = util.TraceHull({
+        start = fromPos,
+        endpos = target,
+        mins = Vector(-2, -2, -2),
+        maxs = Vector(2, 2, 2),
+        filter = filter
+    })
+
+    return trace.Entity == ply
 end
 
-function ENT:CanMove(pos)
-	local cpos = nil
 
-	if pos == self:GetPos() then
-		cpos = self:WorldSpaceCenter()
-	else
-		cpos = pos
-	end
-
-	local timep = CurTime() - self.NextBlinkUpdate
-	if !((timep > 0.08) and (timep < 0.18)) then
-		for k,v in pairs(ents.FindInSphere(pos, 1100)) do
-			--print("VisibleVec: " .. tostring(v:VisibleVec(pos)))
-			if v:IsPlayer() and v:Alive()
-			and v:Team() != TEAM_SCP and !v:IsSpectator()
-			and self:IsPlayerVisible(v, cpos)
-			--and v:VisibleVec(pos)
-			and self:IsPlayerLooking(v)
-			and v.blinking_enabled then
-				v.seen_173 = CurTime() + 10
-				--print(v:Nick() .. " is looking - " .. CurTime())
-				--self.Owner:PrintMessage(HUD_PRINTCENTER, "CANNOT MOVE " .. tostring(CurTime()))
-				return false
-			end
-		end
-	end
-	--self.Owner:PrintMessage(HUD_PRINTCENTER, "CANMOVE " .. tostring(CurTime()))
-	return true
-end
-
-function ENT:StopAttacking()
-	self.IsAttacking = false
-	self:SetNWBool("IsAttacking", false)
-	--self:NextThink(CurTime() + 3)
-	--print("attacking has ended")
-end
-
-function ENT:TryToMoveTo(pos, ang)
-	if self:CanMove(self:GetPos()) == true then
-		self:SetPos(pos)
-		if ang != nil then
-			self:SetAngles(ang)
-		end
-		--self:EmitSound("173sound"..math.random(1,3)..".ogg", 300,100,1)
-	end
-end
-
-ENT.LastBlink = 0
 ENT.BlinkTime = 0.2
-ENT.NextBlinkUpdate = 0
 
 function ENT:Think()
 	if SERVER then
-		self:NextThink(CurTime() + 0.01)
+		self:NextThink(CurTime() + 0.05)
 
-		if self.NextBlinkUpdate < CurTime() then
-			local next_blink = math.Rand(4.5, 6.5)
-			self.NextBlinkUpdate = CurTime() + next_blink
+		-- Check if entity can move
+		if not self:CanMove(self:GetPos()) then
+			self:SetVelocity(Vector(0,0,0)) -- freeze if being looked at
+			return true
+		end
 
-			for k,v in pairs(player.GetAll()) do
-				if v:Alive() and !v:IsSpectator() then
-					local dist = v:GetPos():Distance(self:GetPos())
+		-- Blinking logic
+		for k, v in pairs(player.GetAll()) do
+			local seen173 = (v.seen_173 or 0) > CurTime()
+			local dist = v:GetPos():Distance(self:GetPos())
 
-					local seen173 = (v.seen_173 or 0) > CurTime()
-					if v.blinking_enabled and ((dist < 600) or seen173) and v.usedEyeDrops < CurTime() then
-						v.seen_173 = CurTime() + 10
+			if v:Alive()
+			and not v:IsSpectator()
+			and v.blinking_enabled
+			and ((dist < 600) or seen173)
+			and v.usedEyeDrops < CurTime()
+			and v.nextBlink < CurTime() then
+				local next_blink = math.Rand(4.5, 6.5)
 
-						net.Start("br_blinking")
-							net.WriteFloat(next_blink)
-							net.WriteFloat(v.seen_173)
-						net.Send(v)
+				net.Start("br_blinking")
+					net.WriteFloat(next_blink)
+					net.WriteFloat(v.seen_173 or 0)
+				net.Send(v)
 
-						v:AddSanity(-2)
-					end
-				end
+				v.nextBlink = CurTime() + next_blink
+
+				self.Owner:GetActiveWeapon():HorrorSound(v)
 			end
 		end
 	else
@@ -194,24 +110,71 @@ function ENT:Think()
 	end
 end
 
-function ENT:AttackNearbyPlayers()
-	self.IsAttacking = false
-	self:SetNWBool("IsAttacking", false)
-	self.CurrentTargets = {}
-	self.Attacks = 0
-	self.Tries = 0
+-- Movement restriction
+function ENT:CanMove(pos)
+	local cpos = nil
+	if pos == self:GetPos() then
+		cpos = self:WorldSpaceCenter()
+	else
+		cpos = pos
+	end
 
-	for k,v in pairs(ents.FindInSphere(self:GetPos(), 400)) do
-		if v:IsPlayer() and v:Alive() and !v:IsSpectator() and v:Team() != TEAM_SCP
-			and self:IsPlayerVisible(v, self:WorldSpaceCenter())
-		then
-			table.ForceInsert(self.CurrentTargets, {v, 0})
-			self.IsAttacking = true
-			self:SetNWBool("IsAttacking", true)
+	for k,v in pairs(ents.FindInSphere(pos, 1000)) do
+		local timep = CurTime() - (v.nextBlink or 0)
+
+		if not ((timep > 0.08) and (timep < 0.18)) then
+			if v:IsPlayer()
+			and v:Alive()
+			and v:Team() != TEAM_SCP
+			and not v:IsSpectator()
+			and self:IsPlayerVisible(v, cpos)
+			and self:IsPlayerLooking(v)
+			and v.blinking_enabled then
+				v.seen_173 = CurTime() + 10
+				--self.Owner:PrintMessage(HUD_PRINTCENTER, v:Nick() .. " is looking " .. tostring(timep))
+
+				return false -- player is looking, cannot move
+			end
 		end
 	end
-	--if self.IsAttacking == true then
-	--	self:AttackPlayer()
-	--end
+
+	return true -- safe to move
 end
 
+function ENT:TryToMoveTo(pos, ang)
+	if self:CanMove(self:GetPos()) == true then
+		self:SetPos(pos)
+		
+		if ang != nil then
+			self:SetAngles(ang)
+		end
+	end
+end
+
+ENT.BlinkTime = 0.2
+
+function ENT:Think()
+	if SERVER then
+		self:NextThink(CurTime() + 0.05)
+
+		for k,v in pairs(player.GetAll()) do
+			local seen173 = (v.seen_173 or 0) > CurTime()
+			local dist = v:GetPos():Distance(self:GetPos())
+
+			if v:Alive() and !v:IsSpectator() and v.blinking_enabled and ((dist < 600) or seen173) and v.usedEyeDrops < CurTime() and v.nextBlink < CurTime() then
+				local next_blink = math.Rand(4.5, 6.5)
+
+				net.Start("br_blinking")
+					net.WriteFloat(next_blink)
+					net.WriteFloat(v.seen_173)
+				net.Send(v)
+
+				v.nextBlink = CurTime() + next_blink
+
+				v:AddSanity(-1)
+			end
+		end
+	else
+		self:NextThink(CurTime() + 1000)
+	end
+end

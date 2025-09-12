@@ -89,6 +89,7 @@ function SWEP:Deploy()
 	self.Targets = {}
 	self.MoveDelay = 0
 end
+
 function SWEP:DrawWorldModel()
 end
 function SWEP:PrimaryAttack()
@@ -108,7 +109,6 @@ function SWEP:Move(ply, mv)
 		return false
 	end
 
-
 	local buttons = mv:GetButtons()
 	if mv:KeyDown(IN_FORWARD) then
 		if SERVER then
@@ -116,12 +116,15 @@ function SWEP:Move(ply, mv)
 			self:MoveToNextPos(mv)
 		end
 	end
+	
 	if mv:KeyDown(IN_ATTACK) then
 		if SERVER then self:DestroyGlass() end
 	end
+
 	if mv:KeyDown(IN_BACK) then
 		self:ResetNextPos()
 	end
+
 	return true
 end
 
@@ -131,6 +134,7 @@ function SWEP:DestroyGlass()
 	
 	local ent173 = self.Owner:GetNWEntity("entity173")
 	if !IsValid(ent173) then return end
+
 	if ent173:CanMove(self:GetPos()) == true then
 		local ourpos = ent173:GetPos()
 		local eyeangles = self.Owner:EyeAngles()
@@ -139,11 +143,13 @@ function SWEP:DestroyGlass()
 			endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 100,
 			mask = MASK_ALL
 		})
+
 		if IsValid(tr.Entity) then
 			if tr.Entity:GetClass() == "func_breakable" then
 				tr.Entity:TakeDamage(100, self.Owner, self.Owner)
 			end
 		end
+
 		self.NextDG = CurTime() + 1.5
 	else
 		self.NextDG = CurTime() + 0.5
@@ -336,7 +342,8 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 	})
 
 	view.origin = tr_up.HitPos
-	view.origin.z = tr_up.HitPos.z - 5
+	view.origin.z = math.Clamp(tr_up.HitPos.z, (self.Owner:GetPos() + Vector(0,0,80)).z, 100000)
+	--view.origin.z = tr_up.HitPos.z - 5
 	view.angles.yaw = view.angles.yaw + 2
 	view.origin.x = tr_fr.HitPos.x
 	view.origin.y = tr_fr.HitPos.y

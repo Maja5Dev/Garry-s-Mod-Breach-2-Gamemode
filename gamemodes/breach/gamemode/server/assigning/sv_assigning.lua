@@ -65,8 +65,6 @@ function Pre_Assign(ply)
 	ply.viewing895 = false
 	ply.cantUseFlashlight = false
 	ply.cantChangeOutfit = false
-	ply.isblinking = false
-	ply.blinking_enabled = true
 
 	ply.nextBreath = 0
 	ply.NextCough = 0
@@ -88,8 +86,13 @@ function Pre_Assign(ply)
 	ply.nextJumpStaminaCheck =  0
 	ply.nextRunStaminaCheck =  0
 	ply.lastRunning = 0
+
+	-- 173 blinking
 	ply.seen_173 = 0
 	ply.usedEyeDrops = 0
+	ply.blinking_enabled = true
+	ply.nextBlink = 0
+	ply.firstSeen173 = false
 
 	if IsValid(ply.flashlight3d) then
 		ply.flashlight3d:Remove()
