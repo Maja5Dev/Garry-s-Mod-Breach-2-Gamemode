@@ -253,11 +253,49 @@ MAPCONFIG.BUTTONS = {
 
 
 
-	-- EZ
+-- ENTRANCE ZONE
+	{
+		name = "ez_checkpoint1_back",
+		pos = Vector(448, 4893, -7115),
+		level = 3,
+		sounds = true
+	},
+	{
+		name = "ez_checkpoint1",
+		pos = Vector(640.25, 5400, -7115),
+		level = 3,
+		sounds = true
+	},
+	{
+		name = "ez_checkpoint2",
+		pos = Vector(1200, 3544.25, -7115),
+		level = 3,
+		sounds = true
+	},
+	{
+		name = "ez_gatea",
+		pos = Vector(2682.5500488281, 7402.2998046875, -7114),
+		level = 4,
+		sounds = true
+	},
+	{
+		name = "ez_gateb",
+		pos = Vector(6432.1098632813, 5073.009765625, -7115),
+		level = 4,
+		sounds = true
+	},
+	{
+		name = "ez_evac_shelter",
+		pos = Vector(4354.1098632813, 5258.009765625, -7115),
+		level = 4,
+		sounds = true
+	},
+
+
 	{
 		name = "ez_dark_room",
 		pos = Vector(2105, 6366, -7114.75),
-		level = 1,
+		level = 2,
 		sounds = true
 	},
 	{
@@ -269,12 +307,6 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "ez_server_hub",
 		pos = Vector(5524, 5097, -7371),
-		level = 3,
-		sounds = true
-	},
-	{
-		name = "ez_gateb",
-		pos = Vector(6432.1098632813, 5073.009765625, -7115),
 		level = 3,
 		sounds = true
 	},
@@ -291,18 +323,6 @@ MAPCONFIG.BUTTONS = {
 		sounds = true
 	},
 	{
-		name = "ez_checkpoint1_back",
-		pos = Vector(448, 4893, -7115),
-		level = 3,
-		sounds = true
-	},
-	{
-		name = "ez_checkpoint1",
-		pos = Vector(640.25, 5400, -7115),
-		level = 3,
-		sounds = true
-	},
-	{
 		name = "ez_2level_office2",
 		pos = Vector(1471, 6363, -7115),
 		level = 2,
@@ -315,18 +335,6 @@ MAPCONFIG.BUTTONS = {
 		sounds = true
 	},
 	{
-		name = "ez_gatea",
-		pos = Vector(2682.5500488281, 7402.2998046875, -7114),
-		level = 3,
-		sounds = true
-	},
-	{
-		name = "ez_checkpoint2",
-		pos = Vector(1200, 3544.25, -7115),
-		level = 3,
-		sounds = true
-	},
-	{
 		name = "ez_office2a",
 		pos = Vector(2126, 5798, -7115),
 		level = 0,
@@ -334,12 +342,6 @@ MAPCONFIG.BUTTONS = {
 		code_available_on_start = true,
 		code_personal_office = true,
 		personal_office = true,
-		sounds = true
-	},
-	{
-		name = "ez_evac_shelter",
-		pos = Vector(4354.1098632813, 5258.009765625, -7115),
-		level = 3,
 		sounds = true
 	},
 	{
