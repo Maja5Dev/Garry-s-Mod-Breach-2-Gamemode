@@ -22,6 +22,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"coin", 2},
 		{"device_cameras", 1},
 		{"antibiotics", 1},
+		{"doc_strange", 1},
 	},
 	["LCZ_THIRD_LOOT"] = {
 		{"keycard_level3", 2},
@@ -67,7 +68,8 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"doc_scp173", 1},
 	},
 	["LCZ_SCP_500"] = {
-		{"scp_500", 4},
+		{"scp_500", 3},
+		{"doc_scp500", 1},
 	},
 	["LCZ_SCP_372"] = {
 		{"ammo_pistol16", 1},
