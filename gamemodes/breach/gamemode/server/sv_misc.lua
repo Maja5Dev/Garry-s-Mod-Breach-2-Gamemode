@@ -1,12 +1,19 @@
 
+br_last_char_id_used = 0
 function BR_GetUniqueCharID()
-	local highest_char_id = 0
+	local highest_char_id = br_last_char_id_used
 
 	for i,v in ipairs(player.GetAll()) do
 		if v.charid > highest_char_id then
 			highest_char_id = v.charid
 		end
 	end
+
+	if highest_char_id > 500000000 then
+		highest_char_id = 0
+	end
+
+	br_last_char_id_used = br_last_char_id_used + 1
 
 	return (highest_char_id + 1)
 end
