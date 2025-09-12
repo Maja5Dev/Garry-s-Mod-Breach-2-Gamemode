@@ -94,7 +94,7 @@ function MAP_GasLeak3()
 	end)
 end
 
-local primary_lights_enabled = false
+primary_lights_enabled = false
 function MAP_ResetGenerators()
 	MAP_GENERATOR_1_ON = false
 	MAP_GENERATOR_2_ON = false

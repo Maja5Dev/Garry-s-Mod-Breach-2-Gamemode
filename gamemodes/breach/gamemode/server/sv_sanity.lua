@@ -34,10 +34,19 @@ local function HandleSanity()
 					sanity_amount = sanity_amount - 1
 				end
 
+				local has_wep = false
 				for _,wep in pairs(v:GetWeapons()) do
 					if IsValid(wep) and isLethalWeapon(wep) then
-						sanity_amount = sanity_amount + 0.5
+						has_wep = true
 					end
+				end
+				
+				if has_wep then
+					sanity_amount = sanity_amount + 0.5
+				end
+
+				if primary_lights_enabled then
+					sanity_amount = sanity_amount + 0.5
 				end
 
 				/*
