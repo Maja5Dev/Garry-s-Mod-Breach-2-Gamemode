@@ -90,7 +90,8 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(456,3907,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_096-BOX
 		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_GUNS"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER-1
 		{pos = Vector(-1555,4633,-7145), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_008"}, -- HCZ-008-1
-		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-BOX
+		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-CLOSETROOM-BOX
+		{pos = Vector(3930,-6325,-8559), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-CASE
 		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_LOOT"}, -- HCZ_TUNNELS-BIGCRATE
 		{pos = Vector(3692,-363,-7155), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- HCZ_WARHEADROOM-BOX
 		{pos = Vector(3840,-173,-7149), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_SECOND"}, -- HCZ_WARHEADROOM-DRAWER_RIGHT
