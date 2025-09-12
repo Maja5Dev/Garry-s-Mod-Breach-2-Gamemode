@@ -192,12 +192,12 @@ function assign_system.Assign_SCP(ply)
 		if math.random(1,2) == 1 then
 			assign_system.Assign_SCP049(ply)
 			last_scp_assign = "scp_049"
-			print(ply, "was assigned SCP-049")
+			--print(ply, "was assigned SCP-049")
 			return
 		else
 			assign_system.Assign_SCP173(ply)
 			last_scp_assign = "scp_173"
-			print(ply, "was assigned SCP-173")
+			--print(ply, "was assigned SCP-173")
 			return
 		end
 
@@ -205,14 +205,14 @@ function assign_system.Assign_SCP(ply)
 	elseif last_scp_assign == "scp_049" then
 		assign_system.Assign_SCP173(ply)
 		last_scp_assign = "scp_173"
-		print(ply, "was assigned SCP-173")
+		--print(ply, "was assigned SCP-173")
 		return
 
 	-- an SCP 173 was assigned, so assign SCP 049 next
 	elseif last_scp_assign == "scp_173" then
 		assign_system.Assign_SCP049(ply)
 		last_scp_assign = "scp_049"
-		print(ply, "was assigned SCP-049")
+		--print(ply, "was assigned SCP-049")
 		return
 	end
 end
