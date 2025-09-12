@@ -398,12 +398,48 @@ MAPCONFIG.SCP_ACTIONS = {
         sv_acton = function(ply) break_gate(ply, Vector(6423,5209,-7119), "Breakable.MatMetal") end
     },
     {
-        name = "scp_ez_break_gate_b_front",
+        name = "scp_ez_break_gate_b_back",
         tooltip = "Break",
         pos = Vector(6447,5209,-7119),
         mat = br_default_map_teleport,
         can_do = function(ply) return can_break_gate(ply, Vector(6447,5209,-7119)) end,
         sv_acton = function(ply) break_gate(ply, Vector(6447,5209,-7119), "Breakable.MatMetal") end
+    },
+
+
+    {
+        name = "scp_ez_break_evac_front",
+        tooltip = "Break",
+        pos = Vector(4348,5394,-7118),
+        mat = br_default_map_teleport,
+        can_do = function(ply) return can_break_gate(ply, Vector(4348,5394,-7118)) end,
+        sv_acton = function(ply) break_gate(ply, Vector(4348,5394,-7118), "Breakable.MatMetal") end
+    },
+    {
+        name = "scp_ez_break_evac_back",
+        tooltip = "Break",
+        pos = Vector(4368,5394,-7118),
+        mat = br_default_map_teleport,
+        can_do = function(ply) return can_break_gate(ply, Vector(4368,5394,-7118)) end,
+        sv_acton = function(ply) break_gate(ply, Vector(4368,5394,-7118), "Breakable.MatMetal") end
+    },
+
+
+    {
+        name = "scp_ez_break_914_front",
+        tooltip = "Break",
+        pos = Vector(433,-832,-8144),
+        mat = br_default_map_teleport,
+        can_do = function(ply) return can_break_gate(ply, Vector(433,-832,-8144)) end,
+        sv_acton = function(ply) break_gate(ply, Vector(433,-832,-8144), "Breakable.MatMetal") end
+    },
+    {
+        name = "scp_ez_break_914_back",
+        tooltip = "Break",
+        pos = Vector(454,-832,-8144),
+        mat = br_default_map_teleport,
+        can_do = function(ply) return can_break_gate(ply, Vector(454,-832,-8144)) end,
+        sv_acton = function(ply) break_gate(ply, Vector(454,-832,-8144), "Breakable.MatMetal") end
     },
 }
 
