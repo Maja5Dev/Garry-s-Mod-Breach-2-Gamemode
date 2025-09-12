@@ -125,11 +125,11 @@ MAPCONFIG.BUTTONS = {
 
 
 
-	-- HCZ
+-- HEAVY CONTAINMENT ZONE
 	{
 		name = "hcz_early_armory",
 		pos = Vector(-1096.0100097656, 1016, -7114.75),
-		level = 4,
+		level = 3,
 		sounds = true
 	},
 	{
