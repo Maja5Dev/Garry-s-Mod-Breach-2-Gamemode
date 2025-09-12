@@ -141,12 +141,52 @@ end
 round_system.AssignPlayers = function()
 	print("assigning players...")
 	local assign_time = CurTime()
-	local tab_players = {}
 	local all_players = table.Copy(player.GetAll())
 
-	for i=1, #player.GetAll() do
+	local all_roles = {}
+	for i=1, #all_players do
+		local role = round_system.current_scenario.role_list.roles[i]
+
+		if role.assign_function == nil or assign_system[role.assign_function] == nil then
+			Error("Role " .. role.class .. "(" .. i .. ")" .. " has no assign_function!")
+		end
+
+		table.ForceInsert(all_roles, role)
+	end
+
+	local tab_players_roles = {}
+
+	-- For debugging or giving someone a specific role
+	for _,pl in pairs(all_players) do
+		if pl.forcerole then
+			local found = false
+
+			for k,v in pairs(all_roles) do
+				if pl.forcerole == k or pl.forcerole == v.class then
+					role = v
+					found = true
+					table.ForceInsert(tab_players_roles, {pl, role})
+					table.RemoveByValue(all_roles, role)
+					table.RemoveByValue(all_players, pl)
+					break
+				end
+			end
+
+			if !found then
+				ErrorNoHaltWithStack("havent found force role! (" .. tostring(pl.forcerole) .. ")")
+				PrintTable(all_roles)
+				print("")
+			end
+		end
+	end
+
+	for i=1, #all_players do
 		local rnd_player = table.Random(all_players)
-		table.ForceInsert(tab_players, rnd_player)
+		local role = table.Random(all_roles)
+
+		table.ForceInsert(tab_players_roles, {rnd_player, role})
+
+		table.RemoveByValue(all_roles, role)
 		table.RemoveByValue(all_players, rnd_player)
 	end
 	
@@ -167,13 +207,14 @@ round_system.AssignPlayers = function()
 	end
 
 	local ci_spies_num = math.Round(researcher_num * (SafeIntConVar("br2_ci_percentage") / 100))
-
 	local ci_spies_spawned = 0
-	
-	local role_num = 1
-	for i,pl in ipairs(tab_players) do
-		--local role = round_system.current_scenario.role_list[i]
-		local role = round_system.current_scenario.role_list.roles[role_num]
+
+	-- This system goes through random players and assigns them the first available role in the role table
+
+	for i,pl_role in pairs(tab_players_roles) do
+		local pl = pl_role[1]
+		local role = pl_role[2]
+
 		if istable(role) then
 			/*
 			if role.class == "scp_unkillable" then
@@ -185,10 +226,6 @@ round_system.AssignPlayers = function()
 			end
 			*/
 
-			if role.assign_function == nil or assign_system[role.assign_function] == nil then
-				Error("Role " .. role.class .. "(" .. role_num .. ")" .. " has no assign_function!")
-			end
-
 			if role.class == "researcher" and round_system.current_scenario.enable_ci_researchers
 				and ci_spies_spawned < ci_spies_num and math.random(1,100) < SafeIntConVar("br2_ci_chance")
 			then
@@ -199,10 +236,7 @@ round_system.AssignPlayers = function()
 			pl.br_team = role.team
 			assign_system[role.assign_function](pl)
 			pl:SetTeam(TEAM_ALIVE)
-			pl.charid = i
-			--if pl.br_showname then
-			--	pl:PrintMessage(HUD_PRINTTALK, "Your role: " .. pl.br_showname .. " (" .. pl.br_role .. " at ".. pl:GetNiceSite() ..")")
-			--end
+			pl.charid = BR_GetUniqueCharID()
 			pl.br_team = role.team
 
 			for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
@@ -216,7 +250,6 @@ round_system.AssignPlayers = function()
 					pl.br_spawn_groups = map_config[pl.br_customspawn]
 					if isvector(rnd_spawn) == true then
 						pl:SetPos(rnd_spawn)
-						--print("  Found custom spawn")
 						table.RemoveByValue(map_config[pl.br_customspawn], rnd_spawn)
 						spawned = true
 					end
@@ -227,12 +260,13 @@ round_system.AssignPlayers = function()
 				for i=1, #role.spawns do
 					if spawned == false then
 						local rnd_spawn_group = table.Random(role.spawns)
+
 						if isstring(rnd_spawn_group) and istable(map_config[rnd_spawn_group]) then
 							local rnd_spawn = table.Random(map_config[rnd_spawn_group])
 							pl.br_spawn_groups = map_config[rnd_spawn_group]
+
 							if isvector(rnd_spawn) == true then
 								pl:SetPos(rnd_spawn)
-								--print(" Setting normal spawn")
 								table.RemoveByValue(map_config[rnd_spawn_group], rnd_spawn)
 								spawned = true
 							end
@@ -240,11 +274,6 @@ round_system.AssignPlayers = function()
 					end
 				end
 			end
-			--if spawned == false then
-				--print("No spawnpoint")
-			--end
-
-			role_num = role_num + 1
 		end
 	end
 	
