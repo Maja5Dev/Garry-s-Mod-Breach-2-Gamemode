@@ -43,9 +43,9 @@ MAPCONFIG.BUTTONS = {
 		sounds = true
 	},
 	{
-		name = "lcz_offices_1_2",
+		name = "lcz_offices_scp500",
 		pos = Vector(1336, 837, -8144),
-		level = 1,
+		level = 4,
 		sounds = true
 	},
 	{
