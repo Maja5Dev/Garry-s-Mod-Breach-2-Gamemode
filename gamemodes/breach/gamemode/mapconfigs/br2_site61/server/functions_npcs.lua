@@ -3,7 +3,7 @@ function SpawnMapNPCs()
 	if GetConVar("br2_enable_npcs"):GetBool() == false then return end
 	if round_system.current_scenario.disable_npc_spawning == true then return end
 
-	print("! spawning npcs enabled !")
+	devprint("! spawning npcs enabled !")
 
 	local npc_tab = {
 		--{"npc_cpt_scp_173", Vector(-183.948669, 1345.252441, -8063.968750)},
@@ -38,8 +38,7 @@ function SpawnMapNPCs()
 		end
 	end
 	
-	local prep_time = math.Clamp(GetConVar("br2_time_preparing"):GetInt(), 45, 200) * 1.75
-	print("prep_time_round", prep_time)
+	local prep_time = math.Clamp(GetConVar("br2_time_preparing"):GetInt(), 45, 200) * 1.5
 
 	timer.Remove("NPC_SPAWN_049_TIMER")
 	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 50, prep_time + 120), 1, function()

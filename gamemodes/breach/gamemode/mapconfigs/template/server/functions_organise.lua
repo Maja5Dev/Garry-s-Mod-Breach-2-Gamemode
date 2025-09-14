@@ -78,9 +78,12 @@ function Breach_Map_Organise()
 		for i,butt in ipairs(MAPCONFIG.KEYPADS) do
 			local button_found = false
 			for k,v in pairs(ents.GetAll()) do
-				if ((isstring(butt.ent_name) and butt.ent_name == v:GetName()) or (v:GetPos() == butt.pos) or (v:GetPos():Distance(butt.pos) < 3)) and table.HasValue(allowed_button_classes, v:GetClass()) then
+				if ((isstring(butt.ent_name) and butt.ent_name == v:GetName()) or
+					(v:GetPos() == butt.pos) or (v:GetPos():Distance(butt.pos) < 3)) and
+					table.HasValue(allowed_button_classes, v:GetClass())
+				then
 					if butt.ent_name then
-						print("Found a button with name (" .. butt.ent_name .. ")")
+						devprint("Found a button with name (" .. butt.ent_name .. ")")
 					end
 					--print("Found a button with pos (" .. tostring(butt.pos) .. ")  and level " .. butt.level)
 					v.br_info = butt

@@ -34,8 +34,7 @@ function SpawnMapNPCs()
 		end
 	end
 	
-	local prep_time = math.Clamp(GetConVar("br2_time_preparing"):GetInt(), 45, 200) * 1.75
-	print("prep_time_round", prep_time)
+	local prep_time = math.Clamp(GetConVar("br2_time_preparing"):GetInt(), 45, 200) * 1.5
 
 	timer.Remove("NPC_SPAWN_049_TIMER")
 	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 30, prep_time + 60), 1, function()
