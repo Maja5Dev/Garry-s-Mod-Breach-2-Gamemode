@@ -114,11 +114,14 @@ sanity_alpha_delay = 0
 br2_support_spawns = {{"mtf", 1}}
 
 primary_lights_on = false
-debug_view_mode = false
+debug_view_mode = 0
 concommand.Add("br2_debug_view", function()
 	if LocalPlayer():IsSuperAdmin() then
 		primary_lights_on = !primary_lights_on
-		debug_view_mode = !debug_view_mode
+		debug_view_mode = debug_view_mode + 1
+		if debug_view_mode > 2 then
+			debug_view_mode = 0
+		end
 	end
 end)
 

@@ -96,16 +96,6 @@ function DrawNormalHud()
 
 		end
 	end
-	if debug_crosshair_enabled then
-		draw.Text({
-			text = "+",
-			font = "Default",
-			pos = {ScrW()/2, ScrH()/2},
-			xalign = TEXT_ALIGN_CENTER,
-			yalign = TEXT_ALIGN_CENTER,
-			color = Color(255,255,255,25)
-		})
-	end
 end
 
 function GM:HUDPaint()
@@ -118,10 +108,16 @@ function GM:HUDPaint()
 	
 	if !BR2_ShouldDrawAnyHud() then
 		return
+
 	elseif LocalPlayer():IsSpectator() then
 		DrawSpectatorHud()
 	else
 		DrawNormalHud()
+	end
+
+	if debug_view_mode > 0 then
+		DrawDebug()
+		--DrawDebug914()
 	end
 end
 

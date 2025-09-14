@@ -114,39 +114,12 @@ end
 
 SWEP.SHOW_ZONES = true
 SWEP.SHOW_SUB_AREAS = true
- 
-function draw_area(pos1, pos2, clr, name)
-	cam.Start3D()
-		render.SetColorMaterial()
-		render.DrawBox(Vector(0,0,0), Angle(0,0,0), pos1, pos2, clr, true)
-	cam.End3D()
-	local pos = (pos1 + pos2) / 2
-	pos = pos:ToScreen()
-	draw.Text({
-		text = name,
-		font = "BR_Righteous",
-		xalign = TEXT_ALIGN_CENTER,
-		yalign = TEXT_ALIGN_CENTER,
-		pos = {pos.x, pos.y},
-	})
-end
 
 function SWEP:DrawHUD()
 	local tr = self.Owner:GetAllEyeTrace()
 	if CLIENT then
-		if MAPCONFIG != nil and self.SHOW_ZONES == true then
-			for k,v in pairs(MAPCONFIG.ZONES) do
-				for k2,box in pairs(v) do
-					if self.SHOW_SUB_AREAS and box.sub_areas then
-						for k3,box2 in pairs(box.sub_areas) do
-							draw_area(box2[2], box2[3], box.color, box2[1])
-						end
-					end
-					if box.pos1 then
-						draw_area(box.pos1, box.pos2, box.color, box.name)
-					end
-				end
-			end
+		if self.SHOW_ZONES == true
+			DebugDrawZones(self.SHOW_SUB_AREAS)
 		end
 		
 		cam.Start3D()

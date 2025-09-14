@@ -50,11 +50,6 @@ function GM:DrawOverlay()
 		DrawSprintMeter()
 		BR2_DrawNotifications()
 	end
-
-	if debug_view_mode then
-		DrawDebug()
-	end
-	--DrawDebug914()
 end
 
 print("[Breach2] client/hud/hud_overlay.lua loaded!")
