@@ -443,10 +443,7 @@ BREACH_SCENARIOS = {
 		disable_commotion_sounds = false,
 		disable_getting_codes = false,
 		disable_npc_spawning = false,
-
-		--first_sounds_enabled = true,
-		first_sounds_enabled = false,
-		
+		first_sounds_enabled = true,
 		friendly_fire_enabled = true,
 		downing_enabled = true,
 		bleeding_enabled = true,
