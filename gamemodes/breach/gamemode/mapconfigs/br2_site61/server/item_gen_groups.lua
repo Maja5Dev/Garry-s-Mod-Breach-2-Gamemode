@@ -10,7 +10,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_pistol16", 1},
 		{"flashlight_normal", 2},
 		{"coin", 4},
-		{"doc_scp1048", 1},
+		{"doc_scp1048", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_SECOND_LOOT"] = {
 		{"keycard_level2", 3}, {"keycard_playing", 1}, {"keycard_master", 1},
@@ -22,7 +22,8 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"coin", 2},
 		{"device_cameras", 1},
 		{"antibiotics", 1},
-		{"doc_strange", 1},
+		{"doc_strange", 1, assign_random_code = "LCZ"},
+		{"doc_object_classes", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_THIRD_LOOT"] = {
 		{"keycard_level3", 2},
@@ -59,17 +60,17 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"personal_medkit", 1}
 	},
 	["LCZ_012_DOC"] = {
-		{"doc_scp012", 1},
+		{"doc_scp012", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_EARLIEST"] = {
 		{"keycard_level1", 1},
 	},
 	["LCZ_DOC_173"] = {
-		{"doc_scp173", 1},
+		{"doc_scp173", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_SCP_500"] = {
 		{"scp_500", 3},
-		{"doc_scp500", 1},
+		{"doc_scp500", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_SCP_372"] = {
 		{"ammo_pistol16", 1},

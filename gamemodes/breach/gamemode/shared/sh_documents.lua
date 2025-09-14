@@ -1,5 +1,19 @@
 
 BR2_DOCUMENTS = {
+	-- SPECIAL
+	{
+		class = "doc_leaflet",
+		name = "Class D Leaflet",
+		img = {
+			src = "breach2/docs/docORI.jpg",
+			width = 581,
+			height = 819,
+			code_font = "BR_DOC_CODE_FONT_1",
+			code_pos = {x = 290.5, y = 442}
+		}
+	},
+
+	--LIGHT CONTAINMENT ZONE DOCS
 	{
 		class = "doc_scp1048",
 		name = "SCP-1048 Document",
@@ -7,8 +21,70 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc1048.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 360, y = 343}
 		}
 	},
+	{
+		class = "doc_scp500",
+		name = "SCP-500 Document",
+		img = {
+			src = "breach2/docs/doc500.png",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 170, y = 680}
+		}
+	},
+	{
+		class = "doc_scp173",
+		name = "SCP-173 Document",
+		img = {
+			src = "breach2/docs/doc173.jpg",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 318, y = 705}
+		}
+	},
+	{
+		class = "doc_object_classes",
+		name = "SCP Object Classes",
+		img = {
+			src = "breach2/docs/docOBJC.jpg",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 401, y = 510}
+		}
+	},
+	{
+		class = "doc_scp012",
+		name = "SCP-012 Document",
+		img = {
+			src = "breach2/docs/doc012.jpg",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 288, y = 712}
+		}
+	},
+	{
+		class = "doc_scp372",
+		name = "SCP-372 Document",
+		img = {
+			src = "breach2/docs/doc372.jpg",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 380, y = 724}
+		}
+	},
+
+
+
+
+-- OTHER
 	{
 		class = "doc_scp682",
 		name = "SCP-682 Document",
@@ -28,24 +104,6 @@ BR2_DOCUMENTS = {
 		}
 	},
 	{
-		class = "doc_scp372",
-		name = "SCP-372 Document",
-		img = {
-			src = "breach2/docs/doc372.jpg",
-			width = 581,
-			height = 819,
-		}
-	},
-	{
-		class = "doc_scp500",
-		name = "SCP-500 Document",
-		img = {
-			src = "breach2/docs/doc500.png",
-			width = 581,
-			height = 819,
-		}
-	},
-	{
 		class = "doc_scp106",
 		name = "SCP-106 Document",
 		img = {
@@ -59,15 +117,6 @@ BR2_DOCUMENTS = {
 		name = "RP-106-N Document",
 		img = {
 			src = "breach2/docs/docRP.jpg",
-			width = 581,
-			height = 819,
-		}
-	},
-	{
-		class = "doc_scp012",
-		name = "SCP-012 Document",
-		img = {
-			src = "breach2/docs/doc012.jpg",
 			width = 581,
 			height = 819,
 		}
@@ -106,15 +155,19 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc1123.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 365, y = 605}
 		}
 	},
 	{
 		class = "doc_scp966",
-		name = "SCP-1123 Document",
+		name = "SCP-966 Document",
 		img = {
 			src = "breach2/docs/doc966.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 334, y = 736}
 		}
 	},
 	{
@@ -162,16 +215,6 @@ BR2_DOCUMENTS = {
 			height = 819,
 		}
 	},
-	
-	{
-		class = "doc_scp173",
-		name = "SCP-173 Document",
-		img = {
-			src = "breach2/docs/doc173.jpg",
-			width = 581,
-			height = 819,
-		}
-	},
 	{
 		class = "doc_scp049",
 		name = "SCP-049 Document",
@@ -188,17 +231,6 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/docmap.jpg",
 			width = 581,
 			height = 819,
-		}
-	},
-	{
-		class = "doc_leaflet",
-		name = "Class D Leaflet",
-		img = {
-			src = "breach2/docs/docORI.jpg",
-			width = 581,
-			height = 819,
-			code_font = "BR_DOC_CODE_FONT_1",
-			code_pos = {x = 290.5, y = 442}
 		}
 	},
 	{
@@ -221,7 +253,7 @@ BR2_DOCUMENTS = {
 	},
 	{
 		class = "doc_scp427",
-		name = "Document",
+		name = "SCP-427 Document",
 		img = {
 			src = "breach2/docs/doc427.jpg",
 			width = 581,
@@ -230,7 +262,7 @@ BR2_DOCUMENTS = {
 	},
 	{
 		class = "doc_strange",
-		name = "Document",
+		name = "Strange Document",
 		img = {
 			src = "breach2/docs/docStrange.jpg",
 			width = 581,
@@ -238,14 +270,12 @@ BR2_DOCUMENTS = {
 		}
 	},
 	{
-		class = "doc_object_classes",
-		name = "SCP Object Classes",
+		class = "doc_scp914",
+		name = "SCP-914 Document",
 		img = {
-			src = "breach2/docs/docOBJC.jpg",
+			src = "breach2/docs/doc914.jpg",
 			width = 581,
-			height = 819,
-			code_font = "doc_code_font",
-			code_pos = {x = 401, y = 510}
+			height = 819
 		}
 	},
 }
