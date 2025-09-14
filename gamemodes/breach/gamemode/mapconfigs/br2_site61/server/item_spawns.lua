@@ -219,6 +219,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -265,6 +266,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -290,6 +292,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -340,6 +343,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -367,6 +371,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -391,6 +396,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -415,6 +421,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -439,6 +446,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -463,6 +471,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end
@@ -510,6 +519,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 					ent.PrintName = v.name
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
 					ent:SetNWBool("isDropped", true)
 					return
 				end

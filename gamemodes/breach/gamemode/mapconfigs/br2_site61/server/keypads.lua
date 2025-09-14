@@ -17,7 +17,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
-		code_spawn_in_docs = {"LCZ"},
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
 		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true
@@ -28,7 +28,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
-		code_spawn_in_docs = {"LCZ"},
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
 		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true
@@ -39,7 +39,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
-		code_spawn_in_docs = {"LCZ"},
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
 		code_can_be_obtained_by_radio = true,
 		code_available_for = function(ply)
 			return ply.br_role == "SD Officer" or ply.br_team == TEAM_CI
@@ -53,7 +53,7 @@ MAPCONFIG.KEYPADS = {
 		level = 0,
 		code = 1234,
 		code_available_on_start = true,
-		code_spawn_in_docs = {"LCZ"},
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
 		code_can_be_obtained_by_radio = true,
 		code_personal_office = false,
 		sounds = true

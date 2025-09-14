@@ -473,9 +473,18 @@ function BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 	local codes_to_assign = {}
 
 	-- First find all codes that are available to be assigned!
-	for k,v in pairs(MAPCONFIG.KEYPADS) do
-		if v.code_spawn_in_docs then
-			table.ForceInsert(codes_to_assign, {v.code_spawn_in_docs, v.code})
+	for _, keypad in pairs(MAPCONFIG.KEYPADS) do
+		if keypad.code_spawn_in_docs then
+
+			-- Assign the code for all code groups (duplicate it)
+			if keypad.code_spawn_in_docs.method == "duplicate" then
+				for _, group in pairs(keypad.code_spawn_in_docs.groups) do
+					table.ForceInsert(codes_to_assign, {group, keypad.code})
+				end
+			else
+				-- Assign only one, randomly from the groups
+				table.ForceInsert(codes_to_assign, {table.Random(keypad.code_spawn_in_docs.groups), keypad.code})
+			end
 		end
 	end
 
@@ -530,10 +539,10 @@ function BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 
 	-- Assign the codes
 	for _, v in pairs(codes_to_assign) do
-		local code_groups = v[1]
+		local code_group = v[1]
 		local code = v[2]
 
-		local random_item = table.Random(code_groups_items[table.Random(code_groups)])
+		local random_item = table.Random(code_groups_items[code_group])
 
 		random_item.attributes = {doc_code = tostring(code)}
 
@@ -544,7 +553,7 @@ function BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 			devprint("assigned code " .. code .. " to doc " .. tostring(random_item.class))
 		end
 
-		table.RemoveByValue(code_groups_items[table.Random(code_groups)], random_item)
+		table.RemoveByValue(code_groups_items[code_group], random_item)
 	end
 end
 

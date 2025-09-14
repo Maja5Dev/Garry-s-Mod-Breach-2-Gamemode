@@ -82,7 +82,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 
 -- HEAVY CONTAINMENT ZONE
 	["HCZ_049"] = {
-		{"doc_scp049", 1},
+		{"doc_scp049", 1, assign_random_code = "HCZ"},
 		{"conf_folder", 1},
 		{"antibiotics", 2},
 		{"item_medkit", 2},
@@ -91,7 +91,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_pistol16", 2},
 	},
 	["HCZ_SCP_682_DOC"] = {
-		{"doc_scp682", 1},
+		{"doc_scp682", 1, assign_random_code = "HCZ"},
 		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
 		{"ammo_pistol16", 1},
 	},
