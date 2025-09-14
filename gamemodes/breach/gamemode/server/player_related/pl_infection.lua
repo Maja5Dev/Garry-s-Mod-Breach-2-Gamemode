@@ -4,8 +4,8 @@ local player_meta = FindMetaTable("Player")
 function player_meta:GetInfected(pl)
 	self.next_iup2 = CurTime() + math.random(15,35)
 	self.br_isInfected = true
-	print(self:Nick() .. " got infected by " .. pl:Nick())
-	--PrintMessage(HUD_PRINTTALK, self:Nick() .. " got infected by " .. pl:Nick())
+	
+	devprint(self:Nick() .. " got infected by " .. pl:Nick())
 end
 
 function player_meta:InfectiousTouch()

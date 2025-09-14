@@ -49,7 +49,7 @@ round_system.Force_MTF_Spawn = function()
 	round_system.Next_MTF_Spawn = CurTime() + math.random(40,320)
 	local mtf_spawns = table.Random(table.Copy(MAPCONFIG.SPAWNS_MTF)).spawns
 	
-	print("Mobile Task Force Spawned")
+	print("Mobile Task Force FORCE Spawned")
 	local all_mtfs = {}
 	local existingMTFs = {}
 
@@ -139,7 +139,7 @@ round_system.GiveInformation = function()
 end
 
 round_system.AssignPlayers = function()
-	print("assigning players...")
+	devprint("assigning players...")
 	local assign_time = CurTime()
 	local all_players = table.Copy(player.GetAll())
 
@@ -281,7 +281,7 @@ round_system.AssignPlayers = function()
 	round_system.GiveInformation()
 	
 	assign_time = CurTime() - assign_time
-	print("assigning took " .. assign_time .. " seconds...")
+	devprint("assigning took " .. assign_time .. " seconds...")
 end
 
 function PlayCommotionSound()
@@ -289,7 +289,7 @@ function PlayCommotionSound()
 		local rnd_sound = table.Random(round_system.commotion_sounds)
 
 		if isstring(rnd_sound) == false then
-			print("Couldnt find a commotion sound, removing the timer.")
+			devprint("Couldnt find a commotion sound, removing the timer.")
 			timer.Remove("PlayCommotionSounds")
 			return
 		end
@@ -645,7 +645,7 @@ function HandleDiseases()
 		patient_zero.next_iup1 = CurTime() + math.random(20,45)
 		patient_zero.br_isInfected = true
 		patient_zero.br_asymptomatic = true
-		print(patient_zero:Nick() .. " is the first infected")
+		devprint(patient_zero:Nick() .. " is the first infected")
 	end
 end
 

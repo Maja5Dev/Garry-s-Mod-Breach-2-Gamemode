@@ -307,7 +307,7 @@ function BR_DEFAULT_MAP_Organize_KeypadCodes()
 			numww = numww + 1
 		end
 
-		print("Found a code button, setting a new code: ("..newcode..")", rnd_name)
+		devprint("Found a code button, setting a new code: ("..newcode..")", rnd_name)
 	end
 end
 
