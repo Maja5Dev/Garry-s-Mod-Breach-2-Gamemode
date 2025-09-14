@@ -917,7 +917,6 @@ function Open_Document(doc_info)
 	local doc_code_font = nil
 
 	for k,v in pairs(BR2_DOCUMENTS) do
-		--print(v, doc_info.type)
 		if v.class == doc_info.type then
 			doc_material = Material(v.img.src)
 			doc_w = v.img.width
@@ -926,6 +925,7 @@ function Open_Document(doc_info)
 				doc_code_pos = v.img.code_pos
 				doc_code_font = v.img.code_font
 			end
+			break
 		end
 	end
 

@@ -28,11 +28,12 @@ net.Receive("br_use_special_item", function(len, ply)
 		for k,v in pairs(ply.br_special_items) do
 			if spi_comp(v, item) then
 				for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
-					if v2.class == v.class then
+					if v.class == v2.class then
 						v2.use(ply, v)
 						return
 					end
 				end
+				break
 			end
 		end
 	end

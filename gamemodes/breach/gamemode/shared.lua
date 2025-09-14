@@ -39,7 +39,6 @@ function spi_comp(item1, item2)
 					return false
 				end
 			end
-			return true
 		else
 			return false
 		end
