@@ -327,7 +327,6 @@ end)
 net.Receive("cl_playerescaped", function(len)
 	if br2_last_music then br2_last_music:Stop() end
 	--RunConsoleCommand("stopsound")
-	print("ESCAPED")
 
 	local font_structure = {
 		font = "Tahoma",
@@ -763,15 +762,17 @@ net.Receive("br_send_notepad", function(len)
 		*/
 		timer.Simple(0.1, BR_AssignNotepadPlayers)
 		--BR_AssignNotepadPlayers()
-	else
-		print("RECEIVED NO PEOPLE IN NOTEPAD")
+	--else
+		--print("RECEIVED NO PEOPLE IN NOTEPAD")
 	end
 	--print("updated notepad")
 end)
 
 net.Receive("br_send_info", function(len)
 	local info_got = net.ReadTable()
-	local ply_got = net.ReadEntity()
+	local steamid64_got = net.ReadString()
+
+	local ply_got = player.GetBySteamID64(steamid64_got)
 
 	if IsValid(ply_got) and istable(info_got) then
 		ply_got.br_showname = info_got.br_showname
@@ -780,6 +781,10 @@ net.Receive("br_send_info", function(len)
 		ply_got.br_ci_agent = info_got.br_ci_agent
 		ply_got.br_info = info_got
 	else
+		print("info_got")
+		if istable(info_got) then
+			PrintTable(info_got)
+		end
 		error("Got info on a player but its invalid " .. tostring(ply_got) .. " " .. tostring(info_got))
 	end
 end)

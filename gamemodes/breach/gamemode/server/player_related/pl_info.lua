@@ -1,13 +1,14 @@
 
 local player_meta = FindMetaTable("Player")
 
+-- This is supposed to send the info of PLY to SELF
 function player_meta:SendPlayerInfo(ply)
 	local info = ply:FormInfo(self)
 
 	if istable(info) then
 		net.Start("br_send_info")
 			net.WriteTable(info)
-			net.WriteEntity(ply)
+			net.WriteString(ply:SteamID64())
 		net.Send(self)
 	end
 end
@@ -18,7 +19,7 @@ function BroadcastPlayerInfo(ply)
 	if istable(info) then
 		net.Start("br_send_info")
 			net.WriteTable(info)
-			net.WriteEntity(ply)
+			net.WriteString(ply:SteamID64())
 		net.Broadcast()
 	end
 end

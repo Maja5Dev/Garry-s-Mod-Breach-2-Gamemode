@@ -109,17 +109,23 @@ function Pre_Assign(ply)
 	ply:Reset_SNPC_Stuff()
 end
 
+local function send_info(ply)
+	net.Start("br_update_own_info", ply.br_team)
+		net.WriteString(ply.br_showname)
+		net.WriteString(ply.br_role)
+		net.WriteInt(ply.br_team, 8)
+		net.WriteBool(ply.br_ci_agent)
+		net.WriteBool(ply.br_zombie)
+	net.Send(ply)
+end
+
 function Post_Assign(ply)
 	ply:SetupHands()
 
-	timer.Simple(1, function()
-		net.Start("br_update_own_info", ply.br_team)
-			net.WriteString(ply.br_showname)
-			net.WriteString(ply.br_role)
-			net.WriteInt(ply.br_team, 8)
-			net.WriteBool(ply.br_ci_agent)
-			net.WriteBool(ply.br_zombie)
-		net.Send(ply)
+	local send_times = math.Clamp(GetConVar("br2_time_preparing"):GetInt(), 3, 5)
+
+	timer.Create("BR_UpdateOwnInfo" .. ply:SteamID64(), 1, send_times, function()
+		send_info(ply)
 	end)
 
 	ply.dont_assign_items = false
