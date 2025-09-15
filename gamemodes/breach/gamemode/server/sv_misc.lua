@@ -25,6 +25,7 @@ function C4BombExplode(ent, radius, damage, ply)
 	effect:SetScale(200)
 	effect:SetRadius(200)
 	effect:SetMagnitude(0)
+	effect:SetDamageType(DMG_BLAST)
 	
 	for k,v in pairs(ents.FindInSphere(ent:GetPos(), radius)) do
 		if v:IsPlayer() and v:Alive() and v:IsSpectator() == false then

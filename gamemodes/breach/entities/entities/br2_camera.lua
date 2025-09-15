@@ -18,6 +18,7 @@ function ENT:OnTakeDamage(dmginfo)
 			effect:SetScale(200)
 			effect:SetRadius(200)
 			effect:SetMagnitude(1)
+			effect:SetDamageType(DMG_BLAST)
 			
 			util.Effect("Explosion", effect, true, true)
 			util.Effect("HelicopterMegaBomb", effect, true, true)

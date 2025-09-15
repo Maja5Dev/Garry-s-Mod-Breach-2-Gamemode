@@ -54,6 +54,7 @@ local function break_gate(ply, button_pos, sound)
                     effect:SetScale(200)
                     effect:SetRadius(200)
                     effect:SetMagnitude(1)
+			        effect:SetDamageType(DMG_BLAST)
                     
                     util.Effect("Explosion", effect, true, true)
                     util.Effect("HelicopterMegaBomb", effect, true, true)
