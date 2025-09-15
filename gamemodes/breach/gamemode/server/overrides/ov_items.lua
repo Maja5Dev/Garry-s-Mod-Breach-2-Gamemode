@@ -23,7 +23,16 @@ function GM:PlayerCanPickupItem(ply, item)
 end
 
 function GM:AllowPlayerPickup(ply, ent)
-	return !(ply:IsSpectator())
+    if ply:IsSpectator() then return false end
+
+    local mass = 0
+    local phys = ent:GetPhysicsObject()
+    if phys then
+        mass = phys:GetMass()
+    end
+    --ply:PrintMessage(HUD_PRINTCENTER, tostring(mass))
+
+	return (mass < 15)
 end
 
 print("[Breach2] server/overrides/ov_items.lua loaded!")
