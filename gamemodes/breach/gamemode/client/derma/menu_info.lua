@@ -205,7 +205,7 @@ function OpenInfoMenu1()
             true,
             "Special thanks to:",
             " - Polish_User for a lot of gameplay ideas and bug-fixes",
-            " - Dr.arielpro for quality checks and content ideas",
+            " - Dr.arielpro for quality checks, content ideas and testing",
         }
 
         for k,v in pairs(info_table) do
