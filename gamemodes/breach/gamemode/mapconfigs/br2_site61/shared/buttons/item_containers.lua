@@ -122,10 +122,10 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(5062,7778,-6959), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_SPECIAL"}, -- ELECTRICAL_CENTER-CRATE
 		{pos = Vector(5032,7418,-6972), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_SPECIAL"}, -- ELECTRICAL_CENTER-BIGCRATE
 		{pos = Vector(2007,5552,-7141), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_OFFICES"},  -- OFFICE_2A-BOX / CODE
-		{pos = Vector(1793,5577,-7102), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_2B_BOXES"},  -- OFFICE_2B-BOXES1 / CODE
-		{pos = Vector(1805,5586,-7139), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_2B_BOXES"},  -- OFFICE_2B-BOXES2 / CODE
-		{pos = Vector(1739,5590,-7127), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_2B_BOXES"},  -- OFFICE_2B-BOXES3 / CODE
-		{pos = Vector(1869,5569,-7098), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_2B_BOXES"},  -- OFFICE_2B-BOXES4 / CODE
+		{pos = Vector(1793,5577,-7102), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_OFFICES"},  -- OFFICE_2B-BOXES1 / CODE
+		{pos = Vector(1805,5586,-7139), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_OFFICES"},  -- OFFICE_2B-BOXES2 / CODE
+		{pos = Vector(1739,5590,-7127), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_OFFICES"},  -- OFFICE_2B-BOXES3 / CODE
+		{pos = Vector(1869,5569,-7098), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ_OFFICES"},  -- OFFICE_2B-BOXES4 / CODE
 		{pos = Vector(3138,7022,-7150), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ"}, -- BASIC_OFFICE_1-1
 		{pos = Vector(3087,6735,-7152), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ"}, -- BASIC_OFFICE_1-2
 		{pos = Vector(4445,5924,-7147), canSee = DefaultItemContainerCanSee, item_gen_group = "EZ"}, -- BASIC_OFFICE_2-1

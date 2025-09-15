@@ -199,10 +199,27 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"ammo_rifle30", 2},
 		{"ammo_shotgun10", 2},
 	},
+	["EZ_CONFROOM"] = {
+		{"conf_folder", 1},
+		{"coin", 2},
+		{"ssri_pills", 1},
+		{"item_medkit", 1},
+		{"kanade_tfa_deagle", 1},
+		{"ammo_pistol16", 1},
+	},
+	["EZ_HEADOFFICE"] = {
+		{"scp_420", 2},
+		{"drink_wine", 1},
+		{"conf_folder", 1},
+	},
 	["EZ_OFFICES"] = {
 		{"keycard_level5", 2},
 		{"flashlight_tactical", 1},
-		{"conf_folder", 2},
+		{"conf_folder", 3},
+		{"ammo_pistol16", 1},
+		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
+		{"item_radio", 1},
+		{"coin", 3},
 	},
 	["EZ_MEDBAY"] = {
 		{"item_medkit", 3},
