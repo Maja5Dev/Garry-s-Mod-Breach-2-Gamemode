@@ -676,13 +676,19 @@ function SWEP:CreateFrame()
 
 	for i,v in ipairs(pickupable_items) do
 		local item_name = ""
+
 		for k2,v2 in pairs(item_names_from_models) do
 			if v2[1] == v:GetModel() then
 				item_name = v2[2]
 			end
 		end
-		if v.GetPrintName then
+		
+		if string.len(v:GetNWString("SetPrintName", "")) > 0 then
+			item_name = v:GetNWString("SetPrintName", "")
+
+		elseif isfunction(v.GetPrintName) then
 			item_name = v:GetPrintName()
+
 		elseif v.PrintName then
 			item_name = v.PrintName
 		end
@@ -691,8 +697,8 @@ function SWEP:CreateFrame()
 			id = table.Count(self.Contents) + 1,
 			enabled = true,
 			delete_after = 1,
-			name = "Pickup "..item_name.."",
-			desc = "Pickup the item",
+			name = "Pick up "..item_name.."",
+			desc = "Pick up the item",
 			background_color = Color(0,150,150),
 			cl_effect = function(self)
 				chat.AddText(Color(255,255,255,255), "Trying to pick up: "..item_name.."...")
