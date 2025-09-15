@@ -192,6 +192,8 @@ function player_meta:DropWep(wep, set_vel)
 
 		if wep.Clip1 and wep:Clip1() > 0 then
 			dropped_ent:SetClip1(wep:Clip1())
+		else
+			dropped_ent:SetClip1(0)
 		end
 
 		dropped_ent:SetNWBool("isDropped", true)
