@@ -106,7 +106,7 @@ local info_set_system = {"SYSTEM", function(button, panel)
 		for k,v in pairs(BR2_SPECIAL_TERMINAL_SETTINGS) do
 			local already_in = false
 
-			for k2,v2 in pairs(terminal_frame.terminal.special_functions) do
+			for k2,v2 in pairs(spec_functions) do
 				if v2.name == v.name then
 					already_in = true
 					break
