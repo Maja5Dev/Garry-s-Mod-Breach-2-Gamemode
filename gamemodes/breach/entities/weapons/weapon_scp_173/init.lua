@@ -14,36 +14,40 @@ SWEP.NextMove = 0
 SWEP.NextMoveSound = 1
 SWEP.MoveSoundEvery = 3
 
+local horror_sound_path = "breach2/horror/"
 br_first_seen_173_sounds = {
-	{"Horror5.ogg", 3.9},
-	{"Horror6.ogg", 5.21},
-	{"Horror8.ogg", 6.4},
+	{horror_sound_path.."Horror5.ogg", 3.9},
+	{horror_sound_path.."Horror6.ogg", 5.21},
+	{horror_sound_path.."Horror8.ogg", 6.4},
 }
 
 br_far_seen_sounds = {
-	{"Horror0.ogg", 7.67},
-	{"Horror3.ogg", 7.06},
-	{"Horror4.ogg", 7.1},
-	{"Horror10.ogg", 6},
-	{"Horror5.ogg", 3.9},
+	{horror_sound_path.."Horror0.ogg", 7.67},
+	{horror_sound_path.."Horror3.ogg", 7.06},
+	{horror_sound_path.."Horror4.ogg", 7.1},
+	{horror_sound_path.."Horror10.ogg", 6},
+	{horror_sound_path.."Horror5.ogg", 3.9},
 }
 
 br_close_seen_sounds = {
-	{"Horror1.ogg", 7.04},
-	{"Horror2.ogg", 8.56},
-	{"Horror9.ogg", 3.5},
-	{"Horror14.ogg", 6.4},
+	{horror_sound_path.."Horror1.ogg", 7.04},
+	{horror_sound_path.."Horror2.ogg", 8.56},
+	{horror_sound_path.."Horror9.ogg", 3.5},
+	{horror_sound_path.."Horror14.ogg", 6.4},
 }
 
 function SWEP:HorrorSound(ply)
-	if v.nextScare < CurTime() then
+	ply.nextScare = ply.nextScare or 0
+
+	if ply.nextScare < CurTime() then
 		local rnd_sound = nil
+		local dist = self.NextPos:Distance(ply:GetPos())
 
 		if dist < 220 then
 			rnd_sound = table.Random(br_close_seen_sounds)
 			ply:SendLua('surface.PlaySound("'..rnd_sound[1]..'")')
 
-		else
+		elseif dist < FOG_LEVEL then
 			if ply.firstSeen173 then
 				rnd_sound = table.Random(br_far_seen_sounds)
 				ply:SendLua('surface.PlaySound("'..rnd_sound[1]..'")')
@@ -55,8 +59,10 @@ function SWEP:HorrorSound(ply)
 			end
 		end
 
-		ply.nextScare = CurTime() + rnd_sound[2] + 2
-		ply:AddSanity(-3)
+		--ply:PrintMessage(HUD_PRINTTALK, "scare" .. CurTime() .. "")
+
+		ply.nextScare = CurTime() + rnd_sound[2] + 1
+		ply:AddSanity(-2)
 		ply:StartCustomScreenEffects({blur1 = 0.2, blur2 = 0.8, blur3 = 0.008}, rnd_sound[2] * 0.5)
 	end
 end
@@ -81,7 +87,7 @@ function SWEP:MoveToNextPos(mv)
 
 			local target = nil
 
-			local all_targets = ents.FindInSphere(self.NextPos, 300)
+			local all_targets = player.GetAll()
 			local all_possible_targets = {}
 			
 			for k,v in pairs(all_targets) do
@@ -95,13 +101,13 @@ function SWEP:MoveToNextPos(mv)
 					v.nextScare = v.nextScare or 0
 
 					local dist = self.NextPos:Distance(v:GetPos())
-					self.Owner:PrintMessage(HUD_PRINTTALK, v:Nick() .. tostring(dist))
+					--self.Owner:PrintMessage(HUD_PRINTTALK, v:Nick() .. tostring(dist))
 
 					if dist < 120 and target == nil then
 						target = v
 
 					else
-						self:HorrorSound(ply)
+						self:HorrorSound(v)
 					end
 				end
 			end
@@ -164,8 +170,10 @@ function SWEP:HandleTeleport(ply, scp173mode)
 
 		ply:SetWalkSpeed(1)
 		ply:SetRunSpeed(1)
+		
 		if IsValid(ply.entity173) then
 			ply.entity173:SetAngles(Angle(0, ply:EyeAngles().yaw, 0))
+
 			if self.NextTeleportSound < CurTime() then
 				ply.entity173:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
 				self.NextTeleportSound  = CurTime() + 2
