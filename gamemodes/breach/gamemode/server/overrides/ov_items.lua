@@ -23,7 +23,7 @@ function GM:PlayerCanPickupItem(ply, item)
 end
 
 function GM:AllowPlayerPickup(ply, ent)
-    if ply:IsSpectator() then return false end
+    if ply:IsSpectator() or ply.br_role == "SCP-173" then return false end
 
     local mass = 0
     local phys = ent:GetPhysicsObject()
