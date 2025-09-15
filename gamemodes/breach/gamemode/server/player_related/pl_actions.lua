@@ -64,4 +64,19 @@ function player_meta:Stop_HidingInCloset(closet)
 	end
 end
 
+function player_meta:UsedSCP500()
+	self:AddRunStamina(3000)
+	self:AddJumpStamina(200)
+	self.CrippledStamina = 0
+	self:AddSanity(100)
+	self.br_temperature = 0
+	self.br_isBleeding = false
+	self:SetHealth(self:GetMaxHealth())
+	self.br_infection = 0
+	self.br_isInfected = false
+	self.SCP_Inflicted_1048a = false
+	self.SCP_Infected_049 = false
+	self:BR2_ShowNotification("I feel so much better...")
+end
+
 print("[Breach2] server/player_related/pl_actions.lua loaded!")

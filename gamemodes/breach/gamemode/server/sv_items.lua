@@ -166,11 +166,21 @@ BR2_SCP_294_OUTCOMES = {
 			return true
 		end
 	},
+	{
+		texts = {"scp-500", "scp500"},
+		type = SCP294_RESULT_NORMAL,
+		sound = scp294_sound_ahh,
+		func = function(ply, info, text) scp_294_func(ply, info, text) end,
+		use = function(ply)
+			ply:UsedSCP500()
+			return true
+		end
+	},
 
 	{
 		texts = {"void", "antimatter", "anti-matter", "atomic", "nuclear", "nuclear bomb", "nuclear fusion", "nuclear fission",
 		"nuclear reaction", "nuke", "quarks", "gluons", "gluon plasma", "plasma", "something that will destroy scp-682",
-		"something that destroys scp-682", "something to destroy scp-682",  },
+		"something that destroys scp-682", "something to destroy scp-682"},
 		type = SCP294_RESULT_INSANE,
 		sound = nil,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
@@ -734,24 +744,7 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddRunStamina(3000)
-					pl:AddJumpStamina(200)
-					pl.CrippledStamina = 0
-					pl.br_sanity = 100
-					pl.br_temperature = 0
-					pl.br_isBleeding = false
-					pl:SetHealth(pl:GetMaxHealth())
-					pl.br_infection = 0
-					pl.br_isInfected = false
-					pl.SCP_Inflicted_1048a = false
-					pl.SCP_Infected_049 = false
-					pl:ChatPrint("Your wounds heal instantly...")
-					return true
-				end
-			end
+			pl:UsedSCP500()
 			return true
 		end,
 		onstart = function(pl)
