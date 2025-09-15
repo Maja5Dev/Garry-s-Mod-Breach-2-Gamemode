@@ -68,7 +68,7 @@ function BR_ShowScoreboard()
 	surface.CreateFont("BR_Scoreboard_Missions", {
 		font = "Patrick Hand SC",
 		extended = false,
-		size = 58 * size_mul,
+		size = 52 * size_mul,
 		weight = 1000,
 		blursize = 0,
 		scanlines = 0,
@@ -310,6 +310,7 @@ function BR_ShowScoreboard()
 	last_y = last_y + (48 * size_mul) + (gap * 2)
 	SB_Panel_Bottom.Paint = function(self, w, h)
 		draw.RoundedBox(0, 0, 0, w, h, panel_color)
+
 		draw.Text({
 			text = "Version: " .. GM_VERSION .. " " .. GM_VERSION_GROUP,
 			pos = {gap * 2, h / 2},
@@ -318,6 +319,7 @@ function BR_ShowScoreboard()
 			font = "BR_Scoreboard_Bottom",
 			color = text_color_white,
 		})
+
 		draw.Text({
 			text = os.date("%H:%M:%S - %d/%m/%Y" , os.time()),
 			pos = {w - (gap * 2), h / 2},
@@ -394,13 +396,6 @@ function BR_ShowScoreboardOptions()
 end
 
 function BR_ShowScoreboardMissions()
-	local clr_big_text = Color(255,255,255,255)
-	local clr_small_text = Color(238,190,0,255)
-	local clr_highlight_text = Color(255,81,0,255)
-
-	local size_mul = math.Clamp(ScrH() / 1080, 0.1, 1)
-	local fontsize = 58 * size_mul * 0.6
-
 	if istable(BREACH_MISSIONS) then
 		for k,v in pairs(BREACH_MISSIONS) do
 			if v.class == br2_our_mission_set then
@@ -408,9 +403,25 @@ function BR_ShowScoreboardMissions()
 					BR_Scoreboard_Missions:Remove()
 				end
 
+				local clr_big_text = Color(255,255,255,255)
+				local clr_small_text = Color(238,190,0,255)
+				local clr_highlight_text = Color(255,81,0,255)
+
+				local size_mul = math.Clamp(ScrH() / 1080, 0.1, 2)
+				local fontsize = draw.GetFontHeight("BR_Scoreboard_Missions") * 0.8
+				local max_mission_text_w = (ScrW() * 0.25) * size_mul
+				
+				surface.SetFont("BR_Scoreboard_Missions")
+
+				for k2,v2 in pairs(v.missions) do
+					max_mission_text_w = math.max(max_mission_text_w, select(1, surface.GetTextSize(v2.name)))
+				end
+
 				BR_Scoreboard_Missions = vgui.Create("DPanel")
-				BR_Scoreboard_Missions:SetSize(ScrW() * 0.2, (fontsize * (#v.missions + 1) + 24 * 2))
+				BR_Scoreboard_Missions:SetSize(max_mission_text_w, (fontsize * (#v.missions + 1) + 24 * 2))
 				BR_Scoreboard_Missions.Paint = function(self, w, h)
+					draw.RoundedBox(0, 0, 0, w, h, Color(100,50,50,50))
+
 					draw.Text({
 						text = "Your missions:",
 						pos = {16, 12},
@@ -434,17 +445,6 @@ function BR_ShowScoreboardMissions()
 					end
 				end
 
-				/*
-				table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
-				table.ForceInsert(text_tab, {true, "BR_TERMINAL_MAIN_TEXT"})
-				--table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", string.upper(v.name), clr_big_text, true})
-				table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT", "Your missions:", clr_big_text, true})
-				
-				for k2,v2 in pairs(v.missions) do
-					table.ForceInsert(text_tab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " - " .. v2.name, clr_small_text, true})
-				end
-				*/
-
 				return
 			end
 		end
@@ -456,11 +456,11 @@ function GM:ScoreboardShow()
 
 	if (game_state == GAMESTATE_PREPARING or game_state == GAMESTATE_ROUND) and !LocalPlayer():IsSpectator() and LocalPlayer():Alive() then
 		if #BR_SCOREBOARD_OPTIONS > 0 then
-			-- SCPs don't have notepad
 			BR_ShowScoreboard()
-			if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] and string.find(BR2_OURNOTEPAD.people[1].br_role, "SCP") then return end
-			BR_ShowScoreboardOptions()
 			BR_ShowScoreboardMissions()
+
+			if LocalPlayer().br_role == "SCP-173" then return end
+			BR_ShowScoreboardOptions()
 		end
 	else
 		BR_ShowScoreboard()
