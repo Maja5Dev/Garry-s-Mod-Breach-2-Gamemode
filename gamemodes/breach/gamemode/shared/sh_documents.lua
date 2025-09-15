@@ -92,6 +92,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc682.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 326, y = 730}
 		}
 	},
 	{
@@ -101,6 +103,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc939.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 290, y = 735}
 		}
 	},
 	{
@@ -110,6 +114,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc106.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 193, y = 346}
 		}
 	},
 	{
@@ -128,6 +134,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc008.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 230, y = 251}
 		}
 	},
 	{
@@ -146,6 +154,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc035.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 268, y = 362}
 		}
 	},
 	{
@@ -177,6 +187,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc079.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 317, y = 302}
 		}
 	},
 	{
@@ -186,6 +198,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/docNDP.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 420, y = 286}
 		}
 	},
 	{
@@ -204,6 +218,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/docMTF.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 459, y = 386}
 		}
 	},
 	{
@@ -213,6 +229,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/docSC.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 296, y = 733}
 		}
 	},
 	{
@@ -222,6 +240,8 @@ BR2_DOCUMENTS = {
 			src = "breach2/docs/doc049.jpg",
 			width = 581,
 			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 216, y = 261}
 		}
 	},
 	{
@@ -239,7 +259,9 @@ BR2_DOCUMENTS = {
 		img = {
 			src = "breach2/docs/note682.jpg",
 			width = 300,
-			height = 300
+			height = 300,
+			code_font = "doc_code_font",
+			code_pos = {x = 333, y = 733}
 		}
 	},
 	{
