@@ -15,6 +15,7 @@ function MAP_EvacShelter1()
 	local evac_items = nil
 	local evac_weapons = nil
 	local evac_ammo = nil
+	
 	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 		if v.item_gen_group == "EZ_EVAC_SHELTER_ITEMS" then
 			evac_items = v
@@ -34,6 +35,7 @@ function MAP_EvacShelter1()
 					end
 				end
 			end
+
 			if evac_items then
 				for k2,v2 in pairs(v.br_special_items) do
 					for k3,v3 in pairs(BR2_SPECIAL_ITEMS) do
@@ -44,13 +46,16 @@ function MAP_EvacShelter1()
 					end
 				end
 			end
+
 			if evac_ammo then
 				for k2,v2 in pairs(v:GetAmmoItems()) do
 					table.ForceInsert(evac_ammo.items, v2)
 				end
 			end
 			v:SetSpectator()
-			print(v:Nick(), "escaped through the evac shelter")
+
+			devprint(v:Nick(), "escaped through the evac shelter")
+
 			net.Start("cl_playerescaped")
 				net.WriteInt(CurTime() - v.aliveTime, 16)
 			net.Send(v)

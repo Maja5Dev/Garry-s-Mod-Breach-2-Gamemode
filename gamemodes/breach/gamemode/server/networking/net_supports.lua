@@ -62,7 +62,7 @@ function br2_mtf_teams_add(ply, num)
 				table.ForceInsert(BR2_MTF_TEAMS[num], ply)
 
 				if table.Count(BR2_MTF_TEAMS[num]) == MTF_NEEDED_TO_SPAWN then
-					print("MTF Team " .. num .. " is ready to deploy")
+					devprint("MTF Team " .. num .. " is ready to deploy")
 					local all_mtfs = table.Copy(BR2_MTF_TEAMS[num])
 					local existingMTFs = {}
 

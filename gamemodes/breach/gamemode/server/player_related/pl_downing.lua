@@ -25,7 +25,7 @@ function player_meta:SetDowned(dmginfo)
 	self.br_downed = true
 	net.Start("br_player_downed")
 	net.Send(self)
-	print(self:Nick() .. " downed")
+	devprint(self:Nick() .. " downed")
 end
 
 function player_meta:Test_SetDowned()

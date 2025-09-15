@@ -28,7 +28,7 @@ hook.Add("Tick", "BR2_Misc", function()
 			if v.canEscape == true and v:IsInEscapeZone() == true then
 				v:SetSpectator()
 
-				print(v:Nick(), "escaped")
+				devprint(v:Nick(), "escaped")
 
 				net.Start("cl_playerescaped")
 					net.WriteInt(CurTime() - v.aliveTime, 16)

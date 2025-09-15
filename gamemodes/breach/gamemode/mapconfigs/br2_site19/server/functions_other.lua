@@ -50,7 +50,7 @@ function MAP_EvacShelter1()
 				end
 			end
 			v:SetSpectator()
-			print(v:Nick(), "escaped through the evac shelter")
+			devprint(v:Nick(), "escaped through the evac shelter")
 			net.Start("cl_playerescaped")
 				net.WriteInt(CurTime() - v.aliveTime, 16)
 			net.Send(v)
