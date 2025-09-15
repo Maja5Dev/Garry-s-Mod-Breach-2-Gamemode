@@ -52,7 +52,8 @@ function ENT:IsPlayerVisible(ply, fromPos)
     local trace = util.TraceLine({
         start = fromPos,
         endpos = target,
-        filter = filter
+        filter = filter,
+		mask = MASK_VISIBLE
     })
 
     if trace.Entity == ply then return true end
@@ -63,7 +64,8 @@ function ENT:IsPlayerVisible(ply, fromPos)
         endpos = target,
         mins = Vector(-2, -2, -2),
         maxs = Vector(2, 2, 2),
-        filter = filter
+        filter = filter,
+		mask = MASK_VISIBLE
     })
 
     return trace.Entity == ply
