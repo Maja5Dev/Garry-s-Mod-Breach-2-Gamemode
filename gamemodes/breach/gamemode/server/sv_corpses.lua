@@ -11,14 +11,18 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 		--print("dmg_type", dmgtype)
 		if dmgtype == DMG_CLUB then
 			rag:SetNWString("ExamineDmgInfo", " - They starved to death")
+			
 		elseif dmgtype == DMG_ENERGYBEAM then
 			rag:SetNWString("ExamineDmgInfo", " - They died of dehydration")
+
 		elseif dmgtype == DMG_SLOWBURN then
 			if victim.br_temperature < -400 then
 				rag:SetNWString("ExamineDmgInfo", " - They froze to death")
+				
 			elseif victim.br_temperature > 400 then
 				rag:SetNWString("ExamineDmgInfo", " - Extreme heat lead to their death")
 			end
+
 		elseif dmgtype == DMG_PARALYZE and victim.br_sanity < 50 then
 			rag:SetNWString("ExamineDmgInfo", " - They died of despair")
 		end
@@ -28,19 +32,63 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 		local item_infos = {
 			kanade_tfa_beretta = " - Looks like someone killed them using a pistol",
 			kanade_tfa_m1911 = " - Looks like someone killed them using a pistol",
+			kanade_tfa_colt = " - Looks like someone killed them using a pistol",
+			kanade_tfa_deagle = " - Looks like someone killed them using a pistol",
+			kanade_tfa_fnp45 = " - Looks like someone killed them using a pistol",
+			kanade_tfa_glock = " - Looks like someone killed them using a pistol",
+			kanade_tfa_makarov = " - Looks like someone killed them using a pistol",
+			kanade_tfa_cobra = " - Looks like someone killed them using a revolver",
+
 			kanade_tfa_crowbar = " - Looks like someone killed them using a blunt melee weapon",
 			kanade_tfa_stunbaton = " - Looks like someone killed them using a baton",
 			kanade_tfa_knife = " - Looks like someone killed them using a sharp melee weapon",
 			kanade_tfa_axe = " - Looks like someone killed them using a sharp melee weapon",
 			kanade_tfa_pipe = " - Looks like someone killed them using a blunt melee weapon",
+
 			kanade_tfa_mp5k = " - Looks like someone killed them using a submachine gun",
-			kanade_tfa_mk18 = " - Looks like someone killed them using a submachine gun",
 			kanade_tfa_ump45 = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_krissv = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_mp5a5 = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_mp7 = " - Looks like someone killed them using a submachine gun",
+			kanade_tfa_p90 = " - Looks like someone killed them using a submachine gun",
+
 			kanade_tfa_m4a1 = " - Looks like someone killed them using an assault rifle",
 			kanade_tfa_m16a4 = " - Looks like someone killed them using an assault rifle",
 			kanade_tfa_m249 = " - Looks like someone killed them using an assault rifle",
 			kanade_tfa_rpk = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_acr = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_ak12 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_ak103 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_ar15 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_aug = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_cz805 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_f90mbr = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_famas = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_fnfal = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_g3 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_g36 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_gry = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_hkg36c = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_l85a2 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_mk18 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_scar = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_scarh = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_sg552 = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_sterling = " - Looks like someone killed them using an assault rifle",
+			kanade_tfa_vhs = " - Looks like someone killed them using an assault rifle",
+
+			kanade_tfa_dsr1 = " - Looks like someone killed them using a sniper rifle",
+			kanade_tfa_m40a1 = " - Looks like someone killed them using a sniper rifle",
+			kanade_tfa_mosin = " - Looks like someone killed them using a sniper rifle",
+			kanade_tfa_remington = " - Looks like someone killed them using a sniper rifle",
+
+			kanade_tfa_rpg = " - Looks like someone killed by an RPG...",
+
 			kanade_tfa_m590 = " - Looks like someone killed them using a shotgun",
+			kanade_tfa_sawedoff = " - Looks like someone killed them using a shotgun",
+			kanade_tfa_m1014 = " - Looks like someone killed them using a shotgun",
+			kanade_tfa_tac338 = " - Looks like someone killed them using a shotgun",
+
 			br_hands = " - Looks like someone killed them in a fist-fight",
 		}
 		if IsValid(inflictor) and isstring(item_infos[inflictor:GetClass()]) then
