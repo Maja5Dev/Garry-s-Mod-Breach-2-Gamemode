@@ -43,12 +43,14 @@ net.Receive("br_open_brokenterminal", function(len, ply)
 				local effectdata = EffectData()
 				effectdata:SetOrigin(v.pos)
 				util.Effect("MetalSpark", effectdata, true)
+
 				sound.Play("weapons/stunstick/spark"..math.random(1,3)..".wav", v.pos, 150, 100, 1)
 				sound.Play("ambient/energy/spark"..math.random(5,6)..".wav", v.pos, 150, 100, 1)
+
 				ply:PrintMessage(HUD_PRINTTALK, "You try to start the terminal but an electric shock zaps your hand...")
 				ply.nextBTerminal = CurTime() + 5
 
-				ply:TakeDamage(5, ply)
+				--ply:TakeDamage(1, ply)
 				ply:ViewPunch(Angle(math.random(-30,30), math.random(-30,30), 0))
 				ply:SendLua("StunBaton_GotStunned()")
 			end
