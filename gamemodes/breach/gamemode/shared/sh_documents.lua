@@ -86,6 +86,17 @@ BR2_DOCUMENTS = {
 
 -- OTHER
 	{
+		class = "doc_scp513",
+		name = "SCP-513 Document",
+		img = {
+			src = "breach2/docs/doc513.jpg",
+			width = 581,
+			height = 819,
+			code_font = "doc_code_font",
+			code_pos = {x = 456, y = 360}
+		}
+	},
+	{
 		class = "doc_scp682",
 		name = "SCP-682 Document",
 		img = {
