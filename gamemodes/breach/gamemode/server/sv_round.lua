@@ -387,6 +387,15 @@ round_system.PreparingStart = function()
 	local result = hook.Call("BR2_PreparingStart")
 	if result == true then return end
 
+	for k,v in pairs(player.GetAll()) do
+		if !v:IsBot() then
+			timer.Destroy("drinkuse"..v:SteamID64())
+		end
+		timer.Destroy("deletenotepad"..v:SteamID64())
+		timer.Destroy("BR_UpdateOwnInfo"..v:SteamID64())
+	end
+	uses_294 = nil
+
 	round_system.logins = {}
 
 	game_state = GAMESTATE_PREPARING
@@ -430,13 +439,6 @@ round_system.PreparingStart = function()
 		round_system.current_scenario.after_assign()
 	end
 
-	for k,v in pairs(player.GetAll()) do
-		if !v:IsBot() then
-			timer.Destroy("drinkuse"..v:SteamID64())
-		end
-		timer.Destroy("deletenotepad"..v:SteamID64())
-	end
-
 	timer.Remove("PlayCommotionSounds")
 	timer.Remove("LockdownWait")
 	timer.Remove("GasLeak1")
@@ -474,7 +476,6 @@ round_system.PreparingStart = function()
 			net.Send(v)
 		end
 	end
-	--PrintMessage(HUD_PRINTTALK, "BR2_PreparingStart")
 end
 
 round_system.RoundStart = function()
@@ -486,7 +487,6 @@ round_system.RoundStart = function()
 	round_system.AlreadyAnnouncedMTF = false
 
 	if isfunction(round_system.current_scenario.round_start) then round_system.current_scenario.round_start() end
-	--PrintMessage(HUD_PRINTTALK, "BR2_RoundStart")
 	--BR2_ChangeLightingStyle()
 
 	HandleDiseases()
@@ -521,7 +521,6 @@ round_system.RoundEnded = function()
 
 	game_state = GAMESTATE_ROUND_END
 	if isfunction(round_system.current_scenario.round_end) then round_system.current_scenario.round_end() end
-	--PrintMessage(HUD_PRINTTALK, "BR2_RoundEnded")
 end
 
 function Debug_NextRoundStage()
