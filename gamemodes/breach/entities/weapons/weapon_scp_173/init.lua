@@ -158,29 +158,95 @@ end
 
 SWEP.NextTeleportSound = 0
 
-function SWEP:HandleTeleport(ply, scp173mode)
-	if scp173mode then
-		ply:SetWalkSpeed(300)
-		ply:SetRunSpeed(300)
+function SWEP:HandleMovementModeToggle()
+	if !self.FreeRoamMode then
+		self.Owner:SetWalkSpeed(300)
+		self.Owner:SetRunSpeed(300)
+		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+		self.Owner:AddFlags(FL_DONTTOUCH)
+		self.FreeRoamMode = true
 	else
-		if !self:CanWeMoveTo(ply:GetPos()) then
-			--ply:PrintMessage(HUD_PRINTTALK, "Cannot move to this position")
+		if !self:CanWeMoveTo(self.Owner:GetPos()) then
+			--self.Owner:PrintMessage(HUD_PRINTTALK, "Cannot move to this position")
 			return
 		end
 
-		ply:SetWalkSpeed(1)
-		ply:SetRunSpeed(1)
+		self.FreeRoamMode = false
+
+		self.Owner:SetWalkSpeed(1)
+		self.Owner:SetRunSpeed(1)
+		self.Owner:RemoveFlags(FL_DONTTOUCH)
 		
-		if IsValid(ply.entity173) then
-			ply.entity173:SetAngles(Angle(0, ply:EyeAngles().yaw, 0))
+		if IsValid(self.Owner.entity173) then
+			self.Owner.entity173:SetAngles(Angle(0, self.Owner:EyeAngles().yaw, 0))
 
 			if self.NextTeleportSound < CurTime() then
-				ply.entity173:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
+				self.Owner.entity173:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
 				self.NextTeleportSound  = CurTime() + 2
 			end
 		end
 	end
 
-	self.TeleportingMode = scp173mode
-	--print("scp 173's teleporting mode set to ".. tostring(scp173mode))
+	net.Start("br_scp173_mode")
+		net.WriteBool(self.FreeRoamMode)
+	net.Send(self.Owner)
+end
+
+SWEP.NextDG = 0
+function SWEP:DestroyGlass()
+	if self.NextDG > CurTime() then return end
+	
+	local ent173 = self.Owner:GetNWEntity("entity173")
+	if !IsValid(ent173) then return end
+
+	if ent173:CanMove(self:GetPos()) then
+		local ourpos = ent173:GetPos()
+
+		local tr = self:ClearTrace({
+			start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
+			endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + self.Owner:EyeAngles():Forward() * 130,
+			mask = MASK_ALL
+		})
+
+		if IsValid(tr.Entity) then
+			if tr.Entity:GetClass() == "func_breakable" then
+				tr.Entity:TakeDamage(100, self.Owner, self.Owner)
+			end
+		end
+
+		self.NextDG = CurTime() + 1.5
+	else
+		self.NextDG = CurTime() + 0.2
+	end
+end
+
+function SWEP:Check173()
+	if IsValid(self.Owner.entity173) == false then
+		local try_ent = ents.Create("breach_173ent")
+		if !IsValid(try_ent) then return end
+
+		if istable(MAPCONFIG) and istable(MAPCONFIG.SPAWNS_SCP_173) then
+			self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
+		end
+
+		self.Owner:SetEyeAngles(Angle(0, 90, 0))
+		self.Owner.entity173 = try_ent
+		self.Owner.entity173:SetCurrentOwner(self.Owner)
+		self.Owner.entity173:SetModel(SCP_173_MODEL)
+		self.Owner.entity173:SetPos(self.Owner:GetPos())
+		self.Owner.entity173:SetAngles(Angle(0, 90, 0))
+		self.Owner.entity173:Spawn()
+		self.Owner:SetNWEntity("entity173", self.Owner.entity173)
+	end
+end
+
+function SWEP:Think()
+	self:Check173()
+
+	self.Owner:SetNoDraw(true)
+	if IsValid(self.Owner.entity173) and !self.FreeRoamMode then
+		self.Owner.entity173:SetPos(self.Owner:GetPos())
+	end
+
+	self:NextThink(CurTime() + 0.5)
 end

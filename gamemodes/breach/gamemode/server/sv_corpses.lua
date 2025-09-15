@@ -1,9 +1,15 @@
 
 function CreateRagdollPL(victim, attacker, dmgtype, distance)
-	if not IsValid(victim) then return NULL end
+	if not IsValid(victim) then
+		error("null victim", rag)
+		return NULL
+	end
 
 	local rag = ents.Create("prop_ragdoll")
-	if IsValid(rag) == false then return NULL end
+	if IsValid(rag) == false then
+		error("null ragdoll", rag)
+		return NULL
+	end
 
 	rag:SetNWString("ExamineDmgInfo", " - Cause of death is unknown")
 

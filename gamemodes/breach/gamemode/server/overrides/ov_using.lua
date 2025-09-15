@@ -57,9 +57,10 @@ function ShouldPlayerUse(ply, ent)
 end
 
 function GM:PlayerUse(ply, ent)
+	local wep = ply:GetActiveWeapon()
+
 	if ply.entity173 then
-		local wep = ply:GetActiveWeapon()
-		if wep and wep.TeleportingMode then
+		if wep and wep.FreeRoamMode then
 			return false
 		end
 	end
@@ -75,7 +76,6 @@ function GM:PlayerUse(ply, ent)
 		end
 	end
 
-	local wep = ply:GetActiveWeapon()
 	if IsValid(wep) then
 		if isfunction(wep.HandleUse) then
 			wep:HandleUse()

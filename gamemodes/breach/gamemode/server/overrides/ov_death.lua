@@ -22,7 +22,12 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			return
 		end
 
-		CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
+		if ply.br_role == "SCP-173" then
+			ply.entity173:OnOwnerDeath()
+		else
+			CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
+		end
+
 		ply:AddDeaths(1)
 		
 		if IsValid(attacker) and attacker:IsPlayer() then

@@ -905,4 +905,9 @@ net.Receive("br_blinking", function(len)
 	br_next_blink = CurTime() + br_blink_time
 end)
 
+net.Receive("br_scp173_mode", function(len)
+	local toggle = net.ReadBool()
+	LocalPlayer():GetActiveWeapon():ToggleFreeRoam(toggle)
+end)
+
 print("[Breach2] client/cl_networking.lua loaded!")

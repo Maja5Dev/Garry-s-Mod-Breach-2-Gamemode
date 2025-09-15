@@ -101,11 +101,11 @@ function SWEP:Holster()
 end
 function SWEP:Reload() end
 
-SWEP.TeleportingMode = false
+SWEP.FreeRoamMode = false
 
 SWEP.MoveDelay = 0
 function SWEP:Move(ply, mv)
-	if self.TeleportingMode then
+	if self.FreeRoamMode then
 		return false
 	end
 
@@ -128,36 +128,8 @@ function SWEP:Move(ply, mv)
 	return true
 end
 
-SWEP.NextDG = 0
-function SWEP:DestroyGlass()
-	if self.NextDG > CurTime() then return end
-	
-	local ent173 = self.Owner:GetNWEntity("entity173")
-	if !IsValid(ent173) then return end
-
-	if ent173:CanMove(self:GetPos()) == true then
-		local ourpos = ent173:GetPos()
-		local eyeangles = self.Owner:EyeAngles()
-		local tr = self:ClearTrace({
-			start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
-			endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 100,
-			mask = MASK_ALL
-		})
-
-		if IsValid(tr.Entity) then
-			if tr.Entity:GetClass() == "func_breakable" then
-				tr.Entity:TakeDamage(100, self.Owner, self.Owner)
-			end
-		end
-
-		self.NextDG = CurTime() + 1.5
-	else
-		self.NextDG = CurTime() + 0.5
-	end
-end
-
 function SWEP:SetNextPos()
-	if self.TeleportingMode then
+	if self.FreeRoamMode then
 		return
 	end
 
@@ -189,7 +161,7 @@ function SWEP:ClearTrace(tr_structure)
 		table.ForceInsert(filerEnts, ent173)
 	end
 
-	for i=1, 10 do
+	for i = 1, 10 do
 		new_tr = util.TraceLine({
 			start = tr_structure.start,
 			endpos = tr_structure.endpos,
@@ -198,6 +170,7 @@ function SWEP:ClearTrace(tr_structure)
 		})
 
 		local ent = new_tr.Entity
+
 		if IsValid(ent) == false or new_tr.Hit == false or new_tr.HitNonWorld == false or new_tr.HitSky == true then
 			return new_tr
 		end
@@ -212,45 +185,6 @@ function SWEP:ClearTrace(tr_structure)
 	end
 	
 	return new_tr
-end
-
-function SWEP:Think()
-	self:Check173()
-
-	if CLIENT then
-		if IsValid(self.Owner:GetNWEntity("entity173")) then
-			self.entIsAttacking = self.Owner:GetNWEntity("entity173"):GetNWBool("IsAttacking")
-		end
-	else
-		self.Owner:SetNoDraw(true)
-		if IsValid(self.Owner.entity173) and !self.TeleportingMode then
-			self.Owner.entity173:SetPos(self.Owner:GetPos())
-		end
-	end
-
-	self:NextThink(CurTime() + 0.5)
-end
-
-function SWEP:Check173()
-	if SERVER then
-		if IsValid(self.Owner.entity173) == false then
-			local try_ent = ents.Create("breach_173ent")
-			if !IsValid(try_ent) then return end
-
-			if istable(MAPCONFIG) and istable(MAPCONFIG.SPAWNS_SCP_173) then
-				self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
-			end
-
-			self.Owner:SetEyeAngles(Angle(0, 90, 0))
-			self.Owner.entity173 = try_ent
-			self.Owner.entity173:SetCurrentOwner(self.Owner)
-			self.Owner.entity173:SetModel(SCP_173_MODEL)
-			self.Owner.entity173:SetPos(self.Owner:GetPos())
-			self.Owner.entity173:SetAngles(Angle(0, 90, 0))
-			self.Owner.entity173:Spawn()
-			self.Owner:SetNWEntity("entity173", self.Owner.entity173)
-		end
-	end
 end
 
 function SWEP:AttackNearbyPlayers()
@@ -270,7 +204,7 @@ function SWEP:FrontTraceLine()
 			start = Vector(ourpos.x, ourpos.y, ourpos.z + 95),
 			endpos = Vector(ourpos.x, ourpos.y, ourpos.z + 95) + eyeangles:Forward() * 70,
 			filter = {self, self.Owner, ent173},
-			mask = MASK_ALL
+			mask = MASK_PLAYERSOLID_BRUSHONLY
 		})
 
 		return tr_front
@@ -295,7 +229,7 @@ local clc_trh_size = 7
 function SWEP:CalcViewInfo(ply, position, angles, fov)
 	local view = {origin = pos, angles = angles, fov = fov, drawviewer = false}
 
-	if self.TeleportingMode then
+	if self.FreeRoamMode then
 		return view
 	end
 
@@ -351,9 +285,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 end
 
 function SWEP:TraceNextPos(ent173)
-	if self.TeleportingMode then
-		return
-	end
+	if self.FreeRoamMode then return end
 
 	local view = self:CalcViewInfo()
 	if view == nil then return end

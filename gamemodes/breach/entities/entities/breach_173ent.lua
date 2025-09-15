@@ -19,6 +19,10 @@ function ENT:SetCurrentOwner(ply)
 	self:SetNWEntity("173Owner", ply)
 end
 
+function ENT:OnOwnerDeath()
+	self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
+end
+
 function ENT:GetCurrentOwner()
 	return self.Owner
 end

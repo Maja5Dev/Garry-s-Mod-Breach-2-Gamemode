@@ -1,10 +1,7 @@
 
 net.Receive("br_scp173_mode", function(len, ply)
-	local scp173mode = net.ReadBool()
-	local wep = ply:GetActiveWeapon()
-
-	if IsValid(wep) and wep.HandleTeleport then
-		wep:HandleTeleport(ply, scp173mode)
+	if len < 200 and ply.br_role == "SCP-173" then
+		wep:HandleMovementModeToggle()
 	end
 end)
 
