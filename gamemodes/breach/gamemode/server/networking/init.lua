@@ -77,6 +77,7 @@ util.AddNetworkString("br_scp_action")
 util.AddNetworkString("br_custom_screen_effects")
 util.AddNetworkString("br_blinking")
 util.AddNetworkString("br_getlightlevel")
+util.AddNetworkString("br_closed_294")
 
 include("net_supports.lua") -- top priority
 

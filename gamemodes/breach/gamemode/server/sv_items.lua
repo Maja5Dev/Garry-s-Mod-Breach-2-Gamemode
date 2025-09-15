@@ -112,7 +112,7 @@ BR2_SCP_294_OUTCOMES = {
 	{
 		texts = {"nothing", "emptiness", "air", "vacuum", "half life 3", "hl3", "halflife3", "tf2 update"},
 		type = SCP294_RESULT_NOTHING,
-		sound = scp294_sound_slurp,
+		sound = nil,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
 			ply:BR2_ShowNotification("There is nothing to drink in the cup.")
@@ -155,6 +155,17 @@ BR2_SCP_294_OUTCOMES = {
 			return true
 		end
 	},
+	{
+		texts = {"coffee"},
+		type = SCP294_RESULT_NORMAL,
+		sound = scp294_sound_ahh,
+		func = function(ply, info, text) scp_294_func(ply, info, text) end,
+		use = function(ply)
+			ply:BR2_ShowNotification("Bitter.")
+			ply:AddRunStamina(1000)
+			return true
+		end
+	},
 
 	{
 		texts = {"void", "antimatter", "anti-matter", "atomic", "nuclear", "nuclear bomb", "nuclear fusion", "nuclear fission",
@@ -167,9 +178,10 @@ BR2_SCP_294_OUTCOMES = {
 			local effect = EffectData()
 			effect:SetStart(ply:GetPos())
 			effect:SetOrigin(ply:GetPos())
-			effect:SetScale(200)
-			effect:SetRadius(200)
+			effect:SetScale(400)
+			effect:SetRadius(400)
 			effect:SetMagnitude(0)
+			effect:SetDamageType(DMG_BLAST)
 
 			util.Effect("Explosion", effect, true, true)
 			util.Effect("HelicopterMegaBomb", effect, true, true)
@@ -306,7 +318,7 @@ BR2_SCP_294_OUTCOMES = {
 		texts = {"piss", "urine", "jarate", "pee", "vomit", "cum", "baby batter", "perfume", "deodorant", "shampoo", "cologne", "fragrance",
 		"shit", "crap", "poop", "bath water", "bathwater", "sweat"},
 		type = SCP294_RESULT_NORMAL,
-		sound = scp294_sound_ew1,
+		sound = nil,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
 			ply:BR2_ShowNotification("I am not drinking that")
@@ -453,6 +465,7 @@ BR2_SPECIAL_ITEMS = {
 			ent.DocType = item.type
 			ent.DocAttributes = item.attributes
 			ForceSetPrintName(ent, ent.PrintName)
+			ent:SetNWString("SetPrintName", ent.PrintName)
 
 			return ent
 		end
@@ -479,13 +492,19 @@ BR2_SPECIAL_ITEMS = {
 					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
 						for k2,v2 in pairs(pl.br_special_items) do
 							if spi_comp(v2, item) then
-								table.RemoveByValue(pl.br_special_items, v2)
-
 								for k3,v3 in pairs(BR2_SCP_294_OUTCOMES) do
 									if table.HasValue(v3.texts, item.type) then
-										v3.use(pl)
+										local remove = v3.use(pl)
+
+										if remove then
+											table.RemoveByValue(pl.br_special_items, v2)
+										end
+
+										break
 									end
 								end
+
+								break
 							end
 						end
 					end)

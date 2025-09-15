@@ -802,6 +802,10 @@ function OpenSCP_294()
 			gui.HideGameUI()
 		end
 	end
+	frame_294.OnRemove = function(self)
+		net.Start("br_closed_294")
+		net.SendToServer()
+	end
 
 	local frame_294_img = vgui.Create("DImage", frame_294)
 	frame_294_img:SetSize(img_w, img_h)
