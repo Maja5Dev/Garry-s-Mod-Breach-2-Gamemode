@@ -34,14 +34,15 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 	buttons = {
 		{name = "SCP-294-Keyboard", pos = Vector(3427,4736,-7242), canSee = DefaultItemContainerCanSee, func_cl = function()
 		end, func_sv = function(ply)
-			if IsValid(uses_294) and uses_294:Alive() and !uses_294:IsSpectator() then
+			if IsValid(uses_294) and uses_294:Alive() and !uses_294:IsSpectator() and !uses_294.br_downed then
 				uses_294:BR2_ShowNotification("Someone else used the SCP-294")
-				ply:SendLua("CloseSCP_294()")
+				uses_294:SendLua("CloseSCP_294()")
 			end
 
-			uses_294 = ply
 			if MAP_SCP_294_Coins == 2 then
 				ply:SendLua("OpenSCP_294()")
+				uses_294 = ply
+
 			elseif MAP_SCP_294_Coins == 1 then
 				ply:PrintMessage(HUD_PRINTTALK, "You need to insert one more coin")
 			else
