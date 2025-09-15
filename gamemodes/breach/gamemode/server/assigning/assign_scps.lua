@@ -16,6 +16,7 @@ function assign_system.Assign_SCP049(ply)
 	ply.br_showname = "SCP-049"
 	ply.br_customspawn = "SPAWNS_SCP_049"
 	ply.Faction = "BR2_FACTION_SCP_049"
+	ply:AddFlags(FL_NOTARGET)
 
 	ply.first_info = "scp_049"
 	ply.mission_set = "scp_049"
@@ -54,6 +55,7 @@ function assign_system.Assign_SCP173(ply)
 	ply.br_showname = "SCP-173"
 	ply.br_customspawn = "SPAWNS_SCP_173"
 	ply.Faction = "BR2_FACTION_SCP_173"
+	ply:AddFlags(FL_NOTARGET)
 
 	ply.first_info = "scp_173"
 	ply.mission_set = "scp_173"
@@ -96,7 +98,6 @@ local function FindClearSpawnPos(origin, ragdoll, ply, healer, radius, step, max
         })
 
         if tr_hull.Hit == false then
-			print("found pos!", tr.HitPos)
             return tr.HitPos
         end
     end
@@ -126,6 +127,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 		lpi.BreachIsBleeding = false
 		lpi.can_get_infected = false
 		lpi.disable_coughing = true
+		lpi:AddFlags(FL_NOTARGET)
 		self:ApplyPlayerInfo(lpi)
 	end
 
@@ -175,6 +177,7 @@ function assign_system.Assign_SCP0492(ply)
 	ply.br_showname = "SCP-049-2"
 	ply.br_customspawn = "SPAWNS_HCZ"
 	ply.Faction = "BR2_FACTION_SCP_049"
+	ply:AddFlags(FL_NOTARGET)
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_049")
 	ply.br_support_team = SUPPORT_ROGUE
