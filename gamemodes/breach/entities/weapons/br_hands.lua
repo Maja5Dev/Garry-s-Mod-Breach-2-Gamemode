@@ -686,7 +686,7 @@ function SWEP:CreateFrame()
 		if string.len(v:GetNWString("SetPrintName", "")) > 0 then
 			item_name = v:GetNWString("SetPrintName", "")
 
-		elseif isfunction(v.GetPrintName) then
+		elseif isfunction(v.GetPrintName) and string.len(v:GetPrintName(), "") > 0  then
 			item_name = v:GetPrintName()
 
 		elseif v.PrintName then
