@@ -136,20 +136,25 @@ net.Receive("br_check_pulse", function(len, ply)
 	
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
-	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" then
+
+	if IsValid(ent) and ent:GetClass() == "prop_ragdoll"
+		and ent.cptBaseRagdoll == nil and ent.drgBaseRagdoll == nil
+	then
 		local dis = ent:GetPos():Distance(ply:GetPos())
+
 		if dis < 120 then
 			local is_alive = false
 
-			if istable(ent.Info) then
-				if IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10 then
-					is_alive = true
-				end
+			if istable(ent.Info) and IsValid(ent.Info.Victim) and ent.Info.Victim:Alive()
+				and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10
+			then
+				is_alive = true
 			end
 			
 			net.Start("br_check_pulse")
-			net.WriteBool(is_alive)
+				net.WriteBool(is_alive)
 			net.Send(ply)
+
 			ply.lastPulseChecked = ent
 		end
 	end
