@@ -4,7 +4,7 @@ br_round_end_votes = 0
 function BR_SupportSpawnButtons()
     local size_mul = math.Clamp(ScrH() / 1080, 0.1, 1)
 
-    local supsp_w = 256 * size_mul
+    local supsp_w = 300 * size_mul
     --local supsp_h = 512 * size_mul
     local supsp_h = ScrH() - (32 * size_mul)
 
@@ -24,7 +24,7 @@ function BR_SupportSpawnButtons()
 		--draw.RoundedBox(0, 0, 0, w, h, Color(50, 50, 50, 25))
     end
     
-    local button_w = 320 * size_mul
+    local button_w = 300 * size_mul
     local button_h = 40 * size_mul
 
     local font_info = {
