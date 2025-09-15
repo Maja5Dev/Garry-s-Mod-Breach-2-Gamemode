@@ -217,6 +217,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -241,6 +242,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent:SetNWBool("isDropped", true)
@@ -264,6 +266,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -290,6 +293,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -316,6 +320,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "LCZ"
@@ -341,6 +346,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -369,6 +375,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -394,6 +401,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -419,6 +427,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -444,6 +453,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -469,6 +479,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -493,6 +504,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent:SetNWBool("isDropped", true)
@@ -507,6 +519,32 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			{Vector(3949.7700195313, -6380.3149414063, -8606.490234375), Angle(131.1579284668, 0.15230146050453, 179.37718200684)} -- on the ground
 		}
 	},
+	-- DOCUMENT: SCP-513
+	{
+		model = "models/foodnhouseholditems/newspaper2.mdl",
+		class = "prop_physics",
+		num = 1,
+		func = function(ent)
+			local doc_class = "doc_scp513"
+			for k,v in pairs(BR2_DOCUMENTS) do
+				if v.class == doc_class then
+					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
+					ent.DocType = doc_class
+					ent.SI_Class = "document"
+					ent.CodeGroup = "HCZ"
+					ent:SetNWBool("isDropped", true)
+					return
+				end
+			end
+		end,
+		spawns = {
+			{Vector(-993.40155029297, 5707.3715820313, -7166.4790039063), Angle(10.874011039734, -2.1384565830231, 179.35748291016)},
+			{Vector(-717.38250732422, 5667.7407226563, -7166.4892578125), Angle(-127.67772674561, -2.4725832939148, 179.38566589355)},
+			{Vector(-628.42468261719, 5696.791015625, -7166.4887695313), Angle(-113.94243621826, 0.067847661674023, 179.37701416016)},
+			{Vector(-623.70239257813, 5534.591796875, -7166.513671875), Angle(179.6241607666, -2.9474151134491, 179.38836669922)},
+		}
+	},
 	-- DOCUMENT: SCP-939
 	{
 		model = "models/foodnhouseholditems/newspaper2.mdl",
@@ -517,6 +555,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "HCZ"
@@ -543,6 +582,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "LCZ"
@@ -568,6 +608,7 @@ MAPCONFIG.RANDOM_ITEM_SPAWNS = {
 			for k,v in pairs(BR2_DOCUMENTS) do
 				if v.class == doc_class then
 					ent.PrintName = v.name
+					ent:SetNWString("SetPrintName", ent.PrintName)
 					ent.DocType = doc_class
 					ent.SI_Class = "document"
 					ent.CodeGroup = "LCZ"
