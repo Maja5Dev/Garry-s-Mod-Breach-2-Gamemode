@@ -68,7 +68,7 @@ function BR_ShowScoreboard()
 	surface.CreateFont("BR_Scoreboard_Missions", {
 		font = "Patrick Hand SC",
 		extended = false,
-		size = 52 * size_mul,
+		size = 50 * size_mul,
 		weight = 1000,
 		blursize = 0,
 		scanlines = 0,
@@ -85,7 +85,7 @@ function BR_ShowScoreboard()
 	
 	surface.CreateFont("BR_Scoreboard_Logo", font_structure)
 
-	font_structure.size = 30 * size_mul
+	font_structure.size = 32 * size_mul
 	surface.CreateFont("BR_Scoreboard_Creator", font_structure)
 
 	font_structure.size = 28 * size_mul
@@ -98,7 +98,7 @@ function BR_ShowScoreboard()
 	font_structure.size = 32 * size_mul
 	surface.CreateFont("BR_Scoreboard_Players", font_structure)
 
-	font_structure.size = 42 * size_mul
+	font_structure.size = 38 * size_mul
 	surface.CreateFont("BR_Scoreboard_Hostname", font_structure)
 	
 	local ply = LocalPlayer()
@@ -240,11 +240,11 @@ function BR_ShowScoreboard()
 			-- country code
 			local flagwidth = 0
 			if !v:IsBot() then
-				-- country codes
 				local countrycode = v:GetNWString("CountryCode", nil)
 
 				if isstring(countrycode) and string.len(countrycode) > 0 then
 					local flag_mat = Material("flags16/" .. countrycode .. ".png", "smooth")
+
 					if flag_mat and flag_mat:IsError() == false then
 						surface.SetMaterial(flag_mat)
 						surface.SetDrawColor(255, 255, 255, 255)
@@ -256,9 +256,14 @@ function BR_ShowScoreboard()
 				end
 			end
 
+			local nick = v:Nick()
+			if string.len(nick) > 13 then
+				nick = string.sub(nick, 1, 13) .. ".."
+			end
+
 			-- name
 			draw.Text({
-				text = v:Nick(),
+				text = nick,
 				pos = {flagwidth + pl_size + gap * 2, h/2},
 				xalign = TEXT_ALIGN_LEFT,
 				yalign = TEXT_ALIGN_CENTER,
@@ -266,19 +271,7 @@ function BR_ShowScoreboard()
 				color = oppositecolor,
 			})
 
-			-- group
-			local group = v:GetUserGroup()
-			if group != "user" then
-				draw.Text({
-					text = string.SetChar(group, 1, string.upper(group[1])),
-					pos = {w/4, h/2},
-					xalign = TEXT_ALIGN_CENTER,
-					yalign = TEXT_ALIGN_CENTER,
-					font = "BR_Scoreboard_Names",
-					color = oppositecolor,
-				})
-			end
-
+			-- role
 			draw.Text({
 				text = player_scoreboard_groups[v.scoreboardGroup].text,
 				pos = {w/2, h/2},
@@ -288,7 +281,8 @@ function BR_ShowScoreboard()
 				color = oppositecolor,
 			})
 
-			local connection = "" .. v:Ping() .. ""
+			-- Ping
+			local connection = tostring(v:Ping())
 			if v:IsBot() then
 				connection = "BOT"
 			end
@@ -301,11 +295,26 @@ function BR_ShowScoreboard()
 				font = "BR_Scoreboard_Names",
 				color = oppositecolor,
 			})
+			
+			-- group
+			local group = string.SetChar(v:GetUserGroup(), 1, string.upper(v:GetUserGroup()[1]))
+			if group != "User" then
+				surface.SetFont("BR_Scoreboard_Names")
+				
+				draw.Text({
+					text = group,
+					pos = {w - select(1, surface.GetTextSize("BOT")) - 24, h/2},
+					xalign = TEXT_ALIGN_RIGHT,
+					yalign = TEXT_ALIGN_CENTER,
+					font = "BR_Scoreboard_Names",
+					color = oppositecolor,
+				})
+			end
 		end
 	end
 	
 	local SB_Panel_Bottom = vgui.Create("DPanel", BR_Scoreboard)
-	SB_Panel_Bottom:SetSize(sb_w - (gap * 4), (42 * size_mul))
+	SB_Panel_Bottom:SetSize(sb_w - (gap * 4), 46 * size_mul)
 	SB_Panel_Bottom:SetPos((gap * 2), last_y + (gap * 2))
 	last_y = last_y + (48 * size_mul) + (gap * 2)
 	SB_Panel_Bottom.Paint = function(self, w, h)
@@ -329,70 +338,31 @@ function BR_ShowScoreboard()
 			color = text_color_white,
 		})
 	end
+
+	if LocalPlayer().br_role != "SCP-173" then
+		surface.SetFont("BR_Scoreboard_Names")
+		local button_size = select(1, surface.GetTextSize("Open Notepad")) * 1.3
+
+
+		local button = vgui.Create("DButton", SB_Panel_Bottom)
+		button:SetSize(button_size, 34 * size_mul)
+		button:SetText("Open Notepad")
+		button:SetTextColor(Color(255,255,255,200))
+		button:SetFont("BR_SB_Option_Selection")
+		button:Center()
+
+		button.DoClick = function(self)
+			BR_ShowNotepad(BR2_OURNOTEPAD)
+		end
+
+		button.Paint = function(self, w, h)
+			draw.RoundedBox(0, 2, 0, w, h, Color(25,25,25,255))
+		end
+	end
 	
 	BR_Scoreboard:SetSize(sb_w, last_y + (gap * 2))
 	BR_Scoreboard:SetPos(ScrW() / 2, ScrH() / 2)
 	BR_Scoreboard:Center()
-end
-
-BR_SCOREBOARD_OPTIONS = {
-	{
-		title = "Open Notepad",
-		func = function()
-			BR_ShowNotepad(BR2_OURNOTEPAD)
-		end
-	}
-}
-
-function BR_ShowScoreboardOptions()
-	surface.CreateFont("BR_SB_Option_Selection", {
-		font = "Tahoma",
-		extended = false,
-		size = 22,
-		weight = 1000,
-		blursize = 0,
-		scanlines = 0,
-		antialias = true,
-		underline = false,
-		italic = false,
-		strikeout = false,
-		symbol = false,
-		rotary = false,
-		shadow = false,
-		additive = false,
-		outline = false,
-	})
-
-	local npanel_w = 280
-	local npanel_h = 34
-	ScoreboardOptions_Panel = vgui.Create("DPanel", BR_Scoreboard)
-	ScoreboardOptions_Panel:SetSize(npanel_w, npanel_h)
-	ScoreboardOptions_Panel.Paint = function(self, w, h)
-	end
-	last_h = 0
-
-	for k,v in pairs(BR_SCOREBOARD_OPTIONS) do
-		local button = vgui.Create("DButton", ScoreboardOptions_Panel)
-		button:SetSize(npanel_w, npanel_h)
-		button:SetText(v.title)
-		button:SetTextColor(Color(255,255,255,200))
-		button:SetFont("BR_SB_Option_Selection")
-		--button:Dock(TOP)
-		button:SetPos(0, last_h)
-		button.DoClick = function(self)
-			v.func()
-			ScoreboardOptions_Panel:Remove()
-		end
-		button.Paint = function(self, w, h)
-			--draw.RoundedBox(0, 0, 0, w, h, Color(0,0,0,255))
-			--draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,255))
-			draw.RoundedBox(0, 2, 2, w - 4, h - 4, Color(25,25,25,255))
-		end
-		last_h = last_h + npanel_h + 4
-		ScoreboardOptions_Panel:SetSize(npanel_w, last_h)
-	end
-
-	ScoreboardOptions_Panel:SetPos(BR_Scoreboard:GetWide() / 2 - npanel_w / 2, BR_Scoreboard:GetTall() - last_h - 14)
 end
 
 function BR_ShowScoreboardMissions()
@@ -408,19 +378,19 @@ function BR_ShowScoreboardMissions()
 				local clr_highlight_text = Color(255,81,0,255)
 
 				local size_mul = math.Clamp(ScrH() / 1080, 0.1, 2)
-				local fontsize = draw.GetFontHeight("BR_Scoreboard_Missions") * 0.8
-				local max_mission_text_w = (ScrW() * 0.25) * size_mul
+				local fontsize = draw.GetFontHeight("BR_Scoreboard_Missions") * 0.7
+				local max_mission_text_w = 0
 				
 				surface.SetFont("BR_Scoreboard_Missions")
 
 				for k2,v2 in pairs(v.missions) do
-					max_mission_text_w = math.max(max_mission_text_w, select(1, surface.GetTextSize(v2.name)))
+					max_mission_text_w = math.max(max_mission_text_w, select(1, 32 + surface.GetTextSize(" - " .. v2.name)))
 				end
 
 				BR_Scoreboard_Missions = vgui.Create("DPanel")
 				BR_Scoreboard_Missions:SetSize(max_mission_text_w, (fontsize * (#v.missions + 1) + 24 * 2))
 				BR_Scoreboard_Missions.Paint = function(self, w, h)
-					draw.RoundedBox(0, 0, 0, w, h, Color(100,50,50,50))
+					--draw.RoundedBox(0, 0, 0, w, h, Color(100,50,50,50))
 
 					draw.Text({
 						text = "Your missions:",
@@ -458,9 +428,6 @@ function GM:ScoreboardShow()
 		if #BR_SCOREBOARD_OPTIONS > 0 then
 			BR_ShowScoreboard()
 			BR_ShowScoreboardMissions()
-
-			if LocalPlayer().br_role == "SCP-173" then return end
-			BR_ShowScoreboardOptions()
 		end
 	else
 		BR_ShowScoreboard()
@@ -469,9 +436,6 @@ function GM:ScoreboardShow()
 end
 
 function GM:ScoreboardHide()
-	if IsValid(ScoreboardOptions_Panel) then
-		ScoreboardOptions_Panel:Remove()
-	end
 	if IsValid(BR_SupportSpawns) then
 		BR_SupportSpawns:Remove()
 	end

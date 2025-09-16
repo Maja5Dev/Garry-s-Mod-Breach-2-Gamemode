@@ -158,8 +158,10 @@ local notepad_pages = {
 
 					if v.scp then
 						player_panel.role_color = scp_color
+
 					elseif v.br_ci_agent == true then
 						player_panel.role_color = chaos_color
+
 					elseif scoreboard_role_colors[v.br_role] then
 						player_panel.role_color = scoreboard_role_colors[v.br_role]
 					end
@@ -170,6 +172,7 @@ local notepad_pages = {
 						if self.use_dark then
 							draw.RoundedBox(0, 0, 0, w, h, Color(50, 50, 50, 25))
 						end
+
 						draw.Text({
 							text = self.text1,
 							pos = {4, h / 2},
@@ -178,6 +181,7 @@ local notepad_pages = {
 							font = "BR_Scoreboard3",
 							color = Color(65, 65, 65, 255),
 						})
+
 						draw.Text({
 							text = self.text2,
 							pos = {w / 2, h / 2},
@@ -190,21 +194,25 @@ local notepad_pages = {
 
 					local health_panel = vgui.Create("DButton", player_panel)
 					health_panel:SetSize(player_panel_h, player_panel_h)
-					health_panel:SetPos(pc_w - (player_panel_h * 2), 0)
+					health_panel:SetPos(pc_w - (player_panel_h), 0)
 					health_panel:SetText("")
+					
 					local function change_hl()
 						health_panel.hl1 = {mat_qmark, HEALTH_MISSING}
 						health_panel.hl2 = {mat_checkmark, HEALTH_ALIVE}
 						health_panel.hl3 = {mat_xmark, HEALTH_DEAD}
+
 						if v.health == HEALTH_ALIVE then
 							health_panel.hl1 = {mat_checkmark, HEALTH_ALIVE}
 							health_panel.hl2 = {mat_qmark, HEALTH_MISSING}
 							health_panel.hl3 = {mat_xmark, HEALTH_DEAD}
+
 						elseif v.health == HEALTH_DEAD then
 							health_panel.hl1 = {mat_xmark, HEALTH_DEAD}
 							health_panel.hl2 = {mat_qmark, HEALTH_MISSING}
 							health_panel.hl3 = {mat_checkmark, HEALTH_ALIVE}
 						end
+
 						health_panel.Paint = function(self, w, h)
 							draw.RoundedBox(0, 0, 0, w, h, Color(50, 50, 50, 50))
 							surface.SetDrawColor(Color(0,0,0,220))
@@ -576,9 +584,6 @@ function BR_ShowNotepad(notepad_info)
 
 	if IsValid(BR_Scoreboard_Missions) then
 		BR_Scoreboard_Missions:Remove()
-	end
-	if IsValid(ScoreboardOptions_Panel) then
-		ScoreboardOptions_Panel:Remove()
 	end
     if IsValid(info_menus_panel) then
         info_menus_panel:Remove()

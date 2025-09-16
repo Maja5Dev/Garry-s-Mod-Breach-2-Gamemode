@@ -24,7 +24,6 @@ function BR_GetAllMenus()
 		access_terminal,
 		loading_terminal,
 		WeaponFrame,
-		ScoreboardOptions_Panel,
 		keypad_frame,
 		BR_Looting_Menu,
 		BR_Identifying_Menu,

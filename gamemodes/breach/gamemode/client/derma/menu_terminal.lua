@@ -322,7 +322,7 @@ function BR_Open_Terminal(options, loginInfo)
 		})
 
 		draw.Text({
-			text = "Logged in as:",
+			text = "Logged in account:",
 			pos = {w - 16, 16},
 			xalign = TEXT_ALIGN_RIGHT,
 			yalign = TEXT_ALIGN_TOP,
@@ -361,7 +361,6 @@ function BR_Open_Terminal(options, loginInfo)
 	local num = 1
 	for k,v in pairs(options) do
 		terminal_create_button(terminal_options_panel, ((351 * size_mul) - (terminal_option_w * size_mul)) / 2, 16 + ((num - 1) * ((terminal_option_h * size_mul) + 16)), terminal_option_w, terminal_option_h, v[1], function(button, panel)
-		--terminal_create_button(terminal_options_panel, 16, 16 + ((i - 1) * ((terminal_option_h * size_mul) + 16)), terminal_option_w, terminal_option_h, v[1], function(button, panel)
 			v[2](button, panel)
 		end)
 		num = num + 1
