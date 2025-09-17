@@ -50,10 +50,11 @@ terminal_option_h = 79
 
 function terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_text, func_after_creation)
 	local size_mul = ScrH() / 1080
+
 	local terminal_button = vgui.Create("DButton", parent)
 	terminal_button:SetText("")
 	terminal_button:SetPos(pos_x, pos_y)
-	terminal_button:SetSize(size_w*size_mul, size_h*size_mul)
+	terminal_button:SetSize(size_w * size_mul, size_h * size_mul)
 	terminal_button.original_x, terminal_button.original_y = terminal_button:GetPos()
 	terminal_button.real_x = terminal_button.original_x + parent.posx
 	terminal_button.real_y = terminal_button.original_y + parent.posy
@@ -61,18 +62,22 @@ function terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_tex
 	terminal_button.isHovered = false
 	terminal_button.ClickFix = false
 	terminal_button.OnClick = nil
+
 	terminal_button.Paint = function(self, w, h)
 		local cur_x, cur_y = input.GetCursorPos()
 		local dis_x = math.abs(cur_x - (self.real_x+(w/2)))
 		local dis_y = math.abs(cur_y - (self.real_y+(h/2)))
 		local font_to_use = "BR_TERMINAL_BUTTON"
+
 		if self.isHovered then
 			font_to_use = "BR_TERMINAL_BUTTON_HOVER"
 			self:SetPos(self.original_x + 4, self.original_y + 4)
 			self:SetSize(self.original_w - 8, self.original_h - 8)
+
 			if dis_x > (w / 2 + 8) or dis_y > (h / 2 + 8) then
 				self.isHovered = false
 			end
+
 			if terminal_button.OnClick != nil then
 				if input.IsMouseDown(MOUSE_LEFT) then
 					if terminal_button.ClickFix == false then
@@ -92,6 +97,7 @@ function terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_tex
 				--surface.PlaySound("breach2/ui/hover.wav")
 			end
 		end
+
 		draw.RoundedBox(0, 0, 0, w, h, Color(255, 255, 255, 255))
 		draw.RoundedBox(0, 5, 5, w - 10, h - 10, Color(30, 30, 30, 255))
 		draw.Text({
@@ -103,10 +109,13 @@ function terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_tex
 			color = Color(255,255,255,255),
 		})
 	end
+
 	func_after_creation(terminal_button, terminal_text_panel)
+
 	if parent == terminal_options_panel then
 		table.ForceInsert(terminal_all_buttons, terminal_button)
 	end
+
 	return terminal_button
 end
 
@@ -161,7 +170,7 @@ function create_terminal_fonts()
 	local font_structure = {
 		font = "Tahoma",
 		extended = false,
-		size = 56 * size_mul,
+		size = 52 * size_mul,
 		weight = 1000,
 		blursize = 0,
 		scanlines = 0,
