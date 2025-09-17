@@ -115,20 +115,22 @@ local function HandleSanity()
 				end
 
 				v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient or (CurTime() + math.Rand(12, 40))
+
 				if v.nextHorrorInsanityAmbient < CurTime() then
-					v.nextHorrorInsanityAmbient = CurTime() + math.Rand(12, 120)
-					v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack + 30
-					v:SendLua('HorrorCL_InsanityAttack()')
+					v.nextHorrorInsanityAmbient = CurTime() + math.Rand(20, 120)
+					v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack + 14
+					v:SendLua('HorrorCL_InsanityAmbient()')
 				end
 
 				v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack or (CurTime() + math.Rand(40, 120))
+
 				if v.nextHorrorInsanityAttack < CurTime() then
 					if math.random(1,7) == 4 then
 						v.nextHorrorInsanityAttack = CurTime() + math.Rand(40, 200)
 						v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient + 8
-						v:SendLua('HorrorCL_InsanityAmbient()')
+						v:SendLua('HorrorCL_InsanityAttack()')
 					else
-						v.nextHorrorInsanityAmbnextHorrorInsanityAttackient = v.nextHorrorInsanityAttack + 2
+						v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack + 2
 					end
 				end
 				
