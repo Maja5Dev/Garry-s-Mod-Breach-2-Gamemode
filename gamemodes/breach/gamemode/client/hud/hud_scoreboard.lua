@@ -82,6 +82,24 @@ function BR_ShowScoreboard()
 		additive = false,
 		outline = false,
 	})
+
+	surface.CreateFont("BR_SB_Option_Selection", {
+		font = "Tahoma",
+		extended = false,
+		size = 22,
+		weight = 1000,
+		blursize = 0,
+		scanlines = 0,
+		antialias = true,
+		underline = false,
+		italic = false,
+		strikeout = false,
+		symbol = false,
+		rotary = false,
+		shadow = false,
+		additive = false,
+		outline = false,
+	})
 	
 	surface.CreateFont("BR_Scoreboard_Logo", font_structure)
 
@@ -425,10 +443,8 @@ function GM:ScoreboardShow()
 	if !BR2_ShouldDrawAnyHud() or are_we_downed() then return end
 
 	if (game_state == GAMESTATE_PREPARING or game_state == GAMESTATE_ROUND) and !LocalPlayer():IsSpectator() and LocalPlayer():Alive() then
-		if #BR_SCOREBOARD_OPTIONS > 0 then
-			BR_ShowScoreboard()
-			BR_ShowScoreboardMissions()
-		end
+		BR_ShowScoreboard()
+		BR_ShowScoreboardMissions()
 	else
 		BR_ShowScoreboard()
 		BR_SupportSpawnButtons()
