@@ -71,6 +71,9 @@ derma.DefineControl("VoiceNotify", "", PANEL, "DPanel")
 
 function GM:PlayerStartVoice(ply)
 	if (!IsValid(g_VoicePanelList)) then return end
+
+	g_VoicePanelList:SetPos(ScrW() - 300, 100)
+	g_VoicePanelList:SetSize(250, ScrH() - 200)
 	
 	-- There'd be an exta one if voice_loopback is on, so remove it.
 	GAMEMODE:PlayerEndVoice(ply)
