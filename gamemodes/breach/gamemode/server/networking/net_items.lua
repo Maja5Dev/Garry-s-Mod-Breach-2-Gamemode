@@ -29,10 +29,16 @@ net.Receive("br_use_special_item", function(len, ply)
 			if spi_comp(v, item) then
 				for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
 					if v.class == v2.class then
-						v2.use(ply, v)
+						local remove = v2.use(ply, v)
+
+						if remove then
+							table.RemoveByValue(ply.br_special_items, v)
+						end
+
 						return
 					end
 				end
+
 				break
 			end
 		end
