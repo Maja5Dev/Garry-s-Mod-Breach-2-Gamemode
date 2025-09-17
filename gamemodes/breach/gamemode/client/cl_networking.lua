@@ -136,7 +136,7 @@ end)
 net.Receive("br_use_outfitter", function(len)
 	local tab_got = net.ReadTable()
 	BR_OpenOutfitterMenu(tab_got)
-	surface.PlaySound("breach2/pickitem2.ogg")
+	surface.PlaySound("breach2/items/pickitem2.ogg")
 end)
 
 function SimpleButtonUse(button)
@@ -673,7 +673,7 @@ net.Receive("br_check_pulse", function(len)
 end)
 
 net.Receive("br_player_downed", function(len)
-	surface.PlaySound("breach2/player_breathing_knockout01.wav")
+	surface.PlaySound("breach2/player/player_breathing_knockout01.wav")
 	surface.PlaySound("breach2/D9341/Damage1.ogg")
 	next_blood_sound = CurTime() + 4
 end) 

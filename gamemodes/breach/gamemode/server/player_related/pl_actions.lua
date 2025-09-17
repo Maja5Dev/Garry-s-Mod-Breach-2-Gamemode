@@ -31,7 +31,7 @@ end
 function player_meta:Start_HidingInCloset(closet)
 	if self.next_hiding > CurTime() or !IsValid(closet.peeking_ent) then return end
 	
-	sound.Play("breach2/closet_2.mp3", closet.peeking_pos, 60, 100, 1)
+	sound.Play("breach2/player/closet.mp3", closet.peeking_pos, 60, 100, 1)
 
 	self.next_hiding = CurTime() + 4
 	self.next_lhiding = CurTime() + 2
@@ -50,7 +50,8 @@ end
 
 function player_meta:Stop_HidingInCloset(closet)
 	if self.next_lhiding < CurTime() then
-		sound.Play("breach2/closet_2.mp3", closet.peeking_pos, 60, 100, 1)
+		sound.Play("breach2/player/closet.mp3", closet.peeking_pos, 60, 100, 1)
+
 		self:SetViewEntity(self)
 		self:SetMoveType(MOVETYPE_WALK)
 		self:SetNoDraw(false)
@@ -71,11 +72,14 @@ function player_meta:UsedSCP500()
 	self:AddSanity(100)
 	self.br_temperature = 0
 	self.br_isBleeding = false
-	self:SetHealth(self:GetMaxHealth())
+
+	self:SetHealth(math.Clamp(self:GetMaxHealth(), 0, 400))
+
 	self.br_infection = 0
 	self.br_isInfected = false
 	self.SCP_Inflicted_1048a = false
 	self.SCP_Infected_049 = false
+
 	self:BR2_ShowNotification("I feel so much better...")
 end
 

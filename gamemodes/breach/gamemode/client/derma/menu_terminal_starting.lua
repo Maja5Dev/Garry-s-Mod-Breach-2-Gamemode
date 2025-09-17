@@ -19,7 +19,7 @@ function BR_Open_Starting_Terminal(options)
 		draw.RoundedBox(0, 0, 0, w, h, Color(255, 255, 255, 255))
 	end
 	terminal_frame.OnRemove = function()
-		surface.PlaySound("breach2/heartbeat.ogg")
+		surface.PlaySound("breach2/player/heartbeat.ogg")
 		reset_our_last_zone()
 	end
 	
@@ -56,7 +56,7 @@ function BR_Open_Starting_Terminal(options)
 		if timeu < 0 then
 			terminal_frame:Remove()
 			br2_blackscreen = 0
-			--surface.PlaySound("breach2/heartbeat.ogg")
+			--surface.PlaySound("breach2/player/heartbeat.ogg")
 			return
 		end
 

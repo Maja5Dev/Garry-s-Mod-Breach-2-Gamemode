@@ -371,7 +371,7 @@ function BR_OpenLootingMenu(items, source)
 		
 		panel2.DoClick = function()
 			if !item_disabled then
-				surface.PlaySound("breach2/pickitem2.ogg")
+				surface.PlaySound("breach2/items/pickitem2.ogg")
 				--PrintTable(v)
 				net.Start("br_take_loot")
 					net.WriteTable(v)

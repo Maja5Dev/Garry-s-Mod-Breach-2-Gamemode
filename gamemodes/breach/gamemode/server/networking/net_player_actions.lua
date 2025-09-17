@@ -248,10 +248,10 @@ net.Receive("br_keypad", function(len, ply)
 				if istable(v.br_info) == true then
 					if isnumber(v.br_info.code) == true then
 						if v.br_info.code == tonumber(code) then
-							ply:EmitSound("breach2/ScannerUse1.ogg", 75, 100, 0.7)
+							ply:EmitSound("breach2/items/ScannerUse1.ogg", 75, 100, 0.7)
 							v:Use(ply, ply, USE_ON, 1)
 						else
-							ply:EmitSound("breach2/ScannerUse2.ogg", 75, 100, 0.7)
+							ply:EmitSound("breach2/items/ScannerUse2.ogg", 75, 100, 0.7)
 						end
 					end
 				end
