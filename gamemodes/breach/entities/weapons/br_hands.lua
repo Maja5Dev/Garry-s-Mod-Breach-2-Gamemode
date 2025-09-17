@@ -844,8 +844,8 @@ function SWEP:Push()
 		
 		local ent = tr.Entity
 		if tr.Hit and !tr.HitWorld and IsValid(ent) and table.HasValue(self.AllowToPush, ent:GetClass()) then
-			--print("Trying to push " .. ent:GetName() .. " ("..CurTime()..")")
 			local ang = Angle(0, pl:EyeAngles().yaw, 0)
+
 			if ent:IsPlayer() then
 				local vel = ent:GetVelocity()
 				ent:SetVelocity(vel + (ang:Forward() * 500))
@@ -863,8 +863,11 @@ function SWEP:Push()
 				if IsValid(phys) then
 					phys:ApplyForceCenter(ang:Forward() * 500)
 				end
+
 				self.NextPush = CurTime() + 0.01
 			end
+
+			ent:EmitSound("sound/breach2/player/shove_0"..math.random(1,5)..".wav")
 		end
 	end
 end
