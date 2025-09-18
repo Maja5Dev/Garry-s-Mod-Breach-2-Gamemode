@@ -1,5 +1,5 @@
 GM.Name 	= "Breach 2"
-GM.Author 	= "Kanade"
+GM.Author 	= "Maya"
 GM.Email 	= ""
 GM.Website 	= "steamcommunity.com/profiles/76561198156389563"
 
@@ -20,9 +20,11 @@ include("shared/sh_player_meta.lua") -- low priority
 
 function GM:Move(ply, mv)
 	local wep = ply:GetActiveWeapon()
+	
 	if IsValid(wep) and isfunction(wep.Move) then
 		return wep:Move(ply, mv)
 	end
+
 	return false
 end
 

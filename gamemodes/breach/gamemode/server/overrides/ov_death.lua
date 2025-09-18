@@ -107,27 +107,27 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 	end
 	
 	if attacker == ply then
-		print(attacker:Nick() .. " suicided!")
+		devprint(attacker:Nick() .. " suicided!")
 		return
 	end
 
 	if attacker:IsPlayer() then
 		local gname = inflictor.PrintName or inflictor:GetClass()
-		--if gname.PrintName then
-		--	gname = gname.PrintName
-		--end
-		print(attacker:Nick() .. " killed " .. ply:Nick() .. " using " .. gname)
+		devprint(attacker:Nick() .. " killed " .. ply:Nick() .. " using " .. gname)
 	end
 end
 
 function GM:PlayerDeathThink(pl)
 	if pl.NextSpawnTime and pl.NextSpawnTime > CurTime() then return end
 	
+	-- Respawning D-9341
 	if pl.isTheOne == true then
 		local old_showname = pl.br_showname
+
 		if IsValid(pl.LastBody) then
 			pl.LastBody:Remove()
 		end
+
 		pl:Spawn()
 		assign_system.Assign_ClassD(pl)
 		pl:SetPos(table.Random(MAPCONFIG.SPAWNS_CLASSD_CELLS))
@@ -135,6 +135,7 @@ function GM:PlayerDeathThink(pl)
 		pl.isTheOne = true
 
 		pl.br_times_support_respawned = pl.br_times_support_respawned + 1
+		
 		for i=1, math.Clamp(pl.br_times_support_respawned, 0, 4) do
 			pl:AddSanity(-15)
 			pl:AddHealth(-15)
@@ -143,10 +144,8 @@ function GM:PlayerDeathThink(pl)
 		return
 	end
 	
-	--if pl:IsBot() or pl:KeyPressed(IN_ATTACK) or pl:KeyPressed(IN_ATTACK2) or pl:KeyPressed(IN_JUMP) then
-		pl:SetTeam(TEAM_UNASSIGNED)
-		pl:Spawn()
-	--end
+	pl:SetTeam(TEAM_UNASSIGNED)
+	pl:Spawn()
 end
 
 print("[Breach2] server/overrides/ov_death.lua loaded!")

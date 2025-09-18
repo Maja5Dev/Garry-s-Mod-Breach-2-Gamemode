@@ -43,4 +43,15 @@ function TryToHideInCloset(closet)
 	end
 end
 
+local next_simple_button_use = 0
+function SodaMachineUse(button)
+	if next_simple_button_use > CurTime() then return end
+	
+	net.Start("br_use_soda_machine")
+		net.WriteVector(button.pos)
+	net.SendToServer()
+
+	next_simple_button_use = CurTime() + 1
+end
+
 print("[Breach2] client/cl_maprelated.lua loaded!")

@@ -114,31 +114,6 @@ net.Receive("br_open_terminal", function(len, ply)
 		net.WriteString("")
 		net.WriteTable({})
 	net.Send(ply)
-
-	/*
-	if BR2_TERMINALS[net_str] != nil then
-		if BR2_TERMINALS[net_str].accept(ply) then
-			local info_to_send = {}
-			local passed = false
-			if BR2_TERMINALS[net_str].login != nil and BR2_TERMINALS[net_str].password != nil then
-				if BR2_TERMINALS[net_str].login == login and BR2_TERMINALS[net_str].password == password then
-					passed = true
-					info_to_send = BR2_TERMINALS[net_str].info
-				end
-			end
-			net.Start("br_open_terminal")
-				net.WriteBool(passed)
-				net.WriteTable(info_to_send)
-			net.Send(ply)
-			print("terminal info successfully sent to "..ply:Nick())
-			return
-		end
-	end
-	net.Start("br_open_terminal")
-		net.WriteBool(false)
-		net.WriteTable({})
-	net.Send(ply)
-	*/
 end)
 
 print("[Breach2] server/networking/net_terminal.lua loaded!")

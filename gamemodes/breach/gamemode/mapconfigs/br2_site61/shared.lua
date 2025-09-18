@@ -3,8 +3,8 @@ BR_MAP_NAME = "br2_site19_a6"
 
 MAPCONFIG.EnableGamemodeMusic = true
 MAPCONFIG.EnableAmbientSounds = true
-MAPCONFIG.GeneralAmbientSounds = br_default_ambient_general
-MAPCONFIG.CommotionSounds = BR_DEFAULT_CommotionSounds
+MAPCONFIG.GeneralAmbientSounds = BR_DEFAULT_AMBIENT_GENERAL
+MAPCONFIG.CommotionSounds = BR_DEFAULT_COMMOTION_SOUNDS
 
 MAPCONFIG.FirstSounds = {
 	{"breach2/alarm/breach_alarm.ogg", 72},

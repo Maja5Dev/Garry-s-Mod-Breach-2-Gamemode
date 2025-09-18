@@ -24,7 +24,6 @@ function BR2NetworkingTick()
 		net.Broadcast()
 	end
 
-	--CheckTimedNetVars()
 	for k,v in pairs(player.GetAll()) do
 		if IsValid(v) and v:Alive() and v:IsSpectator() == false then
 			if istable(v.startedReviving) and (CurTime() - v.startedReviving[2]) > 9 then
@@ -32,18 +31,11 @@ function BR2NetworkingTick()
 				v:SetNWBool("br_is_reviving", false)
 			end
 
+			-- Hunger and thirst system
 			if v.br_uses_hunger_system and !dev_mode then
 				if v.next_hunger < CurTime() then
 					v.next_hunger = CurTime() + math.random(14,30)
 					v.br_hunger = v.br_hunger - 1
-
-					/*
-					if v.br_hunger < 25 then
-						v:SetHealth(v:Health() - 2)
-					elseif v.br_hunger < 50 then
-						v:SetHealth(v:Health() - 1)
-					end
-					*/
 
 					if v.br_hunger == 49 then
 						v:PrintMessage(HUD_PRINTTALK, "You are getting hungry...")
@@ -84,15 +76,17 @@ function BR2NetworkingTick()
 						v:TakeDamageInfo(fdmginfo)
 					end
 				end
-			end
-			if v.next_hunger_update < CurTime() then
-				net.Start("br_update_hunger")
-					net.WriteInt(v.br_hunger, 16)
-					net.WriteInt(v.br_thirst, 16)
-				net.Send(v)
-				v.next_hunger_update = CurTime() + 1
+
+				if v.next_hunger_update < CurTime() then
+					net.Start("br_update_hunger")
+						net.WriteInt(v.br_hunger, 16)
+						net.WriteInt(v.br_thirst, 16)
+					net.Send(v)
+					v.next_hunger_update = CurTime() + 1
+				end
 			end
 
+			-- Bleeding
 			v.nextBleed = v.nextBleed or 0
 			if v.nextBleed < CurTime() then
 				if v.br_isBleeding == true and v.br_downed == false then
@@ -111,6 +105,7 @@ function BR2NetworkingTick()
 					v:BleedEffect()
 					v.nextBleed = CurTime() + 4
 				end
+
 				net.Start("br_update_bleeding")
 					net.WriteBool(v.br_isBleeding)
 				net.Send(v)
@@ -134,6 +129,7 @@ function BR2NetworkingTick()
 				net.Send(v)
 			end
 
+			-- SCP-049's reviving
 			if v.br_role == "SCP-049" and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then
 				local dis = (v.startedReviving[1]:GetPos():Distance(v:GetPos()) > 70) or v:KeyDown(IN_ATTACK) or v:KeyDown(IN_ATTACK2)
 
@@ -155,6 +151,7 @@ function BR2NetworkingTick()
 				end
 			end
 
+			-- Lockpicking
 			if istable(v.startedLockpicking) then
 				--print(v.startedLockpicking[2] - CurTime())
 				local ent_pos = Vector(0,0,0)
@@ -187,6 +184,7 @@ function BR2NetworkingTick()
 				end
 			end
 
+			-- While the player is downed
 			if v.br_downed == true then
 				if v.next_health_update < CurTime() then
 					v.next_health_update = CurTime() + 1
@@ -202,8 +200,8 @@ function BR2NetworkingTick()
 						--print("v.Body.RagdollHealth: "..v.Body.RagdollHealth.."")
 						if v.Body.RagdollHealth < 1 then
 							v:Freeze(false)
-							v:KillSilent()
-							--v:Kill()
+							--v:KillSilent()
+							v:Kill()
 						end
 
 						net.Start("br_update_health_state")

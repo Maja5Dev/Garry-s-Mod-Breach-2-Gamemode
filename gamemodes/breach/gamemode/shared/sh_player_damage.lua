@@ -54,11 +54,12 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	local attacker = dmginfo:GetAttacker()
 	local inflictor = dmginfo:GetInflictor()
 
-	if victim:GetNoDraw() == true then
+	if victim:GetNoDraw() then
 		dmginfo:ScaleDamage(0)
 		return true
 	end
 
+	-- Cases when there is no damage
 	if SERVER then
 		if attacker:IsPlayer() and attacker:Alive() and attacker:IsSpectator() == false then
 			local same_team = victim.br_team == attacker.br_team
@@ -134,39 +135,26 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		else
 			hitgroup = HITGROUP_GENERIC
 		end
-		
-		--print("hit_level: "..hit_level)
-		--print("closest_bone", closest_bone[1], closest_bone[2], closest_bone[3])
 	else
 		if hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_GEAR then
 			hitgroup = HITGROUP_GENERIC
 		end
 	end
 	
-	--print("final hitgroup", hitgroup)
-	
 	if hitgroup == HITGROUP_HEAD then
-		--dmginfo:ScaleDamage(math.random(1.5, 2.5))
 		dmg_mul = dmg_mul * math.random(1.5, 2.5)
 		
 	elseif hitgroup == HITGROUP_LEFTARM then
-		--dmginfo:ScaleDamage(math.random(0.8, 1))
 		dmg_mul = dmg_mul * math.random(0.8, 1)
 		
 	elseif hitgroup == HITGROUP_RIGHTARM then
-		--dmginfo:ScaleDamage(math.random(0.8, 1))
 		dmg_mul = dmg_mul * math.random(0.8, 1)
 		
 	elseif hitgroup == HITGROUP_LEFTLEG then
-		--dmginfo:ScaleDamage(math.random(0.8, 1))
 		dmg_mul = dmg_mul * math.random(0.8, 1)
 		
 	elseif hitgroup == HITGROUP_RIGHTLEG then
-		--dmginfo:ScaleDamage(math.random(0.8, 1))
 		dmg_mul = dmg_mul * math.random(0.8, 1)
-		
-	--else
-		--dmginfo:ScaleDamage(1)
 	end
 	
 	if SERVER and IsValid(inflictor) and inflictor:GetClass() == "br_hands" and IsValid(attacker) and attacker:IsPlayer() and isnumber(attacker.br_sanity) then
@@ -188,9 +176,8 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 			attacker.br_sanity = attacker.br_sanity - 1
 		end
 	end
-
-	local can_start_bleeding = false
 	
+	-- Outfit damage scaling
 	local outfit = victim:GetOutfit()
 
 	if SERVER and IsValid(inflictor) and isBreachWeapon(inflictor) then
@@ -198,15 +185,16 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		if outfit.bullet_damage then
 			dmg_mul = dmg_mul * outfit.bullet_damage
 		end
-	--else
-		--dmginfo:ScaleDamage(1)
 	end
 
 	if outfit.explosion_damage and dmginfo:GetDamageType() == DMG_BLAST then
 		dmg_mul = dmg_mul * outfit.explosion_damage
+
 	elseif outfit.fire_damage and dmginfo:GetDamageType() == DMG_BLAST then
 		dmg_mul = dmg_mul * outfit.fire_damage
 	end
+
+	local can_start_bleeding = false
 
 	if victim.br_role == "SCP-173" then
 		dmginfo:ScaleDamage(0)
@@ -214,6 +202,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		dmginfo:SetDamage(0)
 		
 	elseif victim.br_team != TEAM_SCP then
+		-- Getting downed
 		if SERVER and SafeBoolConVar("br2_down_players") and round_system.current_scenario.downing_enabled == true then
 			if victim:IsDowned() == false then
 				local next_health = victim:Health() - dmginfo:GetDamage()
@@ -235,6 +224,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 			end
 
 			can_start_bleeding = true
+
 			if IsValid(inflictor) and inflictor.IsStunBaton == true and inflictor.StunningEnabled then
 				can_start_bleeding = false
 				victim:ViewPunch(Angle(math.random(-30,30), math.random(-30,30), 0))
@@ -245,26 +235,25 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 				and round_system.current_scenario.bleeding_enabled == true and dmginfo:GetDamage() > 12 and math.random(1,4) == 3
 			then
 				victim.br_isBleeding = true
-				print(victim:Nick() .. " started bleeding")
+				devprint(victim:Nick() .. " started bleeding")
 			end
 		end
 	end
 	
 	if SERVER and attacker:IsPlayer() then
-		print(victim:Nick() .. " (" .. victim:GetNiceBrTeam() .. ") got attacked by " .. attacker:Nick() .. " (" .. attacker:GetNiceBrTeam() .. ") health: "..victim:Health() - dmginfo:GetDamage().."")
+		devprint(victim:Nick() .. " (" .. victim:GetNiceBrTeam() .. ") got attacked by " .. attacker:Nick() .. " (" .. attacker:GetNiceBrTeam() .. ") health: "..victim:Health() - dmginfo:GetDamage().."")
 	end
 
+	-- Lower sanity on damage
 	if SERVER and victim.br_team != TEAM_SCP and victim.br_usesSanity then
 		local lower_sanity_by = math.Round(dmginfo:GetDamage() * 0.4)
 		victim:AddSanity(-lower_sanity_by)
-		--print(victim, "sanity by damage", lower_sanity_by)
 	end
 
-	if SERVER then
-		if victim.br_isInfected then
-			dmg_mul = dmg_mul * 1.2
-			victim:AddSanity(-1)
-		end
+	-- Take more damage when infected
+	if SERVER and victim.br_isInfected then
+		dmg_mul = dmg_mul * 1.2
+		victim:AddSanity(-1)
 	end
 
 	dmginfo:ScaleDamage(dmg_mul)

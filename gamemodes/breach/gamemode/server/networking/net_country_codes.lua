@@ -20,5 +20,3 @@ function BR2_GetCountryCode(ply)
         end
     end
 end
-
--- lua_run print(Entity(1).CountryCode)

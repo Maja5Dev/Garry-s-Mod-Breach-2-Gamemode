@@ -1,31 +1,11 @@
 
-BR_DEFAULT_CommotionSounds = {
-		"breach2/intro/Commotion/Commotion1.ogg",
-		"breach2/intro/Commotion/Commotion2.ogg",
-		"breach2/intro/Commotion/Commotion3.ogg",
-		"breach2/intro/Commotion/Commotion4.ogg",
-		"breach2/intro/Commotion/Commotion5.ogg",
-		"breach2/intro/Commotion/Commotion6.ogg",
-		"breach2/intro/Commotion/Commotion7.ogg",
-		"breach2/intro/Commotion/Commotion8.ogg",
-		"breach2/intro/Commotion/Commotion9.ogg",
-		"breach2/intro/Commotion/Commotion10.ogg",
-		"breach2/intro/Commotion/Commotion11.mp3",
-		"breach2/intro/Commotion/Commotion12.ogg",
-		"breach2/intro/Commotion/Commotion13.mp3",
-		"breach2/intro/Commotion/Commotion14.mp3",
-		"breach2/intro/Commotion/Commotion15.mp3",
-		"breach2/intro/Commotion/Commotion16.ogg",
-		"breach2/intro/Commotion/Commotion17.ogg",
-		"breach2/intro/Commotion/Commotion18.ogg",
-		"breach2/intro/Commotion/Commotion19.ogg",
-		"breach2/intro/Commotion/Commotion20.ogg",
-		"breach2/intro/Commotion/Commotion21.ogg",
-		"breach2/intro/Commotion/Commotion22.mp3",
-		"breach2/intro/Commotion/Commotion23.ogg",
-		"breach2/intro/Bang2.ogg",
-		"breach2/intro/Bang3.ogg",
-}
+function SimpleButtonUse(button)
+	button.func_cl()
+	net.Start("br_use_button_simple")
+		net.WriteVector(button.pos)
+	net.SendToServer()
+end
+
 
 br_default_mat_lock_opened = Material("breach2/scpu/lock_opened.png")
 br_default_mat_lock_closed = Material("breach2/scpu/lock_closed.png")
@@ -110,64 +90,6 @@ br_default_button_icons = {
 			h = 64
 		}
 	}
-}
-
-br_default_ambient_general = {
-	"breach2/ambient/general/Ambient1.ogg",
-	"breach2/ambient/general/Ambient2.ogg",
-	"breach2/ambient/general/Ambient3.ogg",
-	"breach2/ambient/general/Ambient4.ogg",
-	"breach2/ambient/general/Ambient5.ogg",
-	"breach2/ambient/general/Ambient6.ogg",
-	"breach2/ambient/general/Ambient7.ogg",
-	"breach2/ambient/general/Ambient8.ogg",
-	"breach2/ambient/general/Ambient9.ogg",
-	"breach2/ambient/general/Ambient10.ogg",
-	"breach2/ambient/general/Ambient11.ogg",
-	"breach2/ambient/general/Ambient12.ogg",
-	"breach2/ambient/general/Ambient13.ogg",
-	"breach2/ambient/general/Ambient14.ogg",
-	"breach2/ambient/general/Ambient15.ogg",
-}
-
-br_default_ambient_lcz = {
-	"breach2/ambient/zone1/Ambient1.ogg",
-	"breach2/ambient/zone1/Ambient2.ogg",
-	"breach2/ambient/zone1/Ambient3.ogg",
-	"breach2/ambient/zone1/Ambient4.ogg",
-	"breach2/ambient/zone1/Ambient5.ogg",
-	"breach2/ambient/zone1/Ambient6.ogg",
-	"breach2/ambient/zone1/Ambient7.ogg",
-	"breach2/ambient/zone1/Ambient8.ogg",
-}
-
-br_default_ambient_hcz = {
-	"breach2/ambient/zone2/Ambient1.ogg",
-	"breach2/ambient/zone2/Ambient2.ogg",
-	"breach2/ambient/zone2/Ambient3.ogg",
-	"breach2/ambient/zone2/Ambient4.ogg",
-	"breach2/ambient/zone2/Ambient5.ogg",
-	"breach2/ambient/zone2/Ambient6.ogg",
-	"breach2/ambient/zone2/Ambient7.ogg",
-	"breach2/ambient/zone2/Ambient8.ogg",
-	"breach2/ambient/zone2/Ambient9.ogg",
-	"breach2/ambient/zone2/Ambient10.ogg",
-	"breach2/ambient/zone2/Ambient11.ogg",
-}
-
-br_default_ambient_ez = {
-	"breach2/ambient/zone3/Ambient1.ogg",
-	"breach2/ambient/zone3/Ambient2.ogg",
-	"breach2/ambient/zone3/Ambient3.ogg",
-	"breach2/ambient/zone3/Ambient4.ogg",
-	"breach2/ambient/zone3/Ambient5.ogg",
-	"breach2/ambient/zone3/Ambient6.ogg",
-	"breach2/ambient/zone3/Ambient7.ogg",
-	"breach2/ambient/zone3/Ambient8.ogg",
-	"breach2/ambient/zone3/Ambient9.ogg",
-	"breach2/ambient/zone3/Ambient10.ogg",
-	"breach2/ambient/zone3/Ambient11.ogg",
-	"breach2/ambient/zone3/Ambient12.ogg",
 }
 
 print("[Breach2] shared/sh_maprelated.lua loaded!")

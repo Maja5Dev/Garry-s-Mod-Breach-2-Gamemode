@@ -1,23 +1,8 @@
 
 local last_random_music = nil
 next_check_random_music = 0
-BR2_RANDOM_MUSIC = {
-	{ sound = "breach2/music/random_music_low_2.mp3", length = 76.77, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_4.mp3", length = 184.63, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_7.mp3", length = 108, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_8.mp3", length = 55, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_9.mp3", length = 167, volume = 0.6 },
-}
 
 local last_sanity_music = nil
-BR2_SANITY_MUSIC = {
-	{ sound = "breach2/music/distance2.wav", length = 20, volume = 0.6 },
-	{ sound = "breach2/music/withinsight.ogg", length = 60.44, volume = 0.6 },
-	{ sound = "breach2/music/random_music_medium_1.mp3", length = 173, volume = 0.6 },
-	{ sound = "breach2/music/random_music_medium_3.mp3", length = 185, volume = 0.6 },
-	{ sound = "breach2/music/random_music_medium_5.mp3", length = 270, volume = 0.6 },
-	{ sound = "breach2/music/random_music_medium_11.mp3", length = 251, volume = 0.6 },
-}
 
 
 lastzone = nil
@@ -25,14 +10,12 @@ lastzone = nil
 last_ambient_sound = 4
 our_ambients = {}
 
-local ambient_pos_min = 300
-local ambient_pos_max = 800
-
 function PlayFirstSounds(num)
 	local first_sounds_table = nil
 
 	if istable(br2_current_scenario.first_sounds_override) then
 		first_sounds_table = br2_current_scenario.first_sounds_override
+		
 	elseif istable(MAPCONFIG.FirstSounds) == true then
 		first_sounds_table = MAPCONFIG.FirstSounds
 	end
@@ -51,10 +34,10 @@ end
 
 function PlayAmbientSound(snd, min, max)
 	if min == nil then
-		min = ambient_pos_min
+		min = BR2_AMBIENT_POS_MIN
 	end
 	if max == nil then
-		max = ambient_pos_max
+		max = BR2_AMBIENT_POS_MAX
 	end
 
 	local client_pos = LocalPlayer():GetPos()
@@ -200,11 +183,6 @@ end
 next_one_shot = 36
 ALL_ONESHOT_AMBIENTS = {}
 
-function RESET_ONESHOT_AMBIENTS()
-	for i=1, 109 do
-		table.ForceInsert(ALL_ONESHOT_AMBIENTS, "breach2/oneshots/EN_ONESHOTS_"..i..".ogg")
-	end
-end
 RESET_ONESHOT_AMBIENTS()
 
 function HandleMusic()
@@ -364,7 +342,7 @@ function HandleMusic()
 
 					if rnd_oneshot == nil then
 						RESET_ONESHOT_AMBIENTS()
-						print("oneshot ambients reset")
+						--print("oneshot ambients reset")
 						rnd_oneshot = table.Random(ALL_ONESHOT_AMBIENTS)
 					end
 

@@ -63,8 +63,7 @@ local function HandleSanity()
 				if afk_time > 45 then
 					sanity_amount = sanity_amount - 2
 				end
-
-				--v:PrintMessage(HUD_PRINTCENTER, v.br_sanity .. " / " .. sanity_amount)
+				
 				v:AddSanity(sanity_amount)
 			end
 

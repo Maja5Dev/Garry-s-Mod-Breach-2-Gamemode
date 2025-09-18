@@ -168,4 +168,59 @@ function BR_SupportSpawnButtons()
     createbutts()
 end
 
+function BR_OpenMTFMenu()
+    local size_w = 180
+    local size_h = 190
+
+    br_our_mtf_frame = vgui.Create("DFrame")
+    br_our_mtf_frame:SetTitle("")
+    br_our_mtf_frame:ShowCloseButton(false)
+    br_our_mtf_frame:SetDraggable(false)
+    br_our_mtf_frame:SetPos(ScrW() - size_w, ScrH() - size_h)
+    br_our_mtf_frame:SetSize(size_w, size_h)
+    br_our_mtf_frame.nextUpdate = 0
+    br_our_mtf_frame.Think = function(self)
+        if !IsValid(info_menu_1_frame) and br_our_mtf_frame.nextUpdate < CurTime() then
+            net.Start("br_mtf_teams_update")
+            net.SendToServer()
+            br_our_mtf_frame.nextUpdate = CurTime() + 1
+        end
+    end
+
+    --our_team = {Entity(1), Entity(2), Entity(3), Entity(4)}
+    br_our_mtf_frame.Paint = function(self, w, h)
+        for i,v in ipairs(BR2_MTF_TEAMS) do
+            for k,pl in pairs(v) do
+                if pl == LocalPlayer() then
+                    found_ourselves = true
+                    our_team = v
+                    br_our_team_num = i
+                end
+            end
+        end
+        
+        draw.RoundedBox(0, 0, 0, w, h, Color(25, 25, 25, 200))
+        draw.Text({
+            text = "MTF Team "..br_our_team_num.."",
+            pos = {w / 2, 32},
+            xalign = TEXT_ALIGN_CENTER,
+            yalign = TEXT_ALIGN_CENTER,
+            font = "BR_INFO_1_FONT_3",
+            color = Color(255,33,58,150),
+        })
+        for i,ply in ipairs(our_team) do
+            if IsValid(ply) then
+                draw.Text({
+                    text = ply:Nick() or "Unknown",
+                    pos = {w / 2, 32 + i * 32},
+                    xalign = TEXT_ALIGN_CENTER,
+                    yalign = TEXT_ALIGN_CENTER,
+                    font = "BR_INFO_1_FONT_3",
+                    color = Color(255,255,255,200),
+                })
+            end
+        end
+    end
+end
+
 print("[Breach2] client/derma/menu_support_spawns.lua loaded!")

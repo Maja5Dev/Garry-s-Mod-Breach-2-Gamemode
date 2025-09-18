@@ -3,17 +3,21 @@
 include("shared.lua")
 
 include("client/cl_light_level.lua") -- just contains functions
+include("config/sh_weapons.lua") -- config for weapons, top priority
+include("config/cl_sounds.lua") -- needs to be before cl_music.lua and map files
 include("shared/sh_maprelated.lua")
 include("client/cl_maprelated.lua")
 include("mapconfigs/"..game.GetMap().."/cl_init.lua")
 include("mapconfigs/"..game.GetMap().."/shared.lua")
 
 include("client/cl_fonts.lua") -- need to be loaded before any UI files
-include("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before cl_networking.lua
+include("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before networking
 include("client/cl_footsteps.lua")
 include("client/cl_calcview.lua")
 
 include("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
+
+include("client/networking/init.lua") -- should be after sanity
 
 /* DERMA MENUS */
 include("config/sh_missions.lua")-- these need to be before derma
@@ -28,7 +32,6 @@ include("client/hud/init.lua") -- loads many files
 
 include("client/cl_player.lua") -- player related overrides, low priority
 include("client/cl_tfa_fixes.lua") -- very low priority
-include("client/cl_networking.lua") -- quite a lot of things, low priority
 include("client/cl_binds.lua") -- quite a lot of things, any load order
 include("client/cl_fog.lua")
 
