@@ -16,4 +16,4 @@ SERVER_INFO.RULES = {
     "Talk only in game, mute yourself on discord"
 }
 
-print("[Breach2] shared/sh_server_specific.lua loaded!")
+print("[Breach2] config/sh_server_specific.lua loaded!")

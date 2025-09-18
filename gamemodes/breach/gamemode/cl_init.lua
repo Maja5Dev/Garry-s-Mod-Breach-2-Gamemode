@@ -16,6 +16,7 @@ include("client/cl_footsteps.lua")
 include("client/cl_calcview.lua")
 include("config/cl_items.lua") -- used in br_hands swep, menu_items.lua, only tables
 include("config/cl_roles.lua") -- used in menu_notepad.lua, hud_scoreboard.lua, only tables
+include("config/cl_npcs.lua") -- enums of NPC-related things, top priority
 
 include("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 

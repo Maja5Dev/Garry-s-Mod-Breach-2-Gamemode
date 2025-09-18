@@ -1,0 +1,66 @@
+
+BR_SCP_NPC_CLASSES = {
+	npc_cpt_scp_049 = "SCP-049",
+	npc_cpt_scp_106 = "SCP-106",
+	npc_cpt_scp_096 = "SCP-096",
+	npc_cpt_scp_457 = "SCP-457",
+	npc_cpt_scp_173 = "SCP-173",
+	npc_cpt_scp_575 = "SCP-575"
+}
+
+BLUE_NVG_ENTITY_NAMES = {
+	["npc_cpt_scp_005"] = "SCP-005",
+	["npc_cpt_scp_008"] = "SCP-008",
+	["npc_cpt_scp_012"] = "SCP-012",
+	["npc_cpt_scp_035"] = "SCP-035",
+	["npc_cpt_scp_049"] = "SCP-049",
+	["npc_cpt_scp_066"] = "SCP-066",
+	["npc_cpt_scp_079"] = "SCP-079",
+	["npc_cpt_scp_087_1"] = "SCP-087-1",
+	["npc_cpt_scp_087_b"] = "SCP-087b",
+	["npc_cpt_scp_096"] = "SCP-096",
+	["npc_cpt_scp_106"] = "SCP-106",
+	["drg_uescp106ver2"] = "SCP-106",
+	["npc_cpt_scp_173"] = "SCP-173",
+	["npc_cpt_scp_178"] = "SCP-178",
+	["npc_cpt_scp_372"] = "SCP-372",
+	["npc_cpt_scp_420"] = true, -- dont show
+	["npc_cpt_scp_427"] = "SCP-427",
+	["npc_cpt_scp_457"] = "SCP-457",
+	["npc_cpt_scp_500"] = true,
+	["npc_cpt_scp_513"] = "SCP-513",
+	["npc_cpt_scp_575"] = "SCP-575",
+	["npc_cpt_scp_650"] = "SCP-650",
+	["npc_cpt_scp_682"] = "SCP-682",
+	["npc_cpt_scp_714"] = "SCP-714",
+	["npc_cpt_scp_860"] = "SCP-860",
+	["npc_cpt_scp_895"] = "SCP-895",
+	["npc_cpt_scp_939"] = "SCP-939",
+	["npc_cpt_scp_939_a"] = "SCP-939",
+	["npc_cpt_scp_939_b"] = "SCP-939",
+	["npc_cpt_scp_939_c"] = "SCP-939",
+	["npc_cpt_scp_966"] = "SCP-966",
+	["npc_cpt_scp_999"] = "SCP-999",
+	["drg_scp999"] = "SCP-999",
+	["npc_cpt_scp_1025"] = "SCP-1025",
+	["npc_cpt_scp_1048"] = "SCP-1048",
+	["npc_cpt_scp_1356"] = "SCP-1356",
+	["npc_cpt_scp_1499"] = "SCP-1499",
+
+	["npc_cpt_scpiso_173"] = "SCP-173",
+	["npc_cpt_scpiso_303"] = "SCP-303",
+	["npc_cpt_scpiso_650"] = "SCP-650",
+
+	["npc_cpt_scp_dclass"] = "Human",
+	["npc_cpt_scp_guard_old"] = "Human",
+	["npc_cpt_scp_lambda"] = "Human",
+	["npc_cpt_scp_ntf"] = "Human",
+	["npc_cpt_scp_nu"] = "Human",
+	["npc_cpt_scp_scientist"] = "Human",
+	["drg_scp0492ue"] = "Human",
+	["drg_scp0492ue2"] = "Human",
+	["drg_scp0492ue3"] = "Human",
+	["npc_cpt_scp_049_2"] = "Human",
+}
+
+print("[Breach2] config/cl_npcs.lua loaded!")

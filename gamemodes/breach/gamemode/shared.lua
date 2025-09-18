@@ -5,8 +5,7 @@ GM.Website 	= "steamcommunity.com/profiles/76561198156389563"
 
 DeriveGamemode("sandbox")
 
-include("shared/sh_server_specific.lua") -- enums of server-related things, top priority
-include("shared/sh_npcs.lua") -- enums of NPC-related things, top priority
+include("config/sh_server_specific.lua") -- enums of server-related things, top priority
 include("shared/sh_enums.lua") -- just all the enums, top priority
 include("config/sh_enums.lua") -- after shared/sh_enums.lua
 include("config/sh_outfits.lua") -- contains just the table of outfits, top priority

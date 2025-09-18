@@ -4,8 +4,8 @@ include("config/sv_workshop_addons.lua") -- Load addons for the clients to downl
 AddCSLuaFile("client/cl_light_level.lua") -- just contains functions
 AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
 AddCSLuaFile("config/sh_weapons.lua") -- config for weapons, top priority
-AddCSLuaFile("shared/sh_server_specific.lua") -- enums of server-related things, top priority
-AddCSLuaFile("shared/sh_npcs.lua") -- enums of NPC-related things, top priority
+AddCSLuaFile("config/sh_server_specific.lua") -- enums of server-related things, top priority
+AddCSLuaFile("config/cl_npcs.lua") -- enums of NPC-related things, top priority
 AddCSLuaFile("shared/sh_enums.lua") -- just all the enums, top priority
 AddCSLuaFile("config/sh_enums.lua") -- after shared/sh_enums.lua
 AddCSLuaFile("config/sh_outfits.lua") -- contains just the table of outfits, top priority
