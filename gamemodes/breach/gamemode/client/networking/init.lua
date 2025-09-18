@@ -11,7 +11,7 @@ BR2_MTF_TEAMS = {
 	{},
 	{},
 }
-
+br2_support_spawns = {{"mtf", 1}}
 br_our_team_num = 0
 br2_round_state_start = 0
 
@@ -47,6 +47,30 @@ net.Receive("br_custom_screen_effects", function(len)
 	br_our_custom_screen_effects = tab
 	br_our_custom_screen_effects_for = CurTime() + duration
 end)
+
+function StunBaton_GotStunned()
+	last_got_stunned = CurTime()
+end
+
+function reset_our_last_zone()
+	our_last_zone = nil
+	our_last_zone_next = 0
+	our_last_zone_alpha = 0
+	our_last_zone_stage = 0
+end
+reset_our_last_zone()
+
+function BleedingEffect(pos)
+	local tr = util.TraceLine({
+		start = pos,
+		endpos = pos + Vector(0,0,-1000),
+		mask = MASK_SOLID
+	})
+	if tr == nil then return end
+	if tr.Hit then
+		util.Decal("Blood", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	end
+end
 
 include("health.lua")
 include("info.lua")

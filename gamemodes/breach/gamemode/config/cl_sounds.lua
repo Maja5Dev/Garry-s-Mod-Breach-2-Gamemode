@@ -1,4 +1,27 @@
 ﻿
+-- Not sure where this is used
+sound.Add({
+	name = "br2_horror_roaming",
+	channel = CHAN_VOICE,
+	volume = 1.0,
+	level = 75,
+	pitch = 100,
+	sound = "breach2/horror/Horror0.ogg"
+})
+
+RADIO4SOUNDSHC = {
+	{"chatter1", 39},
+	{"chatter2", 72},
+	{"chatter4", 12},
+	{"franklin1", 8},
+	{"franklin2", 13},
+	{"franklin3", 12},
+	{"franklin4", 19},
+	{"ohgod", 25}
+}
+
+RADIO4SOUNDS = table.Copy(RADIO4SOUNDSHC)
+
 function RESET_ONESHOT_AMBIENTS()
 	for i=1, 109 do
 		table.ForceInsert(ALL_ONESHOT_AMBIENTS, "breach2/oneshots/EN_ONESHOTS_"..i..".ogg")

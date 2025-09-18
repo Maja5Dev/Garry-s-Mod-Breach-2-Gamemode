@@ -208,4 +208,19 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 	surface.DrawTexturedRectRotated(scrw/2, scrh/2, scrh, scrw, -90)
 end)
 
+
+item_halo_color = Color(134, 240, 240)
+function GM:PreDrawHalos()
+	local client = LocalPlayer()
+	if !client:Alive() or client:IsSpectator() then return end
+	
+	local haloents = {}
+	for k,v in pairs(ents.GetAll()) do
+		if EntIsPickupable(v) and v:GetPos():Distance(client:GetPos()) < 200 then
+			table.ForceInsert(haloents, v)
+		end
+	end
+	halo.Add(haloents, item_halo_color, 3, 3, 1)
+end
+
 print("[Breach2] client/hud/hud_screen_effects.lua loaded!")

@@ -1,9 +1,34 @@
 
 include("shared.lua")
 
+local material_173_1 = CreateMaterial("blinkGlow7", "UnlitGeneric", {
+	["$basetexture"] = "particle/particle_glow_05",
+	["$basetexturetransform"] = "center .5 .5 scale 1 1 rotate 0 translate 0 0",
+	["$additive"] = 1,
+	["$translucent"] = 1,
+	["$vertexcolor"] = 1,
+	["$vertexalpha"] = 1,
+	["$ignorez"] = 0
+})
+
 function SWEP:SingleReload()
 	net.Start("br_scp173_mode")
 	net.SendToServer()
+end
+
+function draw.Circle(x, y, radius, seg, fraction)
+	local cir = {}
+
+	table.insert(cir, { x = x, y = y, u = 0.5, v = 0.5 })
+	for i = 0, seg do
+		local a = math.rad((i / seg) * -fraction)
+		table.insert(cir, { x = x + math.sin(a) * radius, y = y + math.cos(a) * radius, u = math.sin(a) / 2 + 0.5, v = math.cos(a) / 2 + 0.5 })
+	end
+
+	local a = math.rad(0) -- This is needed for non absolute segment counts
+	table.insert(cir, { x = x + math.sin(a) * radius, y = y + math.cos(a) * radius, u = math.sin(a) / 2 + 0.5, v = math.cos(a) / 2 + 0.5 })
+
+	surface.DrawPoly(cir)
 end
 
 function SWEP:DrawHUD()

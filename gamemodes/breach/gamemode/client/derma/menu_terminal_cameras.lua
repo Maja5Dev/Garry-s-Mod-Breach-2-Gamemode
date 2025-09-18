@@ -2,6 +2,30 @@
 BR_CURRENT_CAMERA = nil
 BR_CURRENT_TERMINAL_PANEL = nil
 
+SCP_895_STATUS = 0
+SCP_895_CLICKED = 0
+SCP_895_TIME = 0
+
+function CheckSCP895()
+	for k,v in pairs(MAPCONFIG.CAMERAS) do
+		for k2,v2 in pairs(v.cameras) do
+			if v2.name == BR_CURRENT_CAMERA and v2.is_895 then
+				if SCP_895_STATUS == 0 then
+					SCP_895_STATUS = 1
+					SCP_895_CLICKED = 0
+					SCP_895_TIME = CurTime() + 2
+				end
+				return
+			end
+		end
+	end
+	SCP_895_STATUS = 0
+end
+
+function ResetSCP895()
+	SCP_895_STATUS = 0
+end
+
 info_set_camera = {"CAMERAS", function(button, panel)
 	button.OnClick = function(button, panel)
 		for k,v in pairs(panel:GetChildren()) do
