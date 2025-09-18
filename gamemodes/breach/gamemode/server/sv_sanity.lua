@@ -18,13 +18,14 @@ end)
 
 local function HandleSanity()
 	if SafeBoolConVar("br2_debug_dev_mode") then return end
+
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and v:IsSpectator() == false and v.br_usesSanity then
+		if v:Alive() and !v:IsSpectator() and v.br_usesSanity then
 			v.nextSanityCheck = v.nextSanityCheck or 0
 
 			if v.nextSanityCheck < CurTime() and game_state == GAMESTATE_ROUND then
 				v.nextSanityCheck = CurTime() + SafeIntConVar("br2_sanity_speed")
-				--print(v:Nick() .. "'s Sanity: " .. v.br_sanity .. "")
+				
 				local zone = v:GetZone()
 				local sanity_amount = 0
 
@@ -55,13 +56,8 @@ local function HandleSanity()
 				end
 				*/
 
-				if v:Health() < 25 then
+				if v:Health() < 30 then
 					sanity_amount = sanity_amount - 1	
-				end
-
-				local afk_time = v:AfkTime()
-				if afk_time > 45 then
-					sanity_amount = sanity_amount - 2
 				end
 				
 				v:AddSanity(sanity_amount)
@@ -84,25 +80,6 @@ local function HandleSanity()
 				if v.nextHorrorBlood < CurTime() then
 					v.nextHorrorBlood = CurTime() + math.Rand(2,4)
 					v:SendLua('HorrorCL_Blood()')
-				end
-
-				v.nextHorrorDamage = v.nextHorrorDamage or 0
-				if v.nextHorrorDamage < CurTime() then
-					if v:AfkTime() > 60 then
-						v.nextHorrorDamage = CurTime() + 2
-					else
-						v.nextHorrorDamage = CurTime() + 5
-					end
-
-					if v:Health() < 2 then
-						local fdmginfo = DamageInfo()
-						fdmginfo:SetDamage(20)
-						fdmginfo:SetAttacker(v)
-						fdmginfo:SetDamageType(DMG_PARALYZE)
-						v:TakeDamageInfo(fdmginfo)
-					else
-						v:SetHealth(v:Health() - 1)
-					end
 				end
 			end
 

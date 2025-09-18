@@ -25,10 +25,32 @@ function BR2NetworkingTick()
 	end
 
 	for k,v in pairs(player.GetAll()) do
-		if IsValid(v) and v:Alive() and v:IsSpectator() == false then
+		if IsValid(v) and v:Alive() and !v:IsSpectator() then
+			-- Reviving
 			if istable(v.startedReviving) and (CurTime() - v.startedReviving[2]) > 9 then
 				v.startedReviving = nil
 				v:SetNWBool("br_is_reviving", false)
+			end
+
+			-- AFK damage
+			local afk_time = v:AfkTime()
+			v.nextAFKDamage = v.nextAFKDamage or 0
+			if v.nextAFKDamage < CurTime() then
+				if v:AfkTime() > 60 then
+					v.nextAFKDamage = CurTime() + 2
+				else
+					v.nextAFKDamage = CurTime() + 5
+				end
+
+				if v:Health() < 2 then
+					local fdmginfo = DamageInfo()
+					fdmginfo:SetDamage(20)
+					fdmginfo:SetAttacker(v)
+					fdmginfo:SetDamageType(DMG_PARALYZE)
+					v:TakeDamageInfo(fdmginfo)
+				else
+					v:SetHealth(v:Health() - 1)
+				end
 			end
 
 			-- Hunger and thirst system
