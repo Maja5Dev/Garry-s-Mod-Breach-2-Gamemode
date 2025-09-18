@@ -22,6 +22,28 @@ BR2_SANITY_MUSIC = {
 	{ sound = "breach2/music/random_music_medium_11.mp3", length = 251, volume = 0.6 },
 }
 
+local horror_sound_path = "breach2/horror/"
+BR2_SCP173_FIRST_SEEN_SOUNDS = {
+	{horror_sound_path.."Horror5.ogg", 3.9},
+	{horror_sound_path.."Horror6.ogg", 5.21},
+	{horror_sound_path.."Horror8.ogg", 6.4},
+}
+
+BR2_SCP173_FAR_SEEN_SOUNDS = {
+	{horror_sound_path.."Horror0.ogg", 7.67},
+	{horror_sound_path.."Horror3.ogg", 7.06},
+	{horror_sound_path.."Horror4.ogg", 7.1},
+	{horror_sound_path.."Horror10.ogg", 6},
+	{horror_sound_path.."Horror5.ogg", 3.9},
+}
+
+BR2_CLOSE_SEEN_SOUNDS = {
+	{horror_sound_path.."Horror1.ogg", 7.04},
+	{horror_sound_path.."Horror2.ogg", 8.56},
+	{horror_sound_path.."Horror9.ogg", 3.5},
+	{horror_sound_path.."Horror14.ogg", 6.4},
+}
+
 -- How far away the ambient sounds play from
 BR2_AMBIENT_POS_MIN = 300
 BR2_AMBIENT_POS_MAX = 800

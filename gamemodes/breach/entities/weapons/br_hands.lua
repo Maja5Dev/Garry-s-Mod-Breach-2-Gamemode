@@ -659,25 +659,11 @@ function SWEP:CreateFrame()
 			table.ForceInsert(pickupable_items, entf)
 		end
 	end
-	
-	local item_names_from_models = {
-		{"models/foodnhouseholditems/pizzab.mdl", "Pizza"},
-		{"models/foodnhouseholditems/sandwich.mdl", "Sandwich"},
-		{"models/foodnhouseholditems/cookies.mdl", "Cookies"},
-		{"models/foodnhouseholditems/mcdburgerbox.mdl", "Burger"},
-		{"models/foodnhouseholditems/icecream1.mdl", "Ice Cream"},
-		{"models/foodnhouseholditems/mcdfrenchfries.mdl", "French Fries"},
-		{"models/foodnhouseholditems/chipslays.mdl", "Chips"},
-		{"models/foodnhouseholditems/wine_white3.mdl", "Wine"},
-		{"models/foodnhouseholditems/juice.mdl", "Orange Juice"},
-		{"models/foodnhouseholditems/newspaper2.mdl", "Document"},
-		{"models/cpthazama/scp/500.mdl", "SCP-500"},
-	}
 
 	for i,v in ipairs(pickupable_items) do
 		local item_name = ""
 
-		for k2,v2 in pairs(item_names_from_models) do
+		for k2,v2 in pairs(BR_ITEM_NAMES_FROM_MODELS) do
 			if v2[1] == v:GetModel() then
 				item_name = v2[2]
 			end

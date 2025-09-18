@@ -1,43 +1,4 @@
 
-local player_scoreboard_groups = {
-	scps = {
-		sort = 6,
-		check = function(pl) return pl.br_team == TEAM_SCP end,
-		color = Color(232, 18, 39, 220),
-		text = "SCPs"
-	},
-	mtf = {
-		sort = 5,
-		check = function(pl) return pl.br_team == TEAM_MTF end,
-		color = Color(0, 0, 60, 220),
-		text = "Mobile Task Force"
-	},
-	security = {
-		sort = 4,
-		check = function(pl) return pl.br_team == TEAM_SECURITY end,
-		color = Color(29, 90, 198, 220),
-		text = "Security"
-	},
-	foundation = {
-		sort = 3,
-		check = function(pl) return pl:IsFromFoundation() and pl.br_team != TEAM_SCP and pl.br_team != TEAM_SECURITY and pl.br_team != TEAM_MTF and pl.br_team != TEAM_CLASSD end,
-		color = Color(120, 120, 120, 220),
-		text = "Foundation Staff"
-	},
-	classds = {
-		sort = 2,
-		check = function(pl) return pl.br_team == TEAM_CLASSD end,
-		color = Color(201, 87, 16, 220),
-		text = "Class Ds"
-	},
-	unknown = {
-		sort = 1,
-		check = function(pl) return !pl:Alive() or pl:IsSpectator() or pl.br_role == "CI Soldier" end,
-		color = Color(50, 50, 50, 220),
-		text = "Unknown"
-	},
-}
-
 function BR_ShowScoreboard()
 	if IsValid(BR_Scoreboard) then
 		BR_Scoreboard:Remove()
@@ -202,7 +163,7 @@ function BR_ShowScoreboard()
 	for k,v in pairs(player.GetAll()) do
 		local found = false
 
-		for group_name, group in pairs(player_scoreboard_groups) do
+		for group_name, group in pairs(BR2_PLAYER_SCOREBOARD_GROUPS) do
 			if group.check(v) then
 				v.scoreboardGroup = group_name
 			v.scoreboardGroupSort = group.sort
@@ -240,7 +201,7 @@ function BR_ShowScoreboard()
 		avatarimage:SetMouseInputEnabled(false)
 
 		local oppositecolor = text_color_white
-		local playercolor = player_scoreboard_groups[v.scoreboardGroup].color
+		local playercolor = BR2_PLAYER_SCOREBOARD_GROUPS[v.scoreboardGroup].color
 
 		if (playercolor.r + playercolor.g + playercolor.b) > 500 then
 			oppositecolor = text_color_black
@@ -291,7 +252,7 @@ function BR_ShowScoreboard()
 
 			-- role
 			draw.Text({
-				text = player_scoreboard_groups[v.scoreboardGroup].text,
+				text = BR2_PLAYER_SCOREBOARD_GROUPS[v.scoreboardGroup].text,
 				pos = {w/2, h/2},
 				xalign = TEXT_ALIGN_CENTER,
 				yalign = TEXT_ALIGN_CENTER,

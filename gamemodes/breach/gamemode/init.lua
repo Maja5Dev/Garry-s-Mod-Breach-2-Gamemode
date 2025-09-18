@@ -11,6 +11,8 @@ AddCSLuaFile("config/sh_enums.lua") -- after shared/sh_enums.lua
 AddCSLuaFile("config/sh_outfits.lua") -- contains just the table of outfits, top priority
 AddCSLuaFile("shared/sh_documents.lua") -- table of documents, top priority
 AddCSLuaFile("shared/sh_player_damage.lua") -- table containing missions, top priority
+AddCSLuaFile("config/cl_items.lua") -- used in br_hands swep, menu_items.lua, only tables
+AddCSLuaFile("config/cl_roles.lua") -- used in menu_notepad.lua, hud_scoreboard.lua, only tables
 
 AddCSLuaFile("shared/sh_cvars.lua") -- used in sv_round.lua, sh_player_damage.lua, sv_player.lua, sv_sanity.lua, sv_networking.lua, sv_temperature.lua, sv_functions_organise.lua
 AddCSLuaFile("config/sh_cvars.lua") -- after shared/sh_cvars.lua

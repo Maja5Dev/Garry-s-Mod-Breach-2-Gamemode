@@ -14,28 +14,6 @@ SWEP.NextMove = 0
 SWEP.NextMoveSound = 1
 SWEP.MoveSoundEvery = 3
 
-local horror_sound_path = "breach2/horror/"
-br_first_seen_173_sounds = {
-	{horror_sound_path.."Horror5.ogg", 3.9},
-	{horror_sound_path.."Horror6.ogg", 5.21},
-	{horror_sound_path.."Horror8.ogg", 6.4},
-}
-
-br_far_seen_sounds = {
-	{horror_sound_path.."Horror0.ogg", 7.67},
-	{horror_sound_path.."Horror3.ogg", 7.06},
-	{horror_sound_path.."Horror4.ogg", 7.1},
-	{horror_sound_path.."Horror10.ogg", 6},
-	{horror_sound_path.."Horror5.ogg", 3.9},
-}
-
-br_close_seen_sounds = {
-	{horror_sound_path.."Horror1.ogg", 7.04},
-	{horror_sound_path.."Horror2.ogg", 8.56},
-	{horror_sound_path.."Horror9.ogg", 3.5},
-	{horror_sound_path.."Horror14.ogg", 6.4},
-}
-
 function SWEP:HorrorSound(ply)
 	ply.nextScare = ply.nextScare or 0
 
@@ -44,16 +22,16 @@ function SWEP:HorrorSound(ply)
 		local dist = self.NextPos:Distance(ply:GetPos())
 
 		if dist < 220 then
-			rnd_sound = table.Random(br_close_seen_sounds)
+			rnd_sound = table.Random(BR2_CLOSE_SEEN_SOUNDS)
 			ply:SendLua('surface.PlaySound("'..rnd_sound[1]..'")')
 
 		elseif dist < FOG_LEVEL then
 			if ply.firstSeen173 then
-				rnd_sound = table.Random(br_far_seen_sounds)
+				rnd_sound = table.Random(BR2_SCP173_FAR_SEEN_SOUNDS)
 				ply:SendLua('surface.PlaySound("'..rnd_sound[1]..'")')
 
 			else -- first time seeing 173
-				rnd_sound = table.Random(br_first_seen_173_sounds)
+				rnd_sound = table.Random(BR2_SCP173_FIRST_SEEN_SOUNDS)
 				ply:SendLua('surface.PlaySound("'..rnd_sound[1]..'")')
 				ply.firstSeen173 = true
 			end

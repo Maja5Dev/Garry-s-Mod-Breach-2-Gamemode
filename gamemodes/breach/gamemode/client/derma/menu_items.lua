@@ -1,104 +1,4 @@
 
-local item_infos = {
-	item_battery_9v = {desc = "Useful 9 Volt Battery"},
-	item_c4 = {desc = "Useful explosive charge"},
-	item_defuser = {desc = "Used to defuse bombs"},
-	item_gasmask = {desc = "Protects you from toxic gases"},
-	item_gasmask2 = {desc = "Protects you from toxic gases"},
-	item_medkit = {desc = "Basic medical equipment"},
-	item_nvg = {desc = "Useful in dark areas"},
-	item_nvg2 = {desc = "Useful in dark areas"},
-	item_pills = {desc = "Sanity-fixing pills"},
-	item_radio = {desc = "Two-way radio"},
-	item_radio2 = {desc = "Two-way radio"},
-	keycard_master = {desc = "Very useful mastercard"},
-	keycard_playing = {desc = "Very useful playing card"},
-	keycard_level1 = {desc = "Clearance level 1"},
-	keycard_level2 = {desc = "Clearance level 2"},
-	keycard_level3 = {desc = "Clearance level 3"},
-	keycard_level4 = {desc = "Clearance level 4"},
-	keycard_level5 = {desc = "Clearance level 5"},
-	keycard_omni = {desc = "Omni-level clearance"},
-	kanade_tfa_beretta = {desc = "Handy handgun"},
-	kanade_tfa_m1911 = {desc = "Powerful handgun"},
-	kanade_tfa_crowbar = {desc = "Useful and deadly tool"},
-	kanade_tfa_pipe = {desc = "Deadly Lead Pipe"},
-	kanade_tfa_stunbaton = {desc = "Powerful electroshock Baton"},
-	kanade_tfa_knife = {desc = "Sharp combat knife"},
-	kanade_tfa_axe = {desc = "Heavy Fire Axe"},
-	kanade_tfa_mp5k = {desc = "Submachine Gun"},
-	kanade_tfa_mk18 = {desc = "Close quarters gun"},
-	kanade_tfa_ump45 = {desc = "Universal Submachine Gun"},
-	kanade_tfa_m4a1 = {desc = "Classic assault rifle"},
-	kanade_tfa_m16a4 = {desc = "Assault Rifle"},
-	kanade_tfa_m249 = {desc = "Light Machine Gun"},
-	kanade_tfa_rpk = {desc = "Light Machine Gun"},
-	kanade_tfa_m590 = {desc = "Deadly shotgun"},
-	kanade_tfa_sterling = {desc = "Weird-looking SMG"},
-	kanade_tfa_rpg = {desc = "Powerful rocket launcher"},
-	kanade_tfa_qbz97 = {desc = "Assault Rifle"},
-	kanade_tfa_mp7 = {desc = "Submachine Gun"},
-	kanade_tfa_m1014 = {desc = "Fast shotgun"},
-	kanade_tfa_m40a1 = {desc = "Precise sniper rifle"},
-	kanade_tfa_glock = {desc = "Fast handgun"},
-	kanade_tfa_g36c = {desc = "Assault Rifle"},
-	kanade_tfa_ak12 = {desc = "Assault Rifle"},
-	flashlight = {name = "Flashlight", desc = "Portable hand-held electric light"},
-	conf_folder = {name = "Confidential Folder", desc = "Folder of Confidential Information"},
-
-	flashlight_cheap = {name = "Regular Flashlight", desc = "Portable hand-held electric light"},
-	flashlight_normal = {name = "Heavy Duty Flashlight", desc = "Portable hand-held electric light"},
-	flashlight_tactical = {name = "Tactical Flashlight", desc = "Portable hand-held electric light"},
-
-	personal_medkit = {name = "Personal Medkit", desc = "Useful medical equipment"},
-	coin = {name = "Coin", desc = "Just a shiny coin"},
-	lockpick = {name = "Lockpick", desc = "Universal lockpick for opening stuff"},
-	crafting_toolbox = {name = "Toolbox", desc = "Toolbox used for crafting things"},
-	antibiotics = {name = "Antibiotics", desc = "Cures bacterial infections"},
-	eyedrops = {name = "Eyedrops", desc = "Saline-containing drops"},
-	ssri_pills = {name = "SSRI Pills", desc = "Pills that help with your mental health"},
-	drink_bottle_water = {name = "Water Bottle", desc = "Bottle of purified water"},
-	drink_soda = {name = "Can of Soda", desc = "Tasty soda!"},
-	device_cameras = {name = "WCR [Cameras]", desc = "Used to check the cameras"},
-	--cup = {name = "Cup", desc = "Just a cup"},
-	cup = {desc = "Just a cup"},
-	document = {desc = "Readable document"},
-	ammo_pistol16 = {name = "Pistol Ammo Box", desc = "16 pistol rounds in a box"},
-	ammo_pistol32 = {name = "Pistol Ammo Box", desc = "32 pistol rounds in a box"},
-	ammo_pistol64 = {name = "Pistol Ammo Box", desc = "64 pistol rounds in a box"},
-	ammo_pistol128 = {name = "Pistol Ammo Box", desc = "128 pistol rounds in a box"},
-	ammo_smg30 = {name = "SMG Ammo Box", desc = "30 smg rounds in a box"},
-	ammo_smg60 = {name = "SMG Ammo Box", desc = "60 smg rounds in a box"},
-	ammo_smg90 = {name = "SMG Ammo Box", desc = "90 smg rounds in a box"},
-	ammo_smg120 = {name = "SMG Ammo Box", desc = "120 smg rounds in a box"},
-	ammo_rifle30 = {name = "Rifle Ammo Box", desc = "30 rifle rounds in a box"},
-	ammo_rifle60 = {name = "Rifle Ammo Box", desc = "60 rifle rounds in a box"},
-	ammo_rifle90 = {name = "Rifle Ammo Box", desc = "90 rifle rounds in a box"},
-	ammo_rifle120 = {name = "Rifle Ammo Box", desc = "120 rifle rounds in a box"},
-	ammo_shotgun10 = {name = "Shotgun Ammo Box", desc = "10 shotgun rounds in a box"},
-	ammo_shotgun20 = {name = "Shotgun Ammo Box", desc = "20 shotgun rounds in a box"},
-	ammo_shotgun30 = {name = "Shotgun Ammo Box", desc = "30 shotgun rounds in a box"},
-
-	ammo_sniper5 = {name = "Sniper Ammo Box", desc = "5 sniper rounds in a box"},
-	ammo_sniper10 = {name = "Sniper Ammo Box", desc = "10 sniper rounds in a box"},
-	ammo_sniper20 = {name = "Sniper Ammo Box", desc = "20 sniper rounds in a box"},
-	ammo_sniper40 = {name = "Sniper Ammo Box", desc = "40 sniper rounds in a box"},
-
-	food_cookies = {name = "Cookies", desc = "Box of tasty cookies"},
-	food_sandwich = {name = "Sandwich", desc = "Ham, lettuce, tomatoes"},
-	food_burger = {name = "Burger", desc = "A big burger in a box"},
-	food_icecream = {name = "Ice Cream", desc = "Box of cold ice cream"},
-	food_frenchfries = {name = "French Fries", desc = "Crispy hot french fries"},
-	food_chips = {name = "Chips", desc = "Just a bag of chips"},
-	food_pizzaslice = {name = "Pizza Slice", desc = "Pizza day!"},
-    food_pizza = {name = "Pizza", desc = "Use to slice it to 8 pieces"},
-    drink_orange_juice = {name = "Orange Juice", desc = "Big orange juice box"},
-    drink_wine = {name = "Wine", desc = "Expensive fancy bottle of wine"},
-	scp_420 = {name = "SCP-420-J", desc = "The Best ████ in the World"},
-	scp_500 = {name = "SCP-500", desc = "Pill that heals all wounds"},
-	syringe = {name = "Syringe", desc = "Quick stamina boost!"},
-}
-
 function BR_OpenInventoryMenu(items)
 	if table.Count(items) < 1 then
 		chat.AddText(Color(255,255,255,255), "Your inventory is empty")
@@ -142,12 +42,12 @@ function BR_OpenInventoryMenu(items)
 		panel:Dock(TOP)
 		panel.text1 = v.name or ""
 		panel.text2 = ""
-		if item_infos[v.class] then
-			if item_infos[v.class].name then
-				panel.text1 = item_infos[v.class].name
+		if BR_ITEM_DESCRIPTIONS[v.class] then
+			if BR_ITEM_DESCRIPTIONS[v.class].name then
+				panel.text1 = BR_ITEM_DESCRIPTIONS[v.class].name
 			end
-			if item_infos[v.class].desc then
-				panel.text2 = item_infos[v.class].desc
+			if BR_ITEM_DESCRIPTIONS[v.class].desc then
+				panel.text2 = BR_ITEM_DESCRIPTIONS[v.class].desc
 			end
 		end
 
@@ -290,9 +190,9 @@ function BR_OpenLootingMenu(items, source)
 		panel.text1 = v.name or ""
 		panel.text2 = ""
 
-		local item_info = item_infos[v.class]
+		local item_info = BR_ITEM_DESCRIPTIONS[v.class]
 		if istable(v.class) then
-			item_info = item_infos[v.class.class]
+			item_info = BR_ITEM_DESCRIPTIONS[v.class.class]
 		end
 
 		if item_info then
@@ -307,7 +207,7 @@ function BR_OpenLootingMenu(items, source)
 		for k2,v2 in pairs(BR2_DOCUMENTS) do
 			if v2.class == v.class then
 				panel.text1 = v2.name
-				panel.text2 = item_infos["document"].desc
+				panel.text2 = BR_ITEM_DESCRIPTIONS["document"].desc
 			end
 		end
 

@@ -2,17 +2,6 @@
 local chaos_color = Color(30, 100, 30)
 local scp_color = Color(255, 0, 0)
 
-local scoreboard_role_colors = {}
-scoreboard_role_colors["Janitor"] = Color(130, 62, 230)
-scoreboard_role_colors["Doctor"] = Color(130, 62, 230)
-scoreboard_role_colors["Researcher"] = Color(25, 140, 180)
-scoreboard_role_colors["SD Officer"] = Color(30, 30, 200)
-scoreboard_role_colors["Containment Specialist"] = Color(132, 25, 120)
-scoreboard_role_colors["ISD Agent"] = Color(24, 33, 150)
-scoreboard_role_colors["CI Soldier"] = chaos_color
-scoreboard_role_colors["Class D"] = Color(201, 87, 16)
-scoreboard_role_colors["MTF Operative"] = Color(0, 0, 60)
-
 br2_notepad_own_notes = {}
 
 local function save_own_notes()
@@ -94,8 +83,8 @@ local notepad_pages = {
 								color_to_use = Color(255,0,0,200)
 							end
 
-							if scoreboard_role_colors[v.br_role] then
-								color_to_use = scoreboard_role_colors[v.br_role]
+							if BR2_SCOREBOARD_ROLE_COLORS[v.br_role] then
+								color_to_use = BR2_SCOREBOARD_ROLE_COLORS[v.br_role]
 							end
 
 							tab[tab_name] = {clr = color_to_use, list = {}}
@@ -162,8 +151,8 @@ local notepad_pages = {
 					elseif v.br_ci_agent == true then
 						player_panel.role_color = chaos_color
 
-					elseif scoreboard_role_colors[v.br_role] then
-						player_panel.role_color = scoreboard_role_colors[v.br_role]
+					elseif BR2_SCOREBOARD_ROLE_COLORS[v.br_role] then
+						player_panel.role_color = BR2_SCOREBOARD_ROLE_COLORS[v.br_role]
 					end
 
 					player_panel.role_color = Color(player_panel.role_color.r, player_panel.role_color.g, player_panel.role_color.b, 220)
