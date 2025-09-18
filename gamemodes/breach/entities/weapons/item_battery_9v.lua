@@ -21,13 +21,15 @@ SWEP.WorldModelAngleOffset = Angle(0, 2, -90)
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
 	self.Owner:DrawViewModel(false)
+
 	if CLIENT and IsFirstTimePredicted() then
-		surface.PlaySound("breach2/pickitem2.ogg")
+		surface.PlaySound("breach2/items/pickitem2.ogg")
 	end
 end
 
 function SWEP:DrawWorldModel()
 	if LocalPlayer() != self.Owner and (LocalPlayer():GetObserverMode() == OBS_MODE_IN_EYE) then return end
+	
 	if !IsValid(self.Owner) then
 		self:DrawModel()
 	else
@@ -62,6 +64,7 @@ function SWEP:PrimaryAttack()
 		mins = Vector(-2, -2, -2), maxs = Vector(2, 2, 2),
 		mask = MASK_SHOT_HULL
 	})
+	
 	if SERVER then
 		if tr_hull.Entity.BatteryLevel then
 			tr_hull.Entity.BatteryLevel = 100
@@ -91,10 +94,5 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 or br_914status == 5 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
-		return "item_battery_9v"
-	end
 	return nil
 end

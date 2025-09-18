@@ -1,6 +1,6 @@
 
 SWEP.Base			= "br2_item_base"
-SWEP.PrintName		= "Medkit"
+SWEP.PrintName		= "Big Medkit"
 SWEP.Spawnable		= true
 SWEP.AdminSpawnable	= true
 SWEP.Category		= "Breach 2"
@@ -9,8 +9,6 @@ SWEP.SlotPos		= 0
 SWEP.clevel			= 0
 
 SWEP.ViewModelFOV 	= 54
---SWEP.ViewModel		= "models/weapons/c_medkit.mdl"
---SWEP.WorldModel		= "models/weapons/w_medkit.mdl"
 SWEP.ViewModel		= "models/cultist/items/medkit/v_medkit.mdl"
 SWEP.WorldModel		= "models/cultist/items/medkit/w_medkit.mdl"
 SWEP.HoldType		= "slam"
@@ -20,11 +18,13 @@ SWEP.Pickupable 	= true
 SWEP.Contents = {
 	bandage = {
 		name = "Bandage",
-		amount = 4,
+		def_amount = 3,
+		amount = 3,
 		cl_effect = function(self)
 			net.Start("br_use_medkit_item")
 				net.WriteString("bandage")
 			net.SendToServer()
+
 			self.Contents.bandage.amount = self.Contents.bandage.amount - 1
 			if self.Contents.bandage.amount < 1 then
 				self.Contents.bandage = nil
@@ -43,11 +43,13 @@ SWEP.Contents = {
 	},
 	bruise_pack = {
 		name = "Bruise Pack",
-		amount = 4,
+		def_amount = 3,
+		amount = 3,
 		cl_effect = function(self)
 			net.Start("br_use_medkit_item")
 				net.WriteString("bruise_pack")
 			net.SendToServer()
+
 			self.Contents.bruise_pack.amount = self.Contents.bruise_pack.amount - 1
 			if self.Contents.bruise_pack.amount < 1 then
 				self.Contents.bruise_pack = nil
@@ -57,17 +59,19 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
-			ply:AddSanity(2)
+			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 30, 0, ply:GetMaxHealth()))
 		end
 	},
 	ointment = {
 		name = "Ointment",
+		def_amount = 2,
 		amount = 2,
 		cl_effect = function(self)
 			net.Start("br_use_medkit_item")
 				net.WriteString("ointment")
 			net.SendToServer()
+
 			self.Contents.ointment.amount = self.Contents.ointment.amount - 1
 			if self.Contents.ointment.amount < 1 then
 				self.Contents.ointment = nil
@@ -77,18 +81,20 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
-			ply:AddSanity(2)
+			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 10, 0, ply:GetMaxHealth()))
 			ply:Extinguish()
 		end
 	},
 	blood_bag = {
 		name = "Blood Bag",
-		amount = 3,
+		def_amount = 2,
+		amount = 2,
 		cl_effect = function(self)
 			net.Start("br_use_medkit_item")
 				net.WriteString("blood_bag")
 			net.SendToServer()
+
 			self.Contents.blood_bag.amount = self.Contents.blood_bag.amount - 1
 			if self.Contents.blood_bag.amount < 1 then
 				self.Contents.blood_bag = nil
@@ -98,7 +104,7 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
-			ply:AddSanity(2)
+			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 50, 0, ply:GetMaxHealth()))
 		end
 	},
@@ -196,7 +202,7 @@ function SWEP:CreateFrame()
 		end
 		panel2.DoClick = function()
 			v.cl_effect(self)
-			surface.PlaySound("breach2/pickitem2.ogg")
+			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
 		last_y = last_y + (50 - 8) + 6
 	end
@@ -224,9 +230,6 @@ end
 
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
-	if CLIENT and IsFirstTimePredicted() then
-		--surface.PlaySound("breach2/pills_deploy_"..math.random(1,3)..".wav")
-	end
 end
 
 SWEP.BoneAttachment = "ValveBiped.Bip01_R_Hand"
@@ -235,6 +238,7 @@ SWEP.WorldModelAngleOffset = Angle(0, 30, -10)
 
 function SWEP:DrawWorldModel()
 	if LocalPlayer() != self.Owner and (LocalPlayer():GetObserverMode() == OBS_MODE_IN_EYE) then return end
+
 	if !IsValid(self.Owner) then
 		self:DrawModel()
 	else
@@ -269,6 +273,7 @@ end
 
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+
 	draw.Text({
 		text = "Primary attack opens the Medkit",
 		pos = { ScrW() / 2, ScrH() - 6},
@@ -280,10 +285,45 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 or br_914status == 5 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
-		return "item_medkit"
+	if br_914status == SCP914_ROUGH then
+		return table.Random({"syringe", "syringe", "ssri_pills"})
+
+	elseif br_914status == SCP914_COARSE then
+		return "personal_medkit"
+
+	elseif br_914status == SCP914_1_1 then
+		-- increase one, decrease other one
+		local non_zero = {}
+
+		for k,v in pairs(self.Contents) do
+			if v.amount > 0 then
+				table.ForceInsert(non_zero, v)
+			end
+		end
+
+		if !table.Empty(non_zero) then
+			local rnd_non_zero_one = table.Random(non_zero)
+			local copytab = table.Copy(self.Contents)
+			table.RemoveByValue(copytab, rnd_non_zero_one)
+
+			local rnd_other_one = table.Random(copytab)
+			
+			rnd_non_zero_one.amount = rnd_non_zero_one.amount - 1
+			rnd_other_one.amount = rnd_other_one.amount + 1
+		end
+
+		return self
+
+	elseif br_914status == SCP914_FINE then
+		for k,v in pairs(self.Contents) do
+			v.amount = v.def_amount
+		end
+
+		return self
+
+	elseif br_914status == SCP914_VERY_FINE then
+		return "scp_500"
 	end
-	return nil
+
+	return self
 end

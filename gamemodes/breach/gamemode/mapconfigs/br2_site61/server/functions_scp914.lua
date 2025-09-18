@@ -48,78 +48,40 @@ end
 function BR2_Get_914_Enter_Entities()
 	local pos1 = Vector(737,-678,-8190)
 	local pos2 = Vector(804,-541,-8080)
+
 	OrderVectors(pos1, pos2)
 	local ents_found = {}
+
 	for k,v in pairs(ents.FindInBox(pos1, pos2)) do
-		if v.GetBetterOne or v:IsPlayer() then
-			table.ForceInsert(ents_found, v)
-		end
+		table.ForceInsert(ents_found, v)
 	end
+
 	return ents_found
 end
 
-function BR2_914_End_Stage()
-	timer.Create("BR2_914_NextStage", 11, 1, function()
-		br2_914_disabled = false
-	end)
+function BR2_Get_914_Enter_Delay()
+	return 4
 end
 
-br2_914_disabled = false
-function BR2_Handle914_Start()
-	if br2_914_disabled == true then
-		return false
-	else
-		br2_914_disabled = true
-		timer.Create("BR2_914_NextStage", 4, 1, function()
-			br_914status = BR2_Get914Status()
+local scp914_teleported_positions = {
+	Vector(754.16162109375, -1099.8955078125, -8159.96875),
+	Vector(780.07446289063, -1098.6678466797, -8159.96875),
+	Vector(781.66186523438, -1009.5772705078, -8159.96875),
+	Vector(754.11010742188, -1009.8746337891, -8159.96875),
+	Vector(753.52972412109, -1050.2017822266, -8159.96875),
+	Vector(777.84912109375, -1051.9821777344, -8159.96875)
+}
 
-			for k,v in pairs(BR2_Get_914_Enter_Entities()) do
-				v:SetPos(Vector(768.773560, -1062.487549, -8190.468750))
+local next_teleported_pos = 1
 
-				if v:IsPlayer() then
-					local rndnum = math.random(1,4)
+function BR2_Get_914_Exit_Position()
+    local pos = scp914_teleported_positions[next_teleported_pos]
 
-					if rndnum == 1 then
-						v:AddSanity(-100)
+    next_teleported_pos = next_teleported_pos + 1
+    if next_teleported_pos > #scp914_teleported_positions then
+        next_teleported_pos = 1
+    end
 
-					elseif rndnum == 2 then
-						v:AddSanity(100)
-
-					elseif rndnum == 3 then
-						v:TakeDamage(50, v, nil)
-
-					elseif rndnum == 4 then
-						v:AddHealth(50)
-					end
-
-				elseif isfunction(v.GetBetterOne) then
-					local better_one = v:GetBetterOne()
-
-					if isstring(better_one) then
-						local ent = ents.Create(better_one)
-						
-						if IsValid(ent) then
-							ent:SetPos(v:GetPos() + Vector(0,0,10))
-
-							ent:SetVelocity(Vector(0,0,0))
-							ent:Spawn()
-							ent:SetNWBool("isDropped", true)
-						end
-
-						if isnumber(ent.BatteryLevel) then
-							ent.BatteryLevel = 100
-						end
-
-						if ent:GetClass() == "item_radio2" and ent.Code == nil then
-							GiveRadioACode(ent)
-						end
-					end
-					v:Remove()
-				end
-			end
-			BR2_914_End_Stage()
-		end)
-		return true
-	end
+    return pos
 end
 

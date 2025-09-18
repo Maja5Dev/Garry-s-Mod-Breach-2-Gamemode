@@ -505,7 +505,6 @@ BREACH_SCENARIOS = {
 					end
 
 					pl.br_special_items = {}
-					pl.sp_medkit_uses = 4
 
 					for item_k,item in pairs(rnd_class.special_items) do
 						table.ForceInsert(pl.br_special_items, {class = item})

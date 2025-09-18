@@ -30,49 +30,59 @@ local function br2_special_item_drop(pl, class, name, force_class, mdl, item)
 	local dropped_ent = ents.Create(force_class)
 
 	if IsValid(dropped_ent) then
-		local tr = util.TraceLine({
-			start = pl:EyePos(),
-			endpos = pl:EyePos() + (pl:EyeAngles():Forward() * 30),
-			filter = pl
-		})
+		if IsValid(pl) then
+			local tr = util.TraceLine({
+				start = pl:EyePos(),
+				endpos = pl:EyePos() + (pl:EyeAngles():Forward() * 30),
+				filter = pl
+			})
 
-		if tr.Hit == false then
-			dropped_ent:SetPos(tr.HitPos)
-		else
-			dropped_ent:SetPos(pl:EyePos())
+			if tr.Hit == false then
+				dropped_ent:SetPos(tr.HitPos)
+			else
+				dropped_ent:SetPos(pl:EyePos())
+			end
+
+			dropped_ent:SetAngles(Angle(-10, pl:EyeAngles().yaw, 0))
 		end
 
 		if mdl then
 			dropped_ent:SetModel(mdl)
 		end
 
-		dropped_ent:SetAngles(Angle(-10, pl:EyeAngles().yaw, 0))
 		dropped_ent:Spawn()
 		dropped_ent.SI_Class = class
 		dropped_ent.PrintName = name
 		ForceSetPrintName(dropped_ent, name)
 		dropped_ent:SetNWBool("isDropped", true)
 		
-		if item and item.attributes then
+		if istable(item) and item.attributes then
 			dropped_ent.Attributes = item.attributes
+
+		elseif isentity(item) and item.Attributes then
+			dropped_ent.Attributes = item.Attributes
 		end
 		
 		local phys = dropped_ent:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
 			phys:SetMass(5)
-			phys:ApplyForceCenter(pl:EyeAngles():Forward() * 1000)
-		end
-
-		for k,v in pairs(pl.br_special_items) do
-			if item and !spi_comp(item, v) then continue end
-			if v.class == class then
-				table.RemoveByValue(pl.br_special_items, v)
-				return true, dropped_ent
+			if IsValid(pl) then
+				phys:ApplyForceCenter(pl:EyeAngles():Forward() * 1000)
 			end
 		end
 
-		-- scp 1162 uses this
+		if IsValid(pl) then
+			for k,v in pairs(pl.br_special_items) do
+				if item and !spi_comp(item, v) then continue end
+				if v.class == class then
+					table.RemoveByValue(pl.br_special_items, v)
+					return true, dropped_ent
+				end
+			end
+		end
+
+		-- scp 1162 and 914 use this
 		--error("created item but didn't find it " .. class .. " " .. name .. " " .. mdl)
 	end
 
@@ -413,43 +423,75 @@ BR2_SPECIAL_ITEMS = {
 	{
 		class = "personal_medkit",
 		name = "Personal Medkit",
+		upgrade = function(ent)
+			if !istable(ent.Attributes) then
+				ent.Attributes = {}
+			end
+			if ent.Attributes["uses"] == nil then
+				ent.Attributes["uses"] = 3
+			end
+
+			if br_914status == SCP914_ROUGH then
+				return table.Random({"ssri_pills", "antibiotics"})
+
+			elseif br_914status == SCP914_COARSE then
+				return "syringe"
+
+			elseif br_914status == SCP914_FINE then
+				if ent.Attributes["uses"] < 3 then
+					ent.Attributes["uses"] = ent.Attributes["uses"] + 1
+					return ent
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if ent.Attributes["uses"] < 3 then
+					ent.Attributes["uses"] = 3
+					return ent
+				else
+					return "item_medkit"
+				end
+			end
+
+			return ent
+		end,
 		func = function(pl, ent)
 			table.ForceInsert(pl.br_special_items, {class = "personal_medkit", attributes = ent.Attributes})
-			pl.sp_medkit_uses = 4
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					--print("tries to use", item, item.attributes)
-					if !istable(item.attributes) then
-						item.attributes = {}
-					end
-					if item.attributes["uses"] == nil then
-						item.attributes["uses"] = 4
-					end
-					pl.br_isBleeding = false
-					pl:SetHealth(pl:GetMaxHealth())
+			if pl:Health() > 80 then
 
-					item.attributes["uses"] = item.attributes["uses"] - 1
-					if item.attributes["uses"] == 0 then
-						table.RemoveByValue(pl.br_special_items, v)
-					end
-
-					local text = " uses"
-					if item.attributes["uses"] == 1 then
-						text = " use"
-					end
-					pl:ChatPrint("You feel much better, the medkit has "..item.attributes["uses"]..text.." left")
-					return true
-				end
 			end
-			return true
+
+			if !istable(item.attributes) then
+				item.attributes = {}
+			end
+
+			if item.attributes["uses"] == nil then
+				item.attributes["uses"] = 3
+			end
+
+			pl.br_isBleeding = false
+			pl:AddHealth(50)
+
+			item.attributes["uses"] = item.attributes["uses"] - 1
+			if item.attributes["uses"] == 0 then
+				return true
+			end
+
+			local text = " uses"
+			if item.attributes["uses"] == 1 then
+				text = " use"
+			end
+
+			pl:ChatPrint("You feel much better, the medkit has "..item.attributes["uses"]..text.." left")
+
+			return false
 		end,
 		onstart = function(pl)
 		end,
 		drop = function(pl, item)
-			local res, item = br2_special_item_drop(pl, "personal_medkit", "Personal Medkit", "prop_physics", "models/items/healthkit.mdl")
+			local res, item = br2_special_item_drop(pl, "personal_medkit", "Personal Medkit", "prop_physics", "models/cultist/items/medkit/w_medkit.mdl", item)
 			return item
 		end
 	},
@@ -528,7 +570,7 @@ BR2_SPECIAL_ITEMS = {
 		onstart = function(pl)
 		end,
 		drop = function(pl, item)
-			local res, ent = br2_special_item_drop(pl, "cup", "Cup", "prop_physics", "models/mishka/models/plastic_cup.mdl")
+			local res, ent = br2_special_item_drop(pl, "cup", "Cup", "prop_physics", "models/mishka/models/plastic_cup.mdl", item)
 			ent.SI_Class = "cup"
 			ent.PrintName = item.name
 			ent.CupType = item.type
@@ -541,6 +583,33 @@ BR2_SPECIAL_ITEMS = {
 	{
 		class = "coin",
 		name = "Coin",
+		upgrade = function(ent)
+			local r = math.random(1,100)
+
+			if br_914status == SCP914_1_1 then
+				if r < 30 then
+					return table.Random({"keycard_playing", "keycard_master"})
+				end
+
+			elseif br_914status == SCP914_FINE then
+				if r < 51 then
+					return table.Random({"keycard_playing", "keycard_master"})
+				else
+					return "keycard_level1"
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if r == 1 then
+					return "keycard_omni"
+				elseif r < 70 then
+					return table.Random({"keycard_playing", "keycard_master"})
+				else
+					return "keycard_level1"
+				end
+			end
+
+			return ent
+		end,
 		func = function(pl)
 			table.ForceInsert(pl.br_special_items, {class = "coin"})
 			return true
@@ -568,37 +637,34 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					if pl:IsBackPackFull() then
-						pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-						return
-					end
-
-					--print("tries to use", item, item.attributes)
-					if !istable(item.attributes) then
-						item.attributes = {}
-					end
-					if item.attributes["uses"] == nil then
-						item.attributes["uses"] = 2
-					end
-					local rand_item = table.Random(BR2_TOOLBOX_ITEMS)
-					rand_item.func(pl)
-
-					item.attributes["uses"] = item.attributes["uses"] - 1
-					if item.attributes["uses"] == 0 then
-						table.RemoveByValue(pl.br_special_items, v)
-					end
-
-					local text = " uses"
-					if item.attributes["uses"] == 1 then
-						text = " use"
-					end
-					pl:ChatPrint(rand_item.info..", the toolbox has "..item.attributes["uses"]..text.." left")
-					return true
-				end
+			if pl:IsBackPackFull() then
+				pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+				return
 			end
-			return true
+
+			if !istable(item.attributes) then
+				item.attributes = {}
+			end
+
+			if item.attributes["uses"] == nil then
+				item.attributes["uses"] = 2
+			end
+
+			local rand_item = table.Random(BR2_TOOLBOX_ITEMS)
+			rand_item.func(pl)
+
+			item.attributes["uses"] = item.attributes["uses"] - 1
+			if item.attributes["uses"] == 0 then
+				return true
+			end
+
+			local text = " uses"
+			if item.attributes["uses"] == 1 then
+				text = " use"
+			end
+
+			pl:ChatPrint(rand_item.info..", the toolbox has "..item.attributes["uses"]..text.." left")
+			return false
 		end,
 		onstart = function(pl)
 			if pl.br_role == "Engineer" then
@@ -690,6 +756,33 @@ BR2_SPECIAL_ITEMS = {
 	{
 		class = "scp_420",
 		name = "SCP-420-J",
+		upgrade = function(ent)
+			local r = math.random(1,100)
+
+			if br_914status == SCP914_ROUGH then
+				return "eyedrops"
+
+			elseif br_914status == SCP914_COARSE then
+				return "antibiotics"
+
+			elseif br_914status == SCP914_1_1 then
+				return "ssri_pills"
+
+			elseif br_914status == SCP914_FINE then
+				if r < 31 then
+					return table.Random({"ssri_pills", "syringe"})
+				else
+					return "personal_medkit"
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if r < 35 then
+					return "item_medkit"
+				else
+					return "personal_medkit"
+				end
+			end
+		end,
 		func = function(pl)
 			table.ForceInsert(pl.br_special_items, {class = "scp_420"})
 			return true
@@ -708,25 +801,50 @@ BR2_SPECIAL_ITEMS = {
 	{
 		class = "syringe",
 		name = "Syringe",
+		upgrade = function(ent)
+			local r = math.random(1,100)
+
+			if br_914status == SCP914_ROUGH then
+				return table.Random({"antibiotics", "eyedrops"})
+
+			elseif br_914status == SCP914_COARSE then
+				return table.Random({"ssri_pills", "antibiotics"})
+
+			elseif br_914status == SCP914_1_1 then
+				if r < 26 then
+					return "ssri_pills"
+				end
+
+			elseif br_914status == SCP914_FINE then
+				if r > 26 then
+					return "personal_medkit"
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if r < 16 then
+					return "item_medkit"
+				else
+					return "personal_medkit"
+				end
+			end
+
+			return ent
+		end,
 		func = function(pl)
 			table.ForceInsert(pl.br_special_items, {class = "syringe"})
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					pl:AddRunStamina(3000)
-					pl:AddJumpStamina(200)
-					pl.CrippledStamina = 0
-					pl.nextNormalRun = CurTime()
-					pl.br_speed_boost = CurTime() + 15
-					pl:SetFOV(110, 1)
-					pl.br_used_syringe = true
-					pl:SendLua('surface.PlaySound("breach2/adrenaline_needle_in.wav")')
-					return true
-				end
-			end
+			table.RemoveByValue(pl.br_special_items, v)
+			pl:AddRunStamina(3000)
+			pl:AddJumpStamina(200)
+			pl.CrippledStamina = 0
+			pl.nextNormalRun = CurTime()
+			pl.br_speed_boost = CurTime() + 15
+			pl:SetFOV(110, 1)
+			pl.br_used_syringe = true
+
+			pl:SendLua('surface.PlaySound("breach2/player/adrenaline_needle_in.wav")')
 			return true
 		end,
 		onstart = function(pl)
@@ -739,6 +857,28 @@ BR2_SPECIAL_ITEMS = {
 	{
 		class = "scp_500",
 		name = "SCP-500",
+		upgrade = function(ent)
+			local r = math.random(1,100)
+
+			if br_914status == SCP914_ROUGH then
+				return table.Random({"ssri_pills", "antibiotics"})
+
+			elseif br_914status == SCP914_COARSE then
+				return "personal_medkit"
+
+			elseif br_914status == SCP914_1_1 or br_914status == SCP914_FINE then
+				if r > 20 then
+					return "item_medkit"
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if r < 31 then
+					return "item_medkit"
+				end
+			end
+
+			return ent
+		end,
 		func = function(pl)
 			table.ForceInsert(pl.br_special_items, {class = "scp_500"})
 			return true
@@ -756,26 +896,61 @@ BR2_SPECIAL_ITEMS = {
 	},
 	{
 		class = "antibiotics",
-		name = "Medicine",
+		name = "Antibiotics",
+		upgrade = function(ent)
+			local r = math.random(1,100)
+
+			if br_914status == SCP914_COARSE or br_914status == SCP914_ROUGH then
+				return "eyedrops"
+
+			elseif br_914status == SCP914_1_1 then
+				if r < 51 then
+					return "eyedrops"
+				else
+					return "ssri_pills"
+				end
+
+			elseif br_914status == SCP914_FINE then
+				if r < 21 then
+					return "syringe"
+				else
+					return "ssri_pills"
+				end
+
+			elseif br_914status == SCP914_VERY_FINE then
+				if r < 10 then
+					return "item_medkit"
+
+				elseif r < 20 then
+					return "personal_medkit"
+
+				elseif r < 40 then
+					return "syringe"
+
+				else
+					return "ssri_pills"
+				end
+			end
+
+			return ent
+		end,
 		func = function(pl)
 			table.ForceInsert(pl.br_special_items, {class = "antibiotics"})
 			return true
 		end,
 		use = function(pl, item)
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
+			pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
 
-					pl:EmitSound("breach2/pills_deploy_"..math.random(1,3)..".wav")
-					pl:SetHealth(math.Clamp(pl:Health() + 20, 1, pl:GetMaxHealth()))
-					pl.br_infection = math.Clamp(pl.br_infection - 50, 0, 100)
-					if pl.br_infection < 3 then
-						pl.br_isInfected = false
-					end
-					pl:ChatPrint("Your took some antibiotics...")
-					return true
-				end
+			pl:AddHealth(5)
+			pl:AddSanity(20)
+
+			pl.br_infection = math.Clamp(pl.br_infection - 65, 0, 100)
+
+			if pl.br_infection < 3 then
+				pl.br_isInfected = false
 			end
+
+			pl:ChatPrint("Your took some antibiotics...")
 			return true
 		end,
 		onstart = function(pl)
@@ -825,8 +1000,8 @@ BR2_SPECIAL_ITEMS = {
 					table.RemoveByValue(pl.br_special_items, v)
 
 					pl.nextHorrorSCP = CurTime() + 45
-					pl:AddSanity(50)
-					pl:EmitSound("breach2/pills_deploy_"..math.random(1,3)..".wav")
+					pl:AddSanity(60)
+					pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
 					pl:ChatPrint("Your took the pills... you feel calmer.")
 					return true
 				end
@@ -878,22 +1053,33 @@ function gvi_d(name)
 	})
 end
 
-function gvi(name)
+function gvi(name) -- for debug purposes
 	table.ForceInsert(Entity(1).br_special_items, {class=name})
-end
-
-function gvi_p(name)
-	table.ForceInsert(Entity(8).br_special_items, {class=name})
 end
 
 BR2_FLASHLIGHT_TYPES = {
 	{
 		name = "Regular Flashlight",
 		class = "flashlight_cheap",
-		class2 = "br2_item_flashlight_cheap",
 		level = 1,
 		sound_on = "breach2/flashlight2.wav",
 		sound_off = "breach2/flashlight2.wav",
+		upgrade = function(ent)
+			if br_914status == SCP914_ROUGH or br_914status == SCP914_COARSE then
+				return "item_battery_9v"
+
+			elseif br_914status == SCP914_1_1 then
+				return "br2_item_flashlight_cheap"
+
+			elseif br_914status == SCP914_FINE then
+				return "br2_item_flashlight_normal"
+
+			elseif br_914status == SCP914_VERY_FINE then
+				return "br2_item_flashlight_tactical"
+			end
+
+			return ent
+		end,
 		on_use = function(pl)
 			pl.flashlight3d:SetKeyValue("enableshadows", 1)
 			pl.flashlight3d:SetKeyValue("farz", 400)
@@ -908,10 +1094,25 @@ BR2_FLASHLIGHT_TYPES = {
 	{
 		name = "Heavy Duty Flashlight",
 		class = "flashlight_normal",
-		class2 = "br2_item_flashlight_normal",
 		level = 2,
 		sound_on = "breach2/flashlight3.wav",
 		sound_off = "breach2/flashlight3.wav",
+		upgrade = function(ent)
+			if br_914status == SCP914_ROUGH then
+				return "item_battery_9v"
+				
+			elseif br_914status == SCP914_1_1 then
+				return "br2_item_flashlight_normal"
+
+			elseif br_914status == SCP914_FINE then
+				return "br2_item_flashlight_tactical"
+
+			elseif br_914status == SCP914_VERY_FINE or br_914status == SCP914_COARSE then
+				return "br2_item_flashlight_cheap"
+			end
+
+			return ent
+		end,
 		on_use = function(pl)
 			pl.flashlight3d:SetKeyValue("enableshadows", 1)
 			pl.flashlight3d:SetKeyValue("farz", 650)
@@ -924,12 +1125,24 @@ BR2_FLASHLIGHT_TYPES = {
 		end
 	},
 	{
-		name = "Floodlight",
+		name = "Tactical Flashlight",
 		class = "flashlight_tactical",
-		class2 = "br2_item_flashlight_tactical",
 		level = 3,
 		sound_on = "breach2/flashlight4_on.wav",
 		sound_off = "breach2/flashlight4_off.wav",
+		upgrade = function(ent)
+			if br_914status == SCP914_ROUGH then
+				return "item_battery_9v"
+
+			elseif br_914status == SCP914_1_1 or br_914status == SCP914_FINE then
+				return "br2_item_flashlight_tactical"
+
+			elseif br_914status == SCP914_VERY_FINE or br_914status == SCP914_COARSE then
+				return "br2_item_flashlight_cheap"
+			end
+			
+			return nil
+		end,
 		on_use = function(pl)
 			pl.flashlight3d:SetKeyValue("enableshadows", 1)
 			pl.flashlight3d:SetKeyValue("farz", 2048)
@@ -947,20 +1160,23 @@ local function add_flashlight(fl_info)
 	local fltab = {
 		class = fl_info.class,
 		name = fl_info.name,
+
 		func = function(pl)
 			if !pl:CanUseFlashlight() then
 				table.ForceInsert(pl.br_special_items, {class = fl_info.class})
 				pl:AllowFlashlight(true)
 				return true
 			end
+
 			pl:PrintMessage(HUD_PRINTTALK, "You already have a flashlight!")
+
 			return false
 		end,
 		use = function(pl)
 			pl:ForceUseFlashlight(fl_info)
 		end,
 		drop = function(pl)
-			local res, item = br2_special_item_drop(pl, fl_info.class, fl_info.name, fl_info.class2)
+			local res, item = br2_special_item_drop(pl, fl_info.class, fl_info.name, "prop_physics", "models/weapons/tfa_nmrih/w_item_maglite.mdl")
 			--if res == true then
 				if IsValid(pl.flashlight3d) then
 					pl.flashlight3d:Remove()
@@ -976,6 +1192,7 @@ local function add_flashlight(fl_info)
 			ForceSetPrintName(ent, ent.PrintName)
 		end
 	}
+	-- Spawn normal flashlight for players with a role that needs a flashlight
 	if fl_info.class == "flashlight_normal" then
 		fltab.onstart = function(pl)
 			if pl:CanUseFlashlight() then
@@ -985,6 +1202,7 @@ local function add_flashlight(fl_info)
 	else
 		fltab.onstart = function(pl) end
 	end
+
 	table.ForceInsert(BR2_SPECIAL_ITEMS, fltab)
 end
 

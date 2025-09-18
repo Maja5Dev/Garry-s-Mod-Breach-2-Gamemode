@@ -17,8 +17,9 @@ SWEP.WorldModelAngleOffset = Angle(20, 180, 180)
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
+
 	if CLIENT and IsFirstTimePredicted() then
-		surface.PlaySound("breach2/pickitem2.ogg")
+		surface.PlaySound("breach2/items/pickitem2.ogg")
 	end
 end
 
@@ -63,13 +64,14 @@ function SWEP:PrimaryAttack()
 		self.InfiniteStamina = !self.InfiniteStamina
 		self.NextChange = CurTime() + 0.5
 		if CLIENT and IsFirstTimePredicted() then
-			surface.PlaySound("breach2/pickitem2.ogg")
+			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
 	end
 end
 
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+	
 	if self.GasMaskOn == false then
 		draw.Text({
 			text = "Primary attack puts on the gasmask",
@@ -83,10 +85,9 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 or br_914status == 5 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
+	if br_914status == SCP914_ROUGH or br_914status == SCP914_COARSE then
 		return "item_gasmask"
 	end
-	return nil
+
+	return self
 end

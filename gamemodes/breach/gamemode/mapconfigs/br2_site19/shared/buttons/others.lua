@@ -133,7 +133,7 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 		SimpleButtonUse(button)
 	end,
 	buttons = {
-		{name = "SCP-1162", pos = Vector(6971,-2634,47), canSee = DefaultItemContainerCanSee, func_cl = function() surface.PlaySound("breach2/pickitem2.ogg") end,  func_sv = function(ply)
+		{name = "SCP-1162", pos = Vector(6971,-2634,47), canSee = DefaultItemContainerCanSee, func_cl = function() surface.PlaySound("breach2/items/pickitem2.ogg") end,  func_sv = function(ply)
 			local weps = {}
 			for k,v in pairs(ply:GetWeapons()) do
 				if v.Pickupable == true or v.droppable == true then

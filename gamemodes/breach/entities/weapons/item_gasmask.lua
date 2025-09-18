@@ -18,7 +18,7 @@ SWEP.WorldModelAngleOffset = Angle(20, 180, 180)
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
 	if CLIENT and IsFirstTimePredicted() then
-		surface.PlaySound("breach2/pickitem2.ogg")
+		surface.PlaySound("breach2/items/pickitem2.ogg")
 	end
 end
 
@@ -61,7 +61,7 @@ function SWEP:PrimaryAttack()
 		self.GasMaskOn = !self.GasMaskOn
 		self.NextChange = CurTime() + 0.5
 		if CLIENT and IsFirstTimePredicted() then
-			surface.PlaySound("breach2/pickitem2.ogg")
+			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
 	end
 end
@@ -81,12 +81,9 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
-		return "item_gasmask"
-	elseif br_914status == 5 then
+	if br_914status == SCP914_VERY_FINE then
 		return "item_gasmask2"
 	end
-	return nil
+	
+	return self
 end

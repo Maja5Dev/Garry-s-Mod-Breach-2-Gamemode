@@ -25,7 +25,7 @@ function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
 	--self.Owner:DrawViewModel(false)
 	if CLIENT and IsFirstTimePredicted() then
-		surface.PlaySound("breach2/pills_deploy_"..math.random(1,3)..".wav")
+		surface.PlaySound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
 	end
 end
 
@@ -59,7 +59,7 @@ end
 
 function SWEP:PrimaryAttack()
 	if SERVER then
-		self.Owner:AddSanity(100)
+		self.Owner:AddSanity(60)
 		self.Owner:StripWeapon(self:GetClass())
 		self.Owner.nextHorrorSCP = CurTime() + 45
 	end
@@ -68,7 +68,7 @@ function SWEP:PrimaryAttack()
 			horror_scp_ent:Remove()
 			surface.PlaySound("breach2/horror/shadowhand_snuff.mp3")
 		end
-		surface.PlaySound("breach2/pills_use.wav")
+		surface.PlaySound("breach2/items/pills_use.wav")
 		RunConsoleCommand("lastinv")
 	end
 end
@@ -86,10 +86,15 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 or br_914status == 5 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
-		return "item_pills"
+	if br_914status == SCP914_1_1 then
+		return "scp_420"
+		
+	elseif br_914status == SCP914_FINE then
+		return "syringe"
+
+	elseif br_914status == SCP914_VERY_FINE then
+		return "personal_medkit"
 	end
-	return nil
+
+	return self
 end

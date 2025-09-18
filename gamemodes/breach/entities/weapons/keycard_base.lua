@@ -21,13 +21,13 @@ SWEP.WorldModelAngleOffset = Angle(-20, 180, 190)
 
 function SWEP:GetBetterOne()
 	local r = math.random(1,100)
-	if br_914status == 3 then
+	if br_914status == SCP914_1_1 then
 		if r < 50 then
 			return "keycard_level2"
 		else
 			return "keycard_level1"
 		end
-	elseif br_914status == 4 then
+	elseif br_914status == SCP914_FINE then
 		if r < 20 then
 			return "keycard_level3"
 		elseif r < 40 then
@@ -45,7 +45,7 @@ function SWEP:Deploy()
 	--self.Owner:DrawViewModel(false)
 	if IsFirstTimePredicted() then
 		if CLIENT then
-			surface.PlaySound("breach2/pickitem2.ogg")
+			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
 		self:PlaySequence("draw")
 	end

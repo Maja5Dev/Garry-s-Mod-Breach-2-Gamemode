@@ -53,7 +53,7 @@ function SWEP:Deploy()
 
 	if IsFirstTimePredicted() then
 		if CLIENT then
-			surface.PlaySound("breach2/pickitem2.ogg")
+			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
 		self.Weapon:SendWeaponAnim(ACT_VM_DEPLOY)
 	end
@@ -64,6 +64,7 @@ end
 function SWEP:DrawWorldModel()
 	if LocalPlayer() != self.Owner and (LocalPlayer():GetObserverMode() == OBS_MODE_IN_EYE) then return end
 	if self.Enabled == true then return end
+	
 	if !IsValid(self.Owner) then
 		self:DrawModel()
 	else
@@ -139,9 +140,9 @@ function SWEP:NV_ON()
 
 	if CLIENT then
 		if self.BatteryLevel < 1 then
-			surface.PlaySound("breach2/nvg_off.wav")
+			surface.PlaySound("breach2/items/nvg_off.wav")
 		else
-			surface.PlaySound("breach2/nvg_on.wav")
+			surface.PlaySound("breach2/items/nvg_on.wav")
 		end
 	end
 end
@@ -153,9 +154,9 @@ function SWEP:NV_OFF()
 
 	if CLIENT then
 		if self.BatteryLevel < 1 then
-			surface.PlaySound("breach2/nvg_off.wav")
+			surface.PlaySound("breach2/items/nvg_off.wav")
 		else
-			surface.PlaySound("breach2/nvg_ins_off.wav")
+			surface.PlaySound("breach2/items/nvg_ins_off.wav")
 		end
 	end
 end
@@ -452,14 +453,12 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 then
-		return nil
-	elseif br_914status == 3 then
-		return "item_nvg"
-	elseif br_914status == 4 then
+	if br_914status == SCP914_FINE then
 		return "item_nvg2"
-	elseif br_914status == 5 then
-		return "item_nvg3"
+
+	elseif br_914status == SCP914_VERY_FINE then
+		return table.Random({"item_nvg3", "item_nvg_military"})
 	end
-	return nil
+
+	return self
 end

@@ -469,10 +469,9 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == 1 or br_914status == 2 or br_914status == 5 then
-		return nil
-	elseif br_914status == 3 or br_914status == 4 then
-		return "item_c4"
+	if br_914status == SCP914_VERY_FINE and weapons.Get("kanade_tfa_rpg") then
+		return "kanade_tfa_rpg"
 	end
-	return nil
+
+	return self
 end
