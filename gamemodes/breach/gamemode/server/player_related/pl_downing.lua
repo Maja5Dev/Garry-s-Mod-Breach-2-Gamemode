@@ -15,6 +15,7 @@ function player_meta:SetDowned(dmginfo)
 	local attacker = dmginfo:GetAttacker()
 	self.lastPlayerInfo = self:CopyPlayerInfo(attacker)
 	CreateRagdollPL(self, attacker, dmginfo:GetDamageType(), self:GetPos():Distance(attacker:GetPos()))
+
 	self:StripPlayer()
 	self:Freeze(true)
 	self:SetWalkSpeed(0)
@@ -22,9 +23,12 @@ function player_meta:SetDowned(dmginfo)
 	self:SetJumpPower(0)
 	self:SetNoDraw(true)
 	self:SetMoveType(MOVETYPE_NONE)
+	self:AddFlags(FL_NOTARGET)
 	self.br_downed = true
+
 	net.Start("br_player_downed")
 	net.Send(self)
+
 	devprint(self:Nick() .. " downed")
 end
 
@@ -50,6 +54,7 @@ function player_meta:UnDownPlayer(healer)
 	self:UnSpectate()
 	self:Spawn()
 	self:SetPos(rag_pos)
+	self:RemoveFlags(FL_NOTARGET)
 
 	local tr_test = util.TraceLine({
 		start = rag_pos,
