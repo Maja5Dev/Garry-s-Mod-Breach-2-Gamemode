@@ -69,8 +69,7 @@ function DrawNormalHud()
 			surface.SetDrawColor(255, 255, 255, 255)
 			surface.SetMaterial(br2_mat_gasmask)
 			surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
-		--elseif v.NVG and v.Enabled and (!isnumber(v.BatteryLevel) or v.BatteryLevel > 0) and v.NVG.draw_nvg then
-		--elseif v.NVG and v.Enabled and (!isnumber(v.BatteryLevel) or v.BatteryLevel > 0) then
+
 		elseif v.NVG and v.Enabled then
 			if v.NVG.draw_nvg then
 				surface.SetDrawColor(255, 255, 255, 255)
@@ -93,7 +92,10 @@ function DrawNormalHud()
 					v.Dlight = nil
 				end
 			end
+		end
 
+		if isfunction(v.GlobalDraw) then
+			v:GlobalDraw()
 		end
 	end
 end
