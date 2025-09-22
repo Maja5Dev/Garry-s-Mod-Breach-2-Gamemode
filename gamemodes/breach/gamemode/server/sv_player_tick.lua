@@ -9,6 +9,7 @@ hook.Add("PlayerPostThink", "BR2_Hook_Update3DFlashlights", BR2_Update3DFlashlig
 
 hook.Add("Tick", "BR2_Misc", function()
 	for k,v in pairs(player.GetAll()) do
+		-- Spectator
 		if v:IsSpectator() then
 			local obv_target = v:GetObserverTarget()
 			
@@ -25,6 +26,7 @@ hook.Add("Tick", "BR2_Misc", function()
 				v:SetNWInt("BR_CharID", v.charid)
 			end
 
+			-- Check escaping
 			if v.canEscape == true and v:IsInEscapeZone() == true then
 				v:SetSpectator()
 
@@ -32,13 +34,6 @@ hook.Add("Tick", "BR2_Misc", function()
 
 				net.Start("cl_playerescaped")
 					net.WriteInt(CurTime() - v.aliveTime, 16)
-				net.Send(v)
-			end
-
-			if v.br_run_stamina then
-				net.Start("br_update_misc")
-					net.WriteInt(v.br_run_stamina, 16)
-					net.WriteInt(v.br_infection, 16)
 				net.Send(v)
 			end
 
@@ -65,12 +60,13 @@ hook.Add("Tick", "BR2_Misc", function()
 			end
 			*/
 
+			-- Closet effects
 			if v.is_hiding_in_closet and v.next_hsd < CurTime() then
 				v:AddSanity(-1)
 				v.next_hsd = CurTime() + 2
 			end
 
-			/* WEAPONS */
+			-- Weapons
 			local outfit = v:GetOutfit()
 			local has_gasmask = false
 			local has_hazmat = false
@@ -82,6 +78,10 @@ hook.Add("Tick", "BR2_Misc", function()
 			for _,wep in pairs(v:GetWeapons()) do
 				if wep.InfiniteStamina == true then
 					v:AddRunStamina(1000)
+				end
+
+				if isfunction(wep.GlobalThink) then
+					wep:GlobalThink()
 				end
 
 				if wep.GasMaskOn == true then
@@ -132,8 +132,6 @@ hook.Add("Tick", "BR2_Misc", function()
 			/* GAS, COUGHING */
 			local should_icough = true
 			if v:IsInGasZone() and !v.disable_coughing then
-				local cough_sound = ""
-
 				if !has_gasmask then
 					if v.NextCough < CurTime() then
 						should_icough = false

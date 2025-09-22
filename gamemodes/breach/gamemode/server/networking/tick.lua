@@ -26,6 +26,14 @@ function BR2NetworkingTick()
 
 	for k,v in pairs(player.GetAll()) do
 		if IsValid(v) and v:Alive() and !v:IsSpectator() then
+			-- Update stamina and infection
+			if v.br_run_stamina then
+				net.Start("br_update_misc")
+					net.WriteInt(v.br_run_stamina, 16)
+					net.WriteInt(v.br_infection, 16)
+				net.Send(v)
+			end
+			
 			-- Reviving
 			if istable(v.startedReviving) and (CurTime() - v.startedReviving[2]) > 9 then
 				v.startedReviving = nil
