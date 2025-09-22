@@ -1,7 +1,7 @@
 
 local function HandleStamina()
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and v:IsSpectator() == false and v.br_usesStamina then
+		if v:Alive() and v:IsSpectator() == false and !v:IsDowned() and v.br_usesStamina then
 			local vel = v:GetVelocity()
 			
 			if v.nextJumpStaminaCheck < CurTime() then
