@@ -159,7 +159,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"kanade_tfa_ak12", 1},
 		{"kanade_tfa_glock", 1},
 		{"kanade_tfa_m1014", 1},
-		{"kanade_tfa_fal", 1},
+		{"kanade_tfa_fnfal", 1},
 	},
 }
 
