@@ -111,7 +111,7 @@ hook.Add("Tick", "BR2_Misc", function()
 					end
 				end
 
-				if isnumber(wep.BatteryLevel) then
+				if isnumber(wep.BatteryLevel) and wep.UsesBattery != false then
 					wep.NextBatteryCheck = wep.NextBatteryCheck or 0
 
 					if wep.Enabled and wep.NextBatteryCheck < CurTime() then
@@ -123,7 +123,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 						net.Start("br_updatebattery")
 							net.WriteInt(wep.BatteryLevel, 8)
-							net.WriteInt(wep.Slot, 8)
+							net.WriteString(wep:GetClass())
 						net.Send(wep.Owner)
 					end
 				end

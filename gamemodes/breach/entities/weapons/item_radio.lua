@@ -170,22 +170,7 @@ end
 
 SWEP.IsLooping = false
 SWEP.NextSoundCheck = 0
-SWEP.NextBatteryCheck = 0
 function SWEP:Think()
-	if SERVER then
-		if self.NextBatteryCheck < CurTime() then
-			if self.Enabled then
-				self.BatteryLevel = self.BatteryLevel - 1
-				if self.BatteryLevel < 1 then self.BatteryLevel = 0 end
-			end
-			self.NextBatteryCheck = CurTime() + self.BatterySpeed
-			net.Start("br_updatebattery")
-				net.WriteInt(self.BatteryLevel, 8)
-				net.WriteInt(self.Slot, 8)
-			net.Send(self.Owner)
-		end
-		return
-	end
 	if self.Enabled then
 		if self.IsLooping == false then
 			if self.NextSoundCheck < CurTime() then

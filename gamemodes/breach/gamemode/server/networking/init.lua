@@ -77,6 +77,7 @@ util.AddNetworkString("br_custom_screen_effects")
 util.AddNetworkString("br_blinking")
 util.AddNetworkString("br_getlightlevel")
 util.AddNetworkString("br_closed_294")
+util.AddNetworkString("br_send_nvg_entities")
 
 include("net_supports.lua") -- top priority
 

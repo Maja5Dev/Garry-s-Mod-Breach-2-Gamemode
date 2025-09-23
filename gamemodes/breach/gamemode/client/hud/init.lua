@@ -76,22 +76,6 @@ function DrawNormalHud()
 				surface.SetMaterial(br2_mat_nvg)
 				surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
 			end
-			
-			if v.DLightLevel > 0.1 then
-				v.Dlight = DynamicLight(LocalPlayer():EntIndex())
-				v.Dlight.pos = LocalPlayer():GetShootPos()
-				v.Dlight.r = 255
-				v.Dlight.g = 255
-				v.Dlight.b = 255
-				v.Dlight.brightness = v.DLightLevel
-				v.Dlight.Decay = 1000
-				v.Dlight.Size = 512
-				v.Dlight.DieTime = CurTime() + 1
-			else
-				if v.Dlight then
-					v.Dlight = nil
-				end
-			end
 		end
 
 		if isfunction(v.GlobalDraw) then

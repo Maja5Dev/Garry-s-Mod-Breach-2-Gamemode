@@ -62,6 +62,8 @@ local function HandleSanity()
 				
 				v:AddSanity(sanity_amount)
 			end
+			
+			-- Insanity effects
 
 			if v:SanityLevel() < 4 then -- Sanity level 3, 2 or 1, not really insane yet
 				v.nextHorrorFootstep = v.nextHorrorFootstep or (CurTime() + math.Rand(1, 7))

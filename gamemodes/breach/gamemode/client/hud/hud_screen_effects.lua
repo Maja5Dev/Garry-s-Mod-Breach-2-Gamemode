@@ -136,7 +136,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 					if !isnumber(v.BatteryLevel) or v.BatteryLevel > 0 then
 						nvg = v.NVG
 						if isfunction(nvg.effect) then
-							nvg.effect(nvg, i)
+							nvg.effect(nvg, i, v)
 						end
 					else
 						brightness = -1

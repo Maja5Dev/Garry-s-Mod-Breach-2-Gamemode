@@ -8,14 +8,13 @@ net.Receive("br_keypad", function(len)
 end)
 
 net.Receive("br_updatebattery", function(len)
-	local int_got = net.ReadInt(8)
-	local int2_got = net.ReadInt(8)
-	local wep = LocalPlayer():GetActiveWeapon()
+	local battery_level = net.ReadInt(8)
+	local wepclass = net.ReadString()
 
-	for k,v in pairs(LocalPlayer():GetWeapons()) do
-		if v.Slot == int2_got then
-			wep.BatteryLevel = int_got
-		end
+	local wep = LocalPlayer():GetWeapon(wepclass)
+
+	if IsValid(wep) then
+		wep.BatteryLevel = battery_level
 	end
 end)
 

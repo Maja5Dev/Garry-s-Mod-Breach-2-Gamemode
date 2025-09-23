@@ -36,7 +36,6 @@ SWEP.NextPos				= nil
 SWEP.NextAng				= nil
 SWEP.MaxTargets				= 3
 
-SWEP.DLightLevel = 0
 SWEP.Enabled = true
 SWEP.DefaultNVG = {
 	contrast = 2,

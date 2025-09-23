@@ -311,6 +311,24 @@ surface.CreateFont("BR2_ItemFont", {
 	outline = false,
 })
 
+surface.CreateFont("BR2_BlueNVG1", {
+	font = "Tahoma",
+	extended = false,
+	size = 26,
+	weight = 7000,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = true,
+})
+
 surface.CreateFont("BR_DOC_CODE_FONT_1", {
 	font = "Courier New",
 	extended = false,
