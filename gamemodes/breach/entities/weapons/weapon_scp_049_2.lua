@@ -53,7 +53,7 @@ SWEP.Primary.Attacks = {
 		["act"] = ACT_VM_SWINGHARD, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
 		["len"] = 50, -- Trace distance
 		["dir"] = Vector(15, 0, 0), -- Trace arc cast
-		["dmg"] = 14, --Damage
+		["dmg"] = 20, --Damage
 		["dmgtype"] = DMG_CRUSH, --DMG_SLASH,DMG_CRUSH, etc.
 		["delay"] = 0.3, --Delay
 		["spr"] = false, --Allow attack while sprinting?
@@ -71,7 +71,7 @@ SWEP.Primary.Attacks = {
 		["act"] = ACT_VM_SWINGHARD, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
 		["len"] = 50, -- Trace distance
 		["dir"] = Vector(-15, 0, 0), -- Trace arc cast
-		["dmg"] = 14, --Damage
+		["dmg"] = 20, --Damage
 		["dmgtype"] = DMG_CRUSH, --DMG_SLASH,DMG_CRUSH, etc.
 		["delay"] = 0.3, --Delay
 		["spr"] = false, --Allow attack while sprinting?
@@ -213,14 +213,23 @@ end
 SWEP.AttackDelay = 0.8
 SWEP.NextAttack = 0
 
+SWEP.NextZombieSound = 0
+
 function SWEP:Think()
 	if SERVER and self.Owner:KeyDown(IN_ATTACK) then
 		if self.PushingMode then
 			self:Push()
 		end
 	end
+
 	if self:GetHoldType() != self.HoldType then
 		self:SetHoldType(self.HoldType)
+	end
+
+	if SERVER and self.NextZombieSound < CurTime() then
+		self.NextZombieSound = CurTime() + 8.89
+		self.Owner:StopSound("breach2/scp/049/0492Breath.ogg")
+		self.Owner:EmitSound("breach2/scp/049/0492Breath.ogg")
 	end
 end
  
@@ -231,3 +240,43 @@ end
 
 function SWEP:SecondaryAttack()
 end
+
+SWEP.Enabled = true
+SWEP.DefaultNVG = {
+	contrast = 1.8,
+	colour = 1,
+	brightness = 0,
+	clr_r = 1.1,
+	clr_g = 0,
+	clr_b = 0,
+	add_r = 0.1,
+	add_g = 0,
+	add_b = 0,
+	vignette_alpha = 230,
+	draw_nvg = false,
+	effect = function(nvg, tab)
+		--         Darken, Multiply, SizeX, SizeY, Passes, ColorMultiply, Red, Green, Blue
+		--DrawBloom(0,      1,        1,     1,     1,      1,            1,   1,     1)
+		DrawSharpen( 1.2, 1.2 )
+
+		tab.contrast = nvg.contrast
+		tab.colour = nvg.colour
+		tab.brightness = nvg.brightness
+		tab.clr_r = nvg.clr_r
+		tab.clr_g = nvg.clr_g
+		tab.clr_b = nvg.clr_b
+		tab.add_r = nvg.add_r
+		tab.add_g = nvg.add_g
+		tab.add_b = nvg.add_b
+		tab.vignette_alpha = nvg.vignette_alpha
+	end,
+	fog = function()
+		render.FogStart(0)
+		render.FogEnd(FOG_LEVEL * 0.7)
+		render.FogColor(0, 1, 0)
+		render.FogMaxDensity(1)
+		render.FogMode(MATERIAL_FOG_LINEAR)
+		return true
+	end
+}
+SWEP.NVG = table.Copy(SWEP.DefaultNVG)
