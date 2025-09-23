@@ -33,6 +33,9 @@ else
 				if v:IsPlayer() then
 					if v.br_role == "SCP-173" then
 						name = "SCP-173"
+						
+					elseif v.br_role == "SCP-049" then
+						name = "SCP-049"
 					else
 						name = "Human"
 					end
