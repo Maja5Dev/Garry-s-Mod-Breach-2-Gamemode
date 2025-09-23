@@ -115,7 +115,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	local lpi = self.lastPlayerInfo
 
 	if lpi then
-		lpi.PlayerTeam = TEAM_SCP
+		lpi.PlayerTeam = TEAM_ALIVE
 		lpi.BreachRole = "SCP-049-2"
 		lpi.PlayerHealth = 200
 		lpi.PlayerMaxHealth = 200
@@ -127,7 +127,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 		lpi.BreachIsBleeding = false
 		lpi.can_get_infected = false
 		lpi.disable_coughing = true
-		lpi:AddFlags(FL_NOTARGET)
+		self:AddFlags(FL_NOTARGET)
 		self:ApplyPlayerInfo(lpi)
 	end
 
@@ -144,6 +144,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	self:SetNoDraw(false)
 	self:UnSpectate()
 	self:Spawn()
+	self.br_team = TEAM_SCP
 
 	local spawn_pos = FindClearSpawnPos(rag_pos, self.Body, self, healer, 80, 10, 120)
 	self:SetPos(spawn_pos)
