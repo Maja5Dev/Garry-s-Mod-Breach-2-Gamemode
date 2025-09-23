@@ -65,6 +65,7 @@ function GM:PlayerUse(ply, ent)
 		end
 	end
 
+	-- Used by 173
 	if ply.usingBlock then
 		ply.usingBlock = false
 		return true

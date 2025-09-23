@@ -70,11 +70,62 @@ function HorrorCL_InsanityAmbient()
 end
 
 BR_INSANITY_ATTACK = 0
+local insanity_attack_duration = 1.0 
+local insanity_target = nil
+local insanity_attack_end = 0
 -- More aggressive insanity attack
 function HorrorCL_InsanityAttack()
 	surface.PlaySound(table.Random(insanity_attack_sounds))
 	BR_INSANITY_ATTACK = CurTime() + 12
+
+    -- pick a random nearby player as target
+    local candidates = {}
+    for _, ply in ipairs(player.GetAll()) do
+        if ply != LocalPlayer() and ply:Alive() and !ply:IsSpectator() and ply:GetPos():Distance(LocalPlayer():GetPos()) < 300 then
+			local tr = util.TraceLine({
+				start = LocalPlayer():GetPos(),
+				endpos = ply:GetPos(),
+				filter = LocalPlayer()
+			})
+
+			if tr.Entity ==  ply then
+            	table.insert(candidates, ply)
+			end
+        end
+    end
+
+    if #candidates > 0 then
+        insanity_target = table.Random(candidates)
+        insanity_attack_end = CurTime() + insanity_attack_duration
+
+        -- start shooting
+        RunConsoleCommand("+attack")
+        timer.Simple(insanity_attack_duration, function()
+            RunConsoleCommand("-attack")
+        end)
+    end
 end
+
+-- Smoothly drag aim toward the target
+hook.Add("CreateMove", "HorrorCL_InsanityAim", function(cmd)
+    if IsValid(insanity_target) and CurTime() < insanity_attack_end then
+        local lp = LocalPlayer()
+        local eyePos = lp:EyePos()
+        local targetPos = insanity_target:EyePos()
+
+        -- where we need to aim
+        local desired = (targetPos - eyePos):Angle()
+
+        -- current view
+        local current = cmd:GetViewAngles()
+
+        -- smooth factor (higher = faster snap)
+        local lerpSpeed = FrameTime() * 5 -- ~0.2s drag
+        local newAngles = LerpAngle(lerpSpeed, current, desired)
+
+        cmd:SetViewAngles(newAngles)
+    end
+end)
 
 next_horror_breath = 0
 function HorrorCL_Breath()

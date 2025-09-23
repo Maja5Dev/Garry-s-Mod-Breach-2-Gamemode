@@ -103,7 +103,7 @@ local function HandleSanity()
 				v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack or (CurTime() + math.Rand(40, 120))
 
 				if v.nextHorrorInsanityAttack < CurTime() then
-					if math.random(1,7) == 4 then
+					if math.random(1,6) == 4 then
 						v.nextHorrorInsanityAttack = CurTime() + math.Rand(40, 200)
 						v.nextHorrorInsanityAmbient = v.nextHorrorInsanityAmbient + 8
 						v:SendLua('HorrorCL_InsanityAttack()')
@@ -111,7 +111,9 @@ local function HandleSanity()
 						v.nextHorrorInsanityAttack = v.nextHorrorInsanityAttack + 2
 					end
 				end
-				
+
+				v.nextInsanityShoot = v.nextInsanityShoot or (CurTime() + math.Rand(30, 100))
+
 				/*
 				v.nextHorrorSCP = v.nextHorrorSCP or (CurTime() + math.random(8,28))
 				if v.nextHorrorSCP < CurTime() then
