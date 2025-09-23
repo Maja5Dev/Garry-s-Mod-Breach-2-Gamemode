@@ -34,15 +34,19 @@ function HandleFootstepsCL()
 				EmitSound("breach2/steps/StepPD"..math.random(1,3)..".mp3", v:GetPos(), v:EntIndex(), CHAN_AUTO, math.Clamp(volume, 0, 1), soundLevel)
 				return
 			end
+
+			local outfit = v:GetOutfit()
 			
 			if tr.MatType == MAT_DIRT or tr.MatType == MAT_GRASS then
 			--if tr.MatType == MAT_GRASS then
 				volume = volume * 0.35
 				sound = "breach2/steps/StepForest"..math.random(1,3)..".mp3"
 			else
-				--if v.UsingArmor != nil and string.find(v.UsingArmor, "mtf", 1, true) then
-				--	sound = "steps/HeavyStep"..math.random(1,3)..".ogg"
-				--else
+				if outfit and outfit.footstep_sounds then
+					local rnd_outfit_footstep = table.Random(outfit.footstep_sounds)
+					sound = rnd_outfit_footstep[1]
+					volume = volume * rnd_outfit_footstep[2]
+				else
 					if tr.MatType == MAT_METAL then
 						if running == true then
 							volume = volume * 0.55
@@ -60,10 +64,10 @@ function HandleFootstepsCL()
 							sound = "breach2/steps/Step"..math.random(1,8)..".mp3"
 						end
 					end
-				--end
+				end
 			end
 			
-			local outfit_volume = v:GetOutfit().footstep_volume
+			local outfit_volume = outfit.footstep_volume
 			volume = volume * outfit_volume
 			EmitSound(sound, v:GetPos(), v:EntIndex(), CHAN_AUTO, math.Clamp(volume, 0, 1), soundLevel)
 		end
