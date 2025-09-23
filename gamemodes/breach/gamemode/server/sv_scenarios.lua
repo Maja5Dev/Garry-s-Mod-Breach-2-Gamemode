@@ -406,7 +406,7 @@ local deathmatch_classes = {
     {
         name = "Rifleman",
         primary = {"kanade_tfa_ak12", "kanade_tfa_m16a4"},
-        secondary = {"kanade_tfa_m1911"},
+        secondary = {"kanade_tfa_colt"},
         items = {"item_radio", "item_nvg_military"},
         special_items = {"personal_medkit", "flashlight"},
         ammo = {{120, "AR2"}, {56, "Pistol"}}
@@ -422,7 +422,7 @@ local deathmatch_classes = {
     {
         name = "Support",
         primary = {"kanade_tfa_m249"},
-        secondary = {"kanade_tfa_m1911"},
+        secondary = {"kanade_tfa_colt"},
         items = {"item_radio", "item_gasmask", "item_c4"},
         special_items = {"personal_medkit", "flashlight", "ammo_shotgun30", "ammo_sniper40", "ammo_rifle60", "ammo_rifle60", "ammo_pistol64", "ammo_pistol64", "ammo_smg60", "ammo_smg60"},
         ammo = {{200, "AR2"}, {56, "Pistol"}}

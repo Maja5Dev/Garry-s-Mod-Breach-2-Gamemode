@@ -33,8 +33,9 @@ BR_ITEM_DESCRIPTIONS = {
 	keycard_level4 = {desc = "Clearance level 4"},
 	keycard_level5 = {desc = "Clearance level 5"},
 	keycard_omni = {desc = "Omni-level clearance"},
+
 	kanade_tfa_beretta = {desc = "Handy handgun"},
-	kanade_tfa_m1911 = {desc = "Powerful handgun"},
+	kanade_tfa_colt = {desc = "Powerful handgun"},
 	kanade_tfa_crowbar = {desc = "Useful and deadly tool"},
 	kanade_tfa_pipe = {desc = "Deadly Lead Pipe"},
 	kanade_tfa_stunbaton = {desc = "Powerful electroshock Baton"},
@@ -57,6 +58,7 @@ BR_ITEM_DESCRIPTIONS = {
 	kanade_tfa_glock = {desc = "Fast handgun"},
 	kanade_tfa_g36c = {desc = "Assault Rifle"},
 	kanade_tfa_ak12 = {desc = "Assault Rifle"},
+	
 	flashlight = {name = "Flashlight", desc = "Portable hand-held electric light"},
 	conf_folder = {name = "Confidential Folder", desc = "Folder of Confidential Information"},
 

@@ -151,7 +151,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["CRATE_BIG"] = {
 		{"kanade_tfa_beretta", 1},
-		{"kanade_tfa_m1911", 1},
+		{"kanade_tfa_colt", 1},
 		{"item_nvg_military", 1},
 		{"item_radio", 1},
 	},

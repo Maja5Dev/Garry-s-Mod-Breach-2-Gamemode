@@ -6,7 +6,6 @@ BR2_SCP_1162_DROPS = {
 
 BR2_WEAPON_DEATH_DESCRIPTIONS = {
     kanade_tfa_beretta = " - Looks like someone killed them using a pistol",
-    kanade_tfa_m1911 = " - Looks like someone killed them using a pistol",
     kanade_tfa_colt = " - Looks like someone killed them using a pistol",
     kanade_tfa_deagle = " - Looks like someone killed them using a pistol",
     kanade_tfa_fnp45 = " - Looks like someone killed them using a pistol",
@@ -69,7 +68,6 @@ BR2_WEAPON_DEATH_DESCRIPTIONS = {
 
 BR2_LETHAL_WEAPONS = {
 	"kanade_tfa_beretta",
-	"kanade_tfa_m1911",
 	"kanade_tfa_mp5k",
 	"kanade_tfa_mk18",
 	"kanade_tfa_ump45",

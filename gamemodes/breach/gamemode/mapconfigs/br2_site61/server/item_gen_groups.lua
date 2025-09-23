@@ -43,7 +43,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		--{"kanade_tfa_axe", 1},
 	},
 	["LCZ_ARMORY_LOOT"] = {
-		{"kanade_tfa_m1911", 1},
+		{"kanade_tfa_colt", 1},
 		{"item_medkit", 1},
 		{"item_gasmask", 1},
 		{"ammo_pistol16", 1},
