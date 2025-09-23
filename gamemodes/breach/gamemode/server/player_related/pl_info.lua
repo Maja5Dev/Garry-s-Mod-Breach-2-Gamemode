@@ -62,6 +62,7 @@ function player_meta:CopyPlayerInfo(attacker)
 	player_info.BreachHands = self.br_hands
 	player_info.BreachCustomSpawn = self.br_customspawn
 	player_info.BreachRole = self.br_role
+	player_info.BreachTeam = self.br_team
 	player_info.BreachCIAgent = self.br_ci_agent
 	player_info.BreachZombie = self.br_zombie
 	player_info.BreachDowned = self.br_downed
@@ -94,6 +95,7 @@ function player_meta:ApplyPlayerInfo(player_info)
 	self.br_hands = player_info.BreachHands
 	self.br_customspawn = player_info.BreachCustomSpawn
 	self.br_role = player_info.BreachRole
+	self.br_team = player_info.BreachTeam
 	self.br_ci_agent = player_info.BreachCIAgent
 	self.br_zombie = player_info.BreachZombie
 	self.charid = player_info.BreachCharID
