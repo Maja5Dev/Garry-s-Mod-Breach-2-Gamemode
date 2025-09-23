@@ -15,7 +15,6 @@ BR2_WEAPON_DEATH_DESCRIPTIONS = {
 
     kanade_tfa_crowbar = " - Looks like someone killed them using a blunt melee weapon",
     kanade_tfa_stunbaton = " - Looks like someone killed them using a baton",
-    kanade_tfa_knife = " - Looks like someone killed them using a sharp melee weapon",
     kanade_tfa_axe = " - Looks like someone killed them using a sharp melee weapon",
     kanade_tfa_pipe = " - Looks like someone killed them using a blunt melee weapon",
 
@@ -38,18 +37,20 @@ BR2_WEAPON_DEATH_DESCRIPTIONS = {
     kanade_tfa_cz805 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_f90mbr = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_famas = " - Looks like someone killed them using an assault rifle",
-    kanade_tfa_fnfal = " - Looks like someone killed them using an assault rifle",
-    kanade_tfa_g3 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_g36 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_gry = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_hkg36c = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_l85a2 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_mk18 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_scar = " - Looks like someone killed them using an assault rifle",
-    kanade_tfa_scarh = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_sg552 = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_sterling = " - Looks like someone killed them using an assault rifle",
     kanade_tfa_vhs = " - Looks like someone killed them using an assault rifle",
+
+    kanade_tfa_g3 = " - Looks like someone killed them using a battle rifle",
+    kanade_tfa_scarh = " - Looks like someone killed them using a battle rifle",
+	kanade_tfa_m14 = " - Looks like someone killed them using a battle rifle",
+    kanade_tfa_fnfal = " - Looks like someone killed them using a battle rifle",
 
     kanade_tfa_dsr1 = " - Looks like someone killed them using a sniper rifle",
     kanade_tfa_m40a1 = " - Looks like someone killed them using a sniper rifle",

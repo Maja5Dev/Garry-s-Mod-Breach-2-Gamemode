@@ -413,7 +413,7 @@ local deathmatch_classes = {
     },
     {
         name = "Assault",
-        primary = {"kanade_tfa_g36c", "kanade_tfa_m4a1"},
+        primary = {"kanade_tfa_g36", "kanade_tfa_m4a1"},
         secondary = {"kanade_tfa_glock"},
         items = {"item_radio", "item_gasmask"},
         special_items = {"personal_medkit", "flashlight", "syringe"},
