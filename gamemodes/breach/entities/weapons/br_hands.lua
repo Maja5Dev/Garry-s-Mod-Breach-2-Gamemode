@@ -1134,7 +1134,7 @@ function SWEP:DrawHUD()
 	local text = "Secondary attack opens action menu, Reload toggles pushing mode"
 	
 	if self:IsSCP049() then
-		text = "Left click to attack, Secondary attack opens action menu, Reload toggles punching mode"
+		text = "Left click to attack, to cure, first kill, then check pulse, and cure"
 	end
 
 	draw.Text({
