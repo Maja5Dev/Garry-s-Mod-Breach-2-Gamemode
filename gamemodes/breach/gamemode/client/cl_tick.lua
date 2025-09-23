@@ -31,6 +31,12 @@ function CLTick()
 		BR2_HANDS_ACTIVE = false
 	end
 
+	for k,v in pairs(LocalPlayer():GetWeapons()) do
+		if isfunction(v.GlobalCLThink) then
+			v:GlobalCLThink()
+		end
+	end
+
 	if SCP_895_STATUS == 1 and CAMERAS_EXIT_BUTTON then
 		local x,y = input.GetCursorPos()
 		local dist_x, dist_y = CAMERAS_EXIT_BUTTON:GetPos()
