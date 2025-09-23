@@ -68,23 +68,20 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 			end
 		end},
 
-		{name = "SCP-1162", pos = Vector(903,882,-8143), canSee = DefaultItemContainerCanSee, func_cl = function() surface.PlaySound("breach2/items/pickitem2.ogg") end,  func_sv = function(ply)
+		{name = "SCP-1162", pos = Vector(903,882,-8143), canSee = DefaultItemContainerCanSee, func_cl = function() surface.PlaySound("breach2/items/pickitem2.ogg") end, func_sv = function(ply)
 			local owned_weps = {}
 			for k,v in pairs(ply:GetWeapons()) do
-				if v.Pickupable == true or v.droppable == true then
+				if v.Pickupable == true or v.droppable == true or table.HasValue(BR2_LETHAL_WEAPONS, v:GetClass()) then
 					table.ForceInsert(owned_weps, v)
 				end
 			end
 
 			if table.Count(owned_weps) == 0 and table.Count(ply.br_special_items) == 0 then
 				ply:TakeDamage(20, ply, ply)
+				ply:BleedEffect()
 			else
-				local rnd_classes = {
-					"keycard_master", "keycard_playing", "item_battery_9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask",
-					"lockpick", "antibiotics", "syringe", "coin", "cup_useless", "ssri_pills", "eyedrops", "conf_folder", "scp_420"
-				}
 
-				local rnd_class = table.Random(rnd_classes)
+				local rnd_class = table.Random(BR2_SCP_1162_DROPS)
 
 				local ent = nil
 				for k,v in pairs(BR2_SPECIAL_ITEMS) do
@@ -102,7 +99,7 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 					end
 				end
 
-				if ent != nil then
+				if IsValid(ent) then
 					ent:SetPos(Vector(893,882,-8144))
 					ent:SetNWBool("isDropped", true)
 					ent:Spawn()
@@ -113,11 +110,9 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 
 					local rnd_wep = table.Random(owned_weps)
 					if IsValid(rnd_wep) then
-						print("stripping weapon", rnd_wep)
 						ply:StripWeapon(rnd_wep:GetClass())
 					else
 						local rnd_item = table.Random(ply.br_special_items)
-						print("removing ... ", rnd_item.class)
 						table.RemoveByValue(ply.br_special_items, rnd_item)
 					end
 				end

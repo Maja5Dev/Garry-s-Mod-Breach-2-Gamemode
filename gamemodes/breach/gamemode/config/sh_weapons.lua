@@ -1,4 +1,9 @@
 ﻿
+BR2_SCP_1162_DROPS = {
+	"keycard_master", "keycard_playing", "item_battery_9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask",
+	"lockpick", "antibiotics", "syringe", "coin", "ssri_pills", "eyedrops", "conf_folder", "scp_420", "flashlight_normal"
+}
+
 BR2_WEAPON_DEATH_DESCRIPTIONS = {
     kanade_tfa_beretta = " - Looks like someone killed them using a pistol",
     kanade_tfa_m1911 = " - Looks like someone killed them using a pistol",
