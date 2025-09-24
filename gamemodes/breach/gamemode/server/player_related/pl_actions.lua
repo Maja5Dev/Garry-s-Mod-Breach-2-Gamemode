@@ -8,7 +8,6 @@ function player_meta:ApplyOutfit(class, pos)
 				self:BR_SetColor(v.player_color)
 			end
 			
-			--print(self:GetModel())
 			if isstring(v.model) then
 				self:SetModel(v.model)
 			else
@@ -19,7 +18,6 @@ function player_meta:ApplyOutfit(class, pos)
 				end
 			end
 
-			--print(self:GetModel())
 			if istable(v.hands) then
 				self.br_hands = table.Copy(v.hands)
 				self:SetupHands()
