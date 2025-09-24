@@ -62,6 +62,7 @@ function HandlePlayerSpeeds()
 				v:AddRunStamina(5)
 			end
 
+			-- do not include in if v.br_usesStamina then
 			v.nextJumpChange = v.nextJumpChange or 0
 			if v.br_jump_stamina then
 				if v.nextJumpChange > CurTime() then
@@ -72,23 +73,29 @@ function HandlePlayerSpeeds()
 					end
 				end
 			end
-			
-			v.nextNormalRun = v.nextNormalRun or 0
-			v.CrippledStamina = v.CrippledStamina or 0
 
-			if v.br_run_stamina and v.speed_walking and v.speed_running and v.br_jump_stamina then
-				if v.nextNormalRun > CurTime() then
-					if v.nextBreath < CurTime() then
-						if v.CrippledStamina + 2 < CurTime() then
-							v:SendLua('surface.PlaySound("breach2/D9341/breath0.ogg")')
-							v:SendLua('RunConsoleCommand("-speed")')
+			if v.br_role == "SCP-049-2" then
+				new_run_speed = new_run_speed * 0.85
+			end
+			
+			if v.br_usesStamina then
+				v.nextNormalRun = v.nextNormalRun or 0
+				v.CrippledStamina = v.CrippledStamina or 0
+
+				if v.br_run_stamina and v.speed_walking and v.speed_running and v.br_jump_stamina then
+					if v.nextNormalRun > CurTime() then
+						if v.nextBreath < CurTime() then
+							if v.CrippledStamina + 2 < CurTime() then
+								v:SendLua('surface.PlaySound("breach2/D9341/breath0.ogg")')
+								v:SendLua('RunConsoleCommand("-speed")')
+							end
+							v.nextBreath = CurTime() + 6
 						end
-						v.nextBreath = CurTime() + 6
+						new_run_speed = new_walk_speed
+						
+					elseif v.br_run_stamina < 50 then
+						v.nextNormalRun = CurTime() + 4
 					end
-					new_run_speed = new_walk_speed
-					
-				elseif v.br_run_stamina < 50 then
-					v.nextNormalRun = CurTime() + 4
 				end
 			end
 
