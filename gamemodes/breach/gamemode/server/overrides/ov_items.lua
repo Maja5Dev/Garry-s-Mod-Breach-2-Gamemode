@@ -27,7 +27,7 @@ function GM:AllowPlayerPickup(ply, ent)
 	-- If an object is too heavy, dont pick it up
     local mass = 0
     local phys = ent:GetPhysicsObject()
-    if phys then
+    if IsValid(phys) then
         mass = phys:GetMass()
     end
 
