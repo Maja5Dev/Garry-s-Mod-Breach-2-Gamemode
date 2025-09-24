@@ -321,8 +321,8 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 					end
 
 					if pl.br_team == TEAM_SCP then
-						--notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_team, isciagent, HEALTH_MISSING, true, pl.charid)
-						v:SendPlayerInfo(pl)
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_team, false, HEALTH_MISSING, true, pl.charid, pl)
+						--v:SendPlayerInfo(pl) -- gets invalidated by UpdateNotepad
 
 					elseif pl:IsFromFoundation() == true then
 						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, sendteam, isciagent, HEALTH_MISSING, false, pl.charid, pl)
@@ -342,7 +342,8 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 			for k2,pl in pairs(players) do
 				if v != pl and pl:IsFromFoundation() then
 					if pl.br_team == TEAM_SCP then
-						v:SendPlayerInfo(pl)
+						--v:SendPlayerInfo(pl) -- gets invalidated by UpdateNotepad
+						notepad_system.AddPlayerInfo(v, pl.br_showname, pl.br_role, pl.br_team, false, HEALTH_MISSING, true, pl.charid, pl)
 
 					else
 						local isciagent = false
