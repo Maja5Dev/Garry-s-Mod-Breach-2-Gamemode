@@ -207,24 +207,28 @@ SWEP.Contents = {
 			--	chat.AddText(Color(255,255,255,255), " - You feel like you are sick")
 			end
 		--HUNGER
-			if br_our_hunger < 25 then
-				chat.AddText(Color(255,0,0,255), " - You are very hungry!")
-			elseif br_our_hunger < 50 then
-				chat.AddText(Color(255,100,0,255), " - You are hungry!")
-			elseif br_our_hunger < 75 then
-				chat.AddText(Color(255,255,255,255), " - You are a bit hungry")
-			else
-				chat.AddText(Color(255,255,255,255), " - You aren't hungry")
+			if br_update_hunger != nil then
+				if br_our_hunger < 25 then
+					chat.AddText(Color(255,0,0,255), " - You are very hungry!")
+				elseif br_our_hunger < 50 then
+					chat.AddText(Color(255,100,0,255), " - You are hungry!")
+				elseif br_our_hunger < 75 then
+					chat.AddText(Color(255,255,255,255), " - You are a bit hungry")
+				else
+					chat.AddText(Color(255,255,255,255), " - You aren't hungry")
+				end
 			end
 		--THIRST
-			if br_our_thirst < 25 then
-				chat.AddText(Color(255,0,0,255), " - You are very thirsty!")
-			elseif br_our_thirst < 50 then
-				chat.AddText(Color(255,100,0,255), " - You are thirsty!")
-			elseif br_our_thirst < 75 then
-				chat.AddText(Color(255,255,255,255), " - You are a bit thirsty")
-			else
-				chat.AddText(Color(255,255,255,255), " - You aren't thirsty")
+			if br_our_thirst != nil then
+				if br_our_thirst < 25 then
+					chat.AddText(Color(255,0,0,255), " - You are very thirsty!")
+				elseif br_our_thirst < 50 then
+					chat.AddText(Color(255,100,0,255), " - You are thirsty!")
+				elseif br_our_thirst < 75 then
+					chat.AddText(Color(255,255,255,255), " - You are a bit thirsty")
+				else
+					chat.AddText(Color(255,255,255,255), " - You aren't thirsty")
+				end
 			end
 		--BLEEDING
 			if br2_is_bleeding == true or (fake_stats and math.random(1,2) == 2) then
