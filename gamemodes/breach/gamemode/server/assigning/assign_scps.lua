@@ -114,6 +114,10 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	local rag_pos = self.Body:GetPos()
 	local lpi = self.lastPlayerInfo
 
+	if not lpi and self.backupLastPlayerInfo then
+		lpi = self.backupLastPlayerInfo
+	end
+
 	if lpi then
 		lpi.PlayerTeam = TEAM_ALIVE
 		lpi.BreachRole = "SCP-049-2"
@@ -134,7 +138,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	net.Start("br_update_own_info")
 		net.WriteString(self.br_showname)
 		net.WriteString(lpi.BreachRole)
-		net.WriteInt(lpi.PlayerTeam, 8)
+		net.WriteInt(TEAM_ALIVE, 8)
 		net.WriteBool(false)
 		net.WriteBool(true)
 	net.Send(self)

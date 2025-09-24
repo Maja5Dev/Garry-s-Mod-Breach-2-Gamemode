@@ -17,6 +17,8 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		ply:DropCurrentWeapon()
 		ply.br_downed = false
 
+		ply.backupLastPlayerInfo = ply:CopyPlayerInfo()
+
 		if ply.isTheOne == true then
 			ply:SendLua('surface.PlaySound("breach2/save1.ogg")')
 			return
