@@ -2,8 +2,8 @@
 function assign_system.Assign_SCP049(ply)
 	ply.br_role = "SCP-049"
 	Pre_Assign(ply)
-	ply:SetHealth(1100)
-	ply:SetMaxHealth(1100)
+	ply:SetHealth(1300)
+	ply:SetMaxHealth(1300)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_049")
 	ply.cantChangeOutfit = true
@@ -17,6 +17,7 @@ function assign_system.Assign_SCP049(ply)
 	ply.br_customspawn = "SPAWNS_SCP_049"
 	ply.Faction = "BR2_FACTION_SCP_049"
 	ply:AddFlags(FL_NOTARGET)
+	ply.br_usesStamina = false
 
 	ply.first_info = "scp_049"
 	ply.mission_set = "scp_049"
