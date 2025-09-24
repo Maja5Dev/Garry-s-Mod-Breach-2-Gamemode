@@ -36,6 +36,9 @@ else
 						
 					elseif v.br_role == "SCP-049" then
 						name = "SCP-049"
+						
+					elseif v.br_role == "SCP-049-2" then
+						name = "SCP-049-2"
 					else
 						name = "Human"
 					end
