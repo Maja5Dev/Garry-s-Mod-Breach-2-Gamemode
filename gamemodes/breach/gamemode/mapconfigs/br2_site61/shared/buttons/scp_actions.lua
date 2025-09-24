@@ -5,10 +5,14 @@ local function break_window(ply, pos, sound, button_pos)
 
     for k,ent in pairs(ents.GetAll()) do
         if ent:GetPos():Distance(pos) < 10 and (ent:GetModel() == "models/novux/sitegard/prop/br_kpp_window.mdl" or ent:GetClass() == "func_breakable") then
-            ent:TakeDamage(5, ply, ply)
+            if ent:Health() >= 1000 then
+                ent:SetHealth(200)
+            end
+
+            ent:TakeDamage(10, ply, ply)
 
             if ent:Health() > 0 then
-                EmitSound(sound, button_pos, 120, 100, 0.8)
+                EmitSound(sound, button_pos, 120, 100, 0.7)
             end
 
             ply.nextSCPBreak = CurTime() + 0.5
