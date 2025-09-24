@@ -75,7 +75,7 @@ round_system.Force_MTF_Spawn = function()
 			notepad_system.AssignNewNotepad(v, false)
 
 			for k_info,info in pairs(BR2_MTF_STARTING_INFORMATION) do
-				notepad_system.AddPlayerInfo(v, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, info.charid, info.ent)
+				notepad_system.AddPlayerInfo(v, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, nil, nil)
 			end
 
 			local evac_code = MTF_GetEvacInfo()

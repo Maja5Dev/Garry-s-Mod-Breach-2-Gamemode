@@ -112,7 +112,7 @@ function br2_mtf_teams_add(ply, num)
 						notepad_system.AssignNewNotepad(pl_mtf, false)
 
 						for k_info, info in pairs(BR2_MTF_STARTING_INFORMATION) do
-							notepad_system.AddPlayerInfo(pl_mtf, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, info.charid, info.ent)
+							notepad_system.AddPlayerInfo(pl_mtf, info.br_showname, info.br_role, info.br_team, info.br_ci_agent, info.health, info.isscp, nil, nil)
 						end
 
 						local login, password = BR2_GenerateTerminalAuth(pl_mtf)
@@ -261,7 +261,7 @@ net.Receive("br_support_spawn", function(len, ply)
 			if v[1] == support_spawn then
 				if v[2] > 0 then
 					v[2] = v[2] - 1
-					print(ply:Nick() .. " support spawned")
+					devprint(ply:Nick() .. " support spawned")
 					ply:SendLua('surface.PlaySound("breach2/save3.ogg")')
 					ply.support_spawning = true
 					ply.br_times_support_respawned = ply.br_times_support_respawned + 1
