@@ -186,12 +186,6 @@ function SWEP:ClearTrace(tr_structure)
 	return new_tr
 end
 
-function SWEP:AttackNearbyPlayers()
-	if IsValid(self.Owner.entity173) then
-		self.Owner.entity173:AttackNearbyPlayers()
-	end
-end
-
 function SWEP:FrontTraceLine()
 	local ent173 = self.Owner:GetNWEntity("entity173")
 

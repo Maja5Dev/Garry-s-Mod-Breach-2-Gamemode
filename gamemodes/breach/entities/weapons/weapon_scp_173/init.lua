@@ -81,7 +81,7 @@ function SWEP:MoveToNextPos(mv)
 					local dist = self.NextPos:Distance(v:GetPos())
 					--self.Owner:PrintMessage(HUD_PRINTTALK, v:Nick() .. tostring(dist))
 
-					if dist < 120 and target == nil then
+					if dist < 110 and target == nil then
 						target = v
 
 					else
