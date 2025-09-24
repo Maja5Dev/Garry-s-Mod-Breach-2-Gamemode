@@ -1,16 +1,10 @@
 
 function isValidPlayerCorpse(ply, ent)
-	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and istable(ent.Info) then
-		if ent:GetPos():Distance(ply:GetPos()) < 80 then
-			if IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10
-				and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1)
-			then
-				return true, true
-			else
-				return true, false
-			end
-		end
+	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and istable(ent.Info) and ent:GetPos():Distance(ply:GetPos()) < 120 then
+		return true, IsValid(ent.Info.Victim) and ent.Info.Victim:Alive() and ent.Info.Victim:IsSpectator() == false and ent.RagdollHealth > 10
+			and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1)
 	end
+
 	return false, false
 end
 
@@ -29,30 +23,13 @@ net.Receive("br_end_reviving", function(len, ply)
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
 
 	if ply.br_role == "SCP-049" then
-		if !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
-			--if isPlayerAlive then
-				--ent.Info.Victim:Kill()
-				--ent.Info.Victim:KillSilent()
-				ent.Info.Victim:UnDownPlayerAsZombie(ply)
-			--end
-			/*
-			net.Start("br_end_reviving")
-				net.WriteBool(false)
-			net.Send(ply)
-			local scp_049_2 = ents.Create("npc_cpt_scientistzombie")
-			if IsValid(scp_049_2) then
-				scp_049_2:SetPos(ent:GetPos())
-				scp_049_2:Spawn()
-				--scp_049_2:SetModel(ent:GetModel())
-				--scp_049_2:Activate()
-				ent:Remove()
-			end
-			*/
+		if isPlayerValid and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
+			ent.Info.Victim:UnDownPlayerAsZombie(ply)
 			end_reviving_pl(ply)
 		end
 
 	elseif isPlayerValid then
-		if !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
+		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
 			if isPlayerAlive and ent.Info.Victim.Body != nil then
 				ent.Info.Victim:UnDownPlayer(ply)
 			end
@@ -81,7 +58,7 @@ net.Receive("br_start_reviving", function(len, ply)
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
 
-	if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent then
+	if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ent.IsStartingCorpse != true then
 		if ent:GetClass() == "prop_ragdoll" and istable(ent.Info) and IsValid(ent.Info.Victim) and ent.Info.Victim:Alive()
 			and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1) and string.find(ent.Info.br_role, "SCP") == nil
 		then
@@ -103,19 +80,21 @@ net.Receive("br_end_checking_pulse", function(len, ply)
 	local ent = ply.startedCheckingPulse[1]
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
 
-	if isPlayerValid then
+	if ent.IsStartingCorpse == true or !isPlayerValid then
+		net.Start("br_end_checking_pulse")
+			net.WriteBool(false) -- if the player is alive
+			net.WriteBool(false) -- if the player corpse is valid
+		net.Send(ply)
+		ply.startedCheckingPulse = nil
+
+	elseif isPlayerValid then
 		if (ent:GetPos():Distance(ply:GetPos()) > 150) or (ply.startedCheckingPulse[2] + 4.1) > CurTime() then
 			net.Start("br_end_checking_pulse")
 				net.WriteBool(isPlayerAlive)
+				net.WriteBool(true)
 			net.Send(ply)
 			ply.startedCheckingPulse = nil
 		end
-
-	elseif ent.IsStartingCorpse == true then
-		net.Start("br_end_checking_pulse")
-			net.WriteBool(false)
-		net.Send(ply)
-		ply.startedCheckingPulse = nil
 	end
 end)
 
@@ -137,9 +116,7 @@ net.Receive("br_check_pulse", function(len, ply)
 	local tr = ply:GetAllEyeTrace()
 	local ent = tr.Entity
 
-	if IsValid(ent) and ent:GetClass() == "prop_ragdoll"
-		and ent.cptBaseRagdoll == nil and ent.drgBaseRagdoll == nil
-	then
+	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" and ent.cptBaseRagdoll == nil and ent.drgBaseRagdoll == nil then
 		local dis = ent:GetPos():Distance(ply:GetPos())
 
 		if dis < 120 then
