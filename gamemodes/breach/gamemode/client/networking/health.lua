@@ -13,8 +13,11 @@ end)
 
 net.Receive("br_end_checking_pulse", function(len)
 	local isAlive = net.ReadBool()
-	--print("checking pulse end ("..tostring(isAlive)..")")
-	if isAlive == true then
+	local isValidPlayerCorpse = net.ReadBool()
+
+	last_body.isValidPlayerCorpse = isValidPlayerCorpse
+	
+	if isAlive == true and isValidPlayerCorpse then
 		last_body.Pulse = CurTime()
 	else
 		last_body.Pulse = true

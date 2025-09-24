@@ -239,15 +239,10 @@ function BR_OpenLootingMenu(items, source)
 		end
 
 		local item_disabled = false
-		if BR2_OURNOTEPAD and BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] then
-			if BR2_OURNOTEPAD.people[1].br_role == "SCP-049" or BR2_OURNOTEPAD.people[1].br_role == "SCP-173" then
-				local swep = weapons.Get(v.class)
-
-				if (swep or v.ammo_info or string.find(v.class, "ammo") or string.find(v.class, "food") or string.find(v.class, "drink"))
-					and !string.find(v.class, "keycard")
-				then
-					item_disabled = true
-				end
+		for k2,v2 in pairs(BR2_ROLES_LOOT_LIMITS) do
+			if v2.role_name == LocalPlayer().br_role then
+				item_disabled = v2.disallow(LocalPlayer(), v)
+				break
 			end
 		end
 

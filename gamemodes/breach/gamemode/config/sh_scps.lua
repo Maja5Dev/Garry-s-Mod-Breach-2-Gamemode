@@ -1,0 +1,78 @@
+﻿
+/*
+035 should be allowed to pick up anything
+049 shouldnt be allowed to pick up ammo, props, guns
+049-2 shouldnt be allowed to pick up anything
+*/
+
+-- Add role names here to disallow them from opening the notepad
+BR2_ROLES_DISALLOWED_NOTEPAD = {
+    "SCP-173",
+    "SCP-049-2",
+}
+
+BR2_ROLES_DONT_RENDER_BUTTONS = {
+    "SCP-173",
+}
+
+-- Add role names here to disallow them completely from picking up special items
+BR2_ROLES_DISALLOWED_PICKUP_SITEMS = {
+    "SCP-173",
+    "SCP-049-2",
+}
+
+-- More fine grained limits for special items
+BR2_ROLES_LOOT_LIMITS = {
+    {
+        role_name = "SCP-049",
+        disallow = function(ply, item)
+            local class = item.class or (IsEntity(item) and (item.SI_Class or item:GetClass()))
+            -- Disallow 049 to loot any swep, ammo, food, drinks
+            -- But allow keycards
+            return (weapons.Get(class) or item.ammo_info or string.find(class, "ammo")
+                or string.find(class, "doc_") or item.DocType
+                or string.find(class, "conf_folder") or string.find(class, "food") or string.find(class, "drink"))
+                and !string.find(class, "keycard")
+        end
+    },
+}
+
+-- Add role names here to disallow them to auto pick up items from the ground like ammo/energy from hl2
+BR2_ROLES_DISALLOWED_PICKUP_ITEMS = {
+    "SCP-049",
+    "SCP-173",
+    "SCP-049-2",
+}
+
+-- Add role names here to disallow them to pick up props
+BR2_ROLES_DISALLOWED_PICKUPS = {
+    "SCP-049",
+    "SCP-173",
+    "SCP-049-2",
+}
+
+BR2_ROLE_WEAPON_LIMITS = {
+    {
+        role_name = "SCP-049",
+        allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") end
+    },
+    {
+        role_name = "SCP-049-2",
+        allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_049_2" end
+    },
+    {
+        role_name = "SCP-173",
+        allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_173" end
+    },
+}
+
+BR_SCP_NPC_CLASSES = {
+	npc_cpt_scp_049 = "SCP-049",
+	npc_cpt_scp_106 = "SCP-106",
+	npc_cpt_scp_096 = "SCP-096",
+	npc_cpt_scp_457 = "SCP-457",
+	npc_cpt_scp_173 = "SCP-173",
+	npc_cpt_scp_575 = "SCP-575"
+}
+
+print("[Breach2] config/sh_npcs.lua loaded!")

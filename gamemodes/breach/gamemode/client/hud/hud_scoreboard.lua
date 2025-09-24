@@ -318,7 +318,7 @@ function BR_ShowScoreboard()
 		})
 	end
 
-	if LocalPlayer().br_role != "SCP-173" then
+	if !table.HasValue(BR2_ROLES_DISALLOWED_NOTEPAD, LocalPlayer().br_role) then
 		surface.SetFont("BR_Scoreboard_Names")
 		local button_size = select(1, surface.GetTextSize("Open Notepad")) * 1.3
 

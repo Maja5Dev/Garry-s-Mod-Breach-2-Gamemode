@@ -84,7 +84,7 @@ end)
 
 
 net.Receive("br_pickup_item", function(len, ply)
-	if len < 700 and ply:Alive() and ply:IsSpectator() == false and ply.br_role != "SCP-049" and ply.br_role != "SCP-173" then
+	if len < 700 and ply:Alive() and ply:IsSpectator() == false and !table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, ply.br_role) then
 		local ent_got = net.ReadEntity()
 
 		local nfilter = ply
@@ -96,9 +96,18 @@ net.Receive("br_pickup_item", function(len, ply)
 
 		for _,ent in pairs(ents.FindInSphere(util.TraceLine({start = ply:EyePos(), endpos = ply:EyePos() + ply:EyeAngles():Forward() * 80, filter = nfilter}).HitPos, 40)) do
 			if ent:GetNWBool("isDropped", false) == true and !IsValid(ent.Owner) then
-				--local tr2 = util.TraceLine({start = ply:EyePos(), endpos = ent:GetPos(), filter = nfilter})
-				--if tr2.Entity == ent and ent_got == ent then
 				if ent_got == ent then
+
+					for k2,v2 in pairs(BR2_ROLES_LOOT_LIMITS) do
+						if v2.role_name == ply.br_role then
+							if v2.disallow(ply, ent) then
+								ply:PrintMessage(HUD_PRINTTALK, "Your cannot pick up this item.")
+								return
+							else
+								break
+							end
+						end
+					end
 
 					if isstring(ent.SI_Class) then
 						for k,v in pairs(BR2_SPECIAL_ITEMS) do
@@ -126,20 +135,6 @@ net.Receive("br_pickup_item", function(len, ply)
 					end
 					
 					ply:PickupWeapon(ent)
-					
-					/*
-					local new_ent = ply:Give(ent:GetClass())
-					if ent.Clip1 and ent:Clip1() > 0 then
-						new_ent:SetClip1(ent:Clip1())
-					end
-					if ent.Code != nil then
-						new_ent.Code = ent.Code
-					end
-					if ent.BatteryLevel != nil then
-						new_ent.BatteryLevel = ent.BatteryLevel
-					end
-					ent:Remove()
-					*/
 				end
 			end
 		end

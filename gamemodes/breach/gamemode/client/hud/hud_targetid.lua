@@ -110,7 +110,7 @@ function DrawTargetID()
 				local revive_text2 = "Reviving..."
 				local can_revive = true
 				
-				if LocalPlayer().br_role == "SCP-049" then
+				if LocalPlayer().br_role == "SCP-049" and ent.isValidPlayerCorpse then
 					revive_text1 = "Press E to cure"
 					revive_text2 = "Curing..."
 					
