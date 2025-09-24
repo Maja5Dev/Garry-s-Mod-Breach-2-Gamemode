@@ -60,17 +60,15 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	end
 
 	-- Cases when there is no damage
-	if SERVER then
-		if attacker:IsPlayer() and attacker:Alive() and attacker:IsSpectator() == false then
-			local same_team = victim.br_team == attacker.br_team
-			if (round_system.current_scenario.friendly_fire_enabled == false and same_team)
-			or (victim.br_team == TEAM_MTF and attacker.br_team == TEAM_MTF)
-			or (victim.br_role == "CI Soldier" and attacker.br_role == "CI Soldier")
-			or (victim.br_role == "SCP-049" and attacker.br_role == "SCP-049-2")
-			or (victim.br_role == "SCP-049-2" and attacker.br_role == "SCP-049")
-			or (game_state == GAMESTATE_PREPARING) then
-				return true
-			end
+	if attacker:IsPlayer() and attacker:Alive() and attacker:IsSpectator() == false then
+		local same_team = victim.br_team == attacker.br_team
+		if (SERVER and round_system.current_scenario.friendly_fire_enabled == false and same_team)
+		or (victim.br_team == TEAM_MTF and attacker.br_team == TEAM_MTF)
+		or (victim.br_role == "CI Soldier" and attacker.br_role == "CI Soldier")
+		or (victim.br_role == "SCP-049" and attacker.br_role == "SCP-049-2")
+		or (victim.br_role == "SCP-049-2" and attacker.br_role == "SCP-049")
+		or (game_state == GAMESTATE_PREPARING) then
+			return true
 		end
 	end
 
