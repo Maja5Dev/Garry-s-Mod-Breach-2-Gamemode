@@ -266,6 +266,10 @@ function SWEP:DrawWorldModel()
 end
 
 function SWEP:PrimaryAttack()
+	if LocalPlayer().br_role == "SCP-049" then
+		return
+	end
+
 	if CLIENT then
 		self:CreateFrame()
 	end

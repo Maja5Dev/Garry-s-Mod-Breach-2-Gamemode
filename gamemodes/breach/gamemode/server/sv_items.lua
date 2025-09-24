@@ -459,8 +459,14 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
-			if pl:Health() > 80 then
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
+				return false
+			end
 
+			if pl:Health() > 80 and pl.br_isBleeding == false then
+				pl:BR2_ShowNotification("I don't need to use this right now.")
+				return false
 			end
 
 			if !istable(item.attributes) then
@@ -506,7 +512,7 @@ BR2_SPECIAL_ITEMS = {
 			net.Start("br_use_document")
 				net.WriteTable(item)
 			net.Send(pl)
-			return true
+			return false
 		end,
 		onstart = function(pl)
 		end,
@@ -531,6 +537,11 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		use = function(pl, item)
 			if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
+
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("This will serve better in my studies than in my veins.")
+				return false
+			end
 
 			for k,v in pairs(BR2_SCP_294_OUTCOMES) do
 				if table.HasValue(v.texts, item.type) then
@@ -835,6 +846,11 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("This will serve better in my studies than in my veins.")
+				return false
+			end
+
 			table.RemoveByValue(pl.br_special_items, v)
 			pl:AddRunStamina(3000)
 			pl:AddJumpStamina(200)
@@ -884,6 +900,11 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("A fleeting remedy that does not address the pestilence.")
+				return false
+			end
+
 			pl:UsedSCP500()
 			return true
 		end,
@@ -939,6 +960,11 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
+				return false
+			end
+
 			pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
 
 			pl:AddHealth(5)
@@ -950,7 +976,7 @@ BR2_SPECIAL_ITEMS = {
 				pl.br_isInfected = false
 			end
 
-			pl:ChatPrint("Your took some antibiotics...")
+			pl:BR2_ShowNotification("I hope this is effective...")
 			return true
 		end,
 		onstart = function(pl)
@@ -990,6 +1016,11 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl, item)
+			if pl.br_role == "SCP-049" then
+				pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
+				return false
+			end
+			
 			if pl:SanityLevel() > 4 then
 				pl:PrintMessage(HUD_PRINTTALK, "Your sanity is fine, you don't need to use them.")
 				return false
