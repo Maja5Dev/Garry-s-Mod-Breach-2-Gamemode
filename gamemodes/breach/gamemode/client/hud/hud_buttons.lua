@@ -27,11 +27,11 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 			local d1 = d / (150^2)
 			local d2 = d / (100^2)
 			pos = button.pos:ToScreen()
-			if d1 < 1 and !IsOffScreen(pos) and button.canSee(button) and !BR_AnyMenusOn() then
+			if d1 < 1.05 and !IsOffScreen(pos) and button.canSee(button) and !BR_AnyMenusOn() then
 				local x = math.abs(pos.x - mx)
 				local y = math.abs(pos.y - my)
 				
-				if x < focus_range and y < focus_range and d2 < 1 then
+				if x < focus_range and y < focus_range and d2 < 1.05 then
 					if focus_stick < CurTime() or focus_button == button then
 						focus_stick = CurTime() + 0.1
 						focus_button = button
@@ -47,31 +47,40 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 							opened_tab = table.Copy(ret)
 						end
 					end
+
+					opened_tab.w = opened_tab.w or 64
+					opened_tab.h = opened_tab.h or 64
+
 					surface.SetDrawColor(255, 255, 255, 200)
 					surface.SetMaterial(opened_tab.mat)
-					surface.DrawTexturedRect(mx-( (opened_tab.w * size_mul) /2),my-( (opened_tab.h * size_mul) /2), opened_tab.w, opened_tab.h)
+					surface.DrawTexturedRect(mx-( (opened_tab.w * size_mul) /2),my-( (opened_tab.h * size_mul) /2), opened_tab.w * size_mul, opened_tab.h * size_mul)
 					focus_button_ready = bgroup
 				else
-					if bgroup.mat == nil then
+					if not bgroup.mat then
 						print("No material found")
 						PrintTable(bgroup)
-						print("")
+						continue
 					end
 
 					local closed_tab = table.Copy(bgroup.mat.closed)
 					if isfunction(bgroup.mat.closed_func) then
-						local ret = bgroup.mat.closed_func(i, button, opened_tab)
+						local ret = bgroup.mat.closed_func(i, button, closed_tab)
 						if istable(ret) then
 							closed_tab = table.Copy(ret)
 						end
 					end
+
+					closed_tab.w = closed_tab.w or 64
+					closed_tab.h = closed_tab.h or 64
+
 					surface.SetDrawColor(255, 255, 255, 75 * (1 - d1))
 					surface.SetMaterial(closed_tab.mat)
-					surface.DrawTexturedRect(pos.x - ( (closed_tab.w * size_mul) / 2), pos.y - ( (closed_tab.h * size_mul) / 2), closed_tab.w, closed_tab.h)
+					surface.DrawTexturedRect(pos.x - ( (closed_tab.w * size_mul) / 2), pos.y - ( (closed_tab.h * size_mul) / 2), closed_tab.w * size_mul, closed_tab.h * size_mul)
 				end
 			end
 		end
 	end
+
 	if focus_stick < CurTime() then
 		focus_button = nil
 	end

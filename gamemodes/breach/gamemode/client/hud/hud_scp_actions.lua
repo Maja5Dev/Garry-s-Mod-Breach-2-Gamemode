@@ -15,7 +15,7 @@ end
 scp_action_focus_button = nil
 scp_action_focus_button_ready = nil
 local focus_range = 400
-local focus_stick = 0
+local focus_stick_scp = 0
 
 function DoSCPAction()
     net.Start("br_scp_action")
@@ -91,8 +91,8 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             local y = math.abs(spos.y - my)
             
             if x < focus_range and y < focus_range and d2 < 1 then
-                if focus_stick < CurTime() or scp_action_focus_button == button then
-                    focus_stick = CurTime() + 0.1
+                if focus_stick_scp < CurTime() or scp_action_focus_button == button then
+                    focus_stick_scp = CurTime() + 0.1
                     scp_action_focus_button = button
                 end
             end
@@ -119,7 +119,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
         end
     end
 
-	if focus_stick < CurTime() then
+	if focus_stick_scp < CurTime() then
 		scp_action_focus_button = nil
 	end
 end)

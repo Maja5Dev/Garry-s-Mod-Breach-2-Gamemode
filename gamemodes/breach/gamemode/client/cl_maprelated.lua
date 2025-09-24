@@ -1,19 +1,30 @@
 
 function DefaultItemContainerCanSee(cont)
-	return (util.TraceLine({start = cont.pos, endpos = cont.pos + (EyePos() - cont.pos):Angle():Forward() * 150}).Entity == LocalPlayer())
+	return util.TraceLine({
+		start = EyePos(),
+		endpos = cont.pos,
+		filter = LocalPlayer()
+	}).Fraction == 1
 end
 
-function DefaultTerminalCanSee(terminal)
+function DefaultTerminalCanSee(terminal) -- TODO
 	return (util.TraceLine({start = terminal.pos, endpos = terminal.pos + (EyePos() - terminal.pos):Angle():Forward() * 150}).Entity == LocalPlayer())
 end
 
 function DefaultOutfitterCanSee(outfitter)
-	--if LocalPlayer():GetOutfit().can_change_outfits == false then return false end
-	return (util.TraceLine({start = outfitter.pos, endpos = outfitter.pos + (EyePos() - outfitter.pos):Angle():Forward() * 150}).Entity == LocalPlayer())
+	return util.TraceLine({
+		start = EyePos(),
+		endpos = outfitter.pos,
+		filter = LocalPlayer()
+	}).Fraction == 1
 end
 
 function CanSeeFrom(pos)
-	return (util.TraceLine({start = pos, endpos = pos + (EyePos() - pos):Angle():Forward() * 150}).Entity == LocalPlayer())
+	return util.TraceLine({
+		start = EyePos(),
+		endpos = pos,
+		filter = LocalPlayer()
+	}).Fraction == 1
 end
 
 function TryToOpenContainer(cont)
