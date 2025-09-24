@@ -11,18 +11,18 @@ local function HandleAfks()
 			if v.nextAFKDamage < CurTime() then
 				if v:AfkTime() > 60 then
 					v.nextAFKDamage = CurTime() + 2
+
+					if v:Health() < 2 then
+						local fdmginfo = DamageInfo()
+						fdmginfo:SetDamage(20)
+						fdmginfo:SetAttacker(v)
+						fdmginfo:SetDamageType(DMG_PARALYZE)
+						v:TakeDamageInfo(fdmginfo)
+					else
+						v:SetHealth(v:Health() - 1)
+					end
 				else
 					v.nextAFKDamage = CurTime() + 5
-				end
-
-				if v:Health() < 2 then
-					local fdmginfo = DamageInfo()
-					fdmginfo:SetDamage(20)
-					fdmginfo:SetAttacker(v)
-					fdmginfo:SetDamageType(DMG_PARALYZE)
-					v:TakeDamageInfo(fdmginfo)
-				else
-					v:SetHealth(v:Health() - 1)
 				end
 			end
 		else
