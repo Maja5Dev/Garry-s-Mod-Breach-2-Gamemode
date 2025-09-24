@@ -71,8 +71,8 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(1691,2824,-7134), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- NEAR_EZ_CHECKPOINT-1
 		{pos = Vector(1258,538,-7124), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- NEAR_CHECKPOINT-CRATE
 		{pos = Vector(368,643,-7141), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-BOX
-		{pos = Vector(331,638,-7156), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-CRATE1
-		{pos = Vector(297,647,-7156), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-CRATE2
+		{pos = Vector(290,700,-7101), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-CRATE1
+		{pos = Vector(289,756,-7123), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_035"}, -- SCP_035-CRATE2
 		{pos = Vector(9,4494,-7269), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- UNDER_GAS-BOX
 		{pos = Vector(184,5043,-7134), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- NEAR_GAS-1
 		{pos = Vector(-1496,3648,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- GREEN_ROOM-1
