@@ -57,7 +57,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 						pl:SendLua('surface.PlaySound("breach2/save1.ogg")')
 					end
 					pl.LastBody = ent.Info.Victim.Body
-					pl.Body = nil
+					--pl.Body = nil
 					for k,v in pairs(player.GetAll()) do
 						if istable(v.startedReviving) and v.startedReviving[1] == ent then
 							v.startedReviving = nil

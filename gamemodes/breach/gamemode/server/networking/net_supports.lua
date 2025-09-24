@@ -214,7 +214,7 @@ net.Receive("br_mtf_teams_update", function(len, ply)
 	--end
 end)
 
-local function default_support_spawn_human(ply)
+function default_support_spawn_human(ply)
 	ply:SetHealth(20)
 
 	ply.br_times_support_respawned = ply.br_times_support_respawned + 1

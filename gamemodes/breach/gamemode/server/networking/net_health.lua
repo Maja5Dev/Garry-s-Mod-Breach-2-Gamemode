@@ -23,7 +23,9 @@ net.Receive("br_end_reviving", function(len, ply)
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
 
 	if ply.br_role == "SCP-049" then
-		if isPlayerValid and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
+		if isPlayerValid
+			and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime())
+		then
 			ent.Info.Victim:UnDownPlayerAsZombie(ply)
 			end_reviving_pl(ply)
 		end

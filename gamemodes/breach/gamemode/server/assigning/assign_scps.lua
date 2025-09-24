@@ -107,6 +107,10 @@ end
 
 local player_meta = FindMetaTable("Player")
 function player_meta:UnDownPlayerAsZombie(healer)
+	if self.Body == nil then
+		error("Body in UnDownPlayerAsZombie is nil " .. self.br_team .. " " .. self.br_role)
+	end
+
 	self.DefaultWeapons = {"weapon_scp_049_2"}
 	self.br_special_items = table.Copy(self.Body.Info.Loot)
 	self.Body.Info.Loot = {}
