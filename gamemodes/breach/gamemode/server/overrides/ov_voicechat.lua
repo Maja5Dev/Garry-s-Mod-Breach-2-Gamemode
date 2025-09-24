@@ -3,6 +3,9 @@ function GM:PlayerCanHearPlayersVoice(listener, talker)
 	if game_state == GAMESTATE_POSTROUND then return true end
 	if talker.br_downed then return false end
 
+	local wep = talker:GetActiveWeapon()
+	if wep and wep.FreeRoamMode then return false end
+
 	local dis = listener:GetPos():Distance(talker:GetPos())
 	if listener:IsSpectator() == true or listener:Alive() == false then
 		if talker:IsSpectator() == true or talker:Alive() == false then
@@ -51,6 +54,9 @@ function GM:PlayerCanSeePlayersChat(text, teamOnly, listener, talker)
 	if !IsValid(talker) or !IsValid(listener) then return false end
 	if talker == listener then return true end
 	if talker.br_downed then return false end
+
+	local wep = talker:GetActiveWeapon()
+	if wep and wep.FreeRoamMode then return false end
 
 	local dis = listener:GetPos():Distance(talker:GetPos())
 	if listener:IsSpectator() == true or listener:Alive() == false then
