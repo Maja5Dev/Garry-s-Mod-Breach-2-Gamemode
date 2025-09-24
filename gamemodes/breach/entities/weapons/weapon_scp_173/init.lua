@@ -144,8 +144,27 @@ function SWEP:HandleMovementModeToggle()
 		self.Owner:AddFlags(FL_DONTTOUCH)
 		self.FreeRoamMode = true
 	else
-		if !self:CanWeMoveTo(self.Owner:GetPos()) then
-			--self.Owner:PrintMessage(HUD_PRINTTALK, "Cannot move to this position")
+		local tr = util.TraceLine({
+			start = self.Owner:GetPos(),
+			endpos = self.Owner:GetPos() - Vector(0, 0, 5),
+			mask = MASK_SOLID_BRUSHONLY -- Only hit world geometry / brushes
+		})
+
+		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
+			self.Owner:PrintMessage(HUD_PRINTTALK, "Cannot move to that position")
+			
+			self.FreeRoamMode = false
+
+			self.Owner:SetWalkSpeed(1)
+			self.Owner:SetRunSpeed(1)
+			self.Owner:RemoveFlags(FL_DONTTOUCH)
+
+			self.Owner:SetPos(self.Owner.entity173:GetPos())
+
+			net.Start("br_scp173_mode")
+				net.WriteBool(self.FreeRoamMode)
+			net.Send(self.Owner)
+			
 			return
 		end
 
