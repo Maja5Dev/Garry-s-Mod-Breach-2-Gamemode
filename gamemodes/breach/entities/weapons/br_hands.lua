@@ -857,7 +857,7 @@ function SWEP:Push()
 				self.NextPush = CurTime() + 0.01
 			end
 
-			ent:EmitSound("sound/breach2/player/shove_0"..math.random(1,5)..".wav")
+			ent:EmitSound("breach2/player/shove_0"..math.random(1,5)..".wav")
 		end
 	end
 end
