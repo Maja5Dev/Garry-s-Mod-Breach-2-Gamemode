@@ -105,8 +105,15 @@ MAPCONFIG.SCP_ACTIONS = {
             return ply.br_role == "SCP-173"
         end,
         sv_acton = function(ply)
+            local pos = Vector(1871, 1277, -7163)
+
+            if !ent173:CanMove(pos) then
+                ply:BR2_ShowNotification("Cannot move to that position")
+                return
+            end
+
             local ent173 = ply:GetNWEntity("entity173")
-            ply:SetPos(Vector(1871, 1277, -7163))
+            ply:SetPos(pos)
             ply:SetEyeAngles(Angle(2, -126, 0))
 
             if IsValid(ent173) then
@@ -123,8 +130,15 @@ MAPCONFIG.SCP_ACTIONS = {
             return ply.br_role == "SCP-173"
         end,
         sv_acton = function(ply)
+            local pos = Vector(-485, 180, -7163)
+
+            if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
+                ply:BR2_ShowNotification("Cannot move to that position")
+                return
+            end
+
             local ent173 = ply:GetNWEntity("entity173")
-            ply:SetPos(Vector(-485, 180, -7163))
+            ply:SetPos(pos)
             ply:SetEyeAngles(Angle(10, 137, 0))
 
             if IsValid(ent173) then
@@ -279,8 +293,15 @@ MAPCONFIG.SCP_ACTIONS = {
             return ply.br_role == "SCP-173"
         end,
         sv_acton = function(ply)
+            local pos = Vector(1868, 1296, -8187)
+
+            if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
+                ply:BR2_ShowNotification("Cannot move to that position")
+                return
+            end
+
             local ent173 = ply:GetNWEntity("entity173")
-            ply:SetPos(Vector(1868, 1296, -8187))
+            ply:SetPos(pos)
             ply:SetEyeAngles(Angle(10, -121, 0))
 
             if IsValid(ent173) then
@@ -297,8 +318,15 @@ MAPCONFIG.SCP_ACTIONS = {
             return ply.br_role == "SCP-173"
         end,
         sv_acton = function(ply)
+            local pos = Vector(-896, 442, -8187)
+
+            if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
+                ply:BR2_ShowNotification("Cannot move to that position")
+                return
+            end
+
             local ent173 = ply:GetNWEntity("entity173")
-            ply:SetPos(Vector(-896, 442, -8187))
+            ply:SetPos(pos)
             ply:SetEyeAngles(Angle(10, -27, 0))
 
             if IsValid(ent173) then
