@@ -4,7 +4,7 @@ include("shared.lua")
 
 include("client/cl_light_level.lua") -- just contains functions
 include("config/sh_weapons.lua") -- config for weapons, top priority
-include("config/cl_sounds.lua") -- needs to be before cl_music.lua and map files
+include("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 include("shared/sh_maprelated.lua")
 include("client/cl_maprelated.lua")
 include("mapconfigs/"..game.GetMap().."/cl_init.lua")

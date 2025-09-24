@@ -20,7 +20,7 @@ AddCSLuaFile("shared/sh_util.lua") -- things used in sv_round.lua, sv_sanity.lua
 AddCSLuaFile("shared/sh_player_meta.lua") -- low priority
 AddCSLuaFile("shared.lua")
 
-AddCSLuaFile("config/cl_sounds.lua") -- needs to be before cl_music.lua and map files
+AddCSLuaFile("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 AddCSLuaFile("shared/sh_maprelated.lua")
 AddCSLuaFile("client/cl_maprelated.lua")
 
@@ -109,6 +109,7 @@ include("config/sv_names.lua") -- config for names
 include("config/sh_weapons.lua") -- config for weapons, top priority
 include("config/sv_weapon_sets.lua") -- config for weapon sets
 include("config/sh_scps.lua") -- enums of SCP-related things, top priority
+include("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 
 include("server/sv_names.lua") -- has to be before sv_scenarios, top priority
 include("server/sv_scenarios.lua") -- table of scenarios, top priority
