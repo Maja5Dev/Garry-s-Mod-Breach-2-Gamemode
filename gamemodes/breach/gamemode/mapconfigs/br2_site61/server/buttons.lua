@@ -99,7 +99,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_vent_room",
 		pos = Vector(1723, -88, -8144),
-		level = 1,
+		level = 3,
 		sounds = true
 	},
 	{
