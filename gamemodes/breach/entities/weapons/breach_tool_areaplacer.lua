@@ -118,7 +118,7 @@ SWEP.SHOW_SUB_AREAS = true
 function SWEP:DrawHUD()
 	local tr = self.Owner:GetAllEyeTrace()
 	if CLIENT then
-		if self.SHOW_ZONES == true
+		if self.SHOW_ZONES == true then
 			DebugDrawZones(self.SHOW_SUB_AREAS)
 		end
 		
