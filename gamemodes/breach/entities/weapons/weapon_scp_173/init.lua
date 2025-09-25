@@ -151,7 +151,7 @@ function SWEP:HandleMovementModeToggle()
 		})
 
 		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
-			self.Owner:PrintMessage(HUD_PRINTTALK, "Cannot move to that position")
+			self.Owner:BR2_ShowNotification("Cannot move to that position")
 			
 			self.FreeRoamMode = false
 
