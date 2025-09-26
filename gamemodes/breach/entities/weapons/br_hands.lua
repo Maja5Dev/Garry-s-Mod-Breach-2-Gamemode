@@ -207,7 +207,7 @@ SWEP.Contents = {
 			--	chat.AddText(Color(255,255,255,255), " - You feel like you are sick")
 			end
 		--HUNGER
-			if br_update_hunger != nil then
+			if br_our_hunger != nil then
 				if br_our_hunger < 25 then
 					chat.AddText(Color(255,0,0,255), " - You are very hungry!")
 				elseif br_our_hunger < 50 then
