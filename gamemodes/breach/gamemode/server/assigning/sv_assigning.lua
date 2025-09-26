@@ -55,6 +55,7 @@ function Pre_Assign(ply)
 	ply:SetUnDuckSpeed(0.5)
 	ply:SetDuckSpeed(0.3)
 	ply:ResetHull()
+	ply:SetCustomCollisionCheck(false)
 	ply:SetNWBool("br_is_reviving", false)
 	ply.retrievingNotes = false
 	ply.flashlightEnabled = false

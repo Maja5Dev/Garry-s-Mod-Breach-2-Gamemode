@@ -57,7 +57,7 @@ function ENT:Initialize()
 
     -- Initialize proper physics
     self:PhysicsInit(SOLID_VPHYSICS)
-    self:SetMoveType(MOVETYPE_FLY) -- Stays in place, doesn’t fly around
+    self:SetMoveType(MOVETYPE_NONE) -- Stays in place, doesn’t fly around
     self:SetSolid(SOLID_VPHYSICS)
 
     -- Collision group: leave as default so players collide with it

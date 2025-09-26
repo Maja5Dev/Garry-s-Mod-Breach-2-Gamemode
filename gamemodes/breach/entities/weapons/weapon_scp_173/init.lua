@@ -227,11 +227,10 @@ function SWEP:Check173()
 		local try_ent = ents.Create("breach_173ent")
 		if !IsValid(try_ent) then return end
 
-		if istable(MAPCONFIG) and istable(MAPCONFIG.SPAWNS_SCP_173) then
-			self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
-		end
-
+		self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
 		self.Owner:SetEyeAngles(Angle(0, 90, 0))
+
+		local try_ent = ents.Create("breach_173ent")
 		self.Owner.entity173 = try_ent
 		self.Owner.entity173:SetCurrentOwner(self.Owner)
 		self.Owner.entity173:SetModel(SCP_173_MODEL)
