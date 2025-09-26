@@ -176,7 +176,6 @@ function SWEP:HandleMovementModeToggle()
 	if !self.FreeRoamMode then
 		self.Owner:SetWalkSpeed(300)
 		self.Owner:SetRunSpeed(300)
-		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 		self.Owner:AddFlags(FL_DONTTOUCH)
 		self.FreeRoamMode = true
 		self.Owner:SetCustomCollisionCheck(true)

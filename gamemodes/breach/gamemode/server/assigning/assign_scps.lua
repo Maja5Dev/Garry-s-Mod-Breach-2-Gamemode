@@ -57,6 +57,7 @@ function assign_system.Assign_SCP173(ply)
 	ply.br_customspawn = "SPAWNS_SCP_173"
 	ply.Faction = "BR2_FACTION_SCP_173"
 	ply:AddFlags(FL_NOTARGET)
+	ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 
 	ply.first_info = "scp_173"
 	ply.mission_set = "scp_173"
