@@ -181,7 +181,6 @@ function assign_system.Assign_SCP0492(ply)
 	ply.canStartBleeding = false
 	ply.cantUseFlashlight = true
 	ply.br_usesStamina = false
-	ply.blinking_enabled = false
 	ply.disable_coughing = true
 	ply.br_role = "SCP-049-2"
 	ply.br_showname = "SCP-049-2"
