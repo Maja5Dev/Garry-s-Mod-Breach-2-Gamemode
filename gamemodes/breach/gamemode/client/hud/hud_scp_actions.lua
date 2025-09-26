@@ -68,7 +68,6 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
 	
 	local mx = ScrW() / 2
 	local my = ScrH() / 2
-	local size_mul = ScrH() / 1080
 	
     for i, button in ipairs(MAPCONFIG.SCP_ACTIONS) do
         if button.pos == nil or pos == nil then continue end
@@ -100,7 +99,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             if button == scp_action_focus_button then
                 surface.SetDrawColor(255, 255, 255, 200)
                 surface.SetMaterial(button.mat.mat)
-                surface.DrawTexturedRect(mx-( (button.mat.w * size_mul) /2), my-( (button.mat.h * size_mul) /2), button.mat.w * size_mul, button.mat.h * size_mul)
+                surface.DrawTexturedRect(mx-( (button.mat.w) /2), my-( (button.mat.h) /2), button.mat.w, button.mat.h)
                 scp_action_focus_button_ready = button
 
                 draw.Text({
@@ -114,7 +113,7 @@ hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
             else
                 surface.SetDrawColor(255, 255, 255, 75 * (1 - d1))
                 surface.SetMaterial(button.mat.mat)
-                surface.DrawTexturedRect(spos.x - ( (button.mat.w * size_mul) / 2), spos.y - ( (button.mat.h * size_mul) / 2), button.mat.w * size_mul, button.mat.h * size_mul)
+                surface.DrawTexturedRect(spos.x - ( (button.mat.w) / 2), spos.y - ( (button.mat.h) / 2), button.mat.w, button.mat.h)
             end
         end
     end
