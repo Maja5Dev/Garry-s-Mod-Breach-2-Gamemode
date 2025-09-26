@@ -8,10 +8,11 @@ SWEP.Category 		= "Breach 2"
 SWEP.Slot			= 0
 SWEP.SlotPos		= 0
 SWEP.HoldType 		= "knife"
-SWEP.ViewModel 		= "models/weapons/tfa_nmrih/v_me_fists.mdl"
+SWEP.ViewModel 		= "models/cultist/scp/scp_049_2_hands.mdl"
 SWEP.WorldModel 	= ""
 SWEP.ViewModelFOV 	= 50
 SWEP.UseHands 		= true
+SWEP.Pickupable 	= false
 
 SWEP.SoundMiss 			= "npc/zombie/claw_miss1.wav"
 SWEP.SoundWallHit		= "npc/zombie/claw_strike1.wav"
@@ -50,7 +51,7 @@ SWEP.InspectAng = Vector(0, 0, 0)
 SWEP.Primary.Directional = true
 SWEP.Primary.Attacks = {
 	{
-		["act"] = ACT_VM_SWINGHARD, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
+		["act"] = ACT_VM_PRIMARYATTACK, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
 		["len"] = 50, -- Trace distance
 		["dir"] = Vector(15, 0, 0), -- Trace arc cast
 		["dmg"] = 20, --Damage
@@ -68,7 +69,7 @@ SWEP.Primary.Attacks = {
 		["combotime"] = 0
 	},
 	{
-		["act"] = ACT_VM_SWINGHARD, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
+		["act"] = ACT_VM_PRIMARYATTACK, -- Animation; ACT_VM_THINGY, ideally something unique per-sequence
 		["len"] = 50, -- Trace distance
 		["dir"] = Vector(-15, 0, 0), -- Trace arc cast
 		["dmg"] = 20, --Damage
