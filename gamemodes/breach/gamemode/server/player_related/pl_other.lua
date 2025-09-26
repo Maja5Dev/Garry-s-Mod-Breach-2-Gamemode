@@ -1,6 +1,16 @@
 
 local player_meta = FindMetaTable("Player")
 
+function player_meta:HasSpecialItem(class_name)
+	for k,v in pairs(self.br_special_items) do
+		if v.class == class_name then
+			return true
+		end
+	end
+
+	return false
+end
+
 function player_meta:BR_SetColor(color)
 	self:SetPlayerColor(Vector(color.r / 255, color.g / 255, color.b / 255))
 end

@@ -22,6 +22,11 @@ function ShouldPlayerUse(ply, ent)
 		end
 
 		if isnumber(ent.br_info.code) == true then
+			if ply:HasSpecialItem("severed_hand") then
+				ent:EmitSound("breach2/items/ScannerUse1.ogg", 75, 100, 0.7)
+				return true
+			end
+
 			ply.use_delay = CurTime() + 0.1
 			ply.lastkeypad = ent
 			net.Start("br_keypad")
