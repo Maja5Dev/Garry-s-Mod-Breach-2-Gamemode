@@ -240,7 +240,9 @@ round_system.AssignPlayers = function()
 			pl.br_team = role.team
 
 			for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
-				v2.onstart(pl)
+				if isfunction(v2.onstart) then
+					v2.onstart(pl)
+				end
 			end
 
 			local spawned = false
