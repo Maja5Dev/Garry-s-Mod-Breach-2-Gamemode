@@ -87,10 +87,7 @@ function BR2NetworkingTick()
 				end
 
 				if v.next_hunger_update < CurTime() then
-					net.Start("br_update_hunger")
-						net.WriteInt(v.br_hunger, 16)
-						net.WriteInt(v.br_thirst, 16)
-					net.Send(v)
+					v:UpdateHungerThirst()
 					v.next_hunger_update = CurTime() + 1
 				end
 			end
