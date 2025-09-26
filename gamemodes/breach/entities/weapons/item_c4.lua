@@ -23,6 +23,7 @@ SWEP.Timer 			= 30
 SWEP.CustomDrop = function(self)
 	local wep = self.Owner:GetWeapon("item_c4")
 	local c4planted = ents.Create("br2_c4_charge")
+
 	if IsValid(c4planted) then
 		c4planted.UsePhysics = true
 		c4planted:SetPos(self.Owner:GetPos())
@@ -31,9 +32,11 @@ SWEP.CustomDrop = function(self)
 		c4planted.isArmed = wep.isArmed
 		c4planted.Activated = wep.Activated
 		c4planted.Timer = wep.Timer
+
 		if wep.nextExplode then
 			c4planted.nextExplode = wep.nextExplode
 		end
+
 		c4planted:SetMoveType(MOVETYPE_VPHYSICS)
 	end
 	self.Owner:StripWeapon("item_c4")
@@ -196,10 +199,12 @@ SWEP.Contents = {
 
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
+
 	if SERVER then
 		self.Owner:SendLua('LocalPlayer():GetActiveWeapon().isArmed = '..tostring(self.isArmed))
 		self.Owner:SendLua('LocalPlayer():GetActiveWeapon().Activated = '..tostring(self.Activated))
 		self.Owner:SendLua('LocalPlayer():GetActiveWeapon().Timer = '..tostring(self.Timer))
+		
 		if self.nextExplode then
 			self.Owner:SendLua('LocalPlayer():GetActiveWeapon().nextExplode = '..tostring(self.nextExplode))
 		end
@@ -209,6 +214,7 @@ end
 function SWEP:TraceChecks()
 	local pos = 0
 	local ang = 0
+
 	if SERVER then
 		local tr1 = self.Owner:GetAllEyeTrace()
 		pos = tr1.HitPos
@@ -219,6 +225,7 @@ function SWEP:TraceChecks()
 		pos = c4ghost:GetPos()
 		ang = c4ghost:GetAngles()
 	end
+
 	local traces = {
 		pos + (ang:Forward() * 8),
 		pos - (ang:Forward() * 5),
@@ -228,6 +235,7 @@ function SWEP:TraceChecks()
 		pos + (ang:Right() * 12) + Vector(0,0,7),
 		pos + (Angle(ang.pitch - 90, ang.yaw, ang.roll):Forward() * 10),
 	}
+
 	for k,v in pairs(traces) do
 		local tr = util.TraceLine({
 			start = pos,
@@ -236,6 +244,7 @@ function SWEP:TraceChecks()
 		if IsValid(c4ghost) then tr.filter = c4ghost end
 		if tr.Hit then return false end
 	end
+
 	return true
 end
 
@@ -244,6 +253,7 @@ function SWEP:Think()
 	if self:GetHoldType() != self.HoldType then
 		self:SetHoldType(self.HoldType)
 	end
+
 	if IsValid(c4ghost) then
 		local tr = self.Owner:GetAllEyeTrace()
 		local pos = tr.HitPos
@@ -251,6 +261,7 @@ function SWEP:Think()
 		c4ghost:SetPos(pos)
 		ang:RotateAroundAxis(ang:Right(), -90)
 		ang:RotateAroundAxis(ang:Up(), 180)
+
 		local dist = pos:Distance(self.Owner:GetPos())
 		if dist < self.PlantDistance and tr.HitWorld and self:TraceChecks() == true and self.Owner:OnGround() then
 			c4ghost:SetNoDraw(false)
@@ -263,12 +274,14 @@ function SWEP:Think()
 				c4ghost:SetColor(Color(255,0,0))
 			end
 		end
+		
 		c4ghost:SetAngles(ang)
 	elseif CLIENT then
 		c4ghost = ents.CreateClientProp()
 		c4ghost:SetModel("models/weapons/w_c4_planted.mdl")
 		c4ghost:Spawn()
 	end
+
 	if self.Planting then
 		if self.Wait < CurTime() then
 			self.Owner:Freeze(false)
@@ -338,35 +351,11 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:CreateFrame()
-	/*
-	local font_structure = {
-		font = "Tahoma",
-		extended = false,
-		size = 20,
-		weight = 2000,
-		blursize = 0,
-		scanlines = 0,
-		antialias = true,
-		underline = false,
-		italic = false,
-		strikeout = false,
-		symbol = false,
-		rotary = false,
-		shadow = true,
-		additive = false,
-		outline = false,
-	}
-	surface.CreateFont("BR_HOLSTER_TITLE", font_structure)
-	font_structure.size = 26
-	surface.CreateFont("BR_HOLSTER_CONTENT_NAME", font_structure)
-	font_structure.size = 14
-	surface.CreateFont("BR_HOLSTER_CONTENT_AMOUNT", font_structure)
-	font_structure.size = 22
-	surface.CreateFont("BR_HOLSTER_CONTENT_USE", font_structure)
-	*/
+
 	if IsValid(WeaponFrame) then
 		WeaponFrame:Remove()
 	end
+
 	WeaponFrame = vgui.Create("DFrame")
 	WeaponFrame:SetSize(300, 400)
 	WeaponFrame:SetTitle("")
@@ -374,7 +363,6 @@ function SWEP:CreateFrame()
 		if IsValid(self) == false then
 			return
 		end
-		--draw.RoundedBox(0, 0, 0, w, h, Color(150, 150, 150, 50))
 		draw.Text({
 			text = "C4 ACTIONS",
 			pos = {4, 4},
@@ -390,9 +378,11 @@ function SWEP:CreateFrame()
 			return
 		end
 	end
+
 	local last_y = 24
 	for i=1, table.Count(self.Contents) do
 		local item = nil
+
 		for k,v in pairs(self.Contents) do
 			if v.id == i then
 				item = v
@@ -421,6 +411,7 @@ function SWEP:CreateFrame()
 				color = Color(255,255,255,255),
 			})
 		end
+
 		local panel2 = vgui.Create("DButton", panel)
 		panel2:SetPos(300 - 50 - 0, 0)
 		panel2:SetSize(50 - 8, 50 - 8)
@@ -445,6 +436,7 @@ function SWEP:CreateFrame()
 		end
 		last_y = last_y + (50 - 8) + 6
 	end
+
 	WeaponFrame:SetSize(300, last_y + 4)
 	WeaponFrame:Center()
 	WeaponFrame:MakePopup()
@@ -458,6 +450,7 @@ end
 
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+	
 	draw.Text({
 		text = "Primary attack plants the C4, secondary opens settings menu",
 		pos = { ScrW() / 2, ScrH() - 6},
