@@ -13,6 +13,10 @@ end
 
 function GM:DoPlayerDeath(ply, attacker, dmginfo)
 	if IsValid(ply) then
+		if ply.br_role == "SCP-173" then
+			ply:StripWeapon("weapon_scp_173")
+		end
+
 		ply:ForceRemoveFlashlight()
 		ply:DropCurrentWeapon()
 		ply.br_downed = false
@@ -25,7 +29,9 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		end
 
 		if ply.br_role == "SCP-173" then
-			ply.entity173:OnOwnerDeath()
+			if IsValid(ply.entity173) then
+				ply.entity173:OnOwnerDeath()
+			end
 		else
 			CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
 		end

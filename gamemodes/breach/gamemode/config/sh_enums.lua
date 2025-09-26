@@ -3,7 +3,7 @@ GM_VERSION = "0.4"
 GM_VERSION_GROUP = "Alpha"
 GM_VERSION_NUM = 0.4
 
-SCP_173_MODEL = "models/breach2_models/scp_173.mdl"
+SCP_173_MODEL = "models/breach2_models/scp_173_2.mdl"
 
 NAMES_TEAM_CI = {
 	"Hydra",

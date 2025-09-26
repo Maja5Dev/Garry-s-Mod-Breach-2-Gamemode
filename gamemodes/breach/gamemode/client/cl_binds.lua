@@ -4,6 +4,7 @@ local next_duck = 0
 function GM:PlayerBindPress(ply, bind, pressed)
 	if string.find(bind, "+use") and pressed then
 		local view_ent = ply:GetViewEntity()
+
 		if IsValid(view_ent) and view_ent != ply then
 			net.Start("br_hide_in_closet")
 				net.WriteVector(BR_OUR_CLOSET_POS)
@@ -51,10 +52,21 @@ function GM:PlayerBindPress(ply, bind, pressed)
 	elseif string.find(bind, "+menu_context") and debug_menu_enabled == false then
 		return true
 
-	elseif bind == "+menu" and debug_menu_enabled == false and pressed == true then
-		net.Start("br_drop_weapon")
-		net.SendToServer()
-		return true
+	elseif bind == "+menu" and pressed == true then
+		local wep = ply:GetActiveWeapon()
+
+		if IsValid(wep) and wep:GetClass() == "weapon_scp_173" then
+			wep:TryToTeleportFromFreeRoam()
+			return true
+		end
+
+		if debug_menu_enabled == false then
+			net.Start("br_drop_weapon")
+			net.SendToServer()
+			return true
+		end
+
+		return false
 
 	elseif bind == "messagemode" or bind == "messagemode2" then
 		BR_CreateChatFrame(true)
@@ -72,18 +84,23 @@ function GM:PlayerBindPress(ply, bind, pressed)
 	elseif bind == "invnext" and pressed then
 		Switch_SelectNext()
 		return true
+
 	elseif bind == "invprev" and pressed then
 		Switch_SelectPrev()
 		return true
+
 	elseif bind == "gm_showhelp" and pressed then
 		OpenInfoMenu1()
 		return true
+
 	elseif bind == "gm_showteam" and pressed then
 		OpenInfoMenu2()
 		return true
+
 	elseif bind == "gm_showspare1" and pressed then
 		OpenInfoMenu3()
 		return true
+
 	elseif bind == "gm_showspare2" and pressed then
 		OpenInfoMenu4()
 		return true

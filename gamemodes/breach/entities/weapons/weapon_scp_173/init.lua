@@ -19,7 +19,7 @@ function SWEP:HorrorSound(ply)
 
 	if ply.nextScare < CurTime() then
 		local rnd_sound = nil
-		local dist = self.NextPos:Distance(ply:GetPos())
+		local dist = self.Owner:GetPos():Distance(ply:GetPos())
 
 		if dist < 220 then
 			rnd_sound = table.Random(BR2_CLOSE_SEEN_SOUNDS)
@@ -136,14 +136,9 @@ end
 
 SWEP.NextTeleportSound = 0
 
-function SWEP:HandleMovementModeToggle()
-	if !self.FreeRoamMode then
-		self.Owner:SetWalkSpeed(300)
-		self.Owner:SetRunSpeed(300)
-		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-		self.Owner:AddFlags(FL_DONTTOUCH)
-		self.FreeRoamMode = true
-	else
+-- When the player wants to teleport to where they are standing in free roam mode
+function SWEP:HandleTeleportFromFreeRoam()
+	if self.FreeRoamMode then
 		local tr = util.TraceLine({
 			start = self.Owner:GetPos(),
 			endpos = self.Owner:GetPos() - Vector(0, 0, 5),
@@ -152,19 +147,6 @@ function SWEP:HandleMovementModeToggle()
 
 		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
 			self.Owner:BR2_ShowNotification("Cannot move to that position")
-			
-			self.FreeRoamMode = false
-
-			self.Owner:SetWalkSpeed(1)
-			self.Owner:SetRunSpeed(1)
-			self.Owner:RemoveFlags(FL_DONTTOUCH)
-
-			self.Owner:SetPos(self.Owner.entity173:GetPos())
-
-			net.Start("br_scp173_mode")
-				net.WriteBool(self.FreeRoamMode)
-			net.Send(self.Owner)
-			
 			return
 		end
 
@@ -182,6 +164,30 @@ function SWEP:HandleMovementModeToggle()
 				self.NextTeleportSound  = CurTime() + 2
 			end
 		end
+
+		net.Start("br_scp173_mode")
+			net.WriteBool(self.FreeRoamMode)
+		net.Send(self.Owner)
+	end
+end
+
+-- When the player toggles the free roam mode
+function SWEP:HandleMovementModeToggle()
+	if !self.FreeRoamMode then
+		self.Owner:SetWalkSpeed(300)
+		self.Owner:SetRunSpeed(300)
+		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+		self.Owner:AddFlags(FL_DONTTOUCH)
+		self.FreeRoamMode = true
+		self.Owner:SetCustomCollisionCheck(true)
+	else
+		self.FreeRoamMode = false
+
+		self.Owner:SetWalkSpeed(1)
+		self.Owner:SetRunSpeed(1)
+		self.Owner:RemoveFlags(FL_DONTTOUCH)
+
+		self.Owner:SetPos(self.Owner.entity173:GetPos())
 	end
 
 	net.Start("br_scp173_mode")
@@ -218,7 +224,7 @@ function SWEP:DestroyGlass()
 end
 
 function SWEP:Check173()
-	if IsValid(self.Owner.entity173) == false then
+	if self.Owner:Alive() and !self.Owner:IsSpectator() and IsValid(self.Owner.entity173) == false then
 		local try_ent = ents.Create("breach_173ent")
 		if !IsValid(try_ent) then return end
 
@@ -241,9 +247,9 @@ function SWEP:Think()
 	self:Check173()
 
 	self.Owner:SetNoDraw(true)
-	if IsValid(self.Owner.entity173) and !self.FreeRoamMode then
+	if self.Owner:Alive() and !self.Owner:IsSpectator() and IsValid(self.Owner.entity173) and !self.FreeRoamMode then
 		self.Owner.entity173:SetPos(self.Owner:GetPos())
 	end
 
-	self:NextThink(CurTime() + 0.5)
+	self:NextThink(CurTime() + 0.3)
 end

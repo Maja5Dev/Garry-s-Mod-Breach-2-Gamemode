@@ -78,6 +78,7 @@ util.AddNetworkString("br_blinking")
 util.AddNetworkString("br_getlightlevel")
 util.AddNetworkString("br_closed_294")
 util.AddNetworkString("br_send_nvg_entities")
+util.AddNetworkString("br_scp173_teleport")
 
 include("net_supports.lua") -- top priority
 

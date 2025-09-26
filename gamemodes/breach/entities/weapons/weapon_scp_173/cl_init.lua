@@ -34,7 +34,7 @@ end
 function SWEP:DrawHUD()
 	if BR2_ShouldDrawWeaponInfo() then
 		draw.Text({
-			text = "Shift shows the next position, W teleports you to the next position if possible",
+			text = "Shift shows the next position, W teleports you to the next position if possible, A and D switch shoulder",
 			pos = {ScrW() / 2, ScrH() - 30},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),
@@ -43,7 +43,7 @@ function SWEP:DrawHUD()
 		})
 
 		draw.Text({
-			text = "Clicking R toggles free roaming mode, A and D switch shoulder",
+			text = "Clicking R toggles free roaming mode, Q teleports to where you are standing in free roam mode",
 			pos = {ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),
@@ -120,5 +120,12 @@ function SWEP:ToggleFreeRoam(toggle)
 
 	if toggle then
 		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	end
+end
+
+function SWEP:TryToTeleportFromFreeRoam()
+	if self.FreeRoamMode then
+		net.Start("br_scp173_teleport")
+		net.SendToServer()
 	end
 end

@@ -20,8 +20,35 @@ function ENT:SetCurrentOwner(ply)
 end
 
 function ENT:OnOwnerDeath()
-	self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
+    if IsValid(self.Owner) then
+        self.Owner.entity173 = nil
+        self.Owner = nil
+    end
+
+    local pos, ang = self:GetPos(), self:GetAngles()
+
+    -- create a physics copy
+    local phys173 = ents.Create("prop_physics")
+    if not IsValid(phys173) then return end
+    phys173:SetModel(SCP_173_MODEL)
+    phys173:SetPos(pos)
+    phys173:SetAngles(ang)
+    phys173:Spawn()
+    phys173:PhysicsInit(SOLID_VPHYSICS)
+    phys173:SetSolid(SOLID_VPHYSICS)
+
+    local phys = phys173:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:Wake()
+        phys:ApplyForceCenter(VectorRand() * 300)
+        phys:AddAngleVelocity(VectorRand() * 300)
+    end
+
+    -- remove or hide the old entity
+    self:Remove()
 end
+
+
 
 function ENT:GetCurrentOwner()
 	return self.Owner
@@ -30,17 +57,48 @@ end
 function ENT:OnTakeDamage(dmginfo)
 	if self.Owner:IsPlayer() == true then
 		self.Owner:TakeDamageInfo(dmginfo)
-	else
-		self:Remove()
 	end
 end
 
 function ENT:Initialize()
-	self.Entity:SetModel(SCP_173_MODEL)
-	self.Entity:PhysicsInit(SOLID_VPHYSICS)
-	self.Entity:SetMoveType(MOVETYPE_FLY)
-	self.Entity:SetSolid(SOLID_BBOX)
-	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+    self:SetModel(SCP_173_MODEL)
+
+    -- Initialize proper physics
+    self:PhysicsInit(SOLID_VPHYSICS)
+    self:SetMoveType(MOVETYPE_FLY) -- Stays in place, doesn’t fly around
+    self:SetSolid(SOLID_VPHYSICS)
+
+    -- Collision group: leave as default so players collide with it
+    self:SetCollisionGroup(COLLISION_GROUP_NONE)
+
+    -- Wake up physics so it becomes active
+    local phys = self:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:Wake()
+    end
+
+    -- put this in a serverside file, e.g. inside your gamemode or a shared lua/autorun
+    hook.Add("ShouldCollide", "DisableFreeRoam173Collision", function(ent1, ent2)
+        local ply, scp
+
+        -- figure out which is player, which is 173
+        if ent1:IsPlayer() and ent2:GetClass() == "breach_173ent" then
+            ply, scp = ent1, ent2
+        elseif ent2:IsPlayer() and ent1:GetClass() == "breach_173ent" then
+            ply, scp = ent2, ent1
+        end
+
+        if IsValid(ply) and IsValid(scp) then
+            -- check if this player is in free roam mode
+            if ply.br_role == "SCP-173" then
+                return false -- block collision just for this pair
+            end
+        end
+    end)
+end
+
+function ENT:OnRemove()
+	hook.Remove("ShouldCollide", "DisableFreeRoam173Collision")
 end
 
 function ENT:IsPlayerLooking(ply)
@@ -71,47 +129,6 @@ function ENT:IsPlayerVisible(ply, fromPos)
     })
 
     return trace.Entity == ply
-end
-
-
-ENT.BlinkTime = 0.2
-
-function ENT:Think()
-	if SERVER then
-		self:NextThink(CurTime() + 0.05)
-
-		-- Check if entity can move
-		if not self:CanMove(self:GetPos()) then
-			self:SetVelocity(Vector(0,0,0)) -- freeze if being looked at
-			return true
-		end
-
-		-- Blinking logic
-		for k, v in pairs(player.GetAll()) do
-			local seen173 = (v.seen_173 or 0) > CurTime()
-			local dist = v:GetPos():Distance(self:GetPos())
-
-			if v:Alive()
-			and not v:IsSpectator()
-			and v.blinking_enabled
-			and ((dist < 600) or seen173)
-			and v.usedEyeDrops < CurTime()
-			and v.nextBlink < CurTime() then
-				local next_blink = math.Rand(4.5, 6.5)
-
-				net.Start("br_blinking")
-					net.WriteFloat(next_blink)
-					net.WriteFloat(v.seen_173 or 0)
-				net.Send(v)
-
-				v.nextBlink = CurTime() + next_blink
-
-				self.Owner:GetActiveWeapon():HorrorSound(v)
-			end
-		end
-	else
-		self:NextThink(CurTime() + 1000)
-	end
 end
 
 -- Movement restriction
@@ -162,28 +179,51 @@ end
 ENT.BlinkTime = 0.2
 
 function ENT:Think()
-	if SERVER then
-		self:NextThink(CurTime() + 0.05)
+    if SERVER then
+        self:NextThink(CurTime() + 0.05)
 
-		for k,v in pairs(player.GetAll()) do
-			local seen173 = (v.seen_173 or 0) > CurTime()
-			local dist = v:GetPos():Distance(self:GetPos())
+        -- Check if entity can move
+        if not self:CanMove(self:GetPos()) then
+            self:SetVelocity(Vector(0,0,0)) -- freeze if being looked at
+            return true
+        end
 
-			if v:Alive() and !v:IsSpectator() and v.blinking_enabled and ((dist < 600) or seen173) and v.usedEyeDrops < CurTime() and v.nextBlink < CurTime() then
-				local next_blink = math.Rand(4.5, 6.5)
+        -- Blinking + sanity logic
+        for k,v in pairs(player.GetAll()) do
+            local seen173 = (v.seen_173 or 0) > CurTime()
+            local dist = v:GetPos():Distance(self:GetPos())
 
-				net.Start("br_blinking")
-					net.WriteFloat(next_blink)
-					net.WriteFloat(v.seen_173)
-				net.Send(v)
+            if v != self.Owner
+            and v:Alive()
+            and not v:IsSpectator()
+            and v.blinking_enabled
+            and ((dist < 600) or seen173)
+            and v.usedEyeDrops < CurTime()
+            and v.nextBlink < CurTime() then
+                local next_blink = math.Rand(4.5, 6.5)
 
-				v.nextBlink = CurTime() + next_blink
+                net.Start("br_blinking")
+                    net.WriteFloat(next_blink)
+                    net.WriteFloat(v.seen_173 or 0)
+                net.Send(v)
 
-				v:AddSanity(-1)
-			end
-		end
-	else
-		self:NextThink(CurTime() + 0.2)
-		SendLightLevelInfo()
-	end
+                v.nextBlink = CurTime() + next_blink
+
+                if self:IsPlayerVisible(v, self:GetPos()) then
+                    v.seen_173 = CurTime() + 10
+
+                    if IsValid(self.Owner:GetActiveWeapon()) then
+                        self.Owner:GetActiveWeapon():HorrorSound(v)
+                    end
+
+                    v:AddSanity(-1)
+                end
+            end
+        end
+    else
+        self:NextThink(CurTime() + 0.2)
+        if SendLightLevelInfo then
+            SendLightLevelInfo()
+        end
+    end
 end
