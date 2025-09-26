@@ -27,21 +27,13 @@ function ENT:OnOwnerDeath()
 
     local pos, ang = self:GetPos(), self:GetAngles()
 
-    -- create a physics copy
-    local phys173 = ents.Create("prop_physics")
-    if not IsValid(phys173) then return end
-    phys173:SetModel(SCP_173_MODEL)
-    phys173:SetPos(pos)
-    phys173:SetAngles(ang)
-    phys173:Spawn()
-    phys173:PhysicsInit(SOLID_VPHYSICS)
-    phys173:SetSolid(SOLID_VPHYSICS)
-
-    local phys = phys173:GetPhysicsObject()
-    if IsValid(phys) then
-        phys:Wake()
-        phys:ApplyForceCenter(VectorRand() * 300)
-        phys:AddAngleVelocity(VectorRand() * 300)
+    local broken173 = ents.Create("prop_ragdoll")
+    if IsValid(broken173) then
+        broken173:SetModel("models/cultist/scp/173.mdl")
+        broken173:SetPos(pos)
+        broken173:SetAngles(ang + Angle(0,90,0))
+        broken173:Spawn()
+        broken173:Activate()
     end
 
     -- remove or hide the old entity
@@ -133,6 +125,8 @@ end
 
 -- Movement restriction
 function ENT:CanMove(pos)
+    if !IsValid(self.Owner) then return end
+
 	local cpos = nil
 	if pos == self:GetPos() then
 		cpos = self:WorldSpaceCenter()
