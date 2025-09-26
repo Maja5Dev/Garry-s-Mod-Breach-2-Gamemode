@@ -89,6 +89,7 @@ BR_ITEM_DESCRIPTIONS = {
 	
 	flashlight = {name = "Flashlight", desc = "Portable hand-held electric light"},
 	conf_folder = {name = "Confidential Folder", desc = "Folder of Confidential Information"},
+	severed_hand = {name = "Severed Hand", desc = "Disgusting but might be useful"},
 
 	flashlight_cheap = {name = "Regular Flashlight", desc = "Portable hand-held electric light"},
 	flashlight_normal = {name = "Heavy Duty Flashlight", desc = "Portable hand-held electric light"},

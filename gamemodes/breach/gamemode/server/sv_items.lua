@@ -139,6 +139,7 @@ BR2_SCP_294_OUTCOMES = {
 			ply:BR2_ShowNotification("Well, that was refreshing.")
 			ply:AddHealth(1)
 			ply:AddThirst(-15)
+			ply:UpdateHungerThirst()
 			return true
 		end
 	},
@@ -162,6 +163,8 @@ BR2_SCP_294_OUTCOMES = {
 		use = function(ply)
 			ply:BR2_ShowNotification("Tastes like battery acid...")
 			ply:AddRunStamina(3000)
+			ply:AddThirst(-30)
+			ply:UpdateHungerThirst()
 			return true
 		end
 	},
@@ -367,6 +370,7 @@ BR2_SCP_294_OUTCOMES = {
 			ply:AddRunStamina(-3000)
 			ply:AddSanity(30)
 			ply:AddThirst(-30)
+			ply:AddHunger(-20)
 			ply:BR2_ShowNotification("Nice...")
 
 			ply:StartCustomScreenEffects({
@@ -375,6 +379,8 @@ BR2_SCP_294_OUTCOMES = {
 				blur2 = 0.8,
 				blur3 = 0.01,
 			}, 30)
+
+			ply:UpdateHungerThirst()
 			return true
 		end
 	},
@@ -494,8 +500,6 @@ BR2_SPECIAL_ITEMS = {
 
 			return false
 		end,
-		onstart = function(pl)
-		end,
 		drop = function(pl, item)
 			local res, item = br2_special_item_drop(pl, "personal_medkit", "Personal Medkit", "prop_physics", "models/cultist/items/medkit/w_medkit.mdl", item)
 			return item
@@ -513,8 +517,6 @@ BR2_SPECIAL_ITEMS = {
 				net.WriteTable(item)
 			net.Send(pl)
 			return false
-		end,
-		onstart = function(pl)
 		end,
 		drop = function(pl, item)
 			--local res, ent = br2_special_item_drop(pl, "document", "Document", "prop_physics", "models/props_interiors/paper_tray.mdl")
@@ -578,8 +580,6 @@ BR2_SPECIAL_ITEMS = {
 
 			return true
 		end,
-		onstart = function(pl)
-		end,
 		drop = function(pl, item)
 			local res, ent = br2_special_item_drop(pl, "cup", "Cup", "prop_physics", "models/mishka/models/plastic_cup.mdl", item)
 			ent.SI_Class = "cup"
@@ -627,8 +627,6 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		use = function(pl)
 			pl:PrintMessage(HUD_PRINTTALK, "Just a shiny coin, probably usable in some places")
-		end,
-		onstart = function(pl)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")
@@ -802,8 +800,6 @@ BR2_SPECIAL_ITEMS = {
 			weed_effects(pl)
 			return true
 		end,
-		onstart = function(pl)
-		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "scp_420", "SCP-420-J", "prop_physics", "models/mishka/models/scp420.mdl")
 			return item
@@ -851,7 +847,6 @@ BR2_SPECIAL_ITEMS = {
 				return false
 			end
 
-			table.RemoveByValue(pl.br_special_items, v)
 			pl:AddRunStamina(3000)
 			pl:AddJumpStamina(200)
 			pl.CrippledStamina = 0
@@ -862,8 +857,6 @@ BR2_SPECIAL_ITEMS = {
 
 			pl:SendLua('surface.PlaySound("breach2/player/adrenaline_needle_in.wav")')
 			return true
-		end,
-		onstart = function(pl)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "syringe", "Syringe", "prop_physics", "models/mishka/models/syringe.mdl")
@@ -907,8 +900,6 @@ BR2_SPECIAL_ITEMS = {
 
 			pl:UsedSCP500()
 			return true
-		end,
-		onstart = function(pl)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "scp_500", "SCP-500", "prop_physics", "models/cpthazama/scp/500.mdl")
@@ -1001,8 +992,6 @@ BR2_SPECIAL_ITEMS = {
 			pl:ChatPrint("Your used the eyedrops...")
 			return true
 		end,
-		onstart = function(pl)
-		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "eyedrops", "Eyedrops", "prop_physics", "models/cultist/items/eyedrops/eyedrops.mdl")
 			return item
@@ -1026,17 +1015,10 @@ BR2_SPECIAL_ITEMS = {
 				return false
 			end
 
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-
-					pl.nextHorrorSCP = CurTime() + 45
-					pl:AddSanity(60)
-					pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
-					pl:ChatPrint("Your took the pills... you feel calmer.")
-					return true
-				end
-			end
+			pl.nextHorrorSCP = CurTime() + 45
+			pl:AddSanity(60)
+			pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
+			pl:ChatPrint("Your took the pills... you feel calmer.")
 			return true
 		end,
 		onstart = function(pl)
@@ -1064,7 +1046,7 @@ BR2_SPECIAL_ITEMS = {
 			elseif pl.br_team == TEAM_RESEARCHER or pl.br_team == TEAM_SECURITY then
 				pl:SendLua('chat.AddText(Color(255, 225, 0), "This folder is a valuable property of the SCP Foundation, keep it safe!")')
 			end
-			return true
+			return false
 		end,
 		onstart = function(pl)
 			if pl.br_role == "Researcher" then
@@ -1073,6 +1055,22 @@ BR2_SPECIAL_ITEMS = {
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, "conf_folder", "Confidential Folder", "prop_physics", "models/scp_documents/secret_document.mdl")
+			return item
+		end
+	},
+	{
+		class = "severed_hand",
+		name = "Severed Hand",
+		func = function(pl)
+			table.ForceInsert(pl.br_special_items, {class = "severed_hand"})
+			return true
+		end,
+		use = function(pl, item)
+			pl:BR2_ShowNotification("Ew... Might be useful...")
+			return false
+		end,
+		drop = function(pl)
+			local res, item = br2_special_item_drop(pl, "severed_hand", "Severed Hand", "prop_physics", "models/cultist/items/hand_keycard/hand_keycard.mdl")
 			return item
 		end
 	},
@@ -1231,7 +1229,7 @@ local function add_flashlight(fl_info)
 			end
 		end
 	else
-		fltab.onstart = function(pl) end
+		fltab.onstart = nil
 	end
 
 	table.ForceInsert(BR2_SPECIAL_ITEMS, fltab)
@@ -1251,41 +1249,39 @@ local function add_food(class, name, model, hunger, health)
 			return true
 		end,
 		use = function(pl, item)
-			if pl.br_thirst > 100 then
-				pl:PrintMessage(HUD_PRINTTALK, "You are not hungry")
-				return false
-			end
-
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-					if istable(hunger) then
-						for i=1, hunger[2] do
-							if #pl.br_special_items > 9 then
-								br2_special_item_drop(pl, hunger[1], hunger[3], "prop_physics", hunger[4])
-							else
-								table.ForceInsert(pl.br_special_items, {class = hunger[1]})
-							end
-						end
+			if istable(hunger) then
+				-- For pizza becoming slices
+				for i=1, hunger[2] do
+					if #pl.br_special_items > 9 then
+						br2_special_item_drop(pl, hunger[1], hunger[3], "prop_physics", hunger[4])
 					else
-						pl:AddHunger(-hunger)
-						pl:AddHealth(health)
+						table.ForceInsert(pl.br_special_items, {class = hunger[1]})
 					end
-					
-					if pl.br_hunger > 75 then
-						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel full")
-					elseif pl.br_hunger > 60 then
-						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel satisfied")
-					elseif pl.br_hunger > 35 then
-						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your feel less hungry")
-					else
-						pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your stomach still rumbles")
-					end
-
-					pl:EmitSound("breach2/eat.wav")
-					return true
 				end
+			else
+				if pl.br_thirst > 100 then
+					pl:PrintMessage(HUD_PRINTTALK, "You are not hungry")
+					return false
+				end
+
+				pl:AddHunger(-hunger)
+				pl:AddHealth(health)
+
+				if pl.br_hunger > 75 then
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel full")
+				elseif pl.br_hunger > 60 then
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel satisfied")
+				elseif pl.br_hunger > 35 then
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your feel less hungry")
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your stomach still rumbles")
+				end
+
+				pl:EmitSound("breach2/eat.wav")
+
+				pl:UpdateHungerThirst()
 			end
+
 			return true
 		end,
 		onstart = function(pl)
@@ -1297,7 +1293,7 @@ local function add_food(class, name, model, hunger, health)
 	})
 end
 
-local function add_drink(class, name, model, thirst)
+local function add_drink(class, name, model, thirst, hunger)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
 		class = class,
 		name = name,
@@ -1306,7 +1302,7 @@ local function add_drink(class, name, model, thirst)
 			return true
 		end,
 		use = function(pl, item)
-			if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
+			if timer.Exists("drinkuse" .. pl:SteamID64()) then return false end
 
 			if pl.br_thirst > 100 then
 				pl:PrintMessage(HUD_PRINTTALK, "You are not thirsty")
@@ -1319,33 +1315,23 @@ local function add_drink(class, name, model, thirst)
 				delay = 2.4
 			end
 
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
-						table.RemoveByValue(pl.br_special_items, v)
-
-						if istable(thirst) then
-							for i=1, thirst[2] do
-								table.ForceInsert(pl.br_special_items, {class = thirst[1]})
-							end
-						else
-							pl:AddThirst(-thirst)
-						end
-
-						pl:EmitSound("breach2/drink.wav")
-
-						if pl.br_thirst > 70 then
-							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
-						elseif pl.br_thirst > 35 then
-							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
-						else
-							pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
-						end
-					end)
-
-					return false
+			timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
+				pl:AddThirst(-thirst)
+				if hunger then
+					pl:AddHunger(-hunger)
 				end
-			end
+				pl:EmitSound("breach2/drink.wav")
+
+				if pl.br_thirst > 70 then
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
+				elseif pl.br_thirst > 35 then
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
+				end
+
+				pl:UpdateHungerThirst()
+			end)
 
 			return true
 		end,
@@ -1358,7 +1344,7 @@ local function add_drink(class, name, model, thirst)
 	})
 end
 
-local function add_alcohol(class, name, model, thirst)
+local function add_alcohol(class, name, model, thirst, hunger)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
 		class = class,
 		name = name,
@@ -1371,34 +1357,26 @@ local function add_alcohol(class, name, model, thirst)
 
 			local delay = 0.1
 
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
-						table.RemoveByValue(pl.br_special_items, v)
-						if istable(thirst) then
-							for i=1, thirst[2] do
-								table.ForceInsert(pl.br_special_items, {class = thirst[1]})
-							end
-						else
-							pl:AddThirst(-thirst)
-						end
-
-						pl:AddSanity(30)
-						pl:BR2_ShowNotification("You drank the "..name..", it tasted nice...")
-
-						pl:StartCustomScreenEffects({
-							colour = 1.7,
-							blur1 = 0.2,
-							blur2 = 0.8,
-							blur3 = 0.01,
-						}, 30)
-
-						pl:EmitSound("breach2/drink.wav")
-					end)
-
-					return true
+			timer.Create("drinkuse" .. pl:SteamID64(), delay, 1, function()
+				pl:AddThirst(-thirst)
+				if hunger then
+					pl:AddHunger(-hunger)
 				end
-			end
+
+				pl:AddSanity(30)
+				pl:BR2_ShowNotification("You drank the "..name..", it tasted nice...")
+
+				pl:StartCustomScreenEffects({
+					colour = 1.7,
+					blur1 = 0.2,
+					blur2 = 0.8,
+					blur3 = 0.01,
+				}, 30)
+
+				pl:EmitSound("breach2/drink.wav")
+
+				pl:UpdateHungerThirst()
+			end)
 
 			return true
 		end,
@@ -1420,11 +1398,11 @@ add_food("food_chips", "Chips", "models/foodnhouseholditems/chipslays.mdl", 10, 
 add_food("food_pizzaslice", "Pizza Slice", "models/foodnhouseholditems/pizzaslice.mdl", 5, 7)
 add_food("food_pizza", "Pizza", "models/foodnhouseholditems/pizzab.mdl", {"food_pizzaslice", 8, "Pizza Slice", "models/foodnhouseholditems/pizzaslice.mdl"}, 40)
 
-add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 20)
+add_drink("drink_orange_juice", "Orange Juice", "models/foodnhouseholditems/juice.mdl", 30)
 add_drink("drink_bottle_water", "Water Bottle", "models/props/cs_office/Water_bottle.mdl", 20)
 add_drink("drink_soda", "Can of Soda", "models/props_junk/PopCan01a.mdl", 20)
 
-add_alcohol("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 60)
+add_alcohol("drink_wine", "Wine", "models/foodnhouseholditems/wine_white3.mdl", 60, -20)
 
 local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, {
@@ -1437,12 +1415,8 @@ local function add_ammo_box(class, name, model, ammo_type, ammo_amount)
 		end,
 		use = function(pl, item)
 			pl:SendLua('surface.PlaySound("breach2/UI/Pickups/UI_Pickup_Ammo_'..math.random(1,3)..'.ogg")')
-			for k,v in pairs(pl.br_special_items) do
-				if spi_comp(v, item) then
-					table.RemoveByValue(pl.br_special_items, v)
-				end
-			end
 			pl:GiveAmmo(ammo_amount, ammo_type, false)
+			return true
 		end,
 		onstart = function(pl)
 		end,
