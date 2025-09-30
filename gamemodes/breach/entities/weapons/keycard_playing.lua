@@ -5,8 +5,8 @@ SWEP.Spawnable		= true
 SWEP.AdminSpawnable	= true
 SWEP.Category		= "Breach 2"
 SWEP.clevel			= 0
---SWEP.ForceSkin 		= 13
-SWEP.ForceSkin 		= 19
+SWEP.ViewModel		= "models/vodoroda/breach2/playcard/v_playcard.mdl"
+SWEP.WorldModel		= "models/vodoroda/breach2/playcard/w_playcard.mdl"
 
 function SWEP:GetBetterOne()
 	local r = math.random(1,10)

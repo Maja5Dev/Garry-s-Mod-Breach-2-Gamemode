@@ -194,6 +194,7 @@ function OpenInfoMenu1()
         local info_table = {
             "Gamemode developed by Maya",
             true,
+            "Some models made by Водорода (Vodoroda)",
             --"Map originally made by Default_OS, heavily edited by Maya",
             "Models, textures and sounds were made by the Undertow Games",
             --"The whole entrance zone was made by Maya",
