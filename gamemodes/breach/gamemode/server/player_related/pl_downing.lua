@@ -55,19 +55,27 @@ function player_meta:UnDownPlayer(healer)
 	self:Spawn()
 	self:SetPos(rag_pos)
 	self:RemoveFlags(FL_NOTARGET)
+	self:SetModel(self.Body:GetModel())
 
-	local tr_test = util.TraceLine({
-		start = rag_pos,
-		endpos = rag_pos + Angle(-90,0,0):Forward() * 100,
-		mask = MASK_SOLID,
-		filter = {self, self.Body, healer}
-	})
-
-	if tr_test.Hit then
-		self:SetPos(healer:GetPos())
+	local pos = rag_pos
+	if not util.IsInWorld(pos) then
+		pos = healer:GetPos()
 	else
-		self:SetPos(rag_pos)
+		-- double check with hull
+		local tr_check = util.TraceHull({
+			start = pos,
+			endpos = pos,
+			mask = MASK_PLAYERSOLID,
+			filter = {self, self.Body, healer},
+			mins = Vector(-16,-16,0),
+			maxs = Vector(16,16,72)
+		})
+		if tr_check.Hit then
+			pos = healer:GetPos()
+		end
 	end
+
+	self:SetPos(pos)
 
 	self:AddSanity(-20)
 	self:AddTemperature(-200)
