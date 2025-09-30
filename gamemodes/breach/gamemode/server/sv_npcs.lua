@@ -261,29 +261,6 @@ function TrackNPCs()
             if ent.loco then
                 ent.loco:ClearStuck()
             end
-
-            /*
-			-- Unstuck the npc if it's stuck
-			if ent:IsStuck() then
-				local maxAttempts = 20
-				local step = 50
-
-				for i = 1, maxAttempts do
-					local angle = (i / maxAttempts) * math.pi * 2
-					local offset = Vector(math.cos(angle), math.sin(angle), 0) * (step * math.ceil(i/6))
-					local tryPos = new_pos + offset
-
-					ent:SetPos(tryPos)
-					ent:SetAngles(Angle(0, math.random(0, 360), 0))
-					ent:DropToFloor()
-
-					if not ent:IsStuck() then
-						print("Unstuck NPC " .. tostring(ent) .. " at attempt " .. i)
-						break
-					end
-				end
-			end
-            */
 		end
 	end
 end

@@ -13,6 +13,9 @@ BR_NO_TELEPORT_NPCS = {
     ["drg_scp0492ue2"] = true,
     ["drg_scp0492ue3"] = true,
     ["drg_scp096mod2"] = true,
+    ["drg_scp999"] = true,
+    ["dughoo_scpcb_scp066"] = true,
+    ["drg_scp131"] = true,
 }
 
 BR_DISABLE_NPCS = {
