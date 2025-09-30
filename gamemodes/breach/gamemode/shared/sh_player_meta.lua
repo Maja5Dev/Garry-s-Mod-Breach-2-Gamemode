@@ -1,4 +1,5 @@
 local player_meta = FindMetaTable("Player")
+local entity_meta = FindMetaTable("Entity")
 
 function player_meta:GetAllEyeTrace()
 	return util.TraceLine({
@@ -185,12 +186,14 @@ end
 
 --lua_run for k,v in pairs(player.GetAll()) do print(v:Nick(), v:GetOutfit().name, v:GetModel()) end
 --lua_run print(Entity(1):GetOutfit().name)
-function player_meta:GetOutfit()
+function entity_meta:GetOutfit()
 	if istable(BREACH_OUTFITS) and table.Count(BREACH_OUTFITS) > 0 then
 		local our_model = self:GetModel()
+
 		for k,v in pairs(BREACH_OUTFITS) do
 			if isstring(v.model) then
 				if v.model == our_model then return v end
+
 			elseif istable(v.model) then
 				for k2,v2 in pairs(v.model) do
 					if v2 == our_model then return v end
@@ -198,6 +201,7 @@ function player_meta:GetOutfit()
 			end
 		end
 	end
+
 	return BR_DEFAULT_OUTFIT
 end
 
