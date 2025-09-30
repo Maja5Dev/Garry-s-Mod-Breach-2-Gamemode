@@ -86,6 +86,7 @@ function Pre_Assign(ply)
 	ply.nextJumpStaminaCheck =  0
 	ply.nextRunStaminaCheck =  0
 	ply.lastRunning = 0
+	ply.attachmentModels = nil
 
 	-- 173 blinking
 	ply.seen_173 = 0

@@ -31,6 +31,8 @@ AddCSLuaFile("client/cl_fonts.lua") -- need to be loaded before any UI files
 AddCSLuaFile("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before networking
 AddCSLuaFile("client/cl_footsteps.lua")
 AddCSLuaFile("client/cl_calcview.lua")
+AddCSLuaFile("shared/sh_attachment_models.lua")
+AddCSLuaFile("client/cl_attachment_models.lua")
 
 AddCSLuaFile("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 
@@ -117,6 +119,7 @@ include("server/sv_items.lua") -- table of items, top priority
 include("server/sv_notepad_system.lua") -- notepad_system table, top priority
 include("server/sv_misc.lua") -- misc functions, top priority
 include("server/sv_logins.lua") -- top priority
+include("shared/sh_attachment_models.lua")
 
 include("server/player_related/init.lua") -- loads many files, functions assigned to player_meta, high priority
 

@@ -14,6 +14,8 @@ include("client/cl_fonts.lua") -- need to be loaded before any UI files
 include("client/cl_sanity.lua") -- functions that are ran by the server, any priority but should be before networking
 include("client/cl_footsteps.lua")
 include("client/cl_calcview.lua")
+include("shared/sh_attachment_models.lua")
+include("client/cl_attachment_models.lua")
 include("config/cl_items.lua") -- used in br_hands swep, menu_items.lua, only tables
 include("config/cl_roles.lua") -- used in menu_notepad.lua, hud_scoreboard.lua, only tables
 include("config/sh_scps.lua") -- enums of SCP-related things, top priority

@@ -126,8 +126,8 @@ function SWEP:NV_ON()
 		else
 			surface.PlaySound("breach2/items/nvg_on.wav")
 		end
-	--else
-		--AttachNVG(self.Owner)
+	else
+		AttachNVG(self.Owner)
 	end
 end
 
@@ -142,8 +142,8 @@ function SWEP:NV_OFF()
 		else
 			surface.PlaySound("breach2/items/nvg_ins_off.wav")
 		end
-	--else
-		--RemoveNVG(self.Owner)
+	else
+		RemoveNVG(self.Owner)
 	end
 end
 
@@ -186,6 +186,13 @@ function SWEP:PrimaryAttack()
 
 	if self.NextChange < CurTime() then
 		if self.Enabled == false then
+			if self.Owner:CheckAttachmentSlot("eyes") or self.Owner:CheckAttachmentSlot("face") then
+				if CLIENT then
+					self.Owner:PrintMessage(HUD_PRINTTALK, "You are already wearing something on your face!")
+				end
+				return
+			end
+
 			self.NextON = CurTime() + 1.2
 			self.IsEnabling = true
 
@@ -438,6 +445,7 @@ end
 SWEP.Dlight = nil
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+
 	if self.Enabled == false then
 		draw.Text({
 			text = "Primary attack puts on the NVG, secondary opens settings",
@@ -450,62 +458,17 @@ function SWEP:DrawHUD()
 	end
 end
 
--- lua:run Entity(1).NVGModel:SetLocalPos(Vector(2, 4, 0))
-
-/*
 if SERVER then
-	-- Create and attach NVG to player
 	function AttachNVG(ply)
-		if not IsValid(ply.NVGModel) then
-			local nvg = ents.Create("prop_dynamic")
-			print(nvg)
-			if not IsValid(nvg) then return end
-
-			nvg:SetModel("models/cultist/items/nightvision/bonemerge_nvg_forface.mdl")
-			nvg:SetParent(ply)
-
-			-- Attach to the head bone directly
-			local bone = ply:LookupBone("ValveBiped.Bip01_Head1")
-			if bone then
-				--local pos, ang = ply:GetBonePosition(bone)
-
-				local m = ply:GetBoneMatrix(bone)
-				local pos, ang = m:GetTranslation(), m:GetAngles()
-                nvg:SetPos(pos)
-                nvg:SetAngles(ang)
-
-				--nvg:SetPos(pos)
-				--nvg:SetAngles(ang)
-				nvg:SetMoveType(MOVETYPE_NONE)
-				nvg:FollowBone(ply, bone)
-
-				--nvg:SetLocalPos(Vector(2, 4, 0))
-				--nvg:SetLocalAngles(Angle(0, 90, 0))
-
-				print(bone, pos, ang)
-			end
-
-			nvg:Spawn()
-
-			ply.NVGModel = nvg
-			print(ply.NVGModel)
-		end
+		ply:AddAttachmentModel({
+			model = "models/cultist/items/nightvision/bonemerge_nvg_forface.mdl",
+			attachment = "eyes",
+			offset = Vector(0, 4, -67),
+			angOffset = Angle(6, 0, 0)
+		})
 	end
 
-	-- Remove NVG
 	function RemoveNVG(ply)
-		if IsValid(ply.NVGModel) then
-			ply.NVGModel:Remove()
-			ply.NVGModel = nil
-		end
+		ply:RemoveAttachmentModel("models/cultist/items/nightvision/bonemerge_nvg_forface.mdl")
 	end
 end
-
-hook.Add("PlayerDeath", "NVG_RemoveOnDeath", function(ply)
-    RemoveNVG(ply)
-end)
-
-hook.Add("PlayerDisconnected", "NVG_RemoveOnDC", function(ply)
-    RemoveNVG(ply)
-end)
-*/

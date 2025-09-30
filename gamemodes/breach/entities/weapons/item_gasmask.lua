@@ -24,6 +24,8 @@ end
 
 function SWEP:DrawWorldModel()
 	if LocalPlayer() != self.Owner and (LocalPlayer():GetObserverMode() == OBS_MODE_IN_EYE) then return end
+	if self.Enabled == true then return end
+
 	if !IsValid(self.Owner) then
 		self:DrawModel()
 	else
@@ -58,16 +60,33 @@ SWEP.GasMaskOn = false
 SWEP.NextChange = 0
 function SWEP:PrimaryAttack()
 	if self.NextChange < CurTime() then
+		if !self.GasMaskOn and (self.Owner:CheckAttachmentSlot("eyes") or self.Owner:CheckAttachmentSlot("face")) then
+			if CLIENT then
+				self.Owner:PrintMessage(HUD_PRINTTALK, "You are already wearing something on your face!")
+			end
+			return
+		end
+
 		self.GasMaskOn = !self.GasMaskOn
 		self.NextChange = CurTime() + 0.5
+
 		if CLIENT and IsFirstTimePredicted() then
 			surface.PlaySound("breach2/items/pickitem2.ogg")
+		end
+
+		if SERVER then
+			if self.GasMaskOn then
+				AttachGasmask(self.Owner)
+			else
+				RemoveGasmask(self.Owner)
+			end
 		end
 	end
 end
 
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
+
 	if self.GasMaskOn == false then
 		draw.Text({
 			text = "Primary attack puts on the gasmask",
@@ -86,4 +105,19 @@ function SWEP:GetBetterOne()
 	end
 	
 	return self
+end
+
+if SERVER then
+	function AttachGasmask(ply)
+		ply:AddAttachmentModel({
+			model = "models/mishka/models/gasmask.mdl",
+			attachment = "eyes",
+			offset = Vector(0, -1, -2),
+			angOffset = Angle(260, 0, 180)
+		})
+	end
+
+	function RemoveGasmask(ply)
+		ply:RemoveAttachmentModel("models/mishka/models/gasmask.mdl")
+	end
 end

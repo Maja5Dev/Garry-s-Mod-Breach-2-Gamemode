@@ -6,5 +6,6 @@ include("pl_infection.lua")
 include("pl_info.lua")
 include("pl_spectating.lua")
 include("pl_other.lua")
+include("pl_attachment_models.lua")
 
 print("[Breach2] server/player_related/init.lua loaded!")
