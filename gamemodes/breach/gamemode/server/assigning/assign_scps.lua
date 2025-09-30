@@ -24,8 +24,7 @@ function assign_system.Assign_SCP049(ply)
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_049")
 	if ply.support_spawning == false then
-		--ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
-		ply.br_support_spawns = {{"mtf", 1}}
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
 	end
 	ply.br_support_team = SUPPORT_ROGUE
 	Post_Assign(ply)
@@ -65,8 +64,7 @@ function assign_system.Assign_SCP173(ply)
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_173")
 	if ply.support_spawning == false then
-		--ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
-		ply.br_support_spawns = {{"mtf", 1}}
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
 	end
 	ply.br_support_team = SUPPORT_ROGUE
 
@@ -182,6 +180,9 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	end
 	self.br_downed = false
 	self.lastPlayerInfo = nil
+
+	ply.br_support_spawns = {{"scp_049_2", 1}}
+	ply:UpdateSupportSpawns()
 end
 
 function assign_system.Assign_SCP0492(ply)
