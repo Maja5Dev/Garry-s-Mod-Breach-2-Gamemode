@@ -1,14 +1,18 @@
 ﻿
 BR_NO_TELEPORT_NPCS = {
-    ["npc_cpt_scp_096"] = true,
-    ["npc_cpt_scp_939"] = true,
+    ["npc_cpt_scp_1025"] = true,
+    ["npc_cpt_scp_1123"] = true,
     ["npc_cpt_scp_012"] = true,
     ["npc_cpt_scp_513"] = true,
     ["npc_cpt_scp_178specs"] = true,
+
+    ["npc_cpt_scp_096"] = true,
+    ["npc_cpt_scp_939"] = true,
     ["npc_cpt_scp_049_2"] = true,
     ["drg_scp0492ue"] = true,
     ["drg_scp0492ue2"] = true,
     ["drg_scp0492ue3"] = true,
+    ["drg_scp096mod2"] = true,
 }
 
 BR_DISABLE_NPCS = {
@@ -22,15 +26,18 @@ BR_DISABLE_NPCS = {
 
 BLUE_NVG_ENTITY_NAMES = {
 	["npc_cpt_scp_005"] = "SCP-005",
+	["npc_cpt_scp_005"] = "SCP-005",
 	["npc_cpt_scp_008"] = "SCP-008",
 	["npc_cpt_scp_012"] = "SCP-012",
 	["npc_cpt_scp_035"] = "Human",
 	["npc_cpt_scp_049"] = "SCP-049",
+	["drg_scp049ue"] = "SCP-049",
 	["npc_cpt_scp_066"] = "SCP-066",
 	["npc_cpt_scp_079"] = "SCP-079",
 	["npc_cpt_scp_087_1"] = "SCP-087-1",
 	["npc_cpt_scp_087_b"] = "SCP-087b",
 	["npc_cpt_scp_096"] = "SCP-096",
+	["drg_scp096mod2"] = "SCP-096",
 	["npc_cpt_scp_106"] = "SCP-106",
 	["drg_uescp106ver2"] = "SCP-106",
 	["npc_cpt_scp_173"] = "SCP-173",
@@ -56,6 +63,7 @@ BLUE_NVG_ENTITY_NAMES = {
 	["drg_scp999"] = "SCP-999",
 	["npc_cpt_scp_1025"] = "SCP-1025",
 	["npc_cpt_scp_1048"] = "SCP-1048",
+	["npc_cpt_scp_1123"] = "SCP-1123",
 	["npc_cpt_scp_1356"] = "SCP-1356",
 	["npc_cpt_scp_1499"] = "SCP-1499",
 
