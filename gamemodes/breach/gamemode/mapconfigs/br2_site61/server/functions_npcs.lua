@@ -125,16 +125,26 @@ function SpawnMapNPCs()
 end
 
 function MAP_FemurBreaker()
-	print("FEMUR BREAKER")
+	devprint("FEMUR BREAKER")
 
 	timer.Remove("NPC_SPAWN_106_TIMER")
-	local scp_106 = ents.FindByClass("npc_cpt_scp_106")
+
+	for k,v in pairs(ents.GetAll()) do
+		if IsValid(v) and string.find(v:GetClass(), "scp106") or string.find(v:GetClass(), "scp_106") or string.find(v:GetClass(), "scpcb_106") then
+			v:SetPos(Vector(-2387.296875, 6250.779785, -7418.968750))
+			v.cannotTeleport = true
+		end
+	end
+
+	/*
 	if table.Count(scp_106) > 0 then
 		scp_106 = scp_106[1]
 		if IsValid(scp_106) then
 			scp_106:Remove()
 		end
 	end
+	*/
+
 	BroadcastLua("surface.PlaySound('cpthazama/scp/106Contain.mp3')")
 
 	/*
