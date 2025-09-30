@@ -32,7 +32,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			if IsValid(ply.entity173) then
 				ply.entity173:OnOwnerDeath()
 			end
-		else
+		elseif !IsValid(ply.Body) then
 			CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
 		end
 
