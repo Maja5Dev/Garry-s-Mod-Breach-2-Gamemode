@@ -158,10 +158,12 @@ function TrackNPCs()
 	local all_npcs = {}
 
 	for k,ent in pairs(ents.GetAll()) do
-		if string.find(ent:GetClass(), "npc_cpt_scp") and IsValid(ent) and ent:Health() > 0 then
+		if IsValid(ent) and ent:Health() > 0 and ent.cannotTeleport != true and
+            (ent.Base == "drgbase_nextbot" or ent.Base == "npc_cpt_base")
+        then
             local forbidden = false
 
-            for forbiddenname,forbiddennamev in pairs(BR_NO_TELEPORT_NPCS) do
+            for forbiddenname, forbiddennamev in pairs(BR_NO_TELEPORT_NPCS) do
                 if string.find(ent:GetClass(), forbiddenname) then
                     forbidden = true
                 end
