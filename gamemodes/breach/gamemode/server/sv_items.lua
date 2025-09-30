@@ -117,7 +117,7 @@ BR2_SPECIAL_ITEMS = {
 special_item_system = {}
 
 special_item_system.AddItem = function(tab)
-	print("Registering item " .. tab.class)
+	devprint("Registering item " .. tab.class)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, tab)
 end
 
