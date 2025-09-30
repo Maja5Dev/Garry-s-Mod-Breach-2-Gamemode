@@ -133,4 +133,10 @@ function player_meta:ApplyPlayerInfo(player_info)
 	end
 end
 
+function player_meta:UpdateSupportSpawns()
+	net.Start("br_update_support_spawns")
+		net.WriteTable(self.br_support_spawns or {})
+	net.Send(self)
+end
+
 print("[Breach2] server/player_related/pl_info.lua loaded!")

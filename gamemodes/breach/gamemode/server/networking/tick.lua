@@ -129,10 +129,8 @@ function BR2NetworkingTick()
 
 			-- Update Support Spawns
 			if v:IsSpectator() and v.br_support_spawns and v.nextSupportSpawnUpdate < CurTime() then
-				v.nextSupportSpawnUpdate = CurTime() + math.random(2, 6)
-				net.Start("br_update_support_spawns")
-					net.WriteTable(v.br_support_spawns)
-				net.Send(v)
+				v.nextSupportSpawnUpdate = CurTime() + math.random(2, 4)
+				v:UpdateSupportSpawns()
 			end
 
 			-- SCP-049's reviving
