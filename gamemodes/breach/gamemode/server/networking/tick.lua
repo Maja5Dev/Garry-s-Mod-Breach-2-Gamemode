@@ -201,7 +201,6 @@ function BR2NetworkingTick()
 							v.Body.RagdollHealth = v.Body.RagdollHealth - 1
 						end
 
-						--print("v.Body.RagdollHealth: "..v.Body.RagdollHealth.."")
 						if v.Body.RagdollHealth < 1 then
 							v:Freeze(false)
 							--v:KillSilent()

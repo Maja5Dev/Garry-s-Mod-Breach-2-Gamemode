@@ -53,6 +53,7 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	rag:SetColor(victim:GetColor())
 	rag:Spawn()
 	rag:Activate()
+
 	rag.Info = {}
 	rag.Info.charid = victim.charid
 	rag.Info.CorpseID = rag:GetCreationID()
