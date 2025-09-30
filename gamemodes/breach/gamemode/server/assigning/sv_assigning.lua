@@ -19,7 +19,6 @@ function Pre_Assign(ply)
 	ply.br_role = "Unknown"
 	ply.br_ci_agent = false
 	ply.br_downed = false
-	ply.br_zombie = false
 
 	ply.br_sanity = 100
 	ply.br_hunger = 120
@@ -116,7 +115,6 @@ local function send_info(ply)
 		net.WriteString(ply.br_role)
 		net.WriteInt(ply.br_team, 8)
 		net.WriteBool(ply.br_ci_agent)
-		net.WriteBool(ply.br_zombie)
 	net.Send(ply)
 end
 
