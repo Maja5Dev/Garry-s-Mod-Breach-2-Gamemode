@@ -108,6 +108,26 @@ local function FindClearSpawnPos(origin, ragdoll, ply, healer, radius, step, max
     return origin -- fallback
 end
 
+local function shared0492assign(ply)
+	ply.br_team = TEAM_SCP
+	ply.use173behavior = true
+	ply.br_uses_hunger_system = false
+	ply.can_get_infected = false
+	ply.br_usesSanity = false
+	ply.br_usesTemperature = false
+	ply.canStartBleeding = false
+	ply.cantUseFlashlight = true
+	ply.br_usesStamina = false
+	ply.disable_coughing = true
+	ply.cantChangeOutfit = true
+
+	ply.br_role = "SCP-049-2"
+	ply.br_showname = "SCP-049-2"
+
+	ply.Faction = "BR2_FACTION_SCP_049"
+	ply:AddFlags(FL_NOTARGET)
+end
+
 local player_meta = FindMetaTable("Player")
 function player_meta:UnDownPlayerAsZombie(healer)
 	if self.Body == nil then
@@ -134,11 +154,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 		lpi.PlayerRunSpeed = 180
 		lpi.PlayerJumpPower = 170
 		lpi.BreachCIAgent = false
-		lpi.BreachZombie = true
 		lpi.BreachIsBleeding = false
-		lpi.can_get_infected = false
-		lpi.disable_coughing = true
-		self:AddFlags(FL_NOTARGET)
 		self:ApplyPlayerInfo(lpi)
 	end
 
@@ -155,7 +171,8 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	self:SetNoDraw(false)
 	self:UnSpectate()
 	self:Spawn()
-	self.br_team = TEAM_SCP
+
+	shared0492assign(self)
 
 	local spawn_pos = FindClearSpawnPos(rag_pos, self.Body, self, healer, 80, 10, 120)
 	self:SetPos(spawn_pos)
@@ -169,31 +186,18 @@ end
 
 function assign_system.Assign_SCP0492(ply)
 	Pre_Assign(ply)
-	ply:SetHealth(200)
-	ply:SetMaxHealth(200)
+	ply:SetHealth(400)
+	ply:SetMaxHealth(400)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_0492")
-	ply.cantChangeOutfit = true
 	ply:Give("weapon_scp_049_2")
-	ply.use173behavior = true
-	ply.br_uses_hunger_system = false
-	ply.can_get_infected = false
-	ply.br_usesSanity = false
-	ply.br_usesTemperature = false
-	ply.canStartBleeding = false
-	ply.cantUseFlashlight = true
-	ply.br_usesStamina = false
-	ply.disable_coughing = true
-	ply.br_role = "SCP-049-2"
-	ply.br_showname = "SCP-049-2"
+
+	shared0492assign(ply)
+
 	ply.br_customspawn = "SPAWNS_HCZ"
-	ply.Faction = "BR2_FACTION_SCP_049"
-	ply:AddFlags(FL_NOTARGET)
 
 	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_049")
 	ply.br_support_team = SUPPORT_ROGUE
-
-	ply:SetBloodColor(DONT_BLEED)
 
 	Post_Assign(ply)
 end
