@@ -143,6 +143,49 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	
 	if hitgroup == HITGROUP_HEAD then
 		dmg_mul = dmg_mul * math.random(1.5, 2.5)
+
+		if victim:CheckAttachmentSlot("eyes") or victim:CheckAttachmentSlot("head") or victim:CheckAttachmentSlot("face") then
+			if HasGasmaskOn(victim) then
+				dmg_mul = 0.3
+				RemoveGasmask(victim)
+
+				local wep = ply:GetWeapon("item_gasmask")
+				local wep2 = ply:GetWeapon("item_gasmask2")
+
+				if (IsValid(wep) and wep.Enabled == true) then
+					victim:StripWeapon("item_gasmask")
+					
+				elseif (IsValid(wep2) and wep2.Enabled == true) then
+					victim:StripWeapon("item_gasmask2")
+				end
+
+				victim:PrintMessage(HUD_PRINTTALK, "Your gasmask protected you from a headshot! But it is now broken.")
+
+			elseif HasNVGOn(victim) then
+				dmg_mul = 0.3
+				RemoveNVG(victim)
+
+				local wep = ply:GetWeapon("item_nvg")
+				local wep2 = ply:GetWeapon("item_nvg2")
+				local wep3 = ply:GetWeapon("item_nvg3")
+				local wep4 = ply:GetWeapon("item_nvg_military")
+
+				if (IsValid(wep) and wep.Enabled == true) then
+					victim:StripWeapon("item_nvg")
+					
+				elseif (IsValid(wep2) and wep2.Enabled == true) then
+					victim:StripWeapon("item_nvg2")
+
+				elseif (IsValid(wep3) and wep3.Enabled == true) then
+					victim:StripWeapon("item_nvg3")
+
+				elseif (IsValid(wep4) and wep4.Enabled == true) then
+					victim:StripWeapon("item_nvg_military")
+				end
+
+				victim:PrintMessage(HUD_PRINTTALK, "Your nightvision goggles protected you from a headshot! But they are now broken.")
+			end
+		end
 		
 	elseif hitgroup == HITGROUP_LEFTARM then
 		dmg_mul = dmg_mul * math.random(0.8, 1)

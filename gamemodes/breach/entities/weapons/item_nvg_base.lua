@@ -472,3 +472,26 @@ if SERVER then
 		ply:RemoveAttachmentModel("models/cultist/items/nightvision/bonemerge_nvg_forface.mdl")
 	end
 end
+
+function HasNVGOn(ply)
+	if not ply.attachmentModels then return false end
+
+	local wep = ply:GetWeapon("item_nvg")
+	local wep2 = ply:GetWeapon("item_nvg2")
+	local wep3 = ply:GetWeapon("item_nvg3")
+	local wep4 = ply:GetWeapon("item_nvg_military")
+
+	if (IsValid(wep) and wep.Enabled == true)
+	or (IsValid(wep2) and wep2.Enabled == true)
+	or (IsValid(wep3) and wep3.Enabled == true)
+	or (IsValid(wep4) and wep4.Enabled == true)
+	then
+		for _, v in pairs(ply.attachmentModels) do
+			if v.model == "models/cultist/items/nightvision/bonemerge_nvg_forface.mdl" then
+				return true
+			end
+		end
+	end
+
+	return false
+end

@@ -121,3 +121,20 @@ if SERVER then
 		ply:RemoveAttachmentModel("models/mishka/models/gasmask.mdl")
 	end
 end
+
+function HasGasmaskOn(ply)
+	if not ply.attachmentModels then return false end
+
+	local wep = ply:GetWeapon("item_gasmask")
+	local wep2 = ply:GetWeapon("item_gasmask2")
+
+	if (IsValid(wep) and wep.GasMaskOn == true) or (IsValid(wep2) and wep2.GasMaskOn == true) then
+		for _, v in pairs(ply.attachmentModels) do
+			if v.model == "models/mishka/models/gasmask.mdl" then
+				return true
+			end
+		end
+	end
+
+	return false
+end
