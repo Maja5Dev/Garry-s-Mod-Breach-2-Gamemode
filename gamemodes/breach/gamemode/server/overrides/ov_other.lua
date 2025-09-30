@@ -48,15 +48,18 @@ function GM:EntityTakeDamage(ent, dmginfo)
 		if IsValid(ent.Info.Victim) then
 			if ent.Info.Victim:IsPlayer() and ent.Info.Victim:IsDowned() == true and ent.RagdollHealth > 0 then
 				ent.RagdollHealth = ent.RagdollHealth - dmginfo:GetDamage()
-				if ent.RagdollHealth < 1 then
+
+				if ent.RagdollHealth < 1 and (ent.blockPhysicsDamageFor == nil or ent.blockPhysicsDamageFor < CurTime()) then
 					local pl = ent.Info.Victim
 					pl:Freeze(false)
-					pl:KillSilent()
-					--pl:Kill()
+					pl:Kill()
+
 					if pl.isTheOne == true then
 						pl:SendLua('surface.PlaySound("breach2/save1.ogg")')
 					end
+
 					pl.LastBody = ent.Info.Victim.Body
+
 					--pl.Body = nil
 					for k,v in pairs(player.GetAll()) do
 						if istable(v.startedReviving) and v.startedReviving[1] == ent then
@@ -68,6 +71,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			end
 		end
 	end
+
 	return false
 end
 

@@ -79,6 +79,7 @@ util.AddNetworkString("br_getlightlevel")
 util.AddNetworkString("br_closed_294")
 util.AddNetworkString("br_send_nvg_entities")
 util.AddNetworkString("br_scp173_teleport")
+util.AddNetworkString("br_steal_body_outfit")
 
 include("net_supports.lua") -- top priority
 

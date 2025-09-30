@@ -395,6 +395,19 @@ SWEP.Contents = {
 			WeaponFrame:Remove()
 		end
 	},
+	steal_outfit = {
+		id = 10,
+		enabled = false,
+		name = "Steal their outfit",
+		desc = "Wear the outfit found in this body",
+		cl_effect = function(self)
+			net.Start("br_steal_body_outfit")
+			net.SendToServer()
+		end,
+		cl_after = function(self)
+			WeaponFrame:Remove()
+		end
+	},
 	pickup_bomb = {
 		id = 11,
 		enabled = false,
@@ -589,13 +602,16 @@ function SWEP:CreateFrame()
 	self.Contents.pickup_bomb.enabled = false
 	self.Contents.loot_body.enabled = false
 	self.Contents.check_body_notepad.enabled = false
+	self.Contents.steal_outfit.enabled = false
 
 	if IsValid(tr_ent) and tr_ent:GetPos():Distance(self.Owner:GetPos()) < 150 then
 		if tr_ent:GetClass() == "br2_c4_charge" then
 			self.Contents.pickup_bomb.enabled = true
+
 		elseif tr_ent:GetClass() == "prop_ragdoll" then
 			self.Contents.loot_body.enabled = true
 			self.Contents.check_body_notepad.enabled = true
+			self.Contents.steal_outfit.enabled = true
 			--self.Contents.check_pulse.enabled = true
 		end
 	end
@@ -603,7 +619,8 @@ function SWEP:CreateFrame()
 	self.Contents.identify_player.enabled = false
 	self.Contents.examine_someone.enabled = false
 	self.Contents.check_someones_notepad.enabled = false
-	if IsValid(lastseen_player) and lastseen_player:GetClass() == "prop_ragdoll" or lastseen_player:IsPlayer() and lastseen_player.br_team != TEAM_SCP then
+	
+	if IsValid(lastseen_player) and lastseen_player:IsPlayer() and lastseen_player.br_team != TEAM_SCP then
 		if (CurTime() - lastseen) < 10 then
 			self.Contents.identify_player.enabled = true
 		end
@@ -616,6 +633,12 @@ function SWEP:CreateFrame()
 			then
 				self.Contents.check_someones_notepad.enabled = true
 			end
+		end
+	end
+
+	if IsValid(lastseen_player) and lastseen_player:GetClass() == "prop_ragdoll" then
+		if (CurTime() - lastseen) < 4 then
+			self.Contents.examine_someone.enabled = true
 		end
 	end
 	
