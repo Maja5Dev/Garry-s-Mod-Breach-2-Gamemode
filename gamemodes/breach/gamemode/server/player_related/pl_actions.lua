@@ -77,6 +77,12 @@ function player_meta:UsedSCP500()
 	self.br_isInfected = false
 	self.SCP_Inflicted_1048a = false
 	self.SCP_Infected_049 = false
+	self.SCP_Disease_LungCancer = false
+	self.SCP_Disease_Appendicitis = false
+	self.SCP_Disease_CommonCold = false
+	self.SCP_Disease_Chickenpox = false
+	self.SCP_Disease_Asthma = false
+	self.SCP_Disease_CardiacArrest = false
 
 	self:BR2_ShowNotification("I feel so much better...")
 end
