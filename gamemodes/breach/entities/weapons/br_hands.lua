@@ -84,21 +84,47 @@ SWEP.Contents = {
 				fake_stats = true
 			end
 		--PERSONAL INFOS
+			local our_showname = nil
+			local our_role = nil
+			local isscp = false
+			local isciagent = false
+
+			if LocalPlayer().br_role and LocalPlayer().br_showname then
+				our_showname = LocalPlayer().br_showname
+				our_role = LocalPlayer().br_role
+				isscp = (LocalPlayer().br_team == TEAM_SCP)
+				isciagent = LocalPlayer().br_ci_agent
+			end
+
 			if istable(BR2_OURNOTEPAD) and istable(BR2_OURNOTEPAD.people) and table.Count(BR2_OURNOTEPAD.people) > 0 then
-				local personal_info = BR2_OURNOTEPAD.people[1]
-				if isstring(personal_info.br_showname) and personal_info.scp != true then
-					if personal_info.br_showname == "D-9341" then
-						chat.AddText(Color(255,255,255,255), " - You are D-9341, ", Color(244,65,131,255), "the chosen one")
-					else
-						chat.AddText(Color(255,255,255,255), " - You are ", Color(255,255,255,255), personal_info.br_showname)
-					end
+				if !our_showname then
+					our_showname = BR2_OURNOTEPAD.people[1].br_showname
 				end
-				if isstring(personal_info.br_role) then
-					chat.AddText(Color(255,255,255,255), " - You are a ", Color(255,255,255,255), personal_info.br_role)
+				if !our_role then
+					our_role = BR2_OURNOTEPAD.people[1].br_role
 				end
-				if personal_info.br_ci_agent == true then
-					chat.AddText(Color(255, 255, 255), " - You are a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
+				if isscp == nil then
+					isscp = (BR2_OURNOTEPAD.people[1].br_team == TEAM_SCP) or (BR2_OURNOTEPAD.people[1].scp)
 				end
+				if isciagent == nil then
+					isciagent = BR2_OURNOTEPAD.people[1].br_ci_agent
+				end
+			end
+
+			if our_showname and (!isscp or our_showname != our_role) then
+				if our_showname == "D-9341" then
+					chat.AddText(Color(255,255,255,255), " - You are D-9341, ", Color(244,65,131,255), "the chosen one")
+				else
+					chat.AddText(Color(255,255,255,255), " - You are ", Color(255,255,255,255), our_showname)
+				end
+			end
+
+			if our_role then
+				chat.AddText(Color(255,255,255,255), " - You are a ", Color(255,255,255,255), our_role)
+			end
+
+			if isciagent then
+				chat.AddText(Color(255, 255, 255), " - You are a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
 			end
 		--ARMOR
 			if pl:Armor() > 0 then
