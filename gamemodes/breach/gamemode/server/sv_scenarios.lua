@@ -172,42 +172,46 @@ end
 BREACH_DEFAULT_ROLELIST = {
 	roles = {
 		-- 4 players
-		BREACH_DEFAULT_ROLES.roles_classds,      -- Class-D
-		BREACH_DEFAULT_ROLES.roles_researchers,  -- Researcher
-		BREACH_DEFAULT_ROLES.roles_security,     -- Security
-		BREACH_DEFAULT_ROLES.roles_classds,      -- Class-D
+		BREACH_DEFAULT_ROLES.roles_classds,			-- Class-D
+		BREACH_DEFAULT_ROLES.roles_researchers,		-- Researcher
+		BREACH_DEFAULT_ROLES.roles_security,		-- Security
+		BREACH_DEFAULT_ROLES.roles_classds,			-- Class-D
 
 		-- 5–6 players
-		BREACH_DEFAULT_ROLES.roles_scps,         -- SCP
-		BREACH_DEFAULT_ROLES.roles_classds,      -- Class-D
+		BREACH_DEFAULT_ROLES.roles_scps,			-- 5th player
+		BREACH_DEFAULT_ROLES.roles_ci_soldiers,		-- 6th player
 
 		-- 7–8 players
-		BREACH_DEFAULT_ROLES.roles_researchers,
-		BREACH_DEFAULT_ROLES.roles_minor_staff,
+		BREACH_DEFAULT_ROLES.roles_classds,			-- 7th player
+		BREACH_DEFAULT_ROLES.roles_researchers,		
 
 		-- 9–10 players
+		BREACH_DEFAULT_ROLES.roles_minor_staff,
 		BREACH_DEFAULT_ROLES.roles_security,
-		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
-
+		
 		-- 11–12 players
+		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
 		BREACH_DEFAULT_ROLES.roles_classds,
-		BREACH_DEFAULT_ROLES.roles_scp035,
 
 		-- 13–14 players
+		BREACH_DEFAULT_ROLES.roles_scp035,
 		BREACH_DEFAULT_ROLES.roles_researchers,
+
+		-- 13–14 players
 		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_classds,
 
 		-- 15–16 players
-		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_minor_staff,
+		BREACH_DEFAULT_ROLES.roles_researchers,
 
 		-- 17–18 players
-		BREACH_DEFAULT_ROLES.roles_researchers,
 		BREACH_DEFAULT_ROLES.roles_security,
+		BREACH_DEFAULT_ROLES.roles_classds,
 
 		-- 19–20 players
-		BREACH_DEFAULT_ROLES.roles_classds,
 		BREACH_DEFAULT_ROLES.roles_ci_soldiers,
+		BREACH_DEFAULT_ROLES.roles_classds,
 	},
 	victory_conditions = {"one_player", "all_same_team"},
 }
