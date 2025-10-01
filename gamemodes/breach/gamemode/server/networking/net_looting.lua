@@ -83,7 +83,7 @@ net.Receive("br_get_loot_info", function(len, ply)
 end)
 
 net.Receive("br_take_loot", function(len, ply)
-	if len > 1500 or !ply:Alive() or ply:IsSpectator() or ply.br_role == "SCP-173" then return end
+	if len > 1500 or !ply:Alive() or ply:IsSpectator() or table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, ply.br_role) then return end
 	local item = net.ReadTable()
 	local source = net.ReadTable()
 

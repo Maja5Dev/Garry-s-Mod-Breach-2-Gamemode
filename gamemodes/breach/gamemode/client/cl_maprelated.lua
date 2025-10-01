@@ -1,5 +1,7 @@
 
 function DefaultItemContainerCanSee(cont)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return false end
+
 	return util.TraceLine({
 		start = EyePos(),
 		endpos = cont.pos,
@@ -7,11 +9,15 @@ function DefaultItemContainerCanSee(cont)
 	}).Fraction == 1
 end
 
-function DefaultTerminalCanSee(terminal) -- TODO
+function DefaultTerminalCanSee(terminal)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return false end
+
 	return (util.TraceLine({start = terminal.pos, endpos = terminal.pos + (EyePos() - terminal.pos):Angle():Forward() * 150}).Entity == LocalPlayer())
 end
 
 function DefaultOutfitterCanSee(outfitter)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return false end
+
 	return util.TraceLine({
 		start = EyePos(),
 		endpos = outfitter.pos,
@@ -28,6 +34,8 @@ function CanSeeFrom(pos)
 end
 
 function TryToOpenContainer(cont)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return end
+
 	if cont != nil then
 		net.Start("br_loot_container")
 			net.WriteVector(cont.pos)
@@ -36,6 +44,8 @@ function TryToOpenContainer(cont)
 end
 
 function TryToOpenCrate(cont)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return end
+
 	if cont != nil then
 		net.Start("br_loot_crate")
 			net.WriteVector(cont.pos)
@@ -46,6 +56,8 @@ end
 BR_OUR_CLOSET_POS = Vector(0,0,0)
 
 function TryToHideInCloset(closet)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return end
+
 	if closet != nil then
 		net.Start("br_hide_in_closet")
 			net.WriteVector(closet.pos)
@@ -56,6 +68,8 @@ end
 
 local next_simple_button_use = 0
 function SodaMachineUse(button)
+	if table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, LocalPlayer().br_role) then return end
+	
 	if next_simple_button_use > CurTime() then return end
 	
 	net.Start("br_use_soda_machine")
