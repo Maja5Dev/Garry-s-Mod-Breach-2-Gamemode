@@ -75,6 +75,13 @@ BR_ROLE_FIRST_TEXTS = {
         "You must find humans and 'cure' them by touching them, turning them into SCP-049-2",
         "Work with other SCPs to eliminate all humans in this facility",
     },
+    scp_035 = {
+        "You are SCP-035, the Possessive Mask",
+        "When worn, you completely take over the mind and body of the host",
+        "Your host body will slowly decay, but you may seek out new victims to possess",
+        "Use deception and manipulation to trick humans into helping you",
+        "Work with other SCPs to eliminate all humans in this facility",
+    },
     scp_173 = {
         "You are SCP-173, the Sculpture",
         "You are a hostile and extremely dangerous entity",

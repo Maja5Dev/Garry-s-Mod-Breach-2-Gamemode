@@ -151,6 +151,13 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				end
 			end
 
+			if LocalPlayer():HasAttachmentModel("models/scp_035_real/scp_035_real.mdl") then
+				nvg = BR_SCP_035_NVG
+				if isfunction(nvg.effect) then
+					nvg.effect(nvg, i)
+				end
+			end
+
 			if br2_our_sanity < 40 and BR_INSANITY_ATTACK > CurTime() then
 				nvg = BR_INSANITY_NVG
 				if isfunction(nvg.effect) then

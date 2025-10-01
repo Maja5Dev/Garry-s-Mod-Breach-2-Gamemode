@@ -1,4 +1,71 @@
 ﻿
+-- lua_run assign_system.Assign_SCP035(Entity(1))
+
+function assign_system.Assign_SCP035(ply)
+	Pre_Assign(ply)
+	ply.cantChangeOutfit = true
+	ply:Give("br_hands")
+	ply.br_role = "SCP-035"
+	ply.Faction = "BR2_FACTION_SCP_035"
+	ply:AddFlags(FL_NOTARGET)
+	ply:SetHealth(240)
+	ply:SetMaxHealth(240)
+	ply.br_usesSanity = false
+
+	ply.first_info = "scp_035"
+	ply.mission_set = "scp_035"
+
+	ply.br_customspawn = "SPAWNS_SCP_035"
+
+	local rnd = math.random(1, 5)
+	if rnd == 1 then
+		ply:ApplyOutfit("class_d")
+		ply.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""
+		ply.br_special_items = {
+			{class = "document", name = "Class D Leaflet", type = "doc_leaflet", attributes = {doc_code = ply.br_showname}}
+		}
+
+	elseif rnd == 2 then
+		ply:ApplyOutfit("scientist")
+		ply:Give("keycard_level2")
+		if ply.br_showname == "Gordon Freeman" then
+			ply:Give("kanade_tfa_crowbar")
+		end
+		
+	elseif rnd == 3 then
+		ply:ApplyOutfit("janitor")
+		ply:Give("keycard_level1")
+		ply:Give("item_gasmask")
+		ply:AllowFlashlight(true)
+		
+	elseif rnd == 4 then
+		ply:ApplyOutfit("engineer")
+		ply:Give("keycard_level1")
+		ply:AllowFlashlight(true)
+		
+	elseif rnd == 5 then
+		ply:ApplyOutfit("medic")
+		ply:Give("keycard_level1")
+		ply:Give("item_medkit")
+	end
+
+	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_035")
+	if ply.support_spawning == false then
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"mtf", 1}}
+	end
+	ply.br_support_team = SUPPORT_ROGUE
+	Post_Assign(ply)
+
+	ply:AddAttachmentModel({
+		model = "models/scp_035_real/scp_035_real.mdl",
+		--bone = "ValveBiped.Bip01_Head1",
+        attachment = "eyes",
+        offset = Vector(0, 1.6, -1.3),
+        angOffset = Angle(6, 0, 0)
+	})
+end
+
+
 function assign_system.Assign_SCP049(ply)
 	ply.br_role = "SCP-049"
 	Pre_Assign(ply)
@@ -11,6 +78,7 @@ function assign_system.Assign_SCP049(ply)
 	ply:Give("keycard_level4")
 	ply.use049sounds = true
 	ply.br_uses_hunger_system = false
+	ply.br_usesSanity = false
 	ply.can_get_infected = false
 	ply.br_role = "SCP-049"
 	ply.br_showname = "SCP-049"
@@ -211,12 +279,10 @@ function assign_system.Assign_SCP(ply)
 		if math.random(1,2) == 1 then
 			assign_system.Assign_SCP049(ply)
 			last_scp_assign = "scp_049"
-			--print(ply, "was assigned SCP-049")
 			return
 		else
 			assign_system.Assign_SCP173(ply)
 			last_scp_assign = "scp_173"
-			--print(ply, "was assigned SCP-173")
 			return
 		end
 
@@ -224,14 +290,12 @@ function assign_system.Assign_SCP(ply)
 	elseif last_scp_assign == "scp_049" then
 		assign_system.Assign_SCP173(ply)
 		last_scp_assign = "scp_173"
-		--print(ply, "was assigned SCP-173")
 		return
 
 	-- an SCP 173 was assigned, so assign SCP 049 next
 	elseif last_scp_assign == "scp_173" then
 		assign_system.Assign_SCP049(ply)
 		last_scp_assign = "scp_049"
-		--print(ply, "was assigned SCP-049")
 		return
 	end
 end

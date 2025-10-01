@@ -247,7 +247,7 @@ special_item_system.AddItem({
         return true
     end,
     onstart = function(pl)
-        if pl.br_role == "Doctor" then
+        if pl.br_role == "Doctor" or pl:GetOutfit().class == "medic" then
             table.ForceInsert(pl.br_special_items, {class = class})
         end
     end,
