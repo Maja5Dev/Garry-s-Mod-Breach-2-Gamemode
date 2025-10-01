@@ -21,13 +21,23 @@ function SWEP:PutTheMask()
         if !IsValid(self) or !IsValid(ply) or !ply:Alive() or ply:IsSpectator() then return end
 
         if SERVER then
+            local nvg1 = ply:GetWeapon("item_nvg") if IsValid(nvg1) then nvg1.Enabled = false nvg1.IsEnabling = false end
+            local nvg2 = ply:GetWeapon("item_nvg2") if IsValid(nvg2) then nvg2.Enabled = false nvg2.IsEnabling = false end
+            local nvg3 = ply:GetWeapon("item_nvg3") if IsValid(nvg3) then nvg3.Enabled = false nvg3.IsEnabling = false end
+            local nvgm = ply:GetWeapon("item_nvg_military") if IsValid(nvgm) then nvgm.Enabled = false nvgm.IsEnabling = false end
+            RemoveNVG(ply)
+
+            local gasmask1 = ply:GetWeapon("item_gasmask") if IsValid(gasmask1) then gasmask1.GasMaskOn = false end
+            local gasmask2 = ply:GetWeapon("item_gasmask2") if IsValid(gasmask2) then gasmask2.GasMaskOn = false end
+            RemoveGasmask(ply)
+
             ply:AddAttachmentModel({
                 model = "models/scp_035_real/scp_035_real.mdl",
                 --bone = "ValveBiped.Bip01_Head1",
                 attachment = "eyes",
                 offset = Vector(0, 1.6, -1.3),
                 angOffset = Angle(6, 0, 0)
-            })
+            }, true)
 
             --scp_035.SetTableClient(ply, "PlayersWearingMask", true) 
             scp_035.SetTranform(ply)
