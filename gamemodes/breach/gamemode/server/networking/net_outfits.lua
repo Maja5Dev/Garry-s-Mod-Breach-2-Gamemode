@@ -15,11 +15,12 @@ local function removeNearbyInfo(ply)
 end
 
 net.Receive("br_take_outfit", function(len, ply)
-	if len < 128 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
+	if len < 256 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 		local str_got = net.ReadString()
 
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.OUTFITTERS.buttons) do
 			if v.pos:Distance(ply:GetPos()) < 150 and table.HasValue(v.items, str_got) then
+				print("found outfitter with item")
 				local our_pos = 1
 				local our_model = ply:GetModel()
 				local our_model_class = nil
@@ -53,8 +54,6 @@ net.Receive("br_take_outfit", function(len, ply)
 							end
 						end
 					end
-
-					break
 				end
 
 				if outfit != nil and our_model_class != nil then
