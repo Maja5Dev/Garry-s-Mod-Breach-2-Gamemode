@@ -9,12 +9,12 @@ function BR_SpawnMapNPC(npcclass, zone)
 		if v:Alive() and v:IsSpectator() == false then
 			table.ForceInsert(all_players, v)
 
-            if string.find(npcclass, "scp_173") and v.br_role == "SCP-173" then
+            if (string.find(npcclass, "scp_173") or string.find(npcclass, "scp173")) and v.br_role == "SCP-173" then
                 print("Not spawning SCP-173 because a player is SCP-173")
                 return false
             end
 
-            if npcclass == "npc_cpt_scp_049" and v.br_role == "SCP-049" then
+            if (string.find(npcclass, "scp049") or string.find(npcclass, "scp_049")) and v.br_role == "SCP-049" then
                 print("Not spawning SCP-049 because a player is SCP-049")
                 return false
             end
