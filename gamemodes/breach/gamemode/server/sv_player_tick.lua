@@ -27,7 +27,7 @@ hook.Add("Tick", "BR2_Misc", function()
 			end
 
 			-- Check escaping
-			if v.canEscape == true and v:IsInEscapeZone() == true then
+			if v.canEscape == true and v:IsInEscapeZone() == true and !v.br_downed then
 				v:ForceRemoveFlashlight()
 				v:SetSpectator()
 
