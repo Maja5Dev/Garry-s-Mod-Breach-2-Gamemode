@@ -81,6 +81,7 @@ util.AddNetworkString("br_send_nvg_entities")
 util.AddNetworkString("br_scp173_teleport")
 util.AddNetworkString("br_steal_body_outfit")
 util.AddNetworkString("br_attach_models")
+util.AddNetworkString("br_remove_all_attach_models")
 
 include("net_supports.lua") -- top priority
 

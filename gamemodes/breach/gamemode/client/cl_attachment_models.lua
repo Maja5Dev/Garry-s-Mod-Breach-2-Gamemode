@@ -8,6 +8,12 @@ net.Receive("br_attach_models", function(len)
     ply.attachmentModels = models or {}
 end)
 
+net.Receive("br_remove_all_attach_models", function(len)
+    for k,v in pairs(player.GetAll()) do
+        v.attachmentModels = nil
+    end
+end)
+
 hook.Add("PostPlayerDraw", "BR2_DrawAttachmentModels", function(ply)
     if not ply.attachmentModels then return end
 

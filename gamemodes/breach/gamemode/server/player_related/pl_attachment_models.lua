@@ -32,6 +32,15 @@ function player_meta:RemoveAttachmentModels()
     self:BroadcastAttachmentModels()
 end
 
+function RemoveAllAttachmentModels()
+    for k,v in pairs(player.GetAll()) do
+        v.attachmentModels = nil
+    end
+
+    net.Start("br_remove_all_attach_models")
+    net.Broadcast()
+end
+
 function player_meta:RemoveAttachmentModel(model)
     if not self.attachmentModels then return end
 

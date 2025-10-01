@@ -389,6 +389,8 @@ round_system.PreparingStart = function()
 	local result = hook.Call("BR2_PreparingStart")
 	if result == true then return end
 
+	RemoveAllAttachmentModels()
+
 	for k,v in pairs(player.GetAll()) do
 		if !v:IsBot() then
 			timer.Destroy("drinkuse"..v:SteamID64())

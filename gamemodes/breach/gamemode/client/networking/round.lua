@@ -90,11 +90,6 @@ net.Receive("br_round_prepstart", function(len)
 		horror_scp_ent:Remove()
 	end
 
-	for k,v in pairs(player.GetAll()) do
-		v.attachmentModels = nil
-	end
-
-
 --AFTER ALL THINGS DONE
 	if read_str1 != nil and istable(BR2_OURNOTEPAD) and istable(BR2_OURNOTEPAD.people) and !LocalPlayer():IsSpectator() then
 		BR_OpenFirstRolePanel(read_str1)
