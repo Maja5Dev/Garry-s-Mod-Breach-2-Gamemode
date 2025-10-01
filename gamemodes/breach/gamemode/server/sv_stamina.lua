@@ -1,35 +1,50 @@
 
+local RUN_SPEED_THRESHOLD = 150
+local RUN_STAMINA_COST = -4
+local RUN_STAMINA_RECOVERY = 3
+local JUMP_STAMINA_COST = -5
+local JUMP_STAMINA_RECOVERY = 1
+
 local function HandleStamina()
-	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and v:IsSpectator() == false and !v:IsDowned() and v.br_usesStamina then
-			local vel = v:GetVelocity()
-			
-			if v.nextJumpStaminaCheck < CurTime() then
-				local jump_stamina_change = 1
-				if !v:OnGround() and vel.z > 0 then
-					jump_stamina_change = jump_stamina_change - 5
-				end
-				v:AddJumpStamina(jump_stamina_change)
-				v.nextJumpStaminaCheck = CurTime() + 0.02
-			end
+    for _, v in ipairs(player.GetAll()) do
+        if not (v:Alive() and not v:IsSpectator() and not v:IsDowned() and v.br_usesStamina) then
+            continue
+        end
 
-			if v.nextRunStaminaCheck < CurTime() then
-				local run_stamina_change = 3
-				if vel:Length() > 150 and (v:KeyDown(IN_FORWARD) or v:KeyDown(IN_BACK) or v:KeyDown(IN_MOVELEFT) or v:KeyDown(IN_MOVERIGHT)) then
-					run_stamina_change = run_stamina_change - 4
-					v.lastRunning = CurTime()
+        local vel = v:GetVelocity()
+        local ct = CurTime()
 
-				elseif (CurTime() - v.lastRunning) < 2 then
-					run_stamina_change = run_stamina_change - 3
-				end
-				
-				v:AddRunStamina(run_stamina_change)
-				v.nextRunStaminaCheck = CurTime() + 0.01
-				
-				--v:PrintMessage(HUD_PRINTCENTER, tostring(v.br_run_stamina) .. " / " .. tostring(run_stamina_change))
-			end
-		end
-	end
+        -- Jump stamina
+        if v.nextJumpStaminaCheck < ct then
+            local jumpChange = JUMP_STAMINA_RECOVERY
+
+            if not v:OnGround() and vel.z > 0 then
+                jumpChange = JUMP_STAMINA_COST
+            end
+
+            v:AddJumpStamina(jumpChange)
+            v.nextJumpStaminaCheck = ct + 0.05
+        end
+
+        -- Run stamina
+        if v.nextRunStaminaCheck < ct then
+            local runChange = RUN_STAMINA_RECOVERY
+
+            if vel:Length() >= v:GetRunSpeed() and (v:KeyDown(IN_FORWARD) or v:KeyDown(IN_BACK) or v:KeyDown(IN_MOVELEFT) or v:KeyDown(IN_MOVERIGHT)) then
+                runChange = RUN_STAMINA_COST
+                v.lastRunning = ct
+
+            elseif (ct - (v.lastRunning or 0)) < 2 then
+                runChange = RUN_STAMINA_COST + 1
+            end
+
+            v:AddRunStamina(runChange)
+            v.nextRunStaminaCheck = ct + 0.05
+        end
+
+		-- DEBUG
+		--v:PrintMessage(HUD_PRINTCENTER, "Run Stamina: "..math.Round(v.br_run_stamina).." | Velocity: "..math.Round(vel:Length()).." | Run speed: "..math.Round(v:GetRunSpeed()))
+    end
 end
 hook.Add("Tick", "BR2_HandleStamina", HandleStamina)
 
