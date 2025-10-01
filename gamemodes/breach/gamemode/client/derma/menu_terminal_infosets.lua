@@ -136,17 +136,26 @@ local info_set_system = {"SYSTEM", function(button, panel)
 
 		if istable(spec_functions) then
 			local size_mul = ScrH() / 1080
+			local scaled_option_h = terminal_option_h * size_mul
 
 			for i,v in ipairs(spec_functions) do
 				local panel_w, panel_h = panel:GetSize()
 				
-				terminal_create_button(panel, 16 * size_mul, panel_h - (64 * size_mul) - ((terminal_option_h) * (i - 1)) - terminal_option_h, v.button_size, terminal_option_h, v.name, function(button3)
-					button3.OnClick = function()
-						net.Start("br_use_terminal_function")
-							net.WriteString(v.class)
-						net.SendToServer()
+				terminal_create_button(
+					panel,
+					16 * size_mul,
+					(panel_h - (64 * size_mul) - ((scaled_option_h) * (i - 1)) - scaled_option_h) - (i*16 * size_mul),
+					v.button_size,
+					terminal_option_h,
+					v.name,
+					function(button3)
+						button3.OnClick = function()
+							net.Start("br_use_terminal_function")
+								net.WriteString(v.class)
+							net.SendToServer()
+						end
 					end
-				end)
+				)
 			end
 		end
 
