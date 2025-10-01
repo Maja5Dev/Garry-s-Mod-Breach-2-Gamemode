@@ -162,6 +162,11 @@ end
 MAPCONFIG.BUTTONS_2D.TERMINALS = {
 	mat = br_default_button_icons.scpu,
 	on_open = function(button)
+		if table.HasValue(BR2_ROLES_DISALLOWED_TERMINAL_USE, LocalPlayer().br_role) then
+			LocalPlayer():PrintMessage(HUD_PRINTTALK, "Your cannot use terminals.")
+			return
+		end
+
 		BR_Access_Terminal(button)
 	end,
 	buttons = {

@@ -62,6 +62,11 @@ end)
 net.Receive("br_open_terminal", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() then return end
 	
+	if table.HasValue(BR2_ROLES_DISALLOWED_TERMINAL_USE, ply.br_role) then
+		ply:PrintMessage(HUD_PRINTTALK, "Your cannot use terminals.")
+		return
+	end
+
 	local net_str = net.ReadString()
 	if #net_str < 2 then return end
 	local login = net.ReadString()
