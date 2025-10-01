@@ -82,7 +82,24 @@ function BR_DEFAULT_MAP_Organize_ItemSpawns()
 	end
 end
 
+function BR_CheckRagdollPositions()
+	for k,v in pairs(MAPCONFIG.STARTING_CORPSES) do
+		for k2,v2 in pairs(v) do
+			local tr = util.TraceLine({
+				start = v2.ragdoll_pos,
+				endpos = v2.ragdoll_pos + Vector(0,0,1)
+			})
+
+			if tr.Hit and tr.HitWorld then
+				ErrorNoHalt("Corpse in wall position " .. tostring(v2.ragdoll_pos) .. " for model " .. v2.model)
+			end
+		end
+	end
+end
+
 function BR_DEFAULT_MAP_Organize_Corpses()
+	BR_CheckRagdollPositions()
+
 	if istable(MAPCONFIG.STARTING_CORPSES) and round_system.current_scenario.fake_corpses == true then
 		local all_corpses = table.Copy(MAPCONFIG.STARTING_CORPSES)
 		local corpse_infos = {}
