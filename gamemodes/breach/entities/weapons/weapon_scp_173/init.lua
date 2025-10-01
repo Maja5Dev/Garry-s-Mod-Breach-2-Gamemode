@@ -121,6 +121,7 @@ function SWEP:HandleUse()
 	*/
 
 	local tr_front = self:FrontTraceLine()
+
 	if tr_front != nil then
 		for k,v in pairs(ents.FindInSphere(tr_front.HitPos, 50)) do
 			if v:GetClass() == "func_button" or v:GetClass() == "func_rot_button" then
@@ -128,6 +129,7 @@ function SWEP:HandleUse()
 					self.Owner.usingBlock = true
 					v:Use(self.Owner, self.Owner, USE_TOGGLE, 1)
 				end
+				
 				return
 			end
 		end
@@ -224,20 +226,39 @@ end
 
 function SWEP:Check173()
 	if self.Owner:Alive() and !self.Owner:IsSpectator() and IsValid(self.Owner.entity173) == false then
-		local try_ent = ents.Create("breach_173ent")
-		if !IsValid(try_ent) then return end
-
 		self.Owner:SetPos(table.Random(MAPCONFIG.SPAWNS_SCP_173))
 		self.Owner:SetEyeAngles(Angle(0, 90, 0))
 
+		self.Owner.entity173 = ents.Create("breach_173ent")
+		self.Owner.entity173:SetPos(self.Owner:GetPos())
+		self.Owner.entity173:SetModel( SCP_173_MODEL)
+		self.Owner.entity173:SetAngles(self.Owner:GetAngles())
+		self.Owner.entity173:SetOwner(self.Owner)
+		self.Owner.entity173:SetModelScale(1, 0)
+		self.Owner.entity173:SetSolid(SOLID_BBOX)
+		self.Owner.entity173:Spawn()
+		self.Owner.entity173:SetModel(SCP_173_MODEL)
+		self.Owner.entity173:SetNotSolid(false)
+		self.Owner:SetNWEntity("entity173", self.Owner.entity173)
+		
+		/*
 		local try_ent = ents.Create("breach_173ent")
 		self.Owner.entity173 = try_ent
 		self.Owner.entity173:SetCurrentOwner(self.Owner)
 		self.Owner.entity173:SetModel(SCP_173_MODEL)
-		self.Owner.entity173:SetPos(self.Owner:GetPos())
+		--self.Owner.entity173:SetPos(self.Owner:GetPos())
 		self.Owner.entity173:SetAngles(Angle(0, 90, 0))
 		self.Owner.entity173:Spawn()
+		self.Owner.entity173:Activate()
 		self.Owner:SetNWEntity("entity173", self.Owner.entity173)
+
+		local spawnPos = self.Owner:GetPos()
+		local ent = self.Owner.entity173  -- already created
+
+		local mins = ent:OBBMins()
+		local bottomOffset = -mins.z            -- distance from origin to bottom
+		ent:SetPos(spawnPos + Vector(0,0,bottomOffset + 2))  -- +2 to avoid clipping
+		*/
 	end
 end
 

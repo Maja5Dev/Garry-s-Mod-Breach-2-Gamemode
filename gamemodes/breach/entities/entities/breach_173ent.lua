@@ -4,7 +4,7 @@ ENT.PrintName		= "SCP-173"
 ENT.Author		    = "Kanade"
 
 ENT.Type			= "anim"
-ENT.Base			= "base_anim"
+ENT.Base			= "base_gmodentity"
 
 --ENT.Type			= "filter"
 --ENT.Base			= "base_entity"
@@ -40,8 +40,6 @@ function ENT:OnOwnerDeath()
     self:Remove()
 end
 
-
-
 function ENT:GetCurrentOwner()
 	return self.Owner
 end
@@ -53,40 +51,7 @@ function ENT:OnTakeDamage(dmginfo)
 end
 
 function ENT:Initialize()
-    self:SetModel(SCP_173_MODEL)
 
-    -- Initialize proper physics
-    self:PhysicsInit(SOLID_VPHYSICS)
-    self:SetMoveType(MOVETYPE_NONE) -- Stays in place, doesn’t fly around
-    self:SetSolid(SOLID_VPHYSICS)
-
-    -- Collision group: leave as default so players collide with it
-    self:SetCollisionGroup(COLLISION_GROUP_NONE)
-
-    -- Wake up physics so it becomes active
-    local phys = self:GetPhysicsObject()
-    if IsValid(phys) then
-        phys:Wake()
-    end
-
-    -- put this in a serverside file, e.g. inside your gamemode or a shared lua/autorun
-    hook.Add("ShouldCollide", "DisableFreeRoam173Collision", function(ent1, ent2)
-        local ply, scp
-
-        -- figure out which is player, which is 173
-        if ent1:IsPlayer() and ent2:GetClass() == "breach_173ent" then
-            ply, scp = ent1, ent2
-        elseif ent2:IsPlayer() and ent1:GetClass() == "breach_173ent" then
-            ply, scp = ent2, ent1
-        end
-
-        if IsValid(ply) and IsValid(scp) then
-            -- check if this player is in free roam mode
-            if ply.br_role == "SCP-173" then
-                return false -- block collision just for this pair
-            end
-        end
-    end)
 end
 
 function ENT:OnRemove()
