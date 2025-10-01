@@ -51,6 +51,11 @@ BR2_ROLES_DISALLOWED_PICKUPS = {
     "SCP-049-2",
 }
 
+BR2_ROLES_UNAFFECTED_BY_SCP035 = {
+    "SCP-173",
+    "SCP-035",
+}
+
 BR2_ROLE_WEAPON_LIMITS = {
     {
         role_name = "SCP-049",

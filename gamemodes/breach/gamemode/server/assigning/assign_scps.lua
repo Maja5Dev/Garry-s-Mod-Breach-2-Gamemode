@@ -3,7 +3,6 @@
 
 function assign_system.Assign_SCP035(ply)
 	Pre_Assign(ply)
-	ply.cantChangeOutfit = true
 	ply:Give("br_hands")
 	ply.br_role = "SCP-035"
 	ply.Faction = "BR2_FACTION_SCP_035"

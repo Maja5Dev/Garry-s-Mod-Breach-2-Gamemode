@@ -111,7 +111,7 @@ function Pre_Assign(ply)
 end
 
 local function send_info(ply)
-	net.Start("br_update_own_info", ply.br_team)
+	net.Start("br_update_own_info")
 		net.WriteString(ply.br_showname)
 		net.WriteString(ply.br_role)
 		net.WriteInt(ply.br_team, 8)
