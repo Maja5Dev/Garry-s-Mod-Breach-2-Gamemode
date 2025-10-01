@@ -40,7 +40,7 @@ function SpawnMapNPCs()
 
 	timer.Remove("NPC_SPAWN_049_TIMER")
 	timer.Create("NPC_SPAWN_049_TIMER", math.random(prep_time + 50, prep_time + 120), 1, function()
-		BR_SpawnMapNPC("drg_scp049ue", MAPCONFIG.SPAWNS_LCZ)
+		BR_SpawnMapNPC("br2_drg_scp049ue", MAPCONFIG.SPAWNS_LCZ)
 	end)
 
 	--zombies
