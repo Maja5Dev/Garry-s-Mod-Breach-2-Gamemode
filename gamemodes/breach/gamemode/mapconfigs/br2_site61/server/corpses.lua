@@ -1721,7 +1721,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}), form_basic_item_info("keycard_level2"))}
             end,
             ragdoll_pos = Vector(4109.3212890625,-6857.0693359375,-8600.4912109375),
             bones = {
@@ -1791,7 +1791,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"})), form_basic_item_info("keycard_level2")}
             end,
             ragdoll_pos = Vector(4170.818359375,-6971.505859375,-8601.8623046875),
             bones = {
@@ -1861,7 +1861,7 @@ MAPCONFIG.STARTING_CORPSES = {
                 rag.br_role = "Doctor"
                 rag.br_team = TEAM_MINORSTAFF
 				rag.br_ci_agent = false
-				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"}))}
+				rag.Info.Loot = {form_basic_item_info(table.Random({"ssri_pills", "item_medkit"})), form_basic_item_info("keycard_level2")}
             end,
             ragdoll_pos = Vector(4227.9760742188,-6818.7368164063,-8601.453125),
             bones = {
