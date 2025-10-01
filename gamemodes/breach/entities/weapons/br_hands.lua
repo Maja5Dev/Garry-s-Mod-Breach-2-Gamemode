@@ -111,11 +111,16 @@ SWEP.Contents = {
 				end
 			end
 
+			local prefix = " - You are "
+			if our_role == "SCP-035" then
+				prefix = " - Your host is called "
+			end
+
 			if our_showname and (!isscp or our_showname != our_role) then
 				if our_showname == "D-9341" then
-					chat.AddText(Color(255,255,255,255), " - You are D-9341, ", Color(244,65,131,255), "the chosen one")
+					chat.AddText(Color(255,255,255,255), prefix .. "D-9341, ", Color(244,65,131,255), "the chosen one")
 				else
-					chat.AddText(Color(255,255,255,255), " - You are ", Color(255,255,255,255), our_showname)
+					chat.AddText(Color(255,255,255,255), prefix, Color(255,255,255,255), our_showname)
 				end
 			end
 
@@ -124,7 +129,7 @@ SWEP.Contents = {
 			end
 
 			if isciagent then
-				chat.AddText(Color(255, 255, 255), " - You are a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
+				chat.AddText(Color(255, 255, 255), prefix .. "a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
 			end
 		--ARMOR
 			if pl:Armor() > 0 then
