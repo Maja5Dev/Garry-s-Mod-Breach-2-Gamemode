@@ -30,6 +30,51 @@ local function fix914()
 	end
 end
 
+function Breach_Map_Organise_AfterAssign()
+	local scp035exists = false
+	for k,v in pairs(player.GetAll()) do
+		if IsValid(v) and v:Alive() and !v:IsSpectator() and v.br_role == "SCP-035" then
+			scp035exists = true
+			break
+		end
+	end
+
+	if !scp035exists then
+		local rnd = math.random(1,2)
+
+		if rnd == 1 then
+			local mask035 = ents.Create("breach_035mask")
+
+			if IsValid(mask035) then
+				local tab = table.Random(MAPCONFIG.SPAWNS_ENT_SCP_035)
+				mask035:SetPos(tab[1])
+				mask035:SetAngles(tab[2])
+				mask035:Spawn()
+			end
+		else
+			local all_viable_corpses = {}
+			for k,v in pairs(ents.GetAll()) do
+				if v:GetClass() == "prop_ragdoll" and v.IsStartingCorpse then
+					table.insert(all_viable_corpses, v)
+				end
+			end
+
+			local rnd_corpse = table.Random(all_viable_corpses)
+			if IsValid(rnd_corpse) then
+				local mask035 = ents.Create("breach_035mask")
+				if IsValid(mask035) then
+					mask035:Spawn()
+					mask035:SetPos(rnd_corpse:GetPos() + Vector(0,0,15))
+				end
+			end
+		end
+	end
+end
+
+hook.Add("Tick", "Position035", function()
+
+end)
+
 function Breach_Map_Organise()
 	devprint("organising the map...")
 
@@ -101,37 +146,7 @@ function Breach_Map_Organise()
 	end)
 	*/
 
-	for k,v in pairs(MAPCONFIG.RANDOM_ITEM_SPAWNS) do
-		local all_spawns = table.Copy(v.spawns)
-
-		for i=1, #all_spawns - v.num do
-			table.RemoveByValue(all_spawns, table.Random(all_spawns))
-		end
-
-		local all_ents = {}
-		for i,spawn in ipairs(all_spawns) do
-			local ent = ents.Create(v.class)
-			if IsValid(ent) then
-				if v.model then
-					ent:SetModel(v.model)
-				end
-
-				ent:SetPos(spawn[1])
-				ent:SetAngles(spawn[2])
-				ent:Spawn()
-
-				if isfunction(v.func) then
-					v.func(ent)
-				end
-				
-				table.ForceInsert(all_ents, ent)
-			end
-		end
-
-		if isfunction(v.func_all) then
-			v.func_all(all_ents)
-		end
-	end
+	BR_DEFAULT_MAP_Organize_ItemSpawns()
 
 	br2_914_disabled = false
 	br_914status = 1

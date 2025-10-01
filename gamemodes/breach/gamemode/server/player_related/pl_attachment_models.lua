@@ -1,12 +1,13 @@
 ﻿
 local player_meta = FindMetaTable("Player")
+local entity_meta = FindMetaTable("Entity")
 
-function player_meta:AddAttachmentModel(tbl)
+function entity_meta:AddAttachmentModel(tbl)
     if not self.attachmentModels then
         self.attachmentModels = {}
     end
 
-    if tbl.attachment and self:CheckAttachmentSlot(tbl.attachment) then
+    if self:IsPlayer() and tbl.attachment and self:CheckAttachmentSlot(tbl.attachment) then
         self:PrintMessage(HUD_PRINTTALK, "You are already wearing something in that slot!")
         return false
     end

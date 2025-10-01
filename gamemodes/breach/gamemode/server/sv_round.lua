@@ -444,6 +444,10 @@ round_system.PreparingStart = function()
 		round_system.current_scenario.after_assign()
 	end
 
+	if isfunction(Breach_Map_Organise_AfterAssign) and round_system.current_scenario.disable_map_organisation != true then
+		Breach_Map_Organise_AfterAssign()
+	end
+
 	timer.Remove("PlayCommotionSounds")
 	timer.Remove("LockdownWait")
 	timer.Remove("GasLeak1")

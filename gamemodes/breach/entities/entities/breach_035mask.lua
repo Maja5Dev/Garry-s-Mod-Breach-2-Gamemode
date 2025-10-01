@@ -10,9 +10,18 @@ ENT.Category = "Breach 2"
 
 if CLIENT then
     function ENT:Think()
-        for k,v in pairs(ents.FindInSphere(self:GetPos(), 500)) do
+        for k,v in pairs(ents.FindInSphere(self:GetPos(), 400)) do
             if v:IsPlayer() and v:Alive() and !v:IsSpectator() and !table.HasValue(BR2_ROLES_UNAFFECTED_BY_SCP035, v.br_role) then
-                scp_035.LookAtMe(v, self)
+                local tr = util.TraceLine({
+                    start = v:GetShootPos(),
+                    endpos = self:GetPos(),
+                    filter = v
+                })
+
+                if tr.HitWorld then continue end
+                if tr.Entity != self then continue end
+
+                v:SetEyeAngles((self:GetPos() - v:GetShootPos()):Angle())
             end
         end
     end

@@ -50,6 +50,7 @@ end
 function BR_DEFAULT_MAP_Organize_ItemSpawns()
 	for k,v in pairs(MAPCONFIG.RANDOM_ITEM_SPAWNS) do
 		local all_spawns = table.Copy(v.spawns)
+
 		for i=1, #all_spawns - v.num do
 			table.RemoveByValue(all_spawns, table.Random(all_spawns))
 		end
@@ -57,7 +58,7 @@ function BR_DEFAULT_MAP_Organize_ItemSpawns()
 		local all_ents = {}
 		for i,spawn in ipairs(all_spawns) do
 			local ent = ents.Create(v.class)
-
+			
 			if IsValid(ent) then
 				if v.model then
 					ent:SetModel(v.model)
@@ -70,6 +71,7 @@ function BR_DEFAULT_MAP_Organize_ItemSpawns()
 				if isfunction(v.func) then
 					v.func(ent)
 				end
+				
 				table.ForceInsert(all_ents, ent)
 			end
 		end
