@@ -64,11 +64,11 @@ BR2_ROLES_UNAFFECTED_BY_SCP035 = {
 BR2_ROLE_WEAPON_LIMITS = {
     {
         role_name = "SCP-049",
-        allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") end
+        allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") or wep:GetClass() == "br2_scp_035_temp" end
     },
     {
         role_name = "SCP-049-2",
-        allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_049_2" end
+        allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_049_2" or wep:GetClass() == "br2_scp_035_temp" end
     },
     {
         role_name = "SCP-173",
