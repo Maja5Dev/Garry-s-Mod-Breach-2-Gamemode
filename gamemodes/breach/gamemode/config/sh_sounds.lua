@@ -29,11 +29,11 @@ function RESET_ONESHOT_AMBIENTS()
 end
 
 BR2_RANDOM_MUSIC = {
-	{ sound = "breach2/music/random_music_low_2.mp3", length = 76.77, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_4.mp3", length = 184.63, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_7.mp3", length = 108, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_8.mp3", length = 55, volume = 0.6 },
-	{ sound = "breach2/music/random_music_low_9.mp3", length = 167, volume = 0.6 },
+	{ sound = "breach2/music/random_music_low_2.mp3", length = 76.77, volume = 0.7 },
+	{ sound = "breach2/music/random_music_low_4.mp3", length = 184.63, volume = 0.7 },
+	{ sound = "breach2/music/random_music_low_7.mp3", length = 108, volume = 0.7 },
+	{ sound = "breach2/music/random_music_low_8.mp3", length = 55, volume = 0.7 },
+	{ sound = "breach2/music/random_music_low_9.mp3", length = 167, volume = 0.7 },
 }
 
 BR2_SANITY_MUSIC = {
