@@ -66,9 +66,11 @@ function BR_Hack_Terminal(logins)
 		use_button:DockPadding(120 * size_mul, 0, 0, 0)
 		use_button:SetText("")
 		use_button.DoClick = function(self)
-			access_terminal.panel_login:SetText(v.login)
-			access_terminal.panel_password:SetText(v.password)
-			surface.PlaySound("breach2/Button.ogg")
+			if IsValid(access_terminal.panel_login) then
+				access_terminal.panel_login:SetText(v.login)
+				access_terminal.panel_password:SetText(v.password)
+				surface.PlaySound("breach2/Button.ogg")
+			end
 		end
 		use_button.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255,200))
