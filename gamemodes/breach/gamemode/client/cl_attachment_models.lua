@@ -87,6 +87,22 @@ local function CleanupAttachments(ply)
     ply.attachmentModels = nil
 end
 
+local player_meta = FindMetaTable("Player")
+function player_meta:RemoveAttachmentModel(model)
+    if not self.attachmentModels then return end
+
+    for k,v in pairs(self.attachmentModels) do
+        if v.model == model then
+            table.remove(self.attachmentModels, k)
+            break
+        end
+    end
+
+    if #self.attachmentModels == 0 then
+        self.attachmentModels = nil
+    end
+end
+
 hook.Add("EntityRemoved", "CleanupAttachmentModels", function(ent)
     if ent:IsPlayer() then
         CleanupAttachments(ent)
