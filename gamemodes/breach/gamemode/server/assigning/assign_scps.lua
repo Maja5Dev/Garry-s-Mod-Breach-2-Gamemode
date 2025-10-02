@@ -248,8 +248,8 @@ function player_meta:UnDownPlayerAsZombie(healer)
 	self.br_downed = false
 	self.lastPlayerInfo = nil
 
-	ply.br_support_spawns = {{"scp_049_2", 1}}
-	ply:UpdateSupportSpawns()
+	self.br_support_spawns = {{"scp_049_2", 1}}
+	self:UpdateSupportSpawns()
 end
 
 function assign_system.Assign_SCP0492(ply)
