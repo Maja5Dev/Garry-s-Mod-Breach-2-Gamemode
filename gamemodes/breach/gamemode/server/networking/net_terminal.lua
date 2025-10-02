@@ -85,7 +85,10 @@ net.Receive("br_open_terminal", function(len, ply)
 			net.WriteBool(false)
 			net.WriteString("")
 			net.WriteTable({})
+			net.WriteTable({})
 		net.Send(ply)
+
+		ply.lastLoginInfo = nil
 		return
 	end
 
@@ -106,9 +109,11 @@ net.Receive("br_open_terminal", function(len, ply)
 					net.WriteBool(true)
 					net.WriteTable(info_to_send)
 					net.WriteTable(loginInfo)
+					net.WriteTable(round_system.eventlog)
 				net.Send(ply)
 
 				ply.lastTerminal = v
+				ply.lastLoginInfo = loginInfo
 				return
 			end
 		end
@@ -118,7 +123,10 @@ net.Receive("br_open_terminal", function(len, ply)
 		net.WriteBool(false)
 		net.WriteString("")
 		net.WriteTable({})
+		net.WriteTable({})
 	net.Send(ply)
+
+	ply.lastLoginInfo = nil
 end)
 
 print("[Breach2] server/networking/net_terminal.lua loaded!")

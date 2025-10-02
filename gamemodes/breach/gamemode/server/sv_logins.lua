@@ -33,7 +33,7 @@ function BR2_GenerateTerminalAuth(ply)
         ply = ply,
         login = login,
         password = password,
-        nick = ply:Nick()
+        nick = ply.br_showname
     })
 
     return login, password

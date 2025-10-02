@@ -20,16 +20,17 @@ function BR_Access_Terminal_Loading(terminal)
 	loading_terminal.terminal = terminal
 	local gap = 8
 	local loading_progress = 0
-	loading_terminal.endfunc = function(passed, info, loginInfo)
+	loading_terminal.endfunc = function(passed, info, loginInfo, eventlog)
 		if passed then
 			loading_terminal:Remove()
 
 			if TERMINAL_INFOS[info.tab_set] then
-				BR_Open_Terminal(TERMINAL_INFOS[info.tab_set], loginInfo)
+				BR_Open_Terminal(TERMINAL_INFOS[info.tab_set], loginInfo, eventlog)
 				terminal_frame.CurrentInfo = info
 				terminal_frame.terminal = terminal
 			end
 		else
+			-- error
 			loading_terminal:Remove()
 			BR_Access_Terminal(loading_terminal.terminal)
 			pos_x, pos_y = loading_terminal:GetPos()

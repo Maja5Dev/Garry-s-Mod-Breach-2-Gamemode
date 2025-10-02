@@ -383,6 +383,24 @@ function BR2_ChangeLightingStyle(cli)
 	BroadcastLua('render.RedownloadAllLightmaps(true)')
 end
 
+function round_system.AddEventLog(text, ply)
+	local login = ""
+	if IsValid(ply) and ply:IsPlayer() then
+		if ply.lastLoginInfo then
+			login = ply.lastLoginInfo.nick
+		end
+	else
+		login = "SYSTEM"
+	end
+
+	local terminal = nil
+	if ply.lastTerminal then
+		terminal = ply.lastTerminal.name
+	end
+
+	table.ForceInsert(round_system.eventlog, {text, os.time(), login, terminal})
+end
+
 --lua_run force_scenario = 2
 --lua_run round_system.PreparingStart()
 round_system.PreparingStart = function()
@@ -402,6 +420,7 @@ round_system.PreparingStart = function()
 	uses_294 = nil
 
 	round_system.logins = {}
+	round_system.eventlog = {}
 
 	game_state = GAMESTATE_PREPARING
 	game.CleanUpMap()

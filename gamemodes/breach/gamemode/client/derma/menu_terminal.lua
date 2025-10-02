@@ -257,7 +257,7 @@ function BR_Access_BrokenTerminal(terminal)
 end
 
 --lua_run_cl BR_Open_Terminal(br_terminal_mtf)
-function BR_Open_Terminal(options, loginInfo)
+function BR_Open_Terminal(options, loginInfo, eventlog)
 	local client = LocalPlayer()
 	local scrw = ScrW()
 	local scrh = ScrH()
@@ -282,6 +282,12 @@ function BR_Open_Terminal(options, loginInfo)
 	end
 	
 	terminal_frame.options = options
+
+	if istable(eventlog) then
+		terminal_frame.eventlog = eventlog
+	else
+		terminal_frame.eventlog = {}
+	end
 
 	terminal_logo_panel = vgui.Create("DPanel", terminal_frame)
 	terminal_logo_panel:SetPos(0, 0)

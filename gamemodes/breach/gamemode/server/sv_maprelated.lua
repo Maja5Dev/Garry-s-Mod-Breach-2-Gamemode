@@ -351,7 +351,8 @@ function BR_DEFAULT_MAP_Organize_Terminals()
 		}
 
 		v.Info.SettingsFunctions = v.special_functions
-		if math.random(1,7) == 4 then
+		
+		if v.camerasEnabled then
 			v.Info.devices.device_cameras = true
 		end
 	end

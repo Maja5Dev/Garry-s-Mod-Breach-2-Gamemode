@@ -210,6 +210,7 @@ local special_terminal_settings = {
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_ez_server_room"]:Use(pl, pl, 3, 1)
+				round_system.AddEventLog("Servers have been restarted.", pl)
 			end
 		}
 	},
@@ -222,6 +223,7 @@ local special_terminal_settings = {
 			func = function(pl)
 				if evac_shelter_delay < CurTime() then
 					BR2_SPECIAL_BUTTONS["spec_button_ez_evac_shelter_1"]:Use(pl, pl, 3, 1)
+					round_system.AddEventLog("Evacuation shelter requested.", pl)
 					evac_shelter_delay = CurTime() + 12.5
 				end
 			end
@@ -238,6 +240,7 @@ for i=1, 4 do
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_generator_"..i]:Use(pl, pl, 1, 1)
+				round_system.AddEventLog("Auxillary generator "..i.." restarted.", pl)
 			end
 		}
 	}

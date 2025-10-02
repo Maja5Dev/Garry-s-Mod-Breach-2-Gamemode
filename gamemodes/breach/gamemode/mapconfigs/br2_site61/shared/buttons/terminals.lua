@@ -31,6 +31,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_ez_server_room"]:Use(pl, pl, 3, 1)
+				round_system.AddEventLog("Servers have been restarted.", pl)
 			end
 		}
 	},
@@ -43,7 +44,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 			func = function(pl)
 				if evac_shelter_delay < CurTime() then
 					BR2_SPECIAL_BUTTONS["spec_button_ez_evac_shelter_1"]:Use(pl, pl, 3, 1)
-					print("USED THE EVAC SHELTER")
+					round_system.AddEventLog("Evacuation shelter requested.", pl)
 					evac_shelter_delay = CurTime() + 12.5
 				end
 			end
@@ -77,6 +78,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 							lcz_lockdown_button[1]:Use(pl, pl, 3, 1)
 							lcz_lockdown_delay = CurTime() + 12.5
 							print("LCZ Lockdown enabled")
+							round_system.AddEventLog("LCZ Lockdown enabled.", pl)
 							-- TODO: Make a loud sound
 						end
 					else
@@ -121,7 +123,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 						if enabled then
 							lcz_lockdown_button[1]:Use(pl, pl, 3, 1)
 							lcz_lockdown_delay = CurTime() + 12.5
-							print("LCZ Lockdown disabled")
+							round_system.AddEventLog("LCZ Lockdown disabled.", pl)
 							-- TODO: Make a loud sound
 						end
 					else
@@ -144,6 +146,7 @@ for i=1, 4 do
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_generator_"..i]:Use(pl, pl, 1, 1)
+				round_system.AddEventLog("Auxillary generator "..i.." restarted.", pl)
 			end
 		}
 	}
@@ -193,7 +196,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "lcz_checkpoint_2", pos = Vector(1854,829,-8124), canSee = DefaultTerminalCanSee},
 
 		-- LOCKDOWN ROOM
-		{name = "lcz_lockdown_control_room", pos = Vector(1584,21,-8142), canSee = DefaultTerminalCanSee},
+		{name = "lcz_lockdown_control_room", pos = Vector(1584,21,-8142), canSee = DefaultTerminalCanSee, camerasEnabled = true},
 
 	--HCZ
 		-- OFFICES
@@ -202,8 +205,6 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		-- STORAGE ROOMS
 		{name = "hcz_storage_room_1", pos = Vector(-1229,3442,-7100), canSee = function() return CanSeeFrom(Vector(-1233,3464,-7105)) end, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_3}},
 		{name = "hcz_storage_room_2", pos = Vector(838,2296,-7099), canSee = DefaultTerminalCanSee},
-
-		{name = "hcz_electrical_room_1", pos = Vector(5087,7500,-6947), canSee = DefaultTerminalCanSee},
 
 		-- CONTAINMENT ROOMS
 		{name = "hcz_cont_room_1", pos = Vector(605,923,-7100), canSee = DefaultTerminalCanSee}, -- SCP-035
@@ -229,22 +230,24 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 		{name = "ez_shared_conf_room", pos = Vector(2864,4711,-7116), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_3", pos = Vector(3168,4142,-7181), canSee = DefaultTerminalCanSee},
 		{name = "ez_cafeteria", pos = Vector(4314,4653,-7244), canSee = DefaultTerminalCanSee},
-		{name = "ez_evac_shelter_1", pos = Vector(4688,5299,-7117), canSee = DefaultTerminalCanSee, is_evac_shelter = true, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.evac_shelter}, auth = {"admin", true}},
-		{name = "ez_head_office", pos = Vector(5149,6315,-7053), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_2}},
-		{name = "ez_security_gateway_1", pos = Vector(4520,6915,-7120), canSee = DefaultTerminalCanSee},
-		{name = "ez_security_gateway_2", pos = Vector(5945,5891,-7120), canSee = DefaultTerminalCanSee},
+		{name = "ez_evac_shelter_1", pos = Vector(4688,5299,-7117), canSee = DefaultTerminalCanSee, is_evac_shelter = true, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.evac_shelter}, auth = {"admin", true}, camerasEnabled = true},
+		{name = "ez_head_office", pos = Vector(5149,6315,-7053), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.hcz_generator_2}, camerasEnabled = true},
+		{name = "ez_security_gateway_1", pos = Vector(4520,6915,-7120), canSee = DefaultTerminalCanSee, camerasEnabled = true},
+		{name = "ez_security_gateway_2", pos = Vector(5945,5891,-7120), canSee = DefaultTerminalCanSee, camerasEnabled = true},
 		{name = "ez_conf_room_1", pos = Vector(5437,7517,-7117), canSee = DefaultTerminalCanSee},
-		{name = "ez_electrical_center", pos = Vector(5119,8189,-6844), canSee = DefaultTerminalCanSee},
+
+		{name = "ez_electrical_center", pos = Vector(5087,7500,-6947), canSee = DefaultTerminalCanSee, camerasEnabled = true},
+
 		{name = "ez_medical_bay_1", pos = Vector(1364,5119,-7117), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_4", pos = Vector(4743,6160,-7117), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_2B", pos = Vector(1701,5774,-7117), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_2A", pos = Vector(2017,5675,-7117), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_5", pos = Vector(3196,7016,-7118), canSee = DefaultTerminalCanSee},
-		{name = "ez_server_hub", pos = Vector(5374,4857,-7374), canSee = DefaultTerminalCanSee},
+		{name = "ez_server_hub", pos = Vector(5374,4857,-7374), canSee = DefaultTerminalCanSee, camerasEnabled = true},
 		{name = "ez_office_6", pos = Vector(1401,6704,-7249), canSee = DefaultTerminalCanSee},
 		{name = "ez_office_7", pos = Vector(3226,5996,-7181), canSee = DefaultTerminalCanSee},
 		{name = "ez_storage_room_3e", pos = Vector(2232,6234,-7118), canSee = DefaultTerminalCanSee},
-		{name = "ez_serverfarm-server_main", pos = Vector(4693,4253,-7263), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.ez_servers}},
+		{name = "ez_serverfarm-server_main", pos = Vector(4693,4253,-7263), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.ez_servers}, camerasEnabled = true},
 
 	}
 }

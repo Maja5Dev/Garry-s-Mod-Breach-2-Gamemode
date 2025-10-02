@@ -15,6 +15,7 @@ function MAP_EvacShelter1()
 	local evac_items = nil
 	local evac_weapons = nil
 	local evac_ammo = nil
+
 	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 		if v.item_gen_group == "EZ_EVAC_SHELTER_ITEMS" then
 			evac_items = v

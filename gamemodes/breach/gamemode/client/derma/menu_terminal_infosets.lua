@@ -4,6 +4,7 @@ local info_set_devices = {"DEVICES", function(button, panel)
 		for k,v in pairs(panel:GetChildren()) do
 			v:Remove()
 		end
+
 		panel.posx, panel.posy = panel:GetPos()
 		panel.Paint = function(self, w, h)
 			DrawDefaultTerminalBackground(w, h)
@@ -14,11 +15,13 @@ local info_set_devices = {"DEVICES", function(button, panel)
 			}
 
 			local any_device_working = false
+
 			for k,v in pairs(terminal_frame.CurrentInfo.devices) do
 				if v == true then
 					any_device_working = true
 				end
 			end
+
 			if any_device_working then
 				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently working devices:", clr_big_text, true})
 				for k,v in pairs(terminal_frame.CurrentInfo.devices) do
@@ -37,6 +40,8 @@ local info_set_devices = {"DEVICES", function(button, panel)
 		BR_CURRENT_TERMINAL_PANEL.devices_pop = function(tab)
 			local size_mul = ScrH() / 1080
 			for i,v in ipairs(tab) do
+				if terminal_frame.CurrentInfo.devices[v.class] == true then continue end
+
 				local panel_w, panel_h = panel:GetSize()
 				
 				--terminal_create_button(parent, pos_x, pos_y, size_w, size_h, button_text, func_after_creation)
@@ -195,6 +200,7 @@ TERMINAL_INFOS = {
 					local texttab = {
 						{"BR_TERMINAL_MAIN_TEXT", "SITE STATUS AND NOTIFICATIONS", clr_big_text, true}
 					}
+
 					local redcolor = Color(255,0,0)
 					table.Add(texttab, {
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " The Site is currently experiencing containment breaches of:", redcolor, true},
@@ -204,6 +210,35 @@ TERMINAL_INFOS = {
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " All personnnel are advised to stay in the evacuation shelters", redcolor, true},
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " Await further instructions from security personnel", redcolor, true},
 					})
+
+					table.Add(texttab, {
+						{true, "BR_TERMINAL_MAIN_TEXT"}, -- break line
+					})
+
+					if istable(terminal_frame.eventlog) and #terminal_frame.eventlog > 0 then
+						table.ForceInsert(texttab, {true, "BR_TERMINAL_MAIN_TEXT"}) -- break line
+						table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT", "EVENT LOG:", clr_big_text, true})
+
+						for i=#terminal_frame.eventlog, 1, -1 do
+							local log = terminal_frame.eventlog[i]
+							if istable(log) and isstring(log[1]) and isnumber(log[2]) then
+								local time_string = os.date("%H:%M:%S", log[2])
+								local plyname = ""
+
+								if isstring(log[3]) then
+									plyname = " ["..log[3].."]"
+								end
+
+								local terminal_name = ""
+								if isstring(log[4]) then
+									terminal_name = ", "..log[4]
+								end
+
+								table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " ["..time_string..terminal_name.."] "..log[1]..plyname, Color(200, 200, 200), true})
+							end
+						end
+					end
+
 					local text_w, text_h = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
 				end
 
