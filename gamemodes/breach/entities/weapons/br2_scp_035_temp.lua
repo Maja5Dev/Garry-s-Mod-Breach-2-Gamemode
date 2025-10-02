@@ -11,6 +11,15 @@ SWEP.DrawCrosshair = false
 function SWEP:PutTheMask()
     local ply = self.Owner
 
+    if !IsValid(ply) then
+        for k,v in pairs(player.GetAll()) do
+            if v:HasWeapon("br2_scp_035_temp") then
+                ply = v
+                break
+            end
+        end
+    end
+
 	ply:Freeze(true)
 	self:SendWeaponAnim(ACT_VM_DRAW)
 	self:SetCurentAnim()
@@ -71,7 +80,7 @@ function SWEP:PutTheMask()
 			if SERVER then 
 				ply:Freeze(false)
 				--scp_035.StartIdleSound(ply)
-                ply:StripWeapon(self:GetClass())
+                ply:StripWeapon("br2_scp_035_temp")
             else
                 if ply.SCP035_TransitionTransform then
                     ply.SCP035_TransitionTransform:Remove()
