@@ -13,8 +13,34 @@ function player_meta:SendPlayerInfo(ply)
 	end
 end
 
+function player_meta:SendPlayerUnknownInfo(ply)
+	local info = ply:FormInfo(self)
+	
+	info["br_showname"] = nil
+
+	if istable(info) then
+		net.Start("br_send_info")
+			net.WriteTable(info)
+			net.WriteString(ply:SteamID64())
+		net.Send(self)
+	end
+end
+
 function BroadcastPlayerInfo(ply)
 	local info = ply:FormInfo()
+
+	if istable(info) then
+		net.Start("br_send_info")
+			net.WriteTable(info)
+			net.WriteString(ply:SteamID64())
+		net.Broadcast()
+	end
+end
+
+function BroadcastPlayerUnknownInfo(ply)
+	local info = ply:FormInfo()
+
+	info["br_showname"] = nil
 
 	if istable(info) then
 		net.Start("br_send_info")

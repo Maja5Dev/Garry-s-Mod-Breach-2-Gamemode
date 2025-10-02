@@ -372,7 +372,7 @@ net.Receive("br_support_spawn", function(len, ply)
 					ply:SetFOV(DEF_FOV, 2)
 					ply.support_spawning = false
 
-					hook.Call("BR2_SupportSpawned", GAMEMODE, ply)
+					BroadcastPlayerUnknownInfo(ply)
 
 					for k2,mtf_team in pairs(BR2_MTF_TEAMS) do
 						for k3,mtf in pairs(mtf_team) do
@@ -381,6 +381,8 @@ net.Receive("br_support_spawn", function(len, ply)
 							end
 						end
 					end
+					
+					hook.Call("BR2_SupportSpawned", GAMEMODE, ply)
 				else
 					return
 				end

@@ -9,7 +9,9 @@ local function removeNearbyInfo(ply)
 		})
 
 		if otherply != ply and tr.Entity != otherply then
-			notepad_system.RemovePlayerInfo(otherply, ply.charid)
+			--notepad_system.RemovePlayerInfo(otherply, ply.charid)
+			otherply:SendPlayerUnknownInfo(ply)
+			--BroadcastPlayerUnknownInfo(ply)
 		end
 	end
 end
