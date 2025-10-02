@@ -4,20 +4,39 @@ net.Receive("br_install_device", function(len, ply)
 		local device = net.ReadString()
 		local terminal = net.ReadString()
 
+		local found_device = nil
 		for k,v in pairs(ply.br_special_items) do
 			if v.class == device then
-				table.RemoveByValue(ply.br_special_items, v)
-
-				for k2,v2 in pairs(BR2_TERMINALS) do
-					if v2.name == terminal and v2.Info.devices[device] == false then
-						v2.Info.devices[device] = true
-						net.Start("br_install_device")
-						net.Send(ply)
-						return
-					end
-				end
+				found_device = v
+				break
 			end
 		end
+
+		if found_device == nil then
+			error("[Breach2] Player " .. ply:Nick() .. " tried to install a device they do not own (" .. device .. ")!\n")
+			return
+		end
+
+		for _, terminal_tab in pairs(BR2_TERMINALS) do
+			if terminal_tab.name == terminal then
+				if terminal_tab.Info.devices[device] == true then
+					ply:PrintMessage(HUD_PRINTTALK, "This terminal already has this device installed!")
+					return
+				end
+
+				terminal_tab.Info.devices[device] = true
+				table.RemoveByValue(ply.br_special_items, found_device)
+
+				net.Start("br_install_device")
+				net.Send(ply)
+
+				ply:PrintMessage(HUD_PRINTTALK, "Device installed")
+
+				return
+			end
+		end
+
+		ply:PrintMessage(HUD_PRINTTALK, "Terminal not found!")
 	end
 end)
 
