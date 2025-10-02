@@ -15,14 +15,17 @@ net.Receive("br_mtf_teams_leave", function(len, ply)
 end)
 
 function br2_mtf_teams_check()
-	for k,v in pairs(BR2_MTF_TEAMS) do
-		for k2,pl in pairs(v) do
-			if pl == nil or !IsValid(pl) or pl:Alive() or pl.br_downed == true or pl:IsSpectator() then
-				table.RemoveByValue(BR2_MTF_TEAMS, pl)
-			end
-		end
-	end
+    for teamIndex, teamTable in pairs(BR2_MTF_TEAMS) do
+        for i = #teamTable, 1, -1 do
+            local pl = teamTable[i]
+            if not IsValid(pl) or pl.br_downed == true or !pl:IsSpectator() then
+                table.remove(teamTable, i)
+				devprint("Removed invalid player from MTF team " .. teamIndex, pl)
+            end
+        end
+    end
 end
+
 
 MTF_NEEDED_TO_SPAWN = 3
 
@@ -45,22 +48,30 @@ function br2_mtf_teams_add(ply, num)
 		return
 	end
 
-	if (num == 1 or num == 2) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed == false then
+	if (num == 1 or num == 2) and table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN and ply:IsSpectator() and ply.br_downed != true then
 		local evac_code = MTF_GetEvacInfo()
 
 		for k,v in pairs(ply.br_support_spawns) do
 			if v[1] == "mtf" and v[2] > 0 then
+				-- check for invalid players in teams
 				br2_mtf_teams_check()
 
+				-- remove from other teams
 				for k,v in pairs(BR2_MTF_TEAMS) do
 					for k2,pl in pairs(v) do
 						if pl == ply then
 							table.RemoveByValue(v, ply)
+							break
 						end
 					end
 				end
-				table.ForceInsert(BR2_MTF_TEAMS[num], ply)
 
+				-- add to the requested team
+				if not table.HasValue(BR2_MTF_TEAMS[num], ply) then
+					table.ForceInsert(BR2_MTF_TEAMS[num], ply)
+				end
+
+				-- if team is full, spawn them all, otherwise just update the team info
 				if table.Count(BR2_MTF_TEAMS[num]) == MTF_NEEDED_TO_SPAWN then
 					devprint("MTF Team " .. num .. " is ready to deploy")
 					local all_mtfs = table.Copy(BR2_MTF_TEAMS[num])
@@ -130,7 +141,7 @@ function br2_mtf_teams_add(ply, num)
 						end
 
 						for k2,v2 in pairs(existingMTFs) do
-							notepad_system.AddPlayerInfo(v, v2.br_showname, v2.br_role, v2.br_team, false, HEALTH_ALIVE, false, v2.charid, v2)
+							notepad_system.AddPlayerInfo(mtf1, v2.br_showname, v2.br_role, v2.br_team, false, HEALTH_ALIVE, false, v2.charid, v2)
 						end
 
 						if evac_code != nil then
@@ -175,15 +186,18 @@ function br2_mtf_teams_add(ply, num)
 			end
 		end
 	end
+	
 	ply:PrintMessage(HUD_PRINTTALK, "For some reason you could not join this team")
 end
 
 function br2_mtf_teams_remove(ply)
 	br2_mtf_teams_check()
+
 	for k,v in pairs(BR2_MTF_TEAMS) do
 		for k2, pl in pairs(v) do
 			if pl == ply then
 				table.RemoveByValue(v, ply)
+				break
 			end
 		end
 	end
