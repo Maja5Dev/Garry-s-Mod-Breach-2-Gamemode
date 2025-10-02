@@ -399,6 +399,10 @@ function round_system.AddEventLog(text, ply)
 	end
 
 	table.ForceInsert(round_system.eventlog, {text, os.time(), login, terminal})
+
+	net.Start("br_update_eventlog")
+		net.WriteTable(round_system.eventlog)
+	net.Broadcast()
 end
 
 --lua_run force_scenario = 2

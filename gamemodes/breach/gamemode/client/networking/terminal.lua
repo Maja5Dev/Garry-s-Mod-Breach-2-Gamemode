@@ -33,3 +33,11 @@ net.Receive("br_hack_terminal", function(len)
 	local logins = net.ReadTable()
 	BR_Hack_Terminal(logins)
 end)
+
+net.Receive("br_update_eventlog", function(len)
+	local eventlog = net.ReadTable()
+	
+	if IsValid(terminal_frame) then
+		terminal_frame.eventlog = eventlog or {}
+	end
+end)
