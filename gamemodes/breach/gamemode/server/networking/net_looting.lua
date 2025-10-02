@@ -104,7 +104,7 @@ net.Receive("br_take_loot", function(len, ply)
 			end
 		end
 
-		if !ply.br_uses_hunger_system and string.find(item.class, "food") or string.find(item.class, "drink") then
+		if ply.br_uses_hunger_system != true and (string.find(item.class, "food") or string.find(item.class, "drink")) then
 			ply:PrintMessage(HUD_PRINTTALK, "You dont't want food or drinks.")
 			return
 		end
