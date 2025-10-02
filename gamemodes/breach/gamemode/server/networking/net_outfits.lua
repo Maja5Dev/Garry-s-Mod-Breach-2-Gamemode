@@ -201,7 +201,7 @@ net.Receive("br_use_outfitter", function(len, ply)
 	if len < 256 and ply:Alive() and ply:IsSpectator() == false and istable(MAPCONFIG) then
 
 		if ply.cantChangeOutfit then
-			ply:PrintMessage(HUD_PRINTTALK, "You couldn't find anything useful...")
+			ply:PrintMessage(HUD_PRINTTALK, "You cannot change your outfit.")
 			return
 		end
 

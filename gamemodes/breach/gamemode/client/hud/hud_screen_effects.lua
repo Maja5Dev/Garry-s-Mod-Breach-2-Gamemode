@@ -227,6 +227,7 @@ function GM:PreDrawHalos()
 			table.ForceInsert(haloents, v)
 		end
 	end
+	
 	halo.Add(haloents, item_halo_color, 3, 3, 1)
 end
 
