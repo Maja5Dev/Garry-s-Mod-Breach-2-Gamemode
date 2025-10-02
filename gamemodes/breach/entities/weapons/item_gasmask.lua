@@ -60,15 +60,16 @@ SWEP.GasMaskOn = false
 SWEP.NextChange = 0
 function SWEP:PrimaryAttack()
 	if self.NextChange < CurTime() then
+		self.NextChange = CurTime() + 0.5
+
 		if !self.GasMaskOn and (self.Owner:CheckAttachmentSlot("eyes") or self.Owner:CheckAttachmentSlot("face")) then
-			if CLIENT then
+			if SERVER then
 				self.Owner:PrintMessage(HUD_PRINTTALK, "You are already wearing something on your face!")
 			end
 			return
 		end
 
 		self.GasMaskOn = !self.GasMaskOn
-		self.NextChange = CurTime() + 0.5
 
 		if CLIENT and IsFirstTimePredicted() then
 			surface.PlaySound("breach2/items/pickitem2.ogg")
@@ -116,9 +117,21 @@ if SERVER then
 			angOffset = Angle(260, 0, 180)
 		})
 	end
+end
 
-	function RemoveGasmask(ply)
-		ply:RemoveAttachmentModel("models/mishka/models/gasmask.mdl")
+function RemoveGasmask(ply)
+	ply:RemoveAttachmentModel("models/mishka/models/gasmask.mdl")
+end
+
+function SWEP:OnRemove()
+	if IsValid(self.Owner) then
+		RemoveGasmask(self.Owner)
+	end
+end
+
+function SWEP:OnDrop(owner)
+	if IsValid(owner) then
+		RemoveGasmask(owner)
 	end
 end
 

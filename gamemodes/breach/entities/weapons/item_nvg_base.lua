@@ -467,9 +467,21 @@ if SERVER then
 			angOffset = Angle(6, 0, 0)
 		})
 	end
+end
 
-	function RemoveNVG(ply)
-		ply:RemoveAttachmentModel("models/cultist/items/nightvision/bonemerge_nvg_forface.mdl")
+function RemoveNVG(ply)
+	ply:RemoveAttachmentModel("models/cultist/items/nightvision/bonemerge_nvg_forface.mdl")
+end
+
+function SWEP:OnRemove()
+	if IsValid(self.Owner) then
+		RemoveNVG(self.Owner)
+	end
+end
+
+function SWEP:OnDrop(owner)
+	if IsValid(owner) then
+		RemoveNVG(owner)
 	end
 end
 
