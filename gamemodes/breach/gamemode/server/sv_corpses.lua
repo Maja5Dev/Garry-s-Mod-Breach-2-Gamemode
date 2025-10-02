@@ -63,6 +63,18 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	rag.Info.DamageType = dmgtype
 	rag.Info.Time = CurTime()
 
+	--if victim:HasAttachmentModel("models/scp_035_real/scp_035_real.mdl") then
+		--tag.Info.Has035Attached = true
+	--end
+
+	if victim:HasAttachmentModel("models/scp_035_real/scp_035_real.mdl") then
+		local mask035 = ents.Create("breach_035mask")
+		if IsValid(mask035) then
+			mask035:Spawn()
+			mask035:SetPos(rag:GetPos() + Vector(0,0,15))
+		end
+	end
+
 	if istable(notepad_system.AllNotepads[victim.charid]) then
 		rag.Info.notepad = table.Copy(notepad_system.AllNotepads[victim.charid])
 	end
