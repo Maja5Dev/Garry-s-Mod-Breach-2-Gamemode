@@ -289,13 +289,26 @@ end)
 net.Receive("br_hack_terminal", function(len, ply)
 	local name = net.ReadString()
 
-	if ply:Alive() and !ply:IsSpectator() and name then
+	if ply:Alive() and !ply:IsSpectator() and !ply.br_downed and name then
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.TERMINALS.buttons) do
 			if v.name == name and v.pos:Distance(ply:GetPos()) < 200 then
 				net.Start("br_hack_terminal")
 					net.WriteTable(round_system.logins or {})
 				net.Send(ply)
 				return
+			end
+		end
+	end
+end)
+
+-- TODO
+net.Receive("br_remove_body_attachment", function(len, ply)
+	if ply:Alive() and !ply.br_downed and !ply:IsSpectator() then
+		local ent = net.ReadEntity()
+		local attachment = net.ReadString()
+
+		if IsValid(ent) and ent:GetPos():Distance(ply:GetPos()) < 170 then
+			if attachment == "035mask" then
 			end
 		end
 	end

@@ -36,6 +36,8 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), ply:GetPos():Distance(attacker:GetPos()))
 		end
 
+		ply:RemoveAttachmentModels()
+
 		ply:AddDeaths(1)
 		
 		if IsValid(attacker) and attacker:IsPlayer() then

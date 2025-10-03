@@ -56,7 +56,7 @@ function SWEP:PutTheMask()
 		self:SetCurentAnim()
 
 		timer.Simple(7.6, function()
-			if !IsValid(self) or !IsValid(ply) or !ply:Alive() or ply:IsSpectator() then return end
+			if !IsValid(ply) or !ply:Alive() or ply:IsSpectator() then return end
 
             if SERVER then
                 ply.br_role = "SCP-035"

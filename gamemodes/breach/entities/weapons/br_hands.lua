@@ -555,6 +555,30 @@ SWEP.Contents = {
 			WeaponFrame:Remove()
 		end
 	},
+	put_on_scp35 = {
+		id = 16,
+		enabled = false,
+		name = "Put on the mask",
+		desc = "Put on the mask on your face",
+		background_color = Color(125,125,125),
+		sv_effect = function(self, ply)
+			local tr = util.TraceLine({
+				start = ply:EyePos(),
+				endpos = ply:EyePos() + (ply:EyeAngles():Forward() * 70),
+				filter = ply
+			})
+			
+			for k,v in pairs(ents.FindInSphere(tr.HitPos, 40)) do
+				if v:GetClass() == "breach_035mask" then
+					hook.Run("PlayerUse", ply, v)
+					v:Use(ply, ply, USE_ON, 0)
+				end
+			end
+		end,
+		cl_after = function(self)
+			WeaponFrame:Remove()
+		end
+	},
 }
 
 function SWEP:CheckContents()
@@ -688,7 +712,13 @@ function SWEP:CreateFrame()
 
 	local pickupable_items = {}
 
+	self.Contents.put_on_scp35.enabled = false
 	for k,v in pairs(ents.FindInSphere(tr.HitPos, 40)) do
+		if v:GetClass() == "breach_035mask" then
+			self.Contents.put_on_scp35.enabled = true
+			continue
+		end
+
 		if v:GetNWBool("isDropped", false) == true and !IsValid(v.Owner) then
 			tr = util.TraceHull({
 				start = self.Owner:EyePos(),
@@ -697,6 +727,7 @@ function SWEP:CreateFrame()
 				maxs = Vector(4, 4, 4),
 				filter = nfilter
 			})
+
 			if tr.Entity == v then
 				table.ForceInsert(pickupable_items, v)
 			end
@@ -708,11 +739,13 @@ function SWEP:CreateFrame()
 
 	if IsValid(entf) and entf:GetNWBool("isDropped", false) == true and !IsValid(entf.Owner) and entf:GetPos():Distance(LocalPlayer():GetPos()) < 150 then
 		local found = false
+
 		for k,v in pairs(pickupable_items) do
 			if v == entf then
 				found = true
 			end
 		end
+
 		if found == false then
 			table.ForceInsert(pickupable_items, entf)
 		end
@@ -757,6 +790,31 @@ function SWEP:CreateFrame()
 			end
 		}
 	end
+
+	/* WORK IN PROGRESS
+	if IsValid(lastseen_player) and lastseen_player:GetClass() == "prop_ragdoll" then
+		if lastseen_player.Has035Attached then
+			self.Contents["remove_body_attachment_"..i..""] = {
+				id = table.Count(self.Contents) + 1,
+				enabled = true,
+				delete_after = 1,
+				name = "Remove the mask",
+				desc = "Remove the mask from the face",
+				background_color = Color(0,150,150),
+				cl_effect = function(self)
+					chat.AddText(Color(255,255,255,255), "Trying to remove the mask...")
+					net.Start("br_remove_body_attachment")
+						net.WriteEntity(lastseen_player)
+						net.WriteString("035mask")
+					net.SendToServer()
+				end,
+				cl_after = function()
+					WeaponFrame:Remove()
+				end
+			}
+		end
+	end
+	*/
 	
 	--for k,v in pairs(self.Contents) do v.enabled = true end
 
