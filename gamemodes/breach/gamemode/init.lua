@@ -99,6 +99,8 @@ AddCSLuaFile("client/cl_binds.lua")
 AddCSLuaFile("client/cl_fog.lua")
 
 AddCSLuaFile("client/cl_tick.lua")
+AddCSLuaFile("config/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua
+AddCSLuaFile("client/cl_item_spawnmenu.lua")
 
 AddCSLuaFile("cl_init.lua")
 
@@ -115,6 +117,7 @@ include("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 
 include("server/sv_names.lua") -- has to be before sv_scenarios, top priority
 include("server/sv_scenarios.lua") -- table of scenarios, top priority
+include("config/sh_scp294.lua") -- needs to be before sv_items.lua
 include("server/sv_items.lua") -- table of items, top priority
 include("server/sv_notepad_system.lua") -- notepad_system table, top priority
 include("server/sv_misc.lua") -- misc functions, top priority

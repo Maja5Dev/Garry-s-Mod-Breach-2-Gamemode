@@ -84,6 +84,7 @@ util.AddNetworkString("br_attach_models")
 util.AddNetworkString("br_remove_all_attach_models")
 util.AddNetworkString("br_update_eventlog")
 util.AddNetworkString("br_remove_body_attachment")
+util.AddNetworkString("br_spawn_item")
 
 include("net_supports.lua") -- top priority
 

@@ -189,4 +189,65 @@ net.Receive("br_pickup_item", function(len, ply)
 	end
 end)
 
+concommand.Add("br_spawn_item", function(ply, cmd, args)
+    if not IsValid(ply) or not ply:IsAdmin() then return end
+    local item = special_item_system.GetItem(args[1])
+
+	print(args[1])
+
+	if weapons.Get(args[1]) then
+		local wep = ents.Create(args[1])
+
+		if IsValid(wep) then
+			wep:Spawn()
+			wep:SetPos(ply:GetEyeTrace().HitPos + Vector(0,0,20))
+			wep:SetNWBool("isDropped", true)
+		end
+
+	elseif istable(item) then
+		local res = item.drop(ply)
+
+	else
+		for k,v in pairs(BR2_DOCUMENTS) do
+			if v.class == args[1] then
+				item = special_item_system.GetItem("document")
+
+				local docdata = {
+					name = v.name,
+					type = v.class,
+					attributes = {}
+				}
+
+				item.drop(ply, docdata)
+				return
+			end
+		end
+
+		for k,v in pairs(BR2_SCP_294_OUTCOMES) do
+			local found = false
+			local showname = ""
+
+			for k2,v2 in pairs(v.texts) do
+				if string.find(v2, args[1]) then
+					found = true
+					showname = v2
+					break
+				end
+			end
+
+			if found then
+				item = special_item_system.GetItem("cup")
+
+				local drinkdata = {
+					name = "Cup of " .. showname,
+					type = v.type
+				}
+
+				item.drop(ply, drinkdata)
+				return
+			end
+		end
+	end
+end)
+
 print("[Breach2] server/networking/net_items.lua loaded!")

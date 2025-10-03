@@ -58,7 +58,7 @@ function br2_special_item_drop(pl, class, name, force_class, mdl, item)
 			end
 		end
 
-		if IsValid(pl) then
+		if IsValid(pl) and pl:Alive() and !pl:IsSpectator() then
 			for k,v in pairs(pl.br_special_items) do
 				if item and !spi_comp(item, v) then continue end
 				if v.class == class then
@@ -66,6 +66,8 @@ function br2_special_item_drop(pl, class, name, force_class, mdl, item)
 					return true, dropped_ent
 				end
 			end
+		else
+			return true, dropped_ent
 		end
 
 		-- scp 1162 and 914 use this
@@ -119,6 +121,14 @@ special_item_system = {}
 special_item_system.AddItem = function(tab)
 	devprint("Registering item " .. tab.class)
 	table.ForceInsert(BR2_SPECIAL_ITEMS, tab)
+end
+
+special_item_system.GetItem = function(class)
+	for k,v in pairs(BR2_SPECIAL_ITEMS) do
+		if v.class == class then
+			return v
+		end
+	end
 end
 
 function gvi_d(name)
