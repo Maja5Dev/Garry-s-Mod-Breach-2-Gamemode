@@ -56,7 +56,7 @@ function BR_ActivateNuke()
 end
 
 hook.Add("BR2_RoundStateChange", "PreventRoundEndNuke", function()
-    if game_state == GAMESTATE_ROUND and br2_nuke_exploded == false then
+    if game_state == GAMESTATE_ROUND and br2_nuke_exploded == false and WinCheck() > 0 then
         if !timer.Exists("BR_NukeExplosion") then
             BR_ActivateNuke()
         end
