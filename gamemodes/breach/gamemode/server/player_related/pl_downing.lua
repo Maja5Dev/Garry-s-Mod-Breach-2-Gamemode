@@ -26,6 +26,8 @@ function player_meta:SetDowned(dmginfo)
 	self:AddFlags(FL_NOTARGET)
 	self.br_downed = true
 
+	self:EmitSound("breach2/player/breathe1.wav")
+
 	net.Start("br_player_downed")
 	net.Send(self)
 
