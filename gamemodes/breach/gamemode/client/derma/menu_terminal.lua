@@ -259,6 +259,20 @@ function BR_Access_BrokenTerminal(terminal)
 	net.SendToServer()
 end
 
+local function remove_panel_children(panel)
+	if not IsValid(panel) then return end
+	
+	local children = table.Copy(panel:GetChildren())
+	
+	for _, child in ipairs(children) do
+		if IsValid(child) then
+			remove_panel_children(child)
+			child:Remove()
+		end
+	end
+end
+
+
 --lua_run_cl BR_Open_Terminal(br_terminal_mtf)
 function BR_Open_Terminal(options, loginInfo, eventlog)
 	local client = LocalPlayer()
@@ -282,6 +296,7 @@ function BR_Open_Terminal(options, loginInfo, eventlog)
 	end
 	terminal_frame.OnRemove = function()
 		--surface.PlaySound("breach2/ui/recorder_off.ogg")
+		remove_panel_children(terminal_options_panel)
 	end
 	
 	terminal_frame.options = options
