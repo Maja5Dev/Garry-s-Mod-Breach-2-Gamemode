@@ -32,7 +32,7 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 			rag:SetNWString("ExamineDmgInfo", " - They died of despair")
 		end
 
-	elseif attacker:IsPlayer() then
+	elseif IsValid(attacker) and attacker:IsPlayer() then
 		local inflictor = attacker:GetActiveWeapon()
 
 		if IsValid(inflictor) and isstring(BR2_WEAPON_DEATH_DESCRIPTIONS[inflictor:GetClass()]) then

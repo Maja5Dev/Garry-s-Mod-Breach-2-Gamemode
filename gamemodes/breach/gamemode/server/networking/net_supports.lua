@@ -85,6 +85,8 @@ function br2_mtf_teams_add(ply, num)
 		-- if team is full, spawn them all, otherwise just update the team info
 		if table.Count(BR2_MTF_TEAMS[num]) == MTF_NEEDED_TO_SPAWN then
 			devprint("MTF Team " .. num .. " is ready to deploy")
+
+			hook.Run("BR_OnMTFSpawn", BR2_MTF_TEAMS[num])
 			
 			local all_mtfs = table.Copy(BR2_MTF_TEAMS[num])
 			local existingMTFs = {}

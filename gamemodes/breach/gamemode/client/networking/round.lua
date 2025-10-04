@@ -10,6 +10,8 @@ net.Receive("br_round_start", function(len)
 end)
 
 net.Receive("br_round_prepstart", function(len)
+	hook.Run("BR2_PreparingStart")
+
 --READING NET INFO
 	br2_current_scenario = net.ReadTable()
 	local read_str1 = net.ReadString()

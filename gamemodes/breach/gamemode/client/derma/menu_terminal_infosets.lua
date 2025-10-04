@@ -99,10 +99,19 @@ local info_set_system = {"SYSTEM", function(button, panel)
 		panel.posx, panel.posy = panel:GetPos()
 
 		if terminal_frame.terminal.special_functions then
-			for k,v in pairs(terminal_frame.terminal.special_functions) do
-				if isfunction(v.canUse) and !v.canUse(LocalPlayer()) then
-					table.RemoveByValue(terminal_frame.terminal.special_functions, v)
+			local toRemove = {}
+			for _, v in pairs(terminal_frame.terminal.special_functions) do
+				for _, v2 in pairs(BR2_SPECIAL_TERMINAL_SETTINGS) do
+					if v2.class == v.name then
+						if isfunction(v2.canUse) and not v2.canUse(LocalPlayer()) then
+							table.insert(toRemove, v)
+						end
+						break -- no need to keep looping BR2_SPECIAL_TERMINAL_SETTINGS
+					end
 				end
+			end
+			for _, v in ipairs(toRemove) do
+				table.RemoveByValue(terminal_frame.terminal.special_functions, v)
 			end
 		end
 
@@ -118,7 +127,7 @@ local info_set_system = {"SYSTEM", function(button, panel)
 				end
 			end
 
-			if !already_in and isfunction(v.canUse) and v.canUse(LocalPlayer()) then
+			if !already_in and v.global and isfunction(v.canUse) and v.canUse(LocalPlayer()) then
 				table.ForceInsert(spec_functions, v)
 			end
 		end
@@ -193,8 +202,14 @@ TERMINAL_INFOS = {
 					v:Remove()
 				end
 
-				panel.Paint = function(self, w, h)
-					DrawDefaultTerminalBackground(w, h)
+				local scrollpanel = vgui.Create("DScrollPanel", panel)
+				scrollpanel:Dock(FILL)
+
+				-- Create a child panel to handle text drawing
+				local textPanel = vgui.Create("DPanel", scrollpanel)
+				textPanel:Dock(TOP)
+				textPanel:SetTall(2000) -- make it tall enough, we’ll update later if needed
+				textPanel.Paint = function(self, w, h)
 					local size_mul = ScrH() / 1080
 					local clr_big_text = Color(255,255,255,255)
 					local texttab = {
@@ -216,15 +231,14 @@ TERMINAL_INFOS = {
 					})
 
 					if istable(terminal_frame.eventlog) and #terminal_frame.eventlog > 0 then
-						table.ForceInsert(texttab, {true, "BR_TERMINAL_MAIN_TEXT"}) -- break line
+						table.ForceInsert(texttab, {true, "BR_TERMINAL_MAIN_TEXT"})
 						table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT", "EVENT LOG:", clr_big_text, true})
 
-						for i=#terminal_frame.eventlog, 1, -1 do
+						for i = #terminal_frame.eventlog, 1, -1 do
 							local log = terminal_frame.eventlog[i]
 							if istable(log) and isstring(log[1]) and isnumber(log[2]) then
 								local time_string = os.date("%H:%M:%S", log[2])
 								local plyname = ""
-
 								if isstring(log[3]) then
 									plyname = " ["..log[3].."]"
 								end
@@ -234,12 +248,27 @@ TERMINAL_INFOS = {
 									terminal_name = ", "..log[4]
 								end
 
-								table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " ["..time_string..terminal_name.."] "..log[1]..plyname, Color(200, 200, 200), true})
+								table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALLER", " ["..time_string..terminal_name.."] "..log[1]..plyname, Color(200, 200, 200), true})
 							end
 						end
+
+						table.Add(texttab, {
+							{true, "BR_TERMINAL_MAIN_TEXT"}, -- break line
+						})
 					end
 
-					local text_w, text_h = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
+					-- Actually draw the text
+					local _, end_y = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
+
+					-- Resize panel height dynamically to fit text
+					self:SetTall(end_y + 20)
+				end
+
+
+				panel.Paint = function(self, w, h)
+					DrawDefaultTerminalBackground(w, h)
+
+					--local text_w, text_h = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
 				end
 
 				BR_CURRENT_TERMINAL_PANEL = panel

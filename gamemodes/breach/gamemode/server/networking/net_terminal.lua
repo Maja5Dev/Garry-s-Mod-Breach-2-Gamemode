@@ -100,7 +100,10 @@ net.Receive("br_open_terminal", function(len, ply)
 				if istable(info_to_send.SettingsFunctions) then
 					for k2,v2 in pairs(info_to_send.SettingsFunctions) do
 						if v2.server then
-							v2.server = {}
+							v2.server = nil
+						end
+						if v2.canUse then
+							v2.canUse = nil
 						end
 					end
 				end

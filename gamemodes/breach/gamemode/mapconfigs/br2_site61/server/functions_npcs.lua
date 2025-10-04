@@ -147,6 +147,8 @@ function MAP_FemurBreaker()
 
 	BroadcastLua("surface.PlaySound('cpthazama/scp/106Contain.mp3')")
 
+	round_system.AddEventLog("SCP-106 has been contained.")
+
 	/*
 	local tr = util.TraceLine({
 		start = Vector(-2522,6345,-7616),

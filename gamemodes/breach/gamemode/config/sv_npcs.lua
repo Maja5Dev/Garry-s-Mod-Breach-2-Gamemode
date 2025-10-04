@@ -23,7 +23,6 @@ BR_DISABLE_NPCS = {
     ["npc_cpt_scp_457"] = true,
     ["npc_cpt_scp_575"] = true,
     ["npc_cpt_scp_173"] = true,
-    ["npc_cpt_scp_575"] = true,
     ["npc_cpt_scp_096"] = true,
 }
 

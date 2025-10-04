@@ -214,6 +214,9 @@ function create_terminal_fonts()
 	font_structure.size = font_structure.size * 0.9
 	surface.CreateFont("BR_TERMINAL_MAIN_TEXT_SMALL", font_structure)
 	
+	font_structure.size = font_structure.size * 0.9
+	surface.CreateFont("BR_TERMINAL_MAIN_TEXT_SMALLER", font_structure)
+	
 	font_structure.size = 30 * size_mul
 	surface.CreateFont("BR_TERMINAL_DATE_TEXT", font_structure)
 	

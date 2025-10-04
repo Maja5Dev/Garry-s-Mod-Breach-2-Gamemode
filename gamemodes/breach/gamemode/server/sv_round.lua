@@ -385,17 +385,17 @@ end
 
 function round_system.AddEventLog(text, ply)
 	local login = ""
+	local terminal = nil
+
 	if IsValid(ply) and ply:IsPlayer() then
 		if ply.lastLoginInfo then
 			login = ply.lastLoginInfo.nick
 		end
+		if ply.lastTerminal then
+			terminal = ply.lastTerminal.name
+		end
 	else
 		login = "SYSTEM"
-	end
-
-	local terminal = nil
-	if ply.lastTerminal then
-		terminal = ply.lastTerminal.name
 	end
 
 	table.ForceInsert(round_system.eventlog, {text, os.time(), login, terminal})
@@ -632,6 +632,9 @@ function HandleRounds()
 	if !(game_state == GAMESTATE_ROUND and win_check > 0) then
 		if br2_round_state_end > CurTime() then return end
 	end
+
+	local res = hook.Run("BR2_RoundStateChange")
+	if res == true then return end
 
 	if game_state == GAMESTATE_NOTSTARTED or game_state == GAMESTATE_ROUND_END then
 		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_preparing") or 25

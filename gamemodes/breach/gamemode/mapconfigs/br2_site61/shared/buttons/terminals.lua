@@ -1,6 +1,7 @@
 ﻿
 local evac_shelter_delay = 0
 local lcz_lockdown_delay = 0
+local nuke_change_delay = 0
 
 local function available_only_security(pl)
 	if CLIENT then
@@ -17,6 +18,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		name = "Open/Close Storage Room 2b",
 		type = "button",
 		button_size = 720,
+		global = false,
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_hcz_storage_room"]:Use(pl, pl, 3, 1)
@@ -28,6 +30,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		name = "Restart the servers",
 		type = "button",
 		button_size = 640,
+		global = false,
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_ez_server_room"]:Use(pl, pl, 3, 1)
@@ -40,6 +43,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		name = "Send the elevator",
 		type = "button",
 		button_size = 600,
+		global = false,
 		server = {
 			func = function(pl)
 				if evac_shelter_delay < CurTime() then
@@ -56,6 +60,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		name = "Enable LCZ Lockdown",
 		type = "button",
 		button_size = 720,
+		global = true,
 		canUse = function(pl) return available_only_security(pl) end,
 		server = {
 			func = function(pl)
@@ -68,6 +73,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 
 				if enabled then
 					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already enabled")
+					return
 				end
 
 				if lcz_lockdown_delay < CurTime() then
@@ -96,6 +102,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 		name = "Disable LCZ Lockdown",
 		type = "button",
 		button_size = 720,
+		global = true,
 		canUse = function(pl) return available_only_security(pl) end,
 		/* not implemented
 		available = function(pl)
@@ -114,6 +121,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 
 				if !enabled then
 					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already disabled")
+					return
 				end
 
 				if lcz_lockdown_delay < CurTime() then
@@ -135,6 +143,135 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 			end
 		}
 	},
+
+	omega_warhead_activate = {
+		class = "9",
+		name = "Activate Omega Warhead",
+		type = "button",
+		button_size = 720,
+		canUse = function(pl)
+			if CLIENT then
+				return br2_nuke_activated != true
+			else
+				return timer.Exists("BR_NukeExplosion") != true
+			end
+		end,
+		global = false,
+		server = {
+			func = function(pl)
+				if timer.Exists("BR_NukeExplosion") then
+					pl:PrintMessage(HUD_PRINTTALK, "The detonation sequence is already in progress.")
+					return
+				end
+
+				-- check if remote detonation enabled
+				local remote_detonation = ents.FindByName("omega_lever_room2nuke")
+				if !istable(remote_detonation) or #remote_detonation == 0 then
+					error("omega_lever_room2nuke ENTITY NOT FOUND")
+				end
+
+				local enabled = remote_detonation[1]:GetAngles().pitch > 0
+
+				if enabled then
+					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is off, cannot activate detonation.")
+					return
+				end
+
+				if isnumber(br2_nuke_activated_for) and br2_nuke_activated_for < CurTime() then
+					br2_nuke_activated_for = nil
+					br2_nuke_activator = nil
+				end
+
+				if br2_nuke_activator != nil and br2_nuke_activator == pl then
+					pl:PrintMessage(HUD_PRINTTALK, "A second operator must confirm activation from another terminal.")
+					return
+				end
+
+				if br2_nuke_activated_for == nil then
+					br2_nuke_activated_for = CurTime() + 10
+					br2_nuke_activator = pl
+					--round_system.AddEventLog("First confirmation of omega warhead detonation registered", pl)
+					pl:PrintMessage(HUD_PRINTTALK, "First confirmation registered. A second operator must confirm activation from another terminal.")
+					return
+				end
+
+				--round_system.AddEventLog("Second confirmation of omega warhead detonation registered", pl)
+
+				if nuke_change_delay < CurTime() then
+					nuke_change_delay = CurTime() + 30
+					BR_ActivateNuke()
+					local nuke_time = cvars.Number("br2_time_nuke", 90)
+					pl:PrintMessage(HUD_PRINTTALK, "Secondary confirmation received. Detonation sequence initiated (T-"..nuke_time.." seconds).")
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "Terminal locked. Please wait " .. math.Round(nuke_change_delay - CurTime(), 1) .. " seconds before retrying.")
+				end
+			end
+		}
+	},
+
+	omega_warhead_deactivate = {
+		class = "10",
+		name = "Deactivate Omega Warhead",
+		type = "button",
+		button_size = 720,
+		canUse = function(pl)
+			if CLIENT then
+				return br2_nuke_activated == true
+			else
+				return timer.Exists("BR_NukeExplosion") == true
+			end
+		end,
+		global = false,
+		server = {
+			func = function(pl)
+				if !timer.Exists("BR_NukeExplosion") then
+					pl:PrintMessage(HUD_PRINTTALK, "The detonation sequence is not currently in progress.")
+					return
+				end
+
+				-- check if remote detonation enabled
+				local remote_detonation = ents.FindByName("omega_lever_room2nuke")
+				if !istable(remote_detonation) or #remote_detonation == 0 then
+					error("omega_lever_room2nuke ENTITY NOT FOUND")
+				end
+
+				local enabled = remote_detonation[1]:GetAngles().pitch > 0
+
+				if enabled then
+					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is off, cannot deactivate detonation.")
+					return
+				end
+
+				if isnumber(br2_nuke_deactivated_for) and br2_nuke_deactivated_for < CurTime() then
+					br2_nuke_deactivated_for = nil
+					br2_nuke_deactivator = nil
+				end
+
+				if br2_nuke_deactivator != nil and br2_nuke_deactivator == pl then
+					pl:PrintMessage(HUD_PRINTTALK, "A second operator must confirm deactivation from another terminal.")
+					return
+				end
+
+				if br2_nuke_deactivated_for == nil then
+					br2_nuke_deactivated_for = CurTime() + 10
+					br2_nuke_deactivator = pl
+					--round_system.AddEventLog("First confirmation of omega warhead detonation registered", pl)
+					pl:PrintMessage(HUD_PRINTTALK, "First confirmation registered. A second operator must confirm deactivation from another terminal.")
+					return
+				end
+
+				--round_system.AddEventLog("Second confirmation of omega warhead detonation registered", pl)
+
+				if nuke_change_delay < CurTime() then
+					nuke_change_delay = CurTime() + 30
+					BR_DeactivateNuke()
+					pl:PrintMessage(HUD_PRINTTALK, "Secondary confirmation received. Detonation sequence deactivated.")
+				else
+					pl:PrintMessage(HUD_PRINTTALK, "Terminal locked. Please wait " .. math.Round(nuke_change_delay - CurTime(), 1) .. " seconds before retrying.")
+				end
+			end
+		}
+	}
 }
 
 for i=1, 4 do
@@ -143,6 +280,7 @@ for i=1, 4 do
 		name = "Restart Generator "..i.."",
 		type = "button",
 		button_size = 600,
+		global = false,
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_generator_"..i]:Use(pl, pl, 1, 1)
@@ -218,6 +356,10 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 
 		-- CHECKPOINTS
 		{name = "hcz_checkpoint_1", pos = Vector(1854,829,-7100), canSee = DefaultTerminalCanSee},
+
+		-- WARHEAD ROOM
+		{name = "hcz_warhead_controlroom_1", pos = Vector(3733,-489,-7127), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.omega_warhead_activate, BR2_SPECIAL_TERMINAL_SETTINGS.omega_warhead_deactivate}},
+		{name = "hcz_warhead_controlroom_2", pos = Vector(3693,-231,-7131), canSee = DefaultTerminalCanSee, special_functions = {BR2_SPECIAL_TERMINAL_SETTINGS.omega_warhead_activate, BR2_SPECIAL_TERMINAL_SETTINGS.omega_warhead_deactivate}},
 
 
 	--EZ

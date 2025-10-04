@@ -14,6 +14,8 @@ BR2_MTF_TEAMS = {
 br2_support_spawns = {{"mtf", 1}}
 br_our_team_num = 0
 br2_round_state_start = 0
+br2_nuke_activated = false
+br2_nuke_activation_time = 0
 
 function BR2_CL_GENERATORS_ON()
 	surface.PlaySound("breach2/intro/Light2.ogg")
@@ -83,5 +85,6 @@ include("sounds.lua")
 include("support_spawns.lua")
 include("terminal.lua")
 include("updates.lua")
+include("nuke.lua")
 
 print("[Breach2] client/networking/init.lua loaded!")

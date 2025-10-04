@@ -92,7 +92,7 @@ BR2_SCP_294_OUTCOMES = {
 
 			ply:Kill()
 
-			ply:SendLua("surface.PlaySound(\"breach2/nuke2.ogg\")")
+			ply:SendLua("surface.PlaySound(\"breach2/nuke/nuke2.ogg\")")
 			return true
 		end
 	},

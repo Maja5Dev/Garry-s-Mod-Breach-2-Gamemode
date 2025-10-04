@@ -48,6 +48,7 @@ AddCSLuaFile("client/networking/sounds.lua")
 AddCSLuaFile("client/networking/support_spawns.lua")
 AddCSLuaFile("client/networking/terminal.lua")
 AddCSLuaFile("client/networking/updates.lua")
+AddCSLuaFile("client/networking/nuke.lua")
 AddCSLuaFile("client/networking/init.lua")
 
 /* OTHER HUD */
@@ -149,6 +150,8 @@ include("server/networking/init.lua") -- loads many different networking related
 include("server/overrides/init.lua") -- loads many files, gmod base gamemode overrides, very low priority
 include("server/sv_player_tick.lua") -- player tick, very low priority
 include("server/sv_debugging.lua") -- debugging stuff, very low priority
+include("server/sv_nuke.lua")
+include("server/sv_eventlog.lua")
 
 for i=1, 4 do
     util.PrecacheSound("player/ap_footsteps/ladder"..i..".wav")
