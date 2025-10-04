@@ -54,7 +54,8 @@ if CLIENT then
             material = "asset://garrysmod/materials/breach2/scp035_transform.gif"
         end
 
-        return oldFunc(ply, material, alpha)
+        -- TEMPORARILY DISABLE, NEED TO SELF HOST THESE GIFS
+        --return oldFunc(ply, material, alpha)
     end
 
     -- removed jumpscare sound
