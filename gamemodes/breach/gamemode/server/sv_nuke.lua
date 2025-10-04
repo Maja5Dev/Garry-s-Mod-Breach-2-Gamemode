@@ -43,6 +43,11 @@ function BR_ActivateNuke()
 
     local nuke_time = cvars.Number("br2_time_nuke", 90)
 
+    if (CurTime() - br2_round_state_end) < 10 then
+        -- round timer has ended, quicken the explosion
+        nuke_time = nuke_time * 0.3
+    end
+
     br2_round_state_end = CurTime() + nuke_time
     round_system.AddEventLog("Omega warhead detonation sequence initiated (T-"..nuke_time.." seconds).")
 
@@ -56,7 +61,7 @@ function BR_ActivateNuke()
 end
 
 hook.Add("BR2_RoundStateChange", "PreventRoundEndNuke", function()
-    if game_state == GAMESTATE_ROUND and br2_nuke_exploded == false and WinCheck() > 0 then
+    if game_state == GAMESTATE_ROUND and br2_nuke_exploded == false and WinCheck() == 0 then
         if !timer.Exists("BR_NukeExplosion") then
             BR_ActivateNuke()
         end
