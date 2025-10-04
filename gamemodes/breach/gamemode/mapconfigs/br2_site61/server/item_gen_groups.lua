@@ -122,6 +122,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"item_nvg_military", 1},
 		{"personal_medkit", 1},
 		{"kanade_tfa_axe", 1},
+		{"kanade_tfa_chainsaw", 1},
 
 		{{"kanade_tfa_fnp45", "kanade_tfa_glock", "kanade_tfa_deagle"}, 1},
 		{"ammo_smg30", 1},
