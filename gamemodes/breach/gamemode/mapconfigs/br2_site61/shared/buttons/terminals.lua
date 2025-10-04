@@ -164,6 +164,10 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 					return
 				end
 
+				if game_state != GAMESTATE_ROUND then
+					return
+				end
+
 				-- check if remote detonation enabled
 				local remote_detonation = ents.FindByName("omega_lever_room2nuke")
 				if !istable(remote_detonation) or #remote_detonation == 0 then
@@ -226,6 +230,10 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 			func = function(pl)
 				if !timer.Exists("BR_NukeExplosion") then
 					pl:PrintMessage(HUD_PRINTTALK, "The detonation sequence is not currently in progress.")
+					return
+				end
+
+				if game_state != GAMESTATE_ROUND then
 					return
 				end
 
