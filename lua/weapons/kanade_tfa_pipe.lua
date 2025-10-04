@@ -17,7 +17,7 @@ SWEP.SlotPos		= 0
 
 SWEP.UseHands 		= true
 SWEP.HoldType 		= "melee"
-SWEP.IsStunBaton 	= true
+SWEP.IsStunBaton 	= false
 
 SWEP.InspectPos = Vector(0, 0, 0)
 SWEP.InspectAng = Vector(0, 0, 0)
