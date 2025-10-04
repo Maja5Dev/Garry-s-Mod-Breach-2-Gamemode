@@ -643,7 +643,15 @@ function HandleRounds()
 		print("1 - round preparing")
 		
 	elseif game_state == GAMESTATE_PREPARING then
-		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_round") or 1320
+		local round_time = GetBR2conVar("br2_time_round") or 1320
+		-- for every player less than 10, lower the round time by 4%
+		-- by default 1320 is 22 minutes, 4% of that is 0.88 minutes, when theres 1 player the round becomes 14,08 minutes
+		-- when theres 4 players the round becomes 16,72 minutes
+		local lower_by = math.Clamp(10 - player.GetCount(), 0, 9)
+
+		round_time = round_time - (lower_by * (round_time * 0.04))
+
+		br2_round_state_end = CurTime() + round_time
 		br2_round_state_start = CurTime()
 		round_system.RoundStart()
 		print("2 - round started")
