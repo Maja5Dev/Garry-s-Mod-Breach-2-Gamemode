@@ -13,12 +13,6 @@ function ENT:Think()
 
     for k,v in pairs(ents.FindInSphere(self:GetPos(), 400)) do
         if v:IsPlayer() and v:Alive() and !v:IsSpectator() and !table.HasValue(BR2_ROLES_UNAFFECTED_BY_SCP035, v.br_role) then
-            table.ForceInsert(player_tab, v)
-        end
-    end
-
-    if CLIENT then
-        for k,v in pairs(player_tab) do
             local tr = util.TraceLine({
                 start = v:GetShootPos(),
                 endpos = self:GetPos(),
@@ -28,11 +22,37 @@ function ENT:Think()
             if tr.HitWorld then continue end
             if tr.Entity != self then continue end
 
+            table.ForceInsert(player_tab, v)
+
+            v.affected035 = CurTime() + 5
+        end
+    end
+
+    if CLIENT then
+        for k,v in pairs(player_tab) do
             v:SetEyeAngles((self:GetPos() - v:GetShootPos()):Angle())
         end
     end
 
     scp_035.SetEffectsMask(self, player_tab)
+end
+
+function ENT:OnRemove()
+    /*
+    if CLIENT then
+        if LocalPlayer().affected035 and LocalPlayer().affected035 > CurTime() then
+        end
+    end
+    */
+
+    if SERVER then
+        for k,v in pairs(player.GetAll()) do
+            if isnumber(v.affected035) and v.affected035 > CurTime() then
+                net.Start(SCP_035_CONFIG.RemoveEffectClient)
+                net.Send(v)
+            end
+        end
+    end
 end
 
 function ENT:Use(ply)
