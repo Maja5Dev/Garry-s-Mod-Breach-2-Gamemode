@@ -79,12 +79,14 @@ BR_ITEM_DESCRIPTIONS = {
 	kanade_tfa_tac338    = {desc = "High-power sniper rifle"},
 	kanade_tfa_ump45     = {desc = "Reliable .45 submachine gun"},
 	kanade_tfa_vhs       = {desc = "Croatian bullpup assault rifle"},
-	kanade_tfa_axe       = {desc = "Heavy firefighter’s axe"},
-	kanade_tfa_crowbar   = {desc = "Versatile demolition tool"},
 	kanade_tfa_m16a4     = {desc = "Burst-fire assault rifle"},
 	kanade_tfa_m590      = {desc = "Hard-hitting pump shotgun"},
-	kanade_tfa_pipe      = {desc = "Improvised blunt weapon"},
 	kanade_tfa_rpk       = {desc = "Russian squad support LMG"},
+
+	kanade_tfa_pipe      = {desc = "Improvised blunt weapon"},
+	kanade_tfa_chainsaw  = {desc = "Brutal powered cutting tool"},
+	kanade_tfa_axe       = {desc = "Heavy firefighter’s axe"},
+	kanade_tfa_crowbar   = {desc = "Versatile demolition tool"},
 	kanade_tfa_stunbaton = {desc = "Shock-delivering baton"},
 	
 	-- RANDOM ITEMS
