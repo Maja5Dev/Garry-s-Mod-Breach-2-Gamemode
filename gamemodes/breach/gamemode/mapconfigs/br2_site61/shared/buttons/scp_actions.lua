@@ -1,4 +1,12 @@
 ﻿
+hook.Add("EntityTakeDamage", "EntityDamageExample", function(ent, dmginfo)
+    if (ent:GetModel() == "models/novux/sitegard/prop/br_kpp_window.mdl" or ent:GetClass() == "func_breakable") then
+        if ent:Health() >= 1000 then
+            ent:SetHealth(200)
+        end
+    end
+end)
+
 local function break_window(ply, pos, sound, button_pos)
     ply.nextSCPBreak = ply.nextSCPBreak or 0
     if ply.nextSCPBreak > CurTime() then return end
