@@ -20,6 +20,7 @@ function BR_Access_Terminal_Loading(terminal)
 	loading_terminal.terminal = terminal
 	local gap = 8
 	local loading_progress = 0
+	
 	loading_terminal.endfunc = function(passed, info, loginInfo, eventlog)
 		if passed then
 			loading_terminal:Remove()
@@ -42,6 +43,7 @@ function BR_Access_Terminal_Loading(terminal)
 			access_terminal.bad_password_end = CurTime() + 4
 		end
 	end
+
 	loading_terminal.Paint = function(self, w, h)
 		if terminal == nil then return end
 
@@ -84,6 +86,7 @@ function BR_Access_Terminal_Loading(terminal)
 		local size = 90 * size_mul
 		surface.SetDrawColor(Color(255,255,255,255))
 		surface.SetDrawColor(Color(255,255,255,255))
+
 		for i=1, math.Clamp(loading_progress, 0, 10) do
 			surface.SetMaterial(mat_progress["mat_progress_circle_2_"..i..""])
 			surface.DrawTexturedRect((w/2)-(size/2), h-size-gap-(40*size_mul), size, size)

@@ -31,26 +31,33 @@ info_set_camera = {"CAMERAS", function(button, panel)
 		for k,v in pairs(panel:GetChildren()) do
 			v:Remove()
 		end
+
+		local size_mul = ScrH() / 1080
+		local cameras_num = #ents.FindByClass("br2_camera")
+		local all_cameras = 0
+
+		for k,v in pairs(MAPCONFIG.CAMERAS) do
+			all_cameras = all_cameras + table.Count(v.cameras)
+		end
+
+		local camera_software_installed = terminal_frame.CurrentInfo.devices["device_cameras"]
+
 		local created_button = false
 		panel.posx, panel.posy = panel:GetPos()
 		panel.Paint = function(self, w, h)
 			DrawDefaultTerminalBackground(w, h)
-			local size_mul = ScrH() / 1080
-			local cameras_num = #ents.FindByClass("br2_camera")
-			local all_cameras = 0
-			for k,v in pairs(MAPCONFIG.CAMERAS) do
-				all_cameras = all_cameras + table.Count(v.cameras)
-			end
-			local camera_software_installed = terminal_frame.CurrentInfo.devices["device_cameras"]
+
 			local clr_big_text = Color(255,255,255,255)
 			local texttab = {
 				{"BR_TERMINAL_MAIN_TEXT", "SITE CAMERA SYSTEM", clr_big_text, true}
 			}
+
 			if camera_software_installed then
 				table.Add(texttab, {
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently operational cameras: ", clr_big_text, false},
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", ""..cameras_num.."/"..all_cameras.."", Color(65,217,244), false},
 				})
+
 				local camera_w = 344 * size_mul
 				local camera_h = 210 * size_mul
 				surface.SetDrawColor(Color(255,255,255,255))
@@ -58,6 +65,7 @@ info_set_camera = {"CAMERAS", function(button, panel)
 				surface.DrawTexturedRect(w - camera_w - 16, 16, camera_w, camera_h)
 				--surface.SetMaterial(br2_camera_logo_2)
 				--surface.DrawTexturedRect(w - camera_w - 16, 16, camera_w, camera_h)
+
 				draw.Text({
 					text = "SCOM-CAMERAS",
 					pos = {w - (camera_w / 2) - 16, camera_h + 20},
@@ -66,6 +74,7 @@ info_set_camera = {"CAMERAS", function(button, panel)
 					font = "BR_TERMINAL_CAMERA_NAME",
 					color = Color(255,255,255,255)
 				})
+
 				surface.SetFont("BR_TERMINAL_CAMERA_NAME")
 				local text_w, text_h = surface.GetTextSize("SCOM-CAMERAS")
 				draw.Text({
@@ -81,19 +90,24 @@ info_set_camera = {"CAMERAS", function(button, panel)
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Camera software not found, please install and restart the system", Color(255,0,0), false},
 				})
 			end
+
 			local text_w, text_h = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
+
 			if camera_software_installed and created_button == false then
 				terminal_create_button(panel, 16, text_h + ((terminal_option_h / 2) * size_mul) + (32 * size_mul), 600, terminal_option_h, "ACCESS THE CAMERAS", function(button)
 					button.OnClick = function()
 						terminal_frame:SetVisible(false)
 						terminal_frame:KillFocus()
 						BR_CURRENT_CAMERA = MAPCONFIG.CAMERAS[1].cameras[1].name
+
 						net.Start("br_use_camera")
 							net.WriteString(BR_CURRENT_CAMERA)
 						net.SendToServer()
+
 						BR_Access_Cameras()
 					end
 				end)
+
 				created_button = true
 			end
 		end

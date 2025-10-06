@@ -6,10 +6,10 @@ include("menu_items.lua")
 include("menu_notepad.lua")
 include("menu_support_spawns.lua")
 
+include("menu_terminal_cameras.lua") -- needs to be before menu_terminal_infosets
 include("menu_terminal_infosets.lua")
 
 include("menu_terminal_access.lua")
-include("menu_terminal_cameras.lua")
 include("menu_terminal_loading.lua")
 include("menu_terminal_starting.lua")
 include("menu_terminal.lua")

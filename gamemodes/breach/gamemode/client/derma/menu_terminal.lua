@@ -405,6 +405,7 @@ function BR_Open_Terminal(options, loginInfo, eventlog)
 		end
 	end)
 	
+	-- open first panel
 	if #terminal_all_buttons > 0 then
 		if terminal_all_buttons[1].OnClick then
 			terminal_all_buttons[1].OnClick(terminal_all_buttons[1], terminal_text_panel)
