@@ -20,6 +20,11 @@ BR2_ROLES_DONT_RENDER_BUTTONS = {
     "SCP-173",
 }
 
+BR2_ROLES_DISALLOWED_SCP_ACTIONS = {
+    "SCP-049-2",
+    "SCP-035",
+}
+
 -- Add role names here to disallow them completely from picking up special items
 BR2_ROLES_DISALLOWED_PICKUP_SITEMS = {
     "SCP-173",
