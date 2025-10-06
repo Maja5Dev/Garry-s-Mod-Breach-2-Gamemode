@@ -41,7 +41,7 @@ local function populateSpecialItems(pnlContent, tree, node)
         if weapons.Get(class) then return false end
         if class == "document" or class == "cup" or string.find(class, "ammo_") or string.find(class, "drink_") or string.find(class, "food_") then return false end
 
-        local icon = spawnmenu.CreateContentIcon("model", self.PropPanel, {
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
             nicename = data.name or class,
             spawnname = class, material = "entities/" .. class .. ".png", model = data.mdl or "", admin = true
         })
@@ -56,7 +56,7 @@ local function populateAmmo(pnlContent, tree, node)
     populateNode(pnlContent, tree, node, "Ammo", "icon16/package.png", BR_ITEM_DESCRIPTIONS, function(self, class, data)
         if !string.find(class, "ammo_") then return false end
 
-        local icon = spawnmenu.CreateContentIcon("model", self.PropPanel, {
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
             nicename = data.name or class,
             spawnname = class, material = "entities/" .. class .. ".png", model = data.mdl or "", admin = true
         })
@@ -71,7 +71,7 @@ local function populateFood(pnlContent, tree, node)
     populateNode(pnlContent, tree, node, "Food", "icon16/emoticon_waii.png", BR_ITEM_DESCRIPTIONS, function(self, class, data)
         if !string.find(class, "food_") then return false end
 
-        local icon = spawnmenu.CreateContentIcon("model", self.PropPanel, {
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
             nicename = data.name or class,
             spawnname = class, material = "entities/" .. class .. ".png", model = data.mdl or "", admin = true
         })
@@ -86,7 +86,7 @@ local function populateDrinks(pnlContent, tree, node)
     populateNode(pnlContent, tree, node, "Drinks", "icon16/drink.png", BR_ITEM_DESCRIPTIONS, function(self, class, data)
         if !string.find(class, "drink_") then return false end
 
-        local icon = spawnmenu.CreateContentIcon("model", self.PropPanel, {
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
             nicename = data.name or class,
             spawnname = class, material = "entities/" .. class .. ".png", model = data.mdl or "", admin = true
         })
@@ -125,12 +125,16 @@ local function populateSWEPItems(pnlContent, tree, node)
         if table.HasValue(BR2_LETHAL_WEAPONS, class) or isBreachWeapon(wepdata) or wepdata.ISSCP then return false end
 
         local name = data.name or class
+        local skin = nil
         if wepdata and wepdata.PrintName then
             name = wepdata.PrintName
         end
+        if wepdata and wepdata.ForceSkin then
+            skin = wepdata.ForceSkin
+        end
 
-        local icon = spawnmenu.CreateContentIcon("model", self.PropPanel, {
-            nicename = name, spawnname = class, material = "entities/" .. class .. ".png", model = wepdata.WorldModel or "", admin = true
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
+            nicename = name, spawnname = class, material = "entities/" .. class .. ".png", model = wepdata.WorldModel or "", skin = skin, admin = true
         })
 
         icon.DoClick = function() RunConsoleCommand("br_spawn_item", class)  end
@@ -155,8 +159,8 @@ end
 
 local function populateSCP294Outcomes(pnlContent, tree, node)
     populateNode(pnlContent, tree, node, "SCP-294 Outcomes", "icon16/cup.png", BR2_SCP_294_OUTCOMES, function(self, class, data)
-        local icon = spawnmenu.CreateContentIcon("entity", self.PropPanel, {
-            nicename = "Cup of " .. data.texts[1], spawnname = data.texts[1], material = "", admin = true
+        local icon = spawnmenu.CreateContentIcon("breachitem", self.PropPanel, {
+            nicename = "Cup of " .. data.texts[1], spawnname = data.texts[1], model = "models/mishka/models/plastic_cup.mdl", admin = true
         })
 
         icon.DoClick = function()
@@ -178,6 +182,104 @@ hook.Add("PopulateBRItems", "BR_PopulateSpawnmenu", function(pnlContent, tree, n
     populateSCP294Outcomes(pnlContent, tree, node)
 end)
 
+spawnmenu.AddContentType("breachitem", function(container, obj)
+	-- basic validation
+	if (not obj.nicename) then return end
+	if (not obj.spawnname) then return end
+	if (not obj.model and not obj.material) then return end
+
+	local icon
+
+	-- If we have a model, use a SpawnIcon (supports SetModel / rotating preview).
+	if (obj.model and obj.model ~= "") then
+		icon = vgui.Create("SpawnIcon", container)
+        icon:SetSize(128, 128)
+		icon:SetModel(obj.model, obj.skin)
+
+		-- store a few fields so our click/menu handlers can access them
+		icon.spawnname = obj.spawnname
+		icon.nicename  = obj.nicename
+		icon.admin     = obj.admin
+
+		-- show the name under the SpawnIcon (ContentIcon normally shows the name)
+		local lbl = vgui.Create("DLabel", icon)
+		lbl:Dock(BOTTOM)
+		lbl:DockMargin(0, 2, 0, 0)
+		lbl:SetText(obj.nicename)
+		lbl:SetFont("DermaDefaultBold")
+        lbl:SetTextColor(Color(255, 255, 255))
+		lbl:SetContentAlignment(5) -- center
+		lbl:SizeToContentsY()
+
+		-- left click: spawn entity
+		function icon:DoClick()
+			RunConsoleCommand("gm_spawnsent", self.spawnname)
+			surface.PlaySound("ui/buttonclickrelease.wav")
+		end
+
+		-- right click: simple menu that mirrors the old "spawn with toolgun" option
+		function icon:DoRightClick()
+			local menu = DermaMenu()
+			menu:AddOption("#spawnmenu.menu.spawn_with_toolgun", function()
+				RunConsoleCommand("gmod_tool", "creator")
+				RunConsoleCommand("creator_type", "0")
+				RunConsoleCommand("creator_name", self.spawnname)
+			end):SetIcon("icon16/brick_add.png")
+			menu:Open()
+		end
+
+	else
+		-- fallback: original ContentIcon behavior (uses material)
+		icon = vgui.Create("ContentIcon", container)
+		icon:SetContentType("entity")
+		icon:SetSpawnName(obj.spawnname)
+		icon:SetName(obj.nicename)
+		icon:SetMaterial(obj.material)
+		icon:SetAdminOnly(obj.admin)
+		icon:SetColor(Color(205, 92, 92, 255))
+
+		-- keep the old OpenMenuExtra if ContentIcon expects it
+		icon.OpenMenu = icon.OpenGenericSpawnmenuRightClickMenu
+	end
+
+	-- shared tooltip + extra info
+	local toolTip = language.GetPhrase(obj.nicename)
+	local ENTinfo = scripted_ents.Get(obj.spawnname)
+	if (not ENTinfo) then ENTinfo = list.Get("SpawnableEntities")[ obj.spawnname ] end
+	if (ENTinfo) then
+		local extraInfo = ""
+		if (ENTinfo.Information and ENTinfo.Information ~= "") then extraInfo = extraInfo .. "\n" .. ENTinfo.Information end
+		if (ENTinfo.Author and ENTinfo.Author ~= "") then extraInfo = extraInfo .. "\n" .. language.GetPhrase("entityinfo.author") .. " " .. ENTinfo.Author end
+		if (#extraInfo > 0) then toolTip = toolTip .. "\n" .. extraInfo end
+	end
+
+	-- set tooltip (call whichever exists)
+	if icon.SetTooltip then
+		icon:SetTooltip(toolTip)
+	elseif icon.SetToolTip then
+		icon:SetToolTip(toolTip)
+	end
+
+	-- ensure ContentIcon-like extra menu exists for the SpawnIcon case too
+	if (not icon.OpenMenuExtra) then
+		function icon:OpenMenuExtra(menu)
+			menu:AddOption("#spawnmenu.menu.spawn_with_toolgun", function()
+				RunConsoleCommand("gmod_tool", "creator")
+				RunConsoleCommand("creator_type", "0")
+				RunConsoleCommand("creator_name", obj.spawnname)
+			end):SetIcon("icon16/brick_add.png")
+		end
+	end
+
+	-- Add to container
+	if (IsValid(container)) then
+		container:Add(icon)
+	end
+
+	return icon
+end)
+
+
 search.AddProvider(function(str)
     local results = {}
 
@@ -196,25 +298,27 @@ search.AddProvider(function(str)
             showname = wepdata.PrintName
         end
 
-        local model = ""
-        local icon_type = "entity"
+        local model = nil
+        local skin = nil
         if wepdata and wepdata.WorldModel and wepdata.Category != "Kanade's TFA Pack" then
             model = wepdata.WorldModel
-            icon_type = "model"
+        end
+        if wepdata and wepdata.ForceSkin then
+            skin = wepdata.ForceSkin
         end
         if data.mdl then
             model = data.mdl
-            icon_type = "model"
         end
 
         if string.find(name, str, 1, true) or string.find(class, str, 1, true) then
             local entry = {
                 text = name,
-                icon = spawnmenu.CreateContentIcon(icon_type, g_SpawnMenu.SearchPropPanel, {
+                icon = spawnmenu.CreateContentIcon("breachitem", g_SpawnMenu.SearchPropPanel, {
                     nicename = showname,
                     spawnname = class,
                     material = "entities/" .. class .. ".png",
                     model = model,
+                    skin = skin,
                     admin = true
                 }),
                 words = {class, data.name}
@@ -260,10 +364,10 @@ search.AddProvider(function(str)
         end
 
         if found then
-            local icon = spawnmenu.CreateContentIcon("entity", g_SpawnMenu.SearchPropPanel, {
+            local icon = spawnmenu.CreateContentIcon("breachitem", g_SpawnMenu.SearchPropPanel, {
                 nicename = "Cup of " .. showname,
                 spawnname = showname,
-                material = "",
+                model = "models/mishka/models/plastic_cup.mdl",
                 admin = true
             })
 
