@@ -210,8 +210,12 @@ function player_meta:DropWep(wep, set_vel)
 			if IsValid(phys) then
 				phys:SetMass(5)
 				phys:ApplyForceCenter(self:EyeAngles():Forward() * 1000)
+				phys:EnableGravity(true)
+				phys:SetDamping(0, 0)
 			end
 		end
+		
+		dropped_ent:SetGravity(1)
 		
 		if isfunction(wep.SaveVariablesTo) then
 			wep:SaveVariablesTo(dropped_ent)
