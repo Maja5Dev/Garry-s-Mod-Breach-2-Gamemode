@@ -205,7 +205,7 @@ function br2_mtf_teams_add(ply, num)
 			net.Send(ply)
 		end
 
-		ply:PrintMessage(HUD_PRINTTALK, "You have joined MTF Team " .. num)
+		ply:PrintMessage(HUD_PRINTCONSOLE, "You have joined MTF Team " .. num)
 		return true
 	end
 	
