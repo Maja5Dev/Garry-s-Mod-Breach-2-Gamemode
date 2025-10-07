@@ -2,7 +2,7 @@
 MAPCONFIG.ITEM_GENERATION_GROUPS = {
 -- LIGHT CONTAINMENT ZONE
 	["LCZ_FIRST_LOOT"] = {
-		{"keycard_level1", 4}, {"keycard_playing", 1}, {"keycard_master", 1},
+		{"keycard_level1", 4},
 		{"item_battery_9v", 3},
 		{"item_radio", 1},
 		{"eyedrops", 2},
@@ -13,7 +13,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"doc_scp1048", 1, assign_random_code = "LCZ"},
 	},
 	["LCZ_SECOND_LOOT"] = {
-		{"keycard_level2", 3}, {"keycard_playing", 1}, {"keycard_master", 1},
+		{"keycard_level2", 3},
 		{"item_battery_9v", 1},
 		{"eyedrops", 1},
 
@@ -39,8 +39,9 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_WEAPON_LOOT"] = {
 		{"kanade_tfa_pipe", 1},
-		--{"kanade_tfa_crowbar", 1},
-		--{"kanade_tfa_axe", 1},
+	},
+	["LCZ_LOCKDOWN_CONTROL_WEAPON"] = {
+		{"kanade_tfa_crowbar", 1},
 	},
 	["LCZ_ARMORY_LOOT"] = {
 		{"kanade_tfa_colt", 1},
@@ -77,6 +78,9 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_SECURITY_GATEWAY"] = {
 		{"keycard_level1", 1},
+	},
+	["LCZ_914_CABINET"] = {
+		{"doc_scp914", 1},
 	},
 
 

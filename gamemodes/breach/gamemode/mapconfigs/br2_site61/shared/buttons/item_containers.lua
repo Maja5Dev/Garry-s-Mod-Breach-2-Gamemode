@@ -15,6 +15,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-657,2000,-7902), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_DOC_173"}, -- SCP_173-2
 		{pos = Vector(-1046,108,-8414), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_012_LOOT"}, -- SCP_012-1
 		{pos = Vector(-1046,77,-8413), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_012_DOC"}, -- SCP_012-2
+		{pos = Vector(-330,-1207,-8158), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- SKULL_ROOM-2
 		{pos = Vector(-914,-633,-8162), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- CABINETS-CRATE
 		{pos = Vector(-673,-639,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- CABINETS-1
 		{pos = Vector(-591,-707,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- CABINETS-2
@@ -27,24 +28,17 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(259,393,-8166), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCARE_ROOM-BOX
 		{pos = Vector(244,484,-8135), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCARE_ROOM-CRATE
 		{pos = Vector(243,526,-8160), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_WEAPON_LOOT"}, -- SCARE_ROOM-BIGCRATE
-		{pos = Vector(1129,945,-8143), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- OFFICES-CRATE1
-		{pos = Vector(958,812,-8159), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- OFFICES_1_1-CRATE
-		{pos = Vector(1450,813,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- OFFICES_1_2-1
+		{pos = Vector(1129,945,-8143), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- OFFICES-CORRIDOR-CRATE
+		{pos = Vector(958,812,-8159), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- OFFICES_1_1-CRATE
 		{pos = Vector(1009,1499,-8159), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- OFFICES-CRATE2
 		{pos = Vector(1499,1322,-8138), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- OFFICES-BOX
 		{pos = Vector(1016,1321,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- OFFICES_2_1-1
 		{pos = Vector(1513,1384,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- OFFICES_2_2-1
-		{pos = Vector(1599,-64,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- VENT_ROOM-1
-		{pos = Vector(1758,196,-8116), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- VENT_ROOM-CRATE
-		{pos = Vector(2059,199,-8173), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- VENT_ROOM-2
+		{pos = Vector(2059,199,-8173), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- LOCKDOWN_CONTROL_ROOM-2
 		{pos = Vector(1088,-575,-8145), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- BIG_YELLOW_ROOM-CRATE
 		{pos = Vector(1089,-657,-8156), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- BIG_YELLOW_ROOM-1
 		{pos = Vector(496,-1097,-8145), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- 914-CRATE
-		{pos = Vector(533,-1116,-8158), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- SCP_914-1
-		--{pos = Vector(2460,-970,-8503), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- WATER_ROOM-CRATE
-		--{pos = Vector(2394,-1062,-8170), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- WATER_ROOM-1
-		{pos = Vector(1674,-1753,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- SCP_205-1
-		{pos = Vector(1932,-1491,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- SCP_205-2
+		{pos = Vector(533,-1116,-8158), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_914_CABINET"}, -- SCP_914-1
 		{pos = Vector(-2024,-543,-8158), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCP_372-1
 		{pos = Vector(-2517,-579,-8165), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCP_372-BOX
 		{pos = Vector(-1952,-1103,-8179), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SCP_372"}, -- SCP_372-CRATE
@@ -55,8 +49,12 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(-176,-1202,-8176), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- SKULL-1
 		{pos = Vector(-553,-42,-8147), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- NEAR_CHECKPOINT_STORAGE_ROOM-CRATE
 		{pos = Vector(237,97,-8165), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- SCARE_ROOM_HIDING-BOX
-		{pos = Vector(1518,880,-8167), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SCP_500"}, -- SCARE_ROOM_HIDING-BOX
+		{pos = Vector(1518,880,-8167), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SCP_500"}, -- SCP_500-1
+		--{pos = Vector(1450,813,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_SECOND_LOOT"}, -- SCP_500-2
 		{pos = Vector(-338,2070,-8036), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_FIRST_LOOT"}, -- 173CELL
+		{pos = Vector(1674,-1753,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_THIRD_LOOT"}, -- SCP_205-1
+		{pos = Vector(1932,-1491,-8157), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_ADDITIONAL_LOOT"}, -- SCP_205-2
+		{pos = Vector(1748,197,-8115), canSee = DefaultItemContainerCanSee, item_gen_group = "LCZ_LOCKDOWN_CONTROL_WEAPON"}, -- LOCKDOWN_CONTROL_ROOM-WEP
 
 
 
@@ -90,6 +88,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 		{pos = Vector(456,3907,-7121), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_FIRST"}, -- SCP_096-BOX
 		{pos = Vector(-3566,5310,-7133), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_GUNS"}, -- HCZ-STORAGEROOM-WITH-OUTFITTER-1
 		{pos = Vector(-1555,4633,-7145), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_008"}, -- HCZ-008-1
+		{pos = Vector(-1625,4537,-7134), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_008"}, -- HCZ-008-2
 		{pos = Vector(4211,-6794,-8581), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-CLOSETROOM-BOX
 		{pos = Vector(3930,-6325,-8559), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_049"}, -- SCP_049-CASE
 		{pos = Vector(5859,-960,-11544), canSee = DefaultItemContainerCanSee, item_gen_group = "HCZ_TUNNELS_LOOT"}, -- HCZ_TUNNELS-BIGCRATE
@@ -180,12 +179,11 @@ MAPCONFIG.BUTTONS_2D.OUTFITTERS = {
 		net.SendToServer()
 	end,
 	buttons = {
-		{pos = Vector(-777,-707,-8142), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"},
-		{pos = Vector(960,-1089,-8156), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"},
-		{pos = Vector(465,256,-8142), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"},
-		{pos = Vector(-330,-1207,-8158), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"},
-		{pos = Vector(959,912,-8157), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"},
-		{pos = Vector(504,-1682,-8157), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ_ARMORY"},
+		{pos = Vector(1599,-64,-8158), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"}, -- LOCKDOWN_CONTROL_ROOM
+		{pos = Vector(960,-1089,-8156), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"}, -- YELLOW_ROOM
+		{pos = Vector(465,256,-8142), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"}, -- LIGHT_TESTING_CHAMBER
+		{pos = Vector(959,912,-8157), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ"}, -- OTHER_OFFICE_NEAR_SCP500
+		{pos = Vector(504,-1682,-8157), canSee = DefaultOutfitterCanSee, item_gen_group = "LCZ_ARMORY"}, -- ARMORY
 
 		{pos = Vector(-3520,5473,-7133), canSee = DefaultOutfitterCanSee, item_gen_group = "HCZ"},
 		{pos = Vector(1521,512,-7133), canSee = DefaultOutfitterCanSee, item_gen_group = "HCZ"},

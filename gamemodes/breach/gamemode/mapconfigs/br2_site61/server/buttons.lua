@@ -39,7 +39,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_offices_1_1",
 		pos = Vector(1096, 805, -8144),
-		level = 2,
+		level = 1,
 		sounds = true
 	},
 	{
@@ -87,7 +87,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_item_room_near_checkpoint_2",
 		pos = Vector(-409, -104, -8144),
-		level = 2,
+		level = 1,
 		sounds = true
 	},
 	{
@@ -105,7 +105,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_scp_205",
 		pos = Vector(1552, -1515, -8144),
-		level = 1,
+		level = 2,
 		sounds = true
 	},
 	{
@@ -247,6 +247,19 @@ MAPCONFIG.BUTTONS = {
 		level = 3,
 		sounds = true
 	},
+	{
+		name = "hcz_scp_008_controlroom",
+		pos = Vector(-1151.6600341797, 4575.8100585938, -7114.75),
+		level = 3,
+		sounds = true
+	},
+	{
+		name = "hcz_scp_008_chamber",
+		pos = Vector(3081, 5032, -8555),
+		level = 3,
+		sounds = true
+	},
+
 
 
 
