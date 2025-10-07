@@ -1,10 +1,5 @@
 ﻿
-function BR_SpawnMapNPC(npcclass, zone)
-    if BR_DISABLE_NPCS[npcclass] then return false end
-
-	print("Spawning " .. npcclass .. " in zone " .. tostring(zone))
-
-	local all_players = {}
+local function checkForPlayerSCP(npcclass)
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false then
 			table.ForceInsert(all_players, v)
@@ -14,12 +9,45 @@ function BR_SpawnMapNPC(npcclass, zone)
                 return false
             end
 
-            if (string.find(npcclass, "scp049") or string.find(npcclass, "scp_049")) and v.br_role == "SCP-049" then
+            if (string.find(npcclass, "scp049") or string.find(npcclass, "scp_049"))
+            and !(string.find(npcclass, "scp0492") or string.find(npcclass, "scp_049_2"))
+            and v.br_role == "SCP-049"
+            then
                 print("Not spawning SCP-049 because a player is SCP-049")
                 return false
             end
 		end
 	end
+end
+
+npc_timer_num = 0
+function BR_SpawnMapNPCTimer(npcclass, zone, in_time, lock_spawns)
+    local player_check = checkForPlayerSCP(npcclass)
+    if player_check == false then return false end
+
+    local timer_name = "NPC_SPAWN_"..npcclass.."_"..npc_timer_num.."_TIMER"
+
+	timer.Remove(timer_name)
+	timer.Create(timer_name, in_time, 1, function()
+		local npc = BR_SpawnMapNPC(npcclass, zone)
+
+        if lock_spawns and IsValid(npc) and npc != false then
+			npc.lockedNPCSpawns = zone
+        end
+	end)
+
+    npc_timer_num = npc_timer_num + 1
+end
+
+function BR_SpawnMapNPC(npcclass, zone)
+    if BR_DISABLE_NPCS[npcclass] then return false end
+
+	print("Spawning " .. npcclass .. " in zone " .. tostring(zone))
+
+	local all_players = {}
+
+    local player_check = checkForPlayerSCP(npcclass)
+    if player_check == false then return false end
 
 	for k,v in pairs(ents.GetAll()) do
 		if string.find(v:GetClass(), "npc_cpt_scp") then

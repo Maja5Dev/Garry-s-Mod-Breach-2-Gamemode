@@ -69,11 +69,9 @@ function Breach_Map_Organise_AfterAssign()
 			end
 		end
 	end
+
+	SpawnMapNPCs()
 end
-
-hook.Add("Tick", "Position035", function()
-
-end)
 
 function Breach_Map_Organise()
 	devprint("organising the map...")
@@ -176,10 +174,6 @@ function Breach_Map_Organise()
 		end
 	end
 	*/
-	
-	if SafeBoolConVar("br2_testing_mode") == false then
-		SpawnMapNPCs()
-	end
 
     BR_DEFAULT_MAP_Organize_Corpses()
     BR_DEFAULT_MAP_Organize_Terminals()

@@ -422,6 +422,7 @@ round_system.PreparingStart = function()
 		v.Body = nil
 	end
 	uses_294 = nil
+	npc_timer_num = 0
 
 	round_system.logins = {}
 	round_system.eventlog = {}
