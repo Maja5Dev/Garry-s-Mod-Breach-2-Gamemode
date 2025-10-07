@@ -171,6 +171,12 @@ MAPCONFIG.BUTTONS = {
 	},
 	{
 		name = "hcz_scp_035",
+		pos = Vector(5032, 1023, -8555),
+		level = 3,
+		sounds = true
+	},
+	{
+		name = "hcz_scp_035_controlroom",
 		pos = Vector(512, 1112, -7114.75),
 		level = 3,
 		sounds = true
