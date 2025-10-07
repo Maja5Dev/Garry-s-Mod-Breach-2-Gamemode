@@ -249,13 +249,16 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		if SERVER and SafeBoolConVar("br2_down_players") and round_system.current_scenario.downing_enabled == true then
 			if victim:IsDowned() == false then
 				local next_health = victim:Health() - dmginfo:GetDamage()
+
 				if next_health > 4 and next_health < 41 then
 					local chances = GetBR2conVar("br2_chance_to_get_downed")
+
 					if chances == nil then
 						chances = 0
 					else
 						chances = math.Clamp(chances, 0, 100)
 					end
+
 					if math.random(0, 100) <= chances then
 						victim:SetDowned(dmginfo)
 					end
@@ -288,9 +291,16 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	end
 
 	-- Lower sanity on damage
-	if SERVER and victim.br_team != TEAM_SCP and victim.br_usesSanity then
-		local lower_sanity_by = math.Round(dmginfo:GetDamage() * 0.4)
-		victim:AddSanity(-lower_sanity_by)
+	if SERVER then
+		if victim.br_team != TEAM_SCP and victim.br_usesSanity then
+			local lower_sanity_by = math.Round(math.Clamp(dmginfo:GetDamage(), 1, 90) * 0.4)
+			victim:AddSanity(-lower_sanity_by)
+		end
+		
+		if IsValid(attacker) and attacker:IsPlayer() and attacker.br_team != TEAM_SCP and attacker.br_usesSanity and victim.br_team != TEAM_SCP then
+			local lower_sanity_by = math.Round(math.Clamp(dmginfo:GetDamage(), 1, 90) * 0.3)
+			attacker:AddSanity(-lower_sanity_by)
+		end
 	end
 
 	-- Take more damage when infected
