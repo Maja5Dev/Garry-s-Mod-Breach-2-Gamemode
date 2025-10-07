@@ -16,6 +16,8 @@ BR_NO_TELEPORT_NPCS = {
     ["drg_scp999"] = true,
     ["dughoo_scpcb_scp066"] = true,
     ["drg_scp131"] = true,
+    ["npc_cpt_scp_1356"] = true,
+    ["drg_scp1762_linux55version"] = true,
 }
 
 BR_DISABLE_NPCS = {
