@@ -21,7 +21,7 @@ MAPCONFIG.BUTTONS = {
 	{
 		name = "lcz_914",
 		pos = Vector(384, -958.5, -8155),
-		level = 3,
+		level = 2,
 		sounds = true
 	},
 	{
@@ -259,8 +259,12 @@ MAPCONFIG.BUTTONS = {
 		level = 3,
 		sounds = true
 	},
-
-
+	{
+		name = "hcz_warhead_room",
+		pos = Vector(-519.61999511719, 2159.4799804688, -7114.75),
+		level = 4,
+		sounds = true
+	},
 
 
 
