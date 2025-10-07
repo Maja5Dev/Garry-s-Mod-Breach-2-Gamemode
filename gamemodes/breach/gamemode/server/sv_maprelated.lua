@@ -166,10 +166,10 @@ function BR_DEFAULT_MAP_Organize_Corpses()
 				if istable(corpse.items) then
 					for k2,v2 in pairs(corpse.items) do
 						if istable(v2) then
-							table.ForceInsert(rag.Info.Loot, table.Random(form_basic_item_info(v2)))
+							table.ForceInsert(rag.Info.Loot, form_basic_item_info(table.Random(v2)))
 
 						elseif isstring(v2) then
-							table.ForceInsert(rag.Info.Loot, table.Random(form_basic_item_info(v2)))
+							table.ForceInsert(rag.Info.Loot, form_basic_item_info(v2))
 						end
 					end
 				end
