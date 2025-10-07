@@ -139,6 +139,12 @@ MAPCONFIG.BUTTONS = {
 		sounds = true
 	},
 	{
+		name = "hcz_scp_457_storageroom",
+		pos = Vector(-2407.6201171875, 3069, -7114.75),
+		level = 2,
+		sounds = true
+	},
+	{
 		name = "hcz_toxic_room_switch",
 		ent_name = "mbutton_card_hcz-toxicroom",
 		pos = Vector(1367, 1698.5, -7367),
