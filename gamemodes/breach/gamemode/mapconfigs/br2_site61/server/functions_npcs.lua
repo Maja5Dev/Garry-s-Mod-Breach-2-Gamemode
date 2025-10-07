@@ -130,7 +130,10 @@ function MAP_FemurBreaker()
 	timer.Remove("NPC_SPAWN_106_TIMER")
 
 	for k,v in pairs(ents.GetAll()) do
-		if IsValid(v) and string.find(v:GetClass(), "scp106") or string.find(v:GetClass(), "scp_106") or string.find(v:GetClass(), "scpcb_106") then
+		if IsValid(v) and
+		((string.find(v:GetClass(), "scp106") or string.find(v:GetClass(), "scp_106") or string.find(v:GetClass(), "scpcb_106")) or
+		(v:IsPlayer() and v.br_role == "SCP-106")
+	) then
 			v:SetPos(Vector(-2387.296875, 6250.779785, -7418.968750))
 			v.cannotTeleport = true
 		end
