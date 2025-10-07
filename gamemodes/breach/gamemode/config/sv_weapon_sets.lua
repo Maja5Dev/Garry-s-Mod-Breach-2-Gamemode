@@ -63,9 +63,9 @@ BR2_WEAPON_SETS = {
             {"kanade_tfa_krissv", "smg1", 150},
 
             {"kanade_tfa_m249", "ar2", 200},
-            {"kanade_tfa_tac338", "SniperPenetratedRound", 30},
-            {"kanade_tfa_m40a1", "SniperPenetratedRound", 30},
-            {"kanade_tfa_remington", "SniperPenetratedRound", 30},
+            --{"kanade_tfa_tac338", "SniperPenetratedRound", 30},
+            --{"kanade_tfa_m40a1", "SniperPenetratedRound", 30},
+            --{"kanade_tfa_remington", "SniperPenetratedRound", 30},
         },
         side = {
             {"kanade_tfa_beretta", "pistol", 30},
