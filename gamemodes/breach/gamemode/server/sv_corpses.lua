@@ -148,19 +148,35 @@ end
 
 function ApplyCorpseInfo(ent, info, blood)
 	if IsValid(ent) and ent:GetClass() == "prop_ragdoll" then
-		--if info.model then ent:SetModel(info.model) end
-		ent:SetPos(info.ragdoll_pos)
+		local ragdoll_pos = nil
+		local bone_tab = nil
+
+		-- legacy setup
+		if isvector(info.ragdoll_pos) then
+			ragdoll_pos = info.ragdoll_pos
+		end
+		if istable(info.bones) then
+			bone_tab = info.bones
+		end
+
+		-- new setup
+		if istable(info.positions) then
+			local random_pos = table.Random(info.positions)
+			ragdoll_pos = random_pos.ragdoll_pos
+			bone_tab = random_pos.bones
+		end
+
+		ent:SetPos(ragdoll_pos)
 		ent:SetAngles(Angle(0,0,0))
-		--ent:SetVelocity(info.ragdoll_vel)
 		ent:SetVelocity(Vector(0,0,0))
 
 		local num = ent:GetPhysicsObjectCount() - 1
 		for i=0, num do
 			local bone = ent:GetPhysicsObjectNum(i)
-			if IsValid(bone) and istable(info.bones[i]) then
-				bone:SetPos(info.bones[i].pos)
-				bone:SetAngles(info.bones[i].ang)
-				--bone:SetVelocity(info.bones[i].vel)
+
+			if IsValid(bone) and istable(bone_tab[i]) then
+				bone:SetPos(bone_tab[i].pos)
+				bone:SetAngles(bone_tab[i].ang)
 				bone:SetVelocity(Vector(0,0,0))
 				bone:EnableMotion(false)
 			end

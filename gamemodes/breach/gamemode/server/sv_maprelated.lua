@@ -16,7 +16,6 @@ function form_basic_item_info(class, amount)
 		class = table.Random(class)
 	end
 	
-	--print("TEST ITEM", class, weapons.Get(class), weapons.Get(class).PrintName)
 	local wwep = weapons.Get(class)
 	if wwep == nil then
 		ErrorNoHalt("Couldn't find a weapon class: " .. class)
@@ -83,16 +82,30 @@ function BR_DEFAULT_MAP_Organize_ItemSpawns()
 end
 
 function BR_CheckRagdollPositions()
-	for k,v in pairs(MAPCONFIG.STARTING_CORPSES) do
-		for k2,v2 in pairs(v) do
-			local tr = util.TraceLine({
-				start = v2.ragdoll_pos,
-				endpos = v2.ragdoll_pos + Vector(0,0,1)
-			})
+	for i,v in ipairs(MAPCONFIG.STARTING_CORPSES) do
+		local ragdoll_pos = nil
 
-			if tr.Hit and tr.HitWorld then
-				ErrorNoHalt("Corpse in wall position " .. tostring(v2.ragdoll_pos) .. " for model " .. v2.model)
-			end
+		-- legacy setup
+		if isvector(v.ragdoll_pos) then
+			ragdoll_pos = v.ragdoll_pos
+		end
+
+		-- new setup
+		if istable(v.positions) then
+			ragdoll_pos = table.Random(v.positions).ragdoll_pos
+		end
+
+		if ragdoll_pos == nil then
+			ErrorNoHaltWithStack("Corpse " .. i .. " doesn't have a position")
+		end
+
+		local tr = util.TraceLine({
+			start = ragdoll_pos,
+			endpos = ragdoll_pos + Vector(0,0,1)
+		})
+
+		if tr.Hit and tr.HitWorld then
+			ErrorNoHalt("Corpse in wall position " .. tostring(ragdoll_pos) .. " for model " .. v.model)
 		end
 	end
 end
@@ -110,15 +123,31 @@ function BR_DEFAULT_MAP_Organize_Corpses()
 			table.RemoveByValue(all_corpses, random_corpse)
 		end
 		
-		for k,v in pairs(corpse_infos) do
-			local corpse = table.Random(v)
+		for i,corpse in ipairs(corpse_infos) do
 			local rag = ents.Create("prop_ragdoll")
+
 			if IsValid(rag) then
-				rag:SetModel(corpse.model)
-				rag:SetPos(corpse.ragdoll_pos)
+				local ragdoll_pos = nil
+
+				-- legacy setup
+				if isvector(corpse.ragdoll_pos) then
+					ragdoll_pos = corpse.ragdoll_pos
+				end
+
+				-- new setup
+				if istable(corpse.positions) then
+					local random_pos = table.Random(corpse.positions)
+					ragdoll_pos = random_pos.ragdoll_pos
+				end
+
 				rag.IsStartingCorpse = true
+
+				rag:SetModel(corpse.model)
+				rag:SetPos(ragdoll_pos)
 				rag:Spawn()
+
 				ApplyCorpseInfo(rag, corpse, true)
+
 				rag.CInfo = corpse
 				rag.Info = {}
 				rag.Info.CorpseID = rag:GetCreationID()
@@ -126,16 +155,29 @@ function BR_DEFAULT_MAP_Organize_Corpses()
 				rag.Info.VictimNick = "Unknown"
 				rag.Info.DamageType = DMG_GENERIC
 				rag.Info.Time = CurTime() - math.random(20,1400)
-				rag:SetNWInt("DeathTime", rag.Info.Time)
-				rag:SetNWString("ExamineDmgInfo", " - Cause of death is unknown")
-				rag.Info.Loot = {}
-				--local random_item = table.Random({"item_radio", "item_medkit", "ssri_pills", "item_gasmask", "item_nvg", "keycard_level1", "keycard_level2", "kanade_tfa_crowbar"})
-				--table.ForceInsert(rag.Info.Loot, form_basic_item_info(random_item))
 				rag.RagdollHealth = 0
 				rag.nextReviveMove = 0
+
+				rag:SetNWInt("DeathTime", rag.Info.Time)
+				rag:SetNWString("ExamineDmgInfo", " - Cause of death is unknown")
+
+				-- Add loot
+				rag.Info.Loot = {}
+				if istable(corpse.items) then
+					for k2,v2 in pairs(corpse.items) do
+						if istable(v2) then
+							table.ForceInsert(rag.Info.Loot, table.Random(form_basic_item_info(v2)))
+
+						elseif isstring(v2) then
+							table.ForceInsert(rag.Info.Loot, table.Random(form_basic_item_info(v2)))
+						end
+					end
+				end
 				
+				-- Setup function, usually for role, showname, team
 				if isfunction(corpse.setup) then
 					corpse.setup(rag)
+
 					if istable(all_fake_corpses) then
 						table.ForceInsert(all_fake_corpses, rag)
 						rag.Info.notepad = {}
@@ -154,12 +196,12 @@ function BR_DEFAULT_MAP_Organize_Corpses()
 		end
 	end
 
-	timer.Create("BR2_MAPCONFIG_CORPSEINFO", 4, 1, function()
+	timer.Create("BR2_Mapconfig_SetupRagdollBones", 4, 1, function()
 		for k,v in pairs(ents.FindByClass("prop_ragdoll")) do
-			if v.CInfo then
-				--ApplyCorpseInfo(v, v.CInfo, true)
+			if v.IsStartingCorpse then
 				for i=0, (v:GetPhysicsObjectCount() - 1) do
 					local bone = v:GetPhysicsObjectNum(i)
+
 					if IsValid(bone) then
 						bone:EnableMotion(true)
 					end
