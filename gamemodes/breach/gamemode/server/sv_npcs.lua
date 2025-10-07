@@ -1,4 +1,11 @@
 ﻿
+function BR_IsNPC(npc)
+    return npc.Base == "drgbase_nextbot" or npc.Base == "npc_cpt_base"
+    or string.find(npc:GetClass(), "npc_cpt_scp")
+    or string.find(npc:GetClass(), "drg_")
+    or string.find(npc:GetClass(), "dughoo_")
+end
+
 local function checkForPlayerSCP(npcclass)
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false then
@@ -50,7 +57,7 @@ function BR_SpawnMapNPC(npcclass, zone)
     if player_check == false then return false end
 
 	for k,v in pairs(ents.GetAll()) do
-		if string.find(v:GetClass(), "npc_cpt_scp") then
+		if BR_IsNPC(npc) then
 			table.ForceInsert(all_players, v)
 		end
 	end
@@ -186,9 +193,7 @@ function TrackNPCs()
 	local all_npcs = {}
 
 	for k,ent in pairs(ents.GetAll()) do
-		if IsValid(ent) and ent:Health() > 0 and ent.cannotTeleport != true and
-            (ent.Base == "drgbase_nextbot" or ent.Base == "npc_cpt_base")
-        then
+		if IsValid(ent) and ent:Health() > 0 and ent.cannotTeleport != true and BR_IsNPC(ent) then
             local forbidden = false
 
             for forbiddenname, forbiddennamev in pairs(BR_NO_TELEPORT_NPCS) do
