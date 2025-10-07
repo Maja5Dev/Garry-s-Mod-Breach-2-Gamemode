@@ -57,7 +57,7 @@ function BR_SpawnMapNPC(npcclass, zone)
     if player_check == false then return false end
 
 	for k,v in pairs(ents.GetAll()) do
-		if BR_IsNPC(npc) then
+		if IsValid(v) and BR_IsNPC(v) then
 			table.ForceInsert(all_players, v)
 		end
 	end
