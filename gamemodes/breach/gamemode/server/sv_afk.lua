@@ -1,5 +1,7 @@
 
 local function HandleAfks()
+	if SafeBoolConVar("br2_testing_mode") then return end
+
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and !v:IsDowned() and v:GetVelocity():Length() < 15 then
 			if v.br_afk_time == nil then

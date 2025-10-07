@@ -615,6 +615,7 @@ function HandleRounds()
 				net.WriteInt(br2_round_state_end, 16)
 				net.WriteInt(br2_round_state_start, 16)
 			net.Broadcast()
+
 			next_round_info_update = CurTime() + 1
 		end
 	end

@@ -85,12 +85,14 @@ SWEP.NextToggle = 0
 function SWEP:Reload()
 	if self.NextToggle < CurTime() then
 		self.StunningEnabled = !self.StunningEnabled
+
 		if SERVER then
 			if self.StunningEnabled then
 				sound.Play("weapons/stunstick/spark"..math.random(1,3)..".wav", self.Owner:GetPos(), 75, 100, 1)
 				self.Primary.Hit = self.Sound_Enabled
 			end
 		end
+
 		if self.StunningEnabled then
 			self.Primary.Attacks[1].snd = Sound("weapons/stunstick/stunstick_swing1.wav")
 			self.Primary.Attacks[1].hitflesh = Sound("weapons/stunstick/stunstick_fleshhit2.wav")
@@ -100,6 +102,7 @@ function SWEP:Reload()
 			self.Primary.Attacks[1].hitflesh = Sound("Weapon_Crowbar.Melee_Hit")
 			self.Primary.Attacks[1].hitworld = Sound("Weapon_Crowbar.Melee_Hit")
 		end
+		
 		self.NextToggle = CurTime() + 1
 	end
 end
