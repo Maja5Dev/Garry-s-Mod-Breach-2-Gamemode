@@ -3,24 +3,24 @@ include("config/sv_workshop_addons.lua") -- Load addons for the clients to downl
 
 AddCSLuaFile("client/cl_light_level.lua") -- just contains functions
 AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
-AddCSLuaFile("config/sh_weapons.lua") -- config for weapons, top priority
+AddCSLuaFile("config/internal/sh_weapons.lua") -- config for weapons, top priority
 AddCSLuaFile("config/sh_server_specific.lua") -- enums of server-related things, top priority
-AddCSLuaFile("config/sh_scps.lua") -- enums of SCP-related things, top priority
+AddCSLuaFile("config/internal/sh_scps.lua") -- enums of SCP-related things, top priority
 AddCSLuaFile("shared/sh_enums.lua") -- just all the enums, top priority
-AddCSLuaFile("config/sh_enums.lua") -- after shared/sh_enums.lua
-AddCSLuaFile("config/sh_outfits.lua") -- contains just the table of outfits, top priority
+AddCSLuaFile("config/internal/sh_enums.lua") -- after shared/sh_enums.lua
+AddCSLuaFile("config/internal/sh_outfits.lua") -- contains just the table of outfits, top priority
 AddCSLuaFile("shared/sh_documents.lua") -- table of documents, top priority
 AddCSLuaFile("shared/sh_player_damage.lua") -- table containing missions, top priority
-AddCSLuaFile("config/cl_items.lua") -- used in br_hands swep, menu_items.lua, only tables
-AddCSLuaFile("config/cl_roles.lua") -- used in menu_notepad.lua, hud_scoreboard.lua, only tables
+AddCSLuaFile("config/internal/cl_items.lua") -- used in br_hands swep, menu_items.lua, only tables
+AddCSLuaFile("config/internal/cl_roles.lua") -- used in menu_notepad.lua, hud_scoreboard.lua, only tables
 
 AddCSLuaFile("shared/sh_cvars.lua") -- used in sv_round.lua, sh_player_damage.lua, sv_player.lua, sv_sanity.lua, sv_networking.lua, sv_temperature.lua, sv_functions_organise.lua
-AddCSLuaFile("config/sh_cvars.lua") -- after shared/sh_cvars.lua
+AddCSLuaFile("config/internal/sh_cvars.lua") -- after shared/sh_cvars.lua
 AddCSLuaFile("shared/sh_util.lua") -- things used in sv_round.lua, sv_sanity.lua, sv_player_meta.lua and br_hands.lua
 AddCSLuaFile("shared/sh_player_meta.lua") -- low priority
 AddCSLuaFile("shared.lua")
 
-AddCSLuaFile("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
+AddCSLuaFile("config/internal/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 AddCSLuaFile("shared/sh_maprelated.lua")
 AddCSLuaFile("client/cl_maprelated.lua")
 
@@ -71,14 +71,14 @@ AddCSLuaFile("client/hud/hud_voice.lua")
 AddCSLuaFile("client/hud/hud_wepswitch.lua")
 AddCSLuaFile("client/hud/hud_overlay.lua")
 AddCSLuaFile("client/hud/hud_notification.lua")
-AddCSLuaFile("config/cl_screeneffects.lua")
+AddCSLuaFile("config/internal/cl_screeneffects.lua")
 AddCSLuaFile("client/hud/hud_screen_effects.lua")
 AddCSLuaFile("client/hud/init.lua")
 
 /* DERMA */
-AddCSLuaFile("config/sh_missions.lua") -- these need to be before menu_firstrole
-AddCSLuaFile("config/cl_starttexts.lua") -- these need to be before menu_firstrole
-AddCSLuaFile("config/cl_firstrole.lua") -- these need to be before menu_firstrole
+AddCSLuaFile("config/internal/sh_missions.lua") -- these need to be before menu_firstrole
+AddCSLuaFile("config/internal/cl_starttexts.lua") -- these need to be before menu_firstrole
+AddCSLuaFile("config/internal/cl_firstrole.lua") -- these need to be before menu_firstrole
 
 AddCSLuaFile("client/derma/menu_firstrole.lua")
 AddCSLuaFile("client/derma/menu_identify.lua")
@@ -100,7 +100,7 @@ AddCSLuaFile("client/cl_binds.lua")
 AddCSLuaFile("client/cl_fog.lua")
 
 AddCSLuaFile("client/cl_tick.lua")
-AddCSLuaFile("config/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua
+AddCSLuaFile("config/internal/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua
 AddCSLuaFile("client/cl_item_spawnmenu.lua")
 
 AddCSLuaFile("cl_init.lua")
@@ -110,15 +110,15 @@ AddCSLuaFile("cl_init.lua")
 -- SERVER
 include("shared.lua")
 
-include("config/sv_names.lua") -- config for names
-include("config/sh_weapons.lua") -- config for weapons, top priority
-include("config/sv_weapon_sets.lua") -- config for weapon sets
-include("config/sh_scps.lua") -- enums of SCP-related things, top priority
-include("config/sh_sounds.lua") -- needs to be before cl_music.lua and map files
+include("config/internal/sv_names.lua") -- config for names
+include("config/internal/sh_weapons.lua") -- config for weapons, top priority
+include("config/internal/sv_weapon_sets.lua") -- config for weapon sets
+include("config/internal/sh_scps.lua") -- enums of SCP-related things, top priority
+include("config/internal/sh_sounds.lua") -- needs to be before cl_music.lua and map files
 
 include("server/sv_names.lua") -- has to be before sv_scenarios, top priority
 include("server/sv_scenarios.lua") -- table of scenarios, top priority
-include("config/sh_scp294.lua") -- needs to be before sv_items.lua
+include("config/internal/sh_scp294.lua") -- needs to be before sv_items.lua
 include("server/sv_items.lua") -- table of items, top priority
 include("server/sv_notepad_system.lua") -- notepad_system table, top priority
 include("server/sv_misc.lua") -- misc functions, top priority
@@ -134,7 +134,7 @@ include("server/assigning/sv_assigning.lua") -- assigning functions, high priori
 include("shared/sh_maprelated.lua")
 include("server/sv_maprelated.lua") -- load before map configs
 
-include("config/sv_npcs.lua") -- load before sv_npcs
+include("config/internal/sv_npcs.lua") -- load before sv_npcs
 include("server/sv_npcs.lua") -- load after map
 
 include("mapconfigs/"..game.GetMap().."/init.lua")
