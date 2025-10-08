@@ -68,7 +68,7 @@ function DrawTargetID()
 			lastseen = CurTime() + 2
 			lastseen_alpha = 255
 
-		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 and LocalPlayer().br_role != "SCP-173" then
+		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 and LocalPlayer().br_role != ROLE_SCP_173 then
 			lastseen_player = ent
 			--print(ent)
 			--print(ent.Pulse)
@@ -110,7 +110,7 @@ function DrawTargetID()
 				local revive_text2 = "Reviving..."
 				local can_revive = true
 				
-				if LocalPlayer().br_role == "SCP-049" and ent.isValidPlayerCorpse then
+				if LocalPlayer().br_role == ROLE_SCP_049 and ent.isValidPlayerCorpse then
 					revive_text1 = "Press E to cure"
 					revive_text2 = "Curing..."
 					

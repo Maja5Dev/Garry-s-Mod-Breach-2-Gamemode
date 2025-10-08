@@ -134,7 +134,7 @@ function BR2NetworkingTick()
 			end
 
 			-- SCP-049's reviving
-			if v.br_role == "SCP-049" and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then
+			if v.br_role == ROLE_SCP_049 and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then
 				local dis = (v.startedReviving[1]:GetPos():Distance(v:GetPos()) > 70) or v:KeyDown(IN_ATTACK) or v:KeyDown(IN_ATTACK2)
 
 				if (v.startedReviving[2] + 8.1) > CurTime() and !dis then
@@ -216,7 +216,7 @@ function BR2NetworkingTick()
 				if v.next_revive_update < CurTime() then
 					v.next_revive_update = CurTime() + 0.2
 					for k2,v2 in pairs(player.GetAll()) do
-						if v2.startedReviving and IsValid(v.Body) and v2.startedReviving[1] == v.Body and v2.br_role != "SCP-049" then
+						if v2.startedReviving and IsValid(v.Body) and v2.startedReviving[1] == v.Body and v2.br_role != ROLE_SCP_049 then
 							local dis = (v.Body:GetPos():Distance(v2:GetPos()) > 70) or v2:KeyDown(IN_ATTACK) or v2:KeyDown(IN_ATTACK2)
 
 							if (v2.startedReviving[2] + 8.1) > CurTime() and !dis then

@@ -266,7 +266,7 @@ function SWEP:DrawWorldModel()
 end
 
 function SWEP:PrimaryAttack()
-	if CLIENT and LocalPlayer().br_role != "SCP-049" then
+	if CLIENT and LocalPlayer().br_role != ROLE_SCP_049 then
 		self:CreateFrame()
 	end
 end

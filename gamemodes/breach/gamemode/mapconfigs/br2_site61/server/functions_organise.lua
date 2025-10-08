@@ -33,7 +33,7 @@ end
 function Breach_Map_Organise_AfterAssign()
 	local scp035exists = false
 	for k,v in pairs(player.GetAll()) do
-		if IsValid(v) and v:Alive() and !v:IsSpectator() and v.br_role == "SCP-035" then
+		if IsValid(v) and v:Alive() and !v:IsSpectator() and v.br_role == ROLE_SCP_035 then
 			scp035exists = true
 			break
 		end

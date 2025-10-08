@@ -11,14 +11,14 @@ local function checkForPlayerSCP(npcclass)
 		if v:Alive() and v:IsSpectator() == false then
 			table.ForceInsert(all_players, v)
 
-            if (string.find(npcclass, "scp_173") or string.find(npcclass, "scp173")) and v.br_role == "SCP-173" then
+            if (string.find(npcclass, "scp_173") or string.find(npcclass, "scp173")) and v.br_role == ROLE_SCP_173 then
                 print("Not spawning SCP-173 because a player is SCP-173")
                 return false
             end
 
             if (string.find(npcclass, "scp049") or string.find(npcclass, "scp_049"))
             and !(string.find(npcclass, "scp0492") or string.find(npcclass, "scp_049_2"))
-            and v.br_role == "SCP-049"
+            and v.br_role == ROLE_SCP_049
             then
                 print("Not spawning SCP-049 because a player is SCP-049")
                 return false

@@ -4,7 +4,7 @@
 function assign_system.Assign_SCP035(ply)
 	Pre_Assign(ply)
 	ply:Give("br_hands")
-	ply.br_role = "SCP-035"
+	ply.br_role = ROLE_SCP_035
 	ply.Faction = "BR2_FACTION_SCP_035"
 	ply:AddFlags(FL_NOTARGET)
 	ply:SetHealth(240)
@@ -66,7 +66,7 @@ end
 
 
 function assign_system.Assign_SCP049(ply)
-	ply.br_role = "SCP-049"
+	ply.br_role = ROLE_SCP_049
 	Pre_Assign(ply)
 	ply:SetHealth(1300)
 	ply:SetMaxHealth(1300)
@@ -79,8 +79,8 @@ function assign_system.Assign_SCP049(ply)
 	ply.br_uses_hunger_system = false
 	ply.br_usesSanity = false
 	ply.can_get_infected = false
-	ply.br_role = "SCP-049"
-	ply.br_showname = "SCP-049"
+	ply.br_role = ROLE_SCP_049
+	ply.br_showname = ROLE_SCP_049
 	ply.br_customspawn = "SPAWNS_SCP_049"
 	ply.Faction = "BR2_FACTION_SCP_049"
 	ply:AddFlags(FL_NOTARGET)
@@ -95,7 +95,7 @@ function assign_system.Assign_SCP049(ply)
 	end
 	ply.br_support_team = SUPPORT_ROGUE
 	Post_Assign(ply)
-	ply.br_role = "SCP-049"
+	ply.br_role = ROLE_SCP_049
 end
 
 
@@ -118,8 +118,8 @@ function assign_system.Assign_SCP173(ply)
 	ply.br_usesStamina = false
 	ply.blinking_enabled = false
 	ply.disable_coughing = true
-	ply.br_role = "SCP-173"
-	ply.br_showname = "SCP-173"
+	ply.br_role = ROLE_SCP_173
+	ply.br_showname = ROLE_SCP_173
 	ply.br_customspawn = "SPAWNS_SCP_173"
 	ply.Faction = "BR2_FACTION_SCP_173"
 	ply:AddFlags(FL_NOTARGET)
@@ -186,8 +186,8 @@ local function shared0492assign(ply)
 	ply.disable_coughing = true
 	ply.cantChangeOutfit = true
 
-	ply.br_role = "SCP-049-2"
-	ply.br_showname = "SCP-049-2"
+	ply.br_role = ROLE_SCP_049_2
+	ply.br_showname = ROLE_SCP_049_2
 
 	ply.Faction = "BR2_FACTION_SCP_049"
 	ply:AddFlags(FL_NOTARGET)
@@ -212,7 +212,7 @@ function player_meta:UnDownPlayerAsZombie(healer)
 
 	if lpi then
 		lpi.PlayerTeam = TEAM_ALIVE
-		lpi.BreachRole = "SCP-049-2"
+		lpi.BreachRole = ROLE_SCP_049_2
 		lpi.PlayerHealth = 200
 		lpi.PlayerMaxHealth = 200
 		lpi.PlayerWalkSpeed = 100

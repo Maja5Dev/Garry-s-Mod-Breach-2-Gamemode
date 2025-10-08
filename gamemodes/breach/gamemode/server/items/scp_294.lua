@@ -40,7 +40,7 @@ special_item_system.AddItem({
     use = function(pl, item)
         if timer.Exists("drinkuse" .. pl:SteamID64()) then return end
 
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("This will serve better in my studies than in my veins.")
             return false
         end

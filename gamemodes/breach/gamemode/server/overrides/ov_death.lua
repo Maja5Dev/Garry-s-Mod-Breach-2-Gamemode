@@ -13,7 +13,7 @@ end
 
 function GM:DoPlayerDeath(ply, attacker, dmginfo)
 	if IsValid(ply) then
-		if ply.br_role == "SCP-173" then
+		if ply.br_role == ROLE_SCP_173 then
 			ply:StripWeapon("weapon_scp_173")
 		end
 
@@ -28,7 +28,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			return
 		end
 
-		if ply.br_role == "SCP-173" then
+		if ply.br_role == ROLE_SCP_173 then
 			if IsValid(ply.entity173) then
 				ply.entity173:OnOwnerDeath()
 			end

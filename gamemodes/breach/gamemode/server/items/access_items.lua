@@ -54,7 +54,7 @@ special_item_system.AddItem({
         pl:PrintMessage(HUD_PRINTTALK, "Universal lockpick, can be used to open doors or crates")
     end,
     onstart = function(pl)
-        if pl.br_role == "Class D" and math.random(1,5) == 2 then
+        if pl.br_role == ROLE_CLASS_D and math.random(1,5) == 2 then
             table.ForceInsert(pl.br_special_items, {class = "lockpick"})
         end
     end,

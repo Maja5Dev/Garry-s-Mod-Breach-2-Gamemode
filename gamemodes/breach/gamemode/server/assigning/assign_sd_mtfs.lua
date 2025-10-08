@@ -26,7 +26,7 @@ function assign_system.Assign_SDofficer(ply)
 		ply:SetAmmo(random_main[3], random_main[2])
 	end
 
-	ply.br_role = "SD Officer"
+	ply.br_role = ROLE_SD_OFFICER
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 
@@ -66,7 +66,7 @@ function assign_system.Assign_SDofficerLight(ply)
 		ply:SetAmmo(random_side[3], random_side[2])
 	end
 
-	ply.br_role = "SD Officer"
+	ply.br_role = ROLE_SD_OFFICER
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 
@@ -111,7 +111,7 @@ function assign_system.Assign_MTF_NTF(ply)
 		ply:SetAmmo(random_main[3], random_main[2])
 	end
 
-	ply.br_role = "MTF Operative"
+	ply.br_role = ROLE_MTF_OPERATIVE
 	ply.br_usesTemperature = true
 	ply.br_uses_hunger_system = false
 	ply.canContain173 = true

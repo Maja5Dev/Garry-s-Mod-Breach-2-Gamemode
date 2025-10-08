@@ -22,7 +22,7 @@ net.Receive("br_end_reviving", function(len, ply)
 	local ent = ply.startedReviving[1]
 	local isPlayerValid, isPlayerAlive = isValidPlayerCorpse(ply, ent)
 
-	if ply.br_role == "SCP-049" then
+	if ply.br_role == ROLE_SCP_049 then
 		if isPlayerValid and IsValid(ent.Info.Victim) and (!ent.Info.Victim:Alive() or ent.Info.Victim:IsSpectator())
 			and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime())
 		then
@@ -64,7 +64,7 @@ net.Receive("br_start_reviving", function(len, ply)
 		if ent:GetClass() == "prop_ragdoll" and istable(ent.Info) and IsValid(ent.Info.Victim) and ent.Info.Victim:Alive()
 			and ent.Info.charid == ent.Info.Victim:GetNWInt("BR_CharID", -1) and string.find(ent.Info.br_role, "SCP") == nil
 		then
-			if ply.br_role == "SCP-049" then
+			if ply.br_role == ROLE_SCP_049 then
 				start_reviving_pl(ply, ent)
 
 			elseif isValidPlayerCorpse(ply, ent) and !ent.Info.Victim:IsSpectator() then

@@ -65,7 +65,7 @@ special_item_system.AddItem({
         return false
     end,
     onstart = function(pl)
-        if pl.br_role == "Engineer" or pl:GetOutfit().class == "engineer" then
+        if pl.br_role == ROLE_ENGINEER or pl:GetOutfit().class == "engineer" then
             table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox"})
         end
     end,

@@ -144,7 +144,7 @@ hook.Add("RenderScreenspaceEffects", "br2_screenspace_effects", function()
 				end
 			end
 
-			if LocalPlayer().br_role == "SCP-049" then
+			if LocalPlayer().br_role == ROLE_SCP_049 then
 				nvg = BR_SCP_049_NVG
 				if isfunction(nvg.effect) then
 					nvg.effect(nvg, i)

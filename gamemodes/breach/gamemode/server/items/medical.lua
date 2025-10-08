@@ -38,7 +38,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
             return false
         end
@@ -116,7 +116,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("This will serve better in my studies than in my veins.")
             return false
         end
@@ -168,7 +168,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("A fleeting remedy that does not address the pestilence.")
             return false
         end
@@ -227,7 +227,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
             return false
         end
@@ -247,7 +247,7 @@ special_item_system.AddItem({
         return true
     end,
     onstart = function(pl)
-        if pl.br_role == "Doctor" or pl:GetOutfit().class == "medic" then
+        if pl.br_role == ROLE_DOCTOR or pl:GetOutfit().class == "medic" then
             table.ForceInsert(pl.br_special_items, {class = class})
         end
     end,
@@ -283,7 +283,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        if pl.br_role == "SCP-049" then
+        if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
             return false
         end
@@ -300,7 +300,7 @@ special_item_system.AddItem({
         return true
     end,
     onstart = function(pl)
-        if pl.br_role == "Doctor" and math.random(1, 4) == 2 then
+        if pl.br_role == ROLE_DOCTOR and math.random(1, 4) == 2 then
             table.ForceInsert(pl.br_special_items, {class = "ssri_pills"})
         end
     end,

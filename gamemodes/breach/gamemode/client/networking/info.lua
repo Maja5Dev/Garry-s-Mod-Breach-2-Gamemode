@@ -96,7 +96,7 @@ net.Receive("br_update_own_info", function(len)
 	client.br_ci_agent = net.ReadBool()
 
 	client.ShouldDisableLegs = false
-	if client.br_role == "SCP-173" then
+	if client.br_role == ROLE_SCP_173 then
 		client.ShouldDisableLegs = true
 	end
 end)

@@ -54,7 +54,7 @@ round_system.Force_MTF_Spawn = function()
 	local existingMTFs = {}
 
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and !v:IsSpectator() and (v.br_role == "MTF Operative" or v.br_team == TEAM_MTF) then
+		if v:Alive() and !v:IsSpectator() and (v.br_role == ROLE_MTF_OPERATIVE or v.br_team == TEAM_MTF) then
 			table.ForceInsert(existingMTFs, v)
 		end
 	end
@@ -348,7 +348,7 @@ round_system.AssignRandomCodes = function()
 		local v = table.Random(all_pl)
 		local bt = v.br_team
 
-		if v.br_role == "Researcher" then
+		if v.br_role == ROLE_RESEARCHER then
 			local random_personal_code = table.Random(all_possible_personal_codes)
 			if random_personal_code != nil then
 				notepad_system.AddAutomatedInfo(v, "Personal office code: "..random_personal_code[2].." ("..random_personal_code[1]..")")

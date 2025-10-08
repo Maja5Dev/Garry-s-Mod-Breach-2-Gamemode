@@ -9,7 +9,7 @@ function assign_system.Assign_DM_MTF_NTF(ply)
 	ply:AllowFlashlight(true)
     ply:Give("br_hands")
     ply:Give("keycard_level4")
-	ply.br_role = "MTF Operative"
+	ply.br_role = ROLE_MTF_OPERATIVE
 	ply.br_usesTemperature = false
 	ply.br_uses_hunger_system = false
 	ply.br_support_spawns = {}
@@ -29,7 +29,7 @@ function assign_system.Assign_DM_CIsoldier(ply)
 	ply:AllowFlashlight(true)
 	ply:Give("br_hands")
 	ply:Give("keycard_omni")
-	ply.br_role = "CI Soldier"
+	ply.br_role = ROLE_CI_SOLDIER
 	ply.br_usesTemperature = false
     ply.br_uses_hunger_system = false
     ply.br_support_spawns = {}

@@ -64,9 +64,9 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		local same_team = victim.br_team == attacker.br_team
 		if (SERVER and round_system.current_scenario.friendly_fire_enabled == false and same_team)
 		or (victim.br_team == TEAM_MTF and attacker.br_team == TEAM_MTF)
-		or (victim.br_role == "CI Soldier" and attacker.br_role == "CI Soldier")
-		or (victim.br_role == "SCP-049" and attacker.br_role == "SCP-049-2")
-		or (victim.br_role == "SCP-049-2" and attacker.br_role == "SCP-049")
+		or (victim.br_role == ROLE_CI_SOLDIER and attacker.br_role == ROLE_CI_SOLDIER)
+		or (victim.br_role == ROLE_SCP_049 and attacker.br_role == ROLE_SCP_049_2)
+		or (victim.br_role == ROLE_SCP_049_2 and attacker.br_role == ROLE_SCP_049)
 		or (game_state == GAMESTATE_PREPARING) then
 			return true
 		end
@@ -239,7 +239,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 
 	local can_start_bleeding = false
 
-	if victim.br_role == "SCP-173" then
+	if victim.br_role == ROLE_SCP_173 then
 		dmginfo:ScaleDamage(0)
 		dmg_mul = 0
 		dmginfo:SetDamage(0)

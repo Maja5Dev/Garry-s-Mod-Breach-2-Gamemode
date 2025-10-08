@@ -38,7 +38,7 @@ function assign_system.Assign_ClassD(ply)
 	ply.br_hunger = 90
 	ply.br_thirst = 90
 	ply.br_sanity = math.random(85, 100)
-	ply.br_role = "Class D"
+	ply.br_role = ROLE_CLASS_D
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 
@@ -63,7 +63,7 @@ function assign_system.Assign_ClassD9341(ply)
 	ply:Give("br_hands")
 	ply.br_showname = "D-9341"
 	ply.isTheOne = true
-	ply.br_role = "Class D"
+	ply.br_role = ROLE_CLASS_D
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.br_support_spawns = {}

@@ -105,7 +105,7 @@ BR2_SPECIAL_ITEMS = {
 			pl:PrintMessage(HUD_PRINTTALK, "Installed in terminals, used to check the cameras")
 		end,
 		onstart = function(pl)
-			if pl.br_role == "Engineer" and math.random(1,5) == 2 then
+			if pl.br_role == ROLE_ENGINEER and math.random(1,5) == 2 then
 				table.ForceInsert(pl.br_special_items, {class = "crafting_toolbox"})
 			end
 		end,

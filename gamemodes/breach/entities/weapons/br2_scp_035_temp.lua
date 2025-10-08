@@ -59,7 +59,7 @@ function SWEP:PutTheMask()
 			if !IsValid(ply) or !ply:Alive() or ply:IsSpectator() then return end
 
             if SERVER then
-                ply.br_role = "SCP-035"
+                ply.br_role = ROLE_SCP_035
                 ply.br_team = TEAM_SCP
                 ply:AddFlags(FL_NOTARGET)
                 ply.br_usesSanity = false

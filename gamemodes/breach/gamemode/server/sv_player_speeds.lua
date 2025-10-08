@@ -74,7 +74,7 @@ function HandlePlayerSpeeds()
 				end
 			end
 
-			if v.br_role == "SCP-049-2" then
+			if v.br_role == ROLE_SCP_049_2 then
 				new_run_speed = new_run_speed * 0.85
 			end
 			

@@ -684,10 +684,10 @@ function BR2_Handle914_Start()
 				if v:IsPlayer() and v:Alive() and !v:IsSpectator() then
 					ent = v
 
-					if v.br_role == "SCP-173" then
+					if v.br_role == ROLE_SCP_173 then
 						v:TakeDamage(math.Clamp(v:Health() / 2, 1000, v:Health()), v, nil)
 
-					elseif v.br_role == "SCP-049" then
+					elseif v.br_role == ROLE_SCP_049 then
 						v:TakeDamage(math.Clamp(v:Health() / 2, 1000, v:Health()), v, nil)
 
 					elseif br_914status == SCP914_ROUGH then

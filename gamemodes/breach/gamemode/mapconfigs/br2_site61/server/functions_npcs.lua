@@ -79,7 +79,7 @@ function MAP_FemurBreaker()
 	for k,v in pairs(ents.GetAll()) do
 		if IsValid(v) and
 		((string.find(v:GetClass(), "scp106") or string.find(v:GetClass(), "scp_106") or string.find(v:GetClass(), "scpcb_106")) or
-		(v:IsPlayer() and v.br_role == "SCP-106")
+		(v:IsPlayer() and v.br_role == ROLE_SCP_106)
 	) then
 			v:SetPos(Vector(-2387.296875, 6250.779785, -7418.968750))
 			v.cannotTeleport = true

@@ -12,7 +12,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_3.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Researcher"
+            rag.br_role = ROLE_RESEARCHER
             rag.br_team = TEAM_RESEARCHER
             rag.br_ci_agent = false
         end,
@@ -331,7 +331,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_6.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Researcher"
+            rag.br_role = ROLE_RESEARCHER
             rag.br_team = TEAM_RESEARCHER
             rag.br_ci_agent = false
         end,
@@ -589,7 +589,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_2.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Researcher"
+            rag.br_role = ROLE_RESEARCHER
             rag.br_team = TEAM_RESEARCHER
             rag.br_ci_agent = false
         end,
@@ -785,7 +785,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_3.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Researcher"
+            rag.br_role = ROLE_RESEARCHER
             rag.br_team = TEAM_RESEARCHER
             rag.br_ci_agent = false
         end,
@@ -1042,7 +1042,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_d_1.mdl",
         setup = function(rag)
             rag.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""
-            rag.br_role = "Class D"
+            rag.br_role = ROLE_CLASS_D
             rag.br_team = TEAM_CLASSD
             rag.br_ci_agent = false
         end,
@@ -1227,7 +1227,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/medic/medic_01.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Doctor"
+            rag.br_role = ROLE_DOCTOR
             rag.br_team = TEAM_MINORSTAFF
             rag.br_ci_agent = false
         end,
@@ -1423,7 +1423,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_2.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Researcher"
+            rag.br_role = ROLE_RESEARCHER
             rag.br_team = TEAM_RESEARCHER
             rag.br_ci_agent = false
         end,
@@ -1680,7 +1680,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/player/kerry/class_scientist_3.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "SD Officer"
+            rag.br_role = ROLE_SD_OFFICER
             rag.br_team = TEAM_SECURITY
             rag.br_ci_agent = false
         end,
@@ -1877,7 +1877,7 @@ MAPCONFIG.STARTING_CORPSES = {
         model = "models/hazmat/bmhaztechs.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
-            rag.br_role = "Containment Specialist"
+            rag.br_role = ROLE_CONT_SPEC
             rag.br_team = TEAM_MINORSTAFF
             rag.br_ci_agent = false
         end,

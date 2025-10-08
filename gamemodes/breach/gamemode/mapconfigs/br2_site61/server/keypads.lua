@@ -42,7 +42,7 @@ MAPCONFIG.KEYPADS = {
 		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
 		code_can_be_obtained_by_radio = true,
 		code_available_for = function(ply)
-			return ply.br_role == "SD Officer" or ply.br_team == TEAM_CI
+			return ply.br_role == ROLE_SD_OFFICER or ply.br_team == TEAM_CI
 		end,
 		code_personal_office = false,
 		sounds = true

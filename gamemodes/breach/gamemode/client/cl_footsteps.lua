@@ -3,7 +3,7 @@ function HandleFootstepsCL()
 	for k,v in pairs(player.GetAll()) do
 		local vel = math.Round(v:GetVelocity():Length())
 
-		if !v:IsSpectator() and v:Alive() and v:GetMoveType() != MOVETYPE_NOCLIP and vel > 25 and v:IsOnGround() and v.br_role != "SCP-173" then
+		if !v:IsSpectator() and v:Alive() and v:GetMoveType() != MOVETYPE_NOCLIP and vel > 25 and v:IsOnGround() and v.br_role != ROLE_SCP_173 then
 			if v.nextstep == nil then v.nextstep = 0 end
 			if v.nextstep > CurTime() then return true end
 

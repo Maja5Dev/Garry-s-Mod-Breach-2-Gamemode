@@ -31,14 +31,14 @@ else
 				local name = "Unknown"
 
 				if v:IsPlayer() then
-					if v.br_role == "SCP-173" then
-						name = "SCP-173"
+					if v.br_role == ROLE_SCP_173 then
+						name = ROLE_SCP_173
 						
-					elseif v.br_role == "SCP-049" then
-						name = "SCP-049"
+					elseif v.br_role == ROLE_SCP_049 then
+						name = ROLE_SCP_049
 						
-					elseif v.br_role == "SCP-049-2" then
-						name = "SCP-049-2"
+					elseif v.br_role == ROLE_SCP_049_2 then
+						name = ROLE_SCP_049_2
 					else
 						name = "Human"
 					end

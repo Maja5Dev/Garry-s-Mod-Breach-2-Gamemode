@@ -21,9 +21,9 @@ SWEP.IsHands = true
 
 function SWEP:IsSCP049()
 	if CLIENT then
-		return (BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] != nil and BR2_OURNOTEPAD.people[1].br_role == "SCP-049")
+		return (BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] != nil and BR2_OURNOTEPAD.people[1].br_role == ROLE_SCP_049)
 	else
-		return (self.Owner.br_role == "SCP-049")
+		return (self.Owner.br_role == ROLE_SCP_049)
 	end
 end
 
@@ -112,7 +112,7 @@ SWEP.Contents = {
 			end
 
 			local prefix = " - You are "
-			if our_role == "SCP-035" then
+			if our_role == ROLE_SCP_035 then
 				prefix = " - Your host is called "
 			end
 
@@ -582,7 +582,7 @@ SWEP.Contents = {
 }
 
 function SWEP:CheckContents()
-	if self.Owner.br_role == "MTF Operative" or self.Owner.br_team == TEAM_MTF then
+	if self.Owner.br_role == ROLE_MTF_OPERATIVE or self.Owner.br_team == TEAM_MTF then
 		local tr_hull = util.TraceHull({
 			start = self.Owner:GetShootPos(),
 			endpos = self.Owner:GetShootPos() + (self.Owner:GetAimVector() * 100),

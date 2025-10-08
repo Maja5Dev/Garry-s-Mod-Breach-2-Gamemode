@@ -7,34 +7,34 @@
 
 -- Add role names here to disallow them from opening the notepad
 BR2_ROLES_DISALLOWED_NOTEPAD = {
-    "SCP-173",
-    "SCP-049-2",
+    ROLE_SCP_173,
+    ROLE_SCP_049_2,
 }
 
 BR2_ROLES_DISALLOWED_TERMINAL_USE = {
-    "SCP-173",
-    "SCP-049-2",
+    ROLE_SCP_173,
+    ROLE_SCP_049_2,
 }
 
 BR2_ROLES_DONT_RENDER_BUTTONS = {
-    "SCP-173",
+    ROLE_SCP_173,
 }
 
 BR2_ROLES_DISALLOWED_SCP_ACTIONS = {
-    "SCP-049-2",
-    "SCP-035",
+    ROLE_SCP_049_2,
+    ROLE_SCP_035,
 }
 
 -- Add role names here to disallow them completely from picking up special items
 BR2_ROLES_DISALLOWED_PICKUP_SITEMS = {
-    "SCP-173",
-    "SCP-049-2",
+    ROLE_SCP_173,
+    ROLE_SCP_049_2,
 }
 
 -- More fine grained limits for special items
 BR2_ROLES_LOOT_LIMITS = {
     {
-        role_name = "SCP-049",
+        role_name = ROLE_SCP_049,
         disallow = function(ply, item)
             local class = item.class or (IsEntity(item) and (item.SI_Class or item:GetClass()))
             -- Disallow 049 to loot any swep, ammo, food, drinks
@@ -49,34 +49,34 @@ BR2_ROLES_LOOT_LIMITS = {
 
 -- Add role names here to disallow them to auto pick up items from the ground like ammo/energy from hl2
 BR2_ROLES_DISALLOWED_PICKUP_ITEMS = {
-    "SCP-049",
-    "SCP-173",
-    "SCP-049-2",
+    ROLE_SCP_049,
+    ROLE_SCP_173,
+    ROLE_SCP_049_2,
 }
 
 -- Add role names here to disallow them to pick up props
 BR2_ROLES_DISALLOWED_PICKUPS = {
-    "SCP-049",
-    "SCP-173",
-    "SCP-049-2",
+    ROLE_SCP_049,
+    ROLE_SCP_173,
+    ROLE_SCP_049_2,
 }
 
 BR2_ROLES_UNAFFECTED_BY_SCP035 = {
-    "SCP-173",
-    "SCP-035",
+    ROLE_SCP_173,
+    ROLE_SCP_035,
 }
 
 BR2_ROLE_WEAPON_LIMITS = {
     {
-        role_name = "SCP-049",
+        role_name = ROLE_SCP_049,
         allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") or wep:GetClass() == "br2_scp_035_temp" end
     },
     {
-        role_name = "SCP-049-2",
+        role_name = ROLE_SCP_049_2,
         allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_049_2" or wep:GetClass() == "br2_scp_035_temp" end
     },
     {
-        role_name = "SCP-173",
+        role_name = ROLE_SCP_173,
         allow_only = function(ply, wep) return wep:GetClass() == "weapon_scp_173" end
     },
 }

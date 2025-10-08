@@ -110,7 +110,7 @@ MAPCONFIG.SCP_ACTIONS = {
         pos = Vector(1873, 1324, -8128),
         mat = br_default_map_teleport,
         can_do = function(ply)
-            return ply.br_role == "SCP-173"
+            return ply.br_role == ROLE_SCP_173
         end,
         sv_acton = function(ply)
             local pos = Vector(1871, 1277, -7163)
@@ -135,7 +135,7 @@ MAPCONFIG.SCP_ACTIONS = {
         pos = Vector(-927, 448, -8126),
         mat = br_default_map_teleport,
         can_do = function(ply)
-            return ply.br_role == "SCP-173"
+            return ply.br_role == ROLE_SCP_173
         end,
         sv_acton = function(ply)
             local pos = Vector(-485, 180, -7163)
@@ -298,7 +298,7 @@ MAPCONFIG.SCP_ACTIONS = {
         pos = Vector(1873,1326,-7105),
         mat = br_default_map_teleport,
         can_do = function(ply)
-            return ply.br_role == "SCP-173"
+            return ply.br_role == ROLE_SCP_173
         end,
         sv_acton = function(ply)
             local pos = Vector(1868, 1296, -8187)
@@ -323,7 +323,7 @@ MAPCONFIG.SCP_ACTIONS = {
         pos = Vector(-490,137,-7108),
         mat = br_default_map_teleport,
         can_do = function(ply)
-            return ply.br_role == "SCP-173"
+            return ply.br_role == ROLE_SCP_173
         end,
         sv_acton = function(ply)
             local pos = Vector(-896, 442, -8187)

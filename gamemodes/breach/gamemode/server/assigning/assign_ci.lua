@@ -13,7 +13,7 @@ function assign_system.Assign_Researcher_CI(ply)
 		end
 	end
 
-	ply.br_role = "Researcher"
+	ply.br_role = ROLE_RESEARCHER
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.br_ci_agent = true
@@ -56,7 +56,7 @@ function assign_system.Assign_SDofficer_CI(ply)
 		ply:SetAmmo(random_main[3], random_main[2])
 	end
 
-	ply.br_role = "SD Officer"
+	ply.br_role = ROLE_SD_OFFICER
 	ply.br_usesTemperature = true
 	ply.br_ci_agent = true
 
@@ -97,7 +97,7 @@ function assign_system.Assign_CIsoldier(ply)
 		ply:SetAmmo(random_main[3], random_main[2])
 	end
 
-	ply.br_role = "CI Soldier"
+	ply.br_role = ROLE_CI_SOLDIER
 	ply.br_usesTemperature = true
 	ply.br_uses_hunger_system = false
 	ply.getsAllCIinfo = true

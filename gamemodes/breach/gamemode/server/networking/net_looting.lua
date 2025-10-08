@@ -94,7 +94,7 @@ net.Receive("br_take_loot", function(len, ply)
 	if isstring(item.class) and table.Count(source) > 1 and isstring(source[1]) then
 		local source_tab = nil
 
-		if ply.br_role == "SCP-049" or ply.br_role == "SCP-173" then
+		if ply.br_role == ROLE_SCP_049 or ply.br_role == ROLE_SCP_173 then
 			local swep = weapons.Get(item.class)
 			if (swep or item.ammo_info or string.find(item.class, "ammo") or string.find(item.class, "food") or string.find(item.class, "drink"))
 				and !string.find(item.class, "keycard")

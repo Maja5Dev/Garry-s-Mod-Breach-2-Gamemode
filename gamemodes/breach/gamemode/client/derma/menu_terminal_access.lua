@@ -275,7 +275,7 @@ function BR_Access_Terminal(terminal)
 		end
 	end
 
-	if LocalPlayer().br_role == "CI Soldier" then
+	if LocalPlayer().br_role == ROLE_CI_SOLDIER then
 		local panel_5 = vgui.Create("DPanel", access_terminal)
 		panel_5:SetSize(panel_w, panel_h * 0.7)
 		panel_5:SetPos(gap*2, last_y + gap)

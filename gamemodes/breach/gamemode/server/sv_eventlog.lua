@@ -40,16 +40,16 @@ end)
 
 hook.Add("PlayerDeath", "BR_Eventlog_PlayerDeath", function(ply, inflictor, attacker)
     if IsValid(ply) then
-        if ply.br_role == "SCP-173" then
+        if ply.br_role == ROLE_SCP_173 then
             round_system.AddEventLog("SCP-173 has been contained.")
 
-        elseif ply.br_role == "SCP-049" then
+        elseif ply.br_role == ROLE_SCP_049 then
             round_system.AddEventLog("SCP-049 has been contained.")
 
-        elseif ply.br_role == "SCP-035" then
+        elseif ply.br_role == ROLE_SCP_035 then
             round_system.AddEventLog("SCP-035 has been contained.")
 
-        elseif ply.br_role == "SCP-106" then
+        elseif ply.br_role == ROLE_SCP_106 then
             round_system.AddEventLog("SCP-106 has been contained.")
 
         elseif ply.br_role == "SCP-096" then

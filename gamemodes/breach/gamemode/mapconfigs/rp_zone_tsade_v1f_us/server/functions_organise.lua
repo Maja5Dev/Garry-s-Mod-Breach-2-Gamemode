@@ -53,7 +53,7 @@ function RZ_Open_Code()
 			local all_ci_researchers = {}
 			local all_researchers = {}
 			for k,v in pairs(player.GetAll()) do
-				if v.br_role == "Researcher" then
+				if v.br_role == ROLE_RESEARCHER then
 					if v.br_team == TEAM_CI then
 						table.ForceInsert(all_ci_researchers, v)
 					else
@@ -89,7 +89,7 @@ function RZ_Open_Code()
 end
 
 hook.Add("BR2_SupportSpawned", "rz_give_late_researcher_code", function(ply)
-	if IsValid(ply) and ply:Alive() and !ply:IsSpectator() and ply.br_role == "Researcher" and IsRoundTimeProgress(0.25) then
+	if IsValid(ply) and ply:Alive() and !ply:IsSpectator() and ply.br_role == ROLE_RESEARCHER and IsRoundTimeProgress(0.25) then
 		rz_give_code_to(ply)
 		ply:ChatPrint("Check your notepad for additional information")
 	end

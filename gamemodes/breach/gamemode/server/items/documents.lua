@@ -44,7 +44,7 @@ special_item_system.AddItem({
         return false
     end,
     onstart = function(pl)
-        if pl.br_role == "Researcher" or pl:GetOutfit().class == "scientist" then
+        if pl.br_role == ROLE_RESEARCHER or pl:GetOutfit().class == "scientist" then
             table.ForceInsert(pl.br_special_items, {class = "conf_folder"})
         end
     end,

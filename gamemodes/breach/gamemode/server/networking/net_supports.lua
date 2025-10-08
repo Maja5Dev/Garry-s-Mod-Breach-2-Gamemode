@@ -101,7 +101,7 @@ function br2_mtf_teams_add(ply, num)
 
 			-- get existing mtfs, spawned before this
 			for k2,v2 in pairs(player.GetAll()) do
-				if v2:Alive() and !v2:IsSpectator() and (v2.br_role == "MTF Operative" or v2.br_team == TEAM_MTF) then
+				if v2:Alive() and !v2:IsSpectator() and (v2.br_role == ROLE_MTF_OPERATIVE or v2.br_team == TEAM_MTF) then
 					table.ForceInsert(existingMTFs, v2)
 				end
 			end

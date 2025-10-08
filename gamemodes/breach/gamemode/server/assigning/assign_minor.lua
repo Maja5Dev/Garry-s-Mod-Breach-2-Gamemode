@@ -10,7 +10,7 @@ function assign_system.Assign_ContSpec(ply)
 		ply:Give("keycard_level1")
 	end
 	
-	ply.br_role = "Containment Specialist"
+	ply.br_role = ROLE_CONT_SPEC
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	if ply.support_spawning == false then
@@ -37,7 +37,7 @@ function assign_system.Assign_Researcher(ply)
 		ply:Give("keycard_level2")
 	end
 
-	ply.br_role = "Researcher"
+	ply.br_role = ROLE_RESEARCHER
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	if ply.support_spawning == false then
@@ -101,7 +101,7 @@ function assign_system.Assign_Engineer(ply)
 		ply:Give("keycard_level1")
 	end
 
-	ply.br_role = "Engineer"
+	ply.br_role = ROLE_ENGINEER
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 
@@ -129,7 +129,7 @@ function assign_system.Assign_Janitor(ply)
 		ply:Give("item_gasmask")
 	end
 
-	ply.br_role = "Janitor"
+	ply.br_role = ROLE_JANITOR
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	--ply.br_customspawn = "SPAWNS_HCZ"
@@ -157,7 +157,7 @@ function assign_system.Assign_Doctor(ply)
 		ply:Give("item_medkit")
 	end
 
-	ply.br_role = "Doctor"
+	ply.br_role = ROLE_DOCTOR
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 
@@ -190,7 +190,7 @@ function assign_system.Assign_ISDagent(ply)
 		ply:Give("keycard_level3")
 	end
 
-	ply.br_role = "ISD Agent"
+	ply.br_role = ROLE_ISD_AGENT
 	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.getsPossibleTraitors = true
