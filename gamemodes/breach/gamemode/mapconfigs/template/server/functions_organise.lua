@@ -1,45 +1,5 @@
 
 BR2_SPECIAL_BUTTONS = {}
-MAP_AAB = {}
-
-function OrganiseAnimatedButtons()
-	MAP_AAB = {}
-	for k_button, v_button in pairs(ents.FindByClass("func_button")) do
-		local closest_door = nil
-		local closest_buttons = {}
-		for k,v in pairs(ents.FindInSphere(v_button:GetPos(), 150)) do
-			local dis = v:GetPos():Distance(v_button:GetPos())
-			if v:GetClass() == "func_door" then
-				if closest_door == nil or closest_door[2] > dis then
-					closest_door = {v, dis}
-				end
-			elseif v:GetClass() == "prop_dynamic" then
-				table.ForceInsert(closest_buttons, {v, dis})
-			end
-		end
-		table.sort(closest_buttons, function(a, b) return a[2] < b[2] end)
-		if closest_door then
-			table.ForceInsert(MAP_AAB, v_button)
-			v_button.triggers = {}
-			for k,v in pairs(closest_buttons) do
-				--if v[2] < 750 and #closest_buttons < 2 then
-					v[1].active = 0
-					table.ForceInsert(v_button.triggers, {v[1], closest_door[1]})
-					--print('adding ', v[1], " and ", closest_door, " to ", v_button)
-				--end
-			end
-		end
-	end
-end
-
-local function GenerateRandomPassword()
-    local str = "1234567890qwertyuiopasdfghjklzxcvbnm"
-    local ret = ""
-    for i=1, 4 do
-        ret = ret .. str[math.random(1,36)]
-    end
-    return ret
-end
 
 function Breach_Map_Organise()
 	print("organising the map...")
@@ -49,8 +9,6 @@ function Breach_Map_Organise()
 	timer.Create("BR_Map_FixMapHDRBrightness_Timer", 1, 1, function()
 		Breach_FixMapHDRBrightness()
 	end)
-
-	OrganiseAnimatedButtons()
 
 	BR_DEFAULT_MAP_Organize_HidingClosets()
 
@@ -114,5 +72,6 @@ function Breach_Map_Organise()
 		end
 	end
 end
+hook.Add("BR2_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)
 
 print("[Breach2] Server/Functions/Organise mapconfig loaded!")

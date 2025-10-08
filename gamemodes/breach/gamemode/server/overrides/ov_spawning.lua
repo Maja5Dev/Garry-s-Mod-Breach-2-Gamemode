@@ -19,7 +19,7 @@ function GM:PlayerInitialSpawn(ply)
 		if game_state == GAMESTATE_NOTSTARTED and table.Count(player.GetAll()) < 3 then
 			ply:PreGameSpawns()
 			if !pregame_organised then
-				Breach_Map_Organise()
+				hook.Run("BR2_Map_Organise")
 				pregame_organised = true
 			end
 		end

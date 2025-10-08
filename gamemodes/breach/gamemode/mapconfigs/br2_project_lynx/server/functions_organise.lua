@@ -1,16 +1,6 @@
 
 BR2_SPECIAL_BUTTONS = {}
 
-local function GenerateRandomPassword()
-    local str = "1234567890qwertyuiopasdfghjklzxcvbnm"
-    local ret = ""
-    for i=1, 4 do
-        ret = ret .. str[math.random(1,36)]
-    end
-    print("random pass: " .. ret)
-    return ret
-end
-
 function MAP_ON_ROUND_START()
 	print("opening scp chambers")
 	local scp_doors = {
@@ -54,8 +44,7 @@ function Breach_Map_Organise()
 	if SafeBoolConVar("br2_testing_mode") == false then
 		SpawnMapNPCs()
 	end
-
-	ResetRadioCodes()
 end
+hook.Add("BR2_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)
 
 print("[Breach2] Server/Functions/Organise mapconfig loaded!")

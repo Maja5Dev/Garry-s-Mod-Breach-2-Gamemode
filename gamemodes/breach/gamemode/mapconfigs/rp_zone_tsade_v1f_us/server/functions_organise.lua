@@ -1,15 +1,6 @@
 
 BR2_SPECIAL_BUTTONS = {}
 
-local function GenerateRandomPassword()
-    local str = "1234567890qwertyuiopasdfghjklzxcvbnm"
-    local ret = ""
-    for i=1, 4 do
-        ret = ret .. str[math.random(1,36)]
-    end
-    return ret
-end
-
 local things_to_open = {
 	{"func_button", Vector(7866.9301757813, -1564, -920), "use"},
 	{"func_button", Vector(7869.9301757813, -1124, -920), "use"},
@@ -197,8 +188,7 @@ function Breach_Map_Organise()
 	end
 
 	print("rz_open_code: ", rz_open_code)
-
-	ResetRadioCodes()
 end
+hook.Add("BR2_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)
 
 print("[Breach2] Server/Functions/Organise mapconfig loaded!")

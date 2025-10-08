@@ -148,32 +148,6 @@ function Breach_Map_Organise()
 
 	br2_914_disabled = false
 	br_914status = 1
-	
-	/*
-	br2_914_fix_ent_1 = ents.Create("prop_physics")
-	if IsValid(br2_914_fix_ent_1) then
-		br2_914_fix_ent_1:SetPos(Vector(783.786865, -610.382507, -8192.000000))
-		br2_914_fix_ent_1:SetModel("models/hunter/plates/plate2x3.mdl")
-		br2_914_fix_ent_1:SetMaterial("phoenix_storms/metalset_1-2")
-		br2_914_fix_ent_1:Spawn()
-		local phys = br2_914_fix_ent_1:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:EnableMotion(false)
-		end
-	end
-	
-	br2_914_fix_ent_2 = ents.Create("prop_physics")
-	if IsValid(br2_914_fix_ent_2) then
-		br2_914_fix_ent_2:SetPos(Vector(783.786865, -1060.382568, -8192))
-		br2_914_fix_ent_2:SetModel("models/hunter/plates/plate2x3.mdl")
-		br2_914_fix_ent_2:SetMaterial("phoenix_storms/metalset_1-2")
-		br2_914_fix_ent_2:Spawn()
-		local phys = br2_914_fix_ent_2:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:EnableMotion(false)
-		end
-	end
-	*/
 
     BR_DEFAULT_MAP_Organize_Corpses()
     BR_DEFAULT_MAP_Organize_Terminals()
@@ -182,7 +156,6 @@ function Breach_Map_Organise()
     BR_DEFAULT_MAP_Organize_Cameras()
 	BR_DEFAULT_MAP_Organize_KeypadCodes()
 	BR_DEFAULT_MAP_Organize_Keypads()
-
 	BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 end
-
+hook.Add("Breach_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)

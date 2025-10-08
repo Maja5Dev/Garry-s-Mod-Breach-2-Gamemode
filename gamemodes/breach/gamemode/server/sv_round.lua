@@ -448,7 +448,7 @@ round_system.PreparingStart = function()
 	all_fake_corpses = {}
 
 	if isfunction(Breach_Map_Organise) and round_system.current_scenario.disable_map_organisation != true then
-		Breach_Map_Organise()
+		hook.Run("BR2_Map_Organise")
 	end
 
 	if istable(MAPCONFIG) then
