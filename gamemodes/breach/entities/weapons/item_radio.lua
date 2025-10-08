@@ -18,8 +18,8 @@ SWEP.Channel = 1
 SWEP.Enabled = false
 SWEP.NextChange = 0
 
-SWEP.BatteryLevel = math.random(60,100)
-SWEP.BatterySpeed = 4
+SWEP.BatteryLevel = math.random(70, 98)
+SWEP.BatterySpeed = 5
 
 SWEP.BoneAttachment = "ValveBiped.Bip01_R_Hand"
 SWEP.WorldModelPositionOffset = Vector(6, -4, -2)

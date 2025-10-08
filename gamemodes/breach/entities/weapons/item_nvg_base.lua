@@ -9,8 +9,8 @@ SWEP.SlotPos		= 0
 SWEP.clevel			= 0
 SWEP.Pickupable 	= true
 
-SWEP.BatteryLevel = math.random(40,100)
-SWEP.BatterySpeed = 3
+SWEP.BatteryLevel = math.random(70, 98)
+SWEP.BatterySpeed = 4
 
 SWEP.ViewModel		= "models/cultist/items/nightvision/v_night_vision.mdl"
 SWEP.WorldModel		= "models/cultist/items/nightvision/w_nvg_forface.mdl"
