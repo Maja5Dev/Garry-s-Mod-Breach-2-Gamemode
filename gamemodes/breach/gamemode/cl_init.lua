@@ -2,6 +2,9 @@
 
 include("shared.lua")
 
+include("client/hands/hands.lua") -- register very early
+include("client/cl_util.lua") -- just contains functions
+include("client/cl_debug.lua") -- just contains functions
 include("client/cl_light_level.lua") -- just contains functions
 include("config/internal/sh_weapons.lua") -- config for weapons, top priority
 include("config/internal/sh_sounds.lua") -- needs to be before cl_music.lua and map files
@@ -64,35 +67,6 @@ last_body = NULL
 last_got_stunned = 0
 BR2_HANDS_ACTIVE = false
 
-function are_we_downed()
-	return LocalPlayer():Alive() and LocalPlayer():IsSpectator() == false and (CurTime() - last_health_check) < 2 and LocalPlayer():IsFrozen()
-end
-
-function NiceHealth()
-	local hl = (LocalPlayer():Health() / LocalPlayer():GetMaxHealth())
-	
-	if hl < 0.15 then
-		return "Nearly dead", Color(255, 0, 0, 255)
-
-	elseif hl < 0.25 then
-		return "Badly wounded", Color(255, 100, 0, 255)
-
-	elseif hl < 0.5 then
-		return "Wounded", Color(255, 150, 0, 255)
-
-	elseif hl < 0.75 then
-		return "Hurt", Color(255, 255, 0, 255)
-
-	elseif hl < 0.9 then
-		return "Slightly hurt", Color(150, 255, 0, 255)
-
-	elseif hl > 2 then
-		return "Very Healthy", Color(0, 255, 0, 255)
-	else
-		return "Healthy", Color(0, 255, 0, 255)
-	end
-end
-
 surface.CreateFont("CSKillIcons", {
 	font = "csd",
 	size = 75,
@@ -107,20 +81,5 @@ surface.CreateFont("CSKillIcons", {
 sanity_alpha_delay = 0
 
 primary_lights_on = false
-debug_view_mode = 0
-concommand.Add("br2_debug_view", function()
-	if LocalPlayer():IsSuperAdmin() then
-		primary_lights_on = !primary_lights_on
-		debug_view_mode = debug_view_mode + 1
-		if debug_view_mode > 2 then
-			debug_view_mode = 0
-		end
-	end
-end)
-
-debug_menu_enabled = false
-concommand.Add("br2_debug_toggle_qmenu", function(ply, cmd, args)
-	debug_menu_enabled = !debug_menu_enabled
-end)
 
 print("[Breach2] cl_init.lua loaded!")

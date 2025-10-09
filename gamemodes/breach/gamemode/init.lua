@@ -1,6 +1,23 @@
 
 include("config/sv_workshop_addons.lua") -- Load addons for the clients to download on the server
 
+AddCSLuaFile("client/hands/actions/check_body_notepad.lua")
+AddCSLuaFile("client/hands/actions/check_someones_notepad.lua")
+AddCSLuaFile("client/hands/actions/examine_someone.lua")
+AddCSLuaFile("client/hands/actions/examine_yourself.lua")
+AddCSLuaFile("client/hands/actions/identify_someone.lua")
+AddCSLuaFile("client/hands/actions/loot_body.lua")
+AddCSLuaFile("client/hands/actions/pickup_bomb.lua")
+AddCSLuaFile("client/hands/actions/pickup_items.lua")
+AddCSLuaFile("client/hands/actions/put_on_scp_035.lua")
+AddCSLuaFile("client/hands/actions/put_scp173_into_box.lua")
+AddCSLuaFile("client/hands/actions/scp914.lua")
+AddCSLuaFile("client/hands/actions/special_items_menu.lua")
+AddCSLuaFile("client/hands/actions/steal_outfit.lua")
+AddCSLuaFile("client/hands/hands.lua") -- register very early
+
+AddCSLuaFile("client/cl_util.lua") -- just contains functions
+AddCSLuaFile("client/cl_debug.lua") -- just contains functions
 AddCSLuaFile("client/cl_light_level.lua") -- just contains functions
 AddCSLuaFile("config/sv_assigning.lua") -- config for assigning, top priority
 AddCSLuaFile("config/internal/sh_weapons.lua") -- config for weapons, top priority
