@@ -20,22 +20,28 @@ SWEP.Contents = {
 		name = "Bandage",
 		def_amount = 3,
 		amount = 3,
-		cl_effect = function(self)
-			net.Start("br_use_medkit_item")
-				net.WriteString("bandage")
-			net.SendToServer()
-
+		cl_after = function(self)
 			self.Contents.bandage.amount = self.Contents.bandage.amount - 1
+			
 			if self.Contents.bandage.amount < 1 then
 				self.Contents.bandage = nil
+
 				if table.Count(self.Contents) > 0 then
 					self:CreateFrame()
 				end
 			end
 		end,
 		sv_effect = function(ply)
+			if ply:Health() == ply:GetMaxHealth() and ply.br_isBleeding == false then
+				ply:BR2_ShowNotification("I don't need to use this right now.")
+				return false
+			end
+			
 			ply:AddSanity(2)
 			ply:SetHealth(math.Clamp(ply:Health() + 15, 0, ply:GetMaxHealth()))
+
+			ply:EmitSound("breach2/items/ifak/bandage_open.wav")
+
 			if ply.br_isBleeding == true then
 				ply.br_isBleeding = false
 			end
@@ -45,72 +51,88 @@ SWEP.Contents = {
 		name = "Bruise Pack",
 		def_amount = 3,
 		amount = 3,
-		cl_effect = function(self)
-			net.Start("br_use_medkit_item")
-				net.WriteString("bruise_pack")
-			net.SendToServer()
-
+		cl_after = function(self)
 			self.Contents.bruise_pack.amount = self.Contents.bruise_pack.amount - 1
 			if self.Contents.bruise_pack.amount < 1 then
 				self.Contents.bruise_pack = nil
+
 				if table.Count(self.Contents) > 0 then
 					self:CreateFrame()
 				end
 			end
 		end,
 		sv_effect = function(ply)
+			if ply:Health() == ply:GetMaxHealth() then
+				ply:BR2_ShowNotification("I don't need to use this right now.")
+				return false
+			end
+
 			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 30, 0, ply:GetMaxHealth()))
+
+			ply:EmitSound("breach2/items/ifak/quikclot_open.wav")
 		end
 	},
 	ointment = {
 		name = "Ointment",
 		def_amount = 2,
 		amount = 2,
-		cl_effect = function(self)
-			net.Start("br_use_medkit_item")
-				net.WriteString("ointment")
-			net.SendToServer()
-
+		cl_after = function(self)
 			self.Contents.ointment.amount = self.Contents.ointment.amount - 1
 			if self.Contents.ointment.amount < 1 then
 				self.Contents.ointment = nil
+
 				if table.Count(self.Contents) > 0 then
 					self:CreateFrame()
 				end
 			end
 		end,
 		sv_effect = function(ply)
+			if ply:Health() == ply:GetMaxHealth() and !ply:IsOnFire() then
+				ply:BR2_ShowNotification("I don't need to use this right now.")
+				return false
+			end
+
 			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 10, 0, ply:GetMaxHealth()))
 			ply:Extinguish()
+
+			ply:EmitSound("breach2/items/ifak/bandage_open.wav")
 		end
 	},
 	blood_bag = {
 		name = "Blood Bag",
 		def_amount = 2,
 		amount = 2,
-		cl_effect = function(self)
-			net.Start("br_use_medkit_item")
-				net.WriteString("blood_bag")
-			net.SendToServer()
-
+		cl_after = function(self)
 			self.Contents.blood_bag.amount = self.Contents.blood_bag.amount - 1
 			if self.Contents.blood_bag.amount < 1 then
 				self.Contents.blood_bag = nil
+
 				if table.Count(self.Contents) > 0 then
 					self:CreateFrame()
 				end
 			end
 		end,
 		sv_effect = function(ply)
+			if ply:Health() == ply:GetMaxHealth() then
+				ply:BR2_ShowNotification("I don't need to use this right now.")
+				return false
+			end
+
 			ply:AddSanity(5)
 			ply:SetHealth(math.Clamp(ply:Health() + 50, 0, ply:GetMaxHealth()))
+
+			ply:EmitSound("breach2/items/ifak/quikclot_loosen.wav")
 		end
 	},
 }
 
 function SWEP:CreateFrame()
+	if IsValid(WeaponFrame) then
+		WeaponFrame:Remove()
+	end
+
 	local font_structure = {
 		font = "Tahoma",
 		extended = false,
@@ -128,6 +150,7 @@ function SWEP:CreateFrame()
 		additive = false,
 		outline = false,
 	}
+
 	surface.CreateFont("BR_MEDKIT_TITLE", font_structure)
 	font_structure.size = 26
 	surface.CreateFont("BR_MEDKIT_CONTENT_NAME", font_structure)
@@ -135,9 +158,7 @@ function SWEP:CreateFrame()
 	surface.CreateFont("BR_MEDKIT_CONTENT_AMOUNT", font_structure)
 	font_structure.size = 22
 	surface.CreateFont("BR_MEDKIT_CONTENT_USE", font_structure)
-	if IsValid(WeaponFrame) then
-		WeaponFrame:Remove()
-	end
+
 	WeaponFrame = vgui.Create("DFrame")
 	WeaponFrame:SetSize(300, 400)
 	WeaponFrame:SetTitle("")
@@ -145,7 +166,7 @@ function SWEP:CreateFrame()
 		if IsValid(self) == false then
 			return
 		end
-		--draw.RoundedBox(0, 0, 0, w, h, Color(150, 150, 150, 50))
+
 		draw.Text({
 			text = "PERSONAL MEDKIT",
 			pos = {4, 4},
@@ -154,6 +175,7 @@ function SWEP:CreateFrame()
 			font = "BR_MEDKIT_TITLE",
 			color = Color(255,255,255,255),
 		})
+
 		if input.IsKeyDown(KEY_ESCAPE) then
 			self:KillFocus()
 			self:Remove()
@@ -161,13 +183,16 @@ function SWEP:CreateFrame()
 			return
 		end
 	end
+
 	local last_y = 24
+
 	for k,v in pairs(self.Contents) do
 		local panel = vgui.Create("DPanel", WeaponFrame)
 		panel:SetSize(300 - 8, 50 - 8)
 		panel:SetPos(4, 4 + last_y)
 		panel.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(100, 100, 100, 100))
+
 			draw.Text({
 				text = v.name,
 				pos = {4, 2},
@@ -176,6 +201,7 @@ function SWEP:CreateFrame()
 				font = "BR_MEDKIT_CONTENT_NAME",
 				color = Color(255,255,255,255),
 			})
+
 			draw.Text({
 				text = tostring(v.amount) .. " uses left",
 				pos = {4, h - 2},
@@ -185,6 +211,7 @@ function SWEP:CreateFrame()
 				color = Color(255,255,255,255),
 			})
 		end
+
 		local panel2 = vgui.Create("DButton", panel)
 		panel2:SetPos(300 - 50 - 0, 0)
 		panel2:SetSize(50 - 8, 50 - 8)
@@ -200,12 +227,18 @@ function SWEP:CreateFrame()
 				color = Color(255,255,255,255),
 			})
 		end
+
 		panel2.DoClick = function()
-			v.cl_effect(self)
-			surface.PlaySound("breach2/items/pickitem2.ogg")
+			if LocalPlayer().br_role == ROLE_SCP_049 then return end
+			
+			net.Start("br_use_medkit_item")
+				net.WriteString(k)
+			net.SendToServer()
 		end
+
 		last_y = last_y + (50 - 8) + 6
 	end
+
 	WeaponFrame:SetSize(300, last_y + 4)
 	WeaponFrame:Center()
 	WeaponFrame:MakePopup()
@@ -217,6 +250,7 @@ function SWEP:Holster()
 			WeaponFrame:Remove()
 		end
 	end
+
 	return true
 end
 
@@ -230,6 +264,10 @@ end
 
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
+
+	if CLIENT and IsFirstTimePredicted() then
+		surface.PlaySound("breach2/items/ifak/zipper1.wav")
+	end
 end
 
 SWEP.BoneAttachment = "ValveBiped.Bip01_R_Hand"
@@ -258,9 +296,11 @@ function SWEP:DrawWorldModel()
 		self.WM:SetPos(newpos)
 		self.WM:SetAngles(newang)
 		self.WM:SetupBones()
+
 		if self.ForceSkin then
 			self.WM:SetSkin(self.ForceSkin)
 		end
+
 		self.WM:DrawModel()
 	end
 end
@@ -326,4 +366,54 @@ function SWEP:GetBetterOne()
 	end
 
 	return self
+end
+
+if SERVER then
+	util.AddNetworkString("br_use_medkit_item")
+
+	net.Receive("br_use_medkit_item", function(len, ply)
+		local str = net.ReadString()
+
+		if ply:Alive() and ply:IsSpectator() == false and ply.br_downed != true and ply.br_role != ROLE_SCP_049 then
+			local wep = ply:GetActiveWeapon()
+			
+			if IsValid(wep) and wep:GetClass() == "item_medkit" then
+
+				if wep.Contents and wep.Contents[str] then
+					wep.Contents[str].amount = wep.Contents[str].amount - 1
+
+					local result = wep.Contents[str].sv_effect(ply)
+					if result == false then return end
+
+					if wep.Contents[str].amount < 1 then
+						wep.Contents[str] = nil
+						
+						if table.Count(wep.Contents) < 1 then
+							ply:StripWeapon(wep:GetClass())
+						end
+					end
+
+					net.Start("br_use_medkit_item")
+						net.WriteString(str)
+					net.Send(ply)
+				end
+			end
+		end
+	end)
+else
+	net.Receive("br_use_medkit_item", function(len)
+		local str = net.ReadString()
+
+		local wep = LocalPlayer():GetActiveWeapon()
+
+		if LocalPlayer():Alive() and LocalPlayer():IsSpectator() == false and LocalPlayer().br_role != ROLE_SCP_049 then
+			if IsValid(wep) and wep:GetClass() == "item_medkit" then
+				wep.Contents[str].cl_after(wep)
+			else
+				if IsValid(WeaponFrame) then
+					WeaponFrame:Remove()
+				end
+			end
+		end
+	end)
 end
