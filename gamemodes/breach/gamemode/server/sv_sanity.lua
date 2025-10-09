@@ -194,6 +194,8 @@ function player_meta:Horror_Footsteps()
 end
 
 function player_meta:AddSanity(amount)
+	if self.br_usesSanity != true then return end
+	
 	self.br_sanity = math.Clamp(self.br_sanity + math.Round(amount * SafeFloatConVar("br2_sanity_strength")), 0, 100)
 end
 
