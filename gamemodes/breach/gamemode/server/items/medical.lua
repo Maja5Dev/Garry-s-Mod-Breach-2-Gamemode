@@ -269,16 +269,16 @@ special_item_system.AddItem({
             pl:BR2_ShowNotification("The last ones are still in effect")
         end
 
-        pl.usedEyeDrops = CurTime() + 12
+        pl.usedEyeDrops = CurTime() + 13
         pl:ChatPrint("Your used the eyedrops...")
 
         pl:StartCustomScreenEffects({
             colour = 1.1,
-            contrast = 1.5,
-            add_b = 0.1,
-            vignette_alpha = 140,
-            fog_mul = 1.2
-        }, 30)
+            contrast = 1.6,
+            add_b = 0.05,
+            vignette_alpha = 120,
+            fog_mul = 1.5
+        }, 13)
 
         return true
     end,
