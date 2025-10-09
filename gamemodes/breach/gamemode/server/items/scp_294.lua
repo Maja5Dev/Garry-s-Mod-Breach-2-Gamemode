@@ -1,5 +1,5 @@
 ﻿
-local scp_294_func = function(ply, info, text)
+scp_294_func = function(ply, info, text)
 	MAP_SCP_294_Coins = 0
 
 	local cup = ents.Create("br2_cup")
