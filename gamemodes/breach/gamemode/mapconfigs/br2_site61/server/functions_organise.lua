@@ -158,4 +158,4 @@ function Breach_Map_Organise()
 	BR_DEFAULT_MAP_Organize_Keypads()
 	BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 end
-hook.Add("Breach_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)
+hook.Add("BR2_Map_Organise", "BR2_Map_Breach_Map_Organise", Breach_Map_Organise)
