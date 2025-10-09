@@ -79,6 +79,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		local hit_pos = dmginfo:GetDamagePosition()
 		local ply_pos = victim:GetPos()
 		local max_ply_z = victim:OBBMaxs().z
+
 		if victim:KeyDown(IN_DUCK) then
 			max_ply_z = max_ply_z * 1.2
 		end
@@ -86,6 +87,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		local wep = victim:GetActiveWeapon()
 		if IsValid(wep) then
 			local hold_type = wep:GetHoldType()
+			
 			if hold_type == "smg" or hold_type == "ar2" or hold_type == "grenade"
 			or hold_type == "shotgun" or hold_type == "rpg" or hold_type == "melee"
 			or hold_type == "slam" or hold_type == "fist" or hold_type == "melee2" or hold_type == "knife" then
@@ -200,40 +202,24 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		dmg_mul = dmg_mul * math.random(0.8, 1)
 	end
 	
-	if SERVER and IsValid(inflictor) and inflictor:GetClass() == "br_hands" and IsValid(attacker) and attacker:IsPlayer() and isnumber(attacker.br_sanity) then
-		if attacker.br_sanity < 10 then
-			dmg_mul = dmg_mul * 2.5
-			attacker.br_sanity = 0
-			attacker:SetHealth(math.Clamp(attacker:Health() + 6, 1, attacker:GetMaxHealth()))
-
-		elseif attacker.br_sanity < 35 then
-			dmg_mul = dmg_mul * 1.75
-			attacker.br_sanity = attacker.br_sanity - 5
-			attacker:SetHealth(math.Clamp(attacker:Health() + 4, 1, attacker:GetMaxHealth()))
-			
-		elseif attacker.br_sanity < 65 then
-			dmg_mul = dmg_mul * 1.5
-			attacker.br_sanity = attacker.br_sanity - 3
-			attacker:SetHealth(math.Clamp(attacker:Health() + 2, 1, attacker:GetMaxHealth()))
-		else
-			attacker.br_sanity = attacker.br_sanity - 1
-		end
-	end
-	
 	-- Outfit damage scaling
 	local outfit = victim:GetOutfit()
 
-	if SERVER and IsValid(inflictor) and isBreachWeapon(inflictor) then
+	if SERVER and IsValid(inflictor) and isBreachWeapon(inflictor)
+	and (dmginfo:IsDamageType(DMG_BULLET) or dmginfo:IsDamageType(DMG_BUCKSHOT) or dmginfo:IsDamageType(DMG_SNIPER))
+	then
 		dmg_mul = dmg_mul * SafeFloatConVar("br2_gun_damage")
+
 		if outfit.bullet_damage then
 			dmg_mul = dmg_mul * outfit.bullet_damage
 		end
 	end
 
-	if outfit.explosion_damage and dmginfo:GetDamageType() == DMG_BLAST then
+	if outfit.explosion_damage and dmginfo:IsDamageType(DMG_BLAST) then
 		dmg_mul = dmg_mul * outfit.explosion_damage
+	end
 
-	elseif outfit.fire_damage and dmginfo:GetDamageType() == DMG_BLAST then
+	if outfit.fire_damage and (dmginfo:IsDamageType(DMG_BURN) or dmginfo:IsDamageType(DMG_SLOWBURN)) then
 		dmg_mul = dmg_mul * outfit.fire_damage
 	end
 
@@ -286,6 +272,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 		end
 	end
 	
+	-- Debug
 	if SERVER and attacker:IsPlayer() then
 		devprint(victim:Nick() .. " (" .. victim:GetNiceBrTeam() .. ") got attacked by " .. attacker:Nick() .. " (" .. attacker:GetNiceBrTeam() .. ") health: "..victim:Health() - dmginfo:GetDamage().."")
 	end
@@ -307,6 +294,27 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 	if SERVER and victim.br_isInfected then
 		dmg_mul = dmg_mul * 1.2
 		victim:AddSanity(-1)
+	end
+
+	-- Punching people lowers sanity
+	if SERVER and IsValid(inflictor) and inflictor:GetClass() == "br_hands" and IsValid(attacker) and attacker:IsPlayer() then
+		if attacker.br_sanity < 10 then
+			dmg_mul = dmg_mul * 2.5
+			attacker.br_sanity = 0
+			attacker:SetHealth(math.Clamp(attacker:Health() + 6, 1, attacker:GetMaxHealth()))
+
+		elseif attacker.br_sanity < 35 then
+			dmg_mul = dmg_mul * 1.75
+			attacker:AddSanity(-5)
+			attacker:SetHealth(math.Clamp(attacker:Health() + 4, 1, attacker:GetMaxHealth()))
+			
+		elseif attacker.br_sanity < 65 then
+			dmg_mul = dmg_mul * 1.5
+			attacker:AddSanity(-3)
+			attacker:SetHealth(math.Clamp(attacker:Health() + 2, 1, attacker:GetMaxHealth()))
+		else
+			attacker:AddSanity(-1)
+		end
 	end
 
 	dmginfo:ScaleDamage(dmg_mul)
