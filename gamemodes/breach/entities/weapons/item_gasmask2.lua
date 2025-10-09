@@ -74,8 +74,8 @@ function SWEP:PrimaryAttack()
 		self.GasMaskOn = !self.GasMaskOn
 		self.InfiniteStamina = !self.InfiniteStamina
 
-		if CLIENT and IsFirstTimePredicted() then
-			surface.PlaySound("breach2/items/pickitem2.ogg")
+		if SERVER then
+			self.Owner:EmitSound("breach2/items/pickitem2.ogg")
 		end
 
 		if SERVER then

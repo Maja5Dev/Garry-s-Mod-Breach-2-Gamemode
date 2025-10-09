@@ -17,8 +17,32 @@ net.Receive("br_hide_in_closet", function(len, ply)
 	end
 end)
 
+local function scp294_effect(res)
+	local pos = MAPCONFIG.SCP_294_CUP.pos
+
+	if res == SCP294_RESULT_OUTOFRANGE then
+		EmitSound("breach2/294/outofrange.ogg", pos)
+
+	-- normal, nothing came out
+	elseif res == SCP294_RESULT_NOTHING then
+		EmitSound("breach2/294/dispense0.ogg", pos)
+
+	-- normal fluid
+	elseif res == SCP294_RESULT_NORMAL then
+		EmitSound("breach2/294/dispense1.ogg", pos)
+
+	-- struggling, fluid
+	elseif res == SCP294_RESULT_STRUGGLING then
+		EmitSound("breach2/294/dispense2.ogg", pos)
+
+	-- some insanity happened, fluid
+	elseif res == SCP294_RESULT_INSANE then
+		EmitSound("breach2/294/dispense3.ogg", pos)
+	end
+end
+
 net.Receive("br_use_294", function(len, ply)
-	if len < 1024 and istable(MAPCONFIG.SCP_294_CUP) and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false and uses_294 == ply then
+	if len < 1024 and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false and uses_294 == ply then
 		local text = net.ReadString()
 
 		uses_294 = nil
@@ -30,6 +54,8 @@ net.Receive("br_use_294", function(len, ply)
 				net.Send(ply)
 
 				v.func(ply, v, text)
+
+				scp294_effect(v.type)
 				return
 			end
 		end
@@ -37,6 +63,8 @@ net.Receive("br_use_294", function(len, ply)
 		net.Start("br_use_294")
 			net.WriteInt(SCP294_RESULT_OUTOFRANGE, 16)
 		net.Send(ply)
+
+		scp294_effect(SCP294_RESULT_OUTOFRANGE)
 	end
 end)
 
@@ -177,28 +205,6 @@ net.Receive("br_c4_action", function(len, ply)
 				if v.id == int then
 					v.sv_effect(wep, ply)
 					return
-				end
-			end
-		end
-	end
-end)
-
-net.Receive("br_use_medkit_item", function(len, ply)
-	if ply:Alive() and ply:IsSpectator() == false then
-		local wep = ply:GetActiveWeapon()
-		
-		if IsValid(wep) and wep:GetClass() == "item_medkit" then
-			local str = net.ReadString()
-
-			if wep.Contents and wep.Contents[str] then
-				wep.Contents[str].amount = wep.Contents[str].amount - 1
-				wep.Contents[str].sv_effect(ply)
-
-				if wep.Contents[str].amount < 1 then
-					wep.Contents[str] = nil
-					if table.Count(wep.Contents) < 1 then
-						ply:StripWeapon(wep:GetClass())
-					end
 				end
 			end
 		end

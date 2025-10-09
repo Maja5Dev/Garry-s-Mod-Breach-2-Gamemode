@@ -31,6 +31,7 @@ end
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
+	
 	if CLIENT and IsFirstTimePredicted() then
 		surface.PlaySound("breach2/items/pickitem2.ogg")
 		self:RemoveSounds()
@@ -191,9 +192,11 @@ function SWEP:PrimaryAttack()
 	if self.Channel > 9 then
 		self.Channel = 1
 	end
-	if CLIENT then
-		surface.PlaySound("radio/squelch.ogg")
+
+	if SERVER then
+		self.Owner:EmitSound("radio/squelch.ogg")
 	end
+
 	self.IsLooping = false
 	self:RemoveSounds()
 	if self.Enabled then

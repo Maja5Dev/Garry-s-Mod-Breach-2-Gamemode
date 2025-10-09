@@ -17,7 +17,7 @@ local function add_drink(class, name, model, thirst, hunger)
 
 			local delay = 0.1
 			if string.find(class, "soda") then
-				pl:EmitSound("breach2/soda.wav")
+				pl:EmitSound("breach2/player/soda.wav")
 				delay = 2.4
 			end
 
@@ -26,7 +26,7 @@ local function add_drink(class, name, model, thirst, hunger)
 				if hunger then
 					pl:AddHunger(-hunger)
 				end
-				pl:EmitSound("breach2/drink.wav")
+				pl:EmitSound("breach2/player/drink.wav")
 
 				if pl.br_thirst > 70 then
 					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
@@ -79,7 +79,7 @@ local function add_alcohol(class, name, model, thirst, hunger)
 					blur3 = 0.01,
 				}, 30)
 
-				pl:EmitSound("breach2/drink.wav")
+				pl:EmitSound("breach2/player/drink.wav")
 
 				pl:UpdateHungerThirst()
 			end)

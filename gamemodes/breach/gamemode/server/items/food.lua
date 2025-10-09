@@ -36,7 +36,7 @@ local function add_food(class, name, model, hunger, health)
 					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your stomach still rumbles")
 				end
 
-				pl:EmitSound("breach2/eat.wav")
+				pl:EmitSound("breach2/player/eat.wav")
 
 				pl:UpdateHungerThirst()
 			end

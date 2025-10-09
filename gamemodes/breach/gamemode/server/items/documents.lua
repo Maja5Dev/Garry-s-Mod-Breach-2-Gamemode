@@ -11,6 +11,9 @@ special_item_system.AddItem({
         net.Start("br_use_document")
             net.WriteTable(item)
         net.Send(pl)
+
+        pl:EmitSound("breach2/UI/Pickups/PICKUP_Map_01.ogg")
+
         return false
     end,
     drop = function(pl, item)

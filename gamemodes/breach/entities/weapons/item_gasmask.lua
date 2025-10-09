@@ -17,6 +17,7 @@ SWEP.WorldModelAngleOffset = Angle(20, 180, 180)
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
+
 	if CLIENT and IsFirstTimePredicted() then
 		surface.PlaySound("breach2/items/pickitem2.ogg")
 	end
@@ -71,8 +72,8 @@ function SWEP:PrimaryAttack()
 
 		self.GasMaskOn = !self.GasMaskOn
 
-		if CLIENT and IsFirstTimePredicted() then
-			surface.PlaySound("breach2/items/pickitem2.ogg")
+		if SERVER then
+			self.Owner:EmitSound("breach2/items/pickitem2.ogg")
 		end
 
 		if SERVER then

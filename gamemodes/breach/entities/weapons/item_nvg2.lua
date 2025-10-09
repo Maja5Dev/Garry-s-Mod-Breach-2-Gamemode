@@ -70,8 +70,8 @@ function SWEP:NV_ON()
 	self.NextON = 0
 	self.Owner:DrawViewModel(false)
 
-	if CLIENT then
-		surface.PlaySound("breach2/items/nvg_on.wav")
+	if SERVER then
+		self.Owner:EmitSound("breach2/items/nvg_on.wav")
 	end
 end
 
@@ -80,8 +80,8 @@ function SWEP:NV_OFF()
 	self.Owner:DrawViewModel(true)
 	self.IsEnabling = false
 
-	if CLIENT then
-		surface.PlaySound("breach2/items/nvg_ins_off.wav")
+	if SERVER then
+		self.Owner:EmitSound("breach2/items/nvg_ins_off.wav")
 	end
 end
 

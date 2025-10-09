@@ -834,8 +834,6 @@ function Open_Document(doc_info)
 
 	if doc_material == 0 then return end
 
-	surface.PlaySound("breach2/UI/Pickups/PICKUP_Map_01.ogg")
-
 	local doc_x = (ScrW() / 2) - (doc_w / 2)
 	local doc_y = (ScrH() / 2) - (doc_h / 2)
 

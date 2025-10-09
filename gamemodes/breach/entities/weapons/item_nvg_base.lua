@@ -120,13 +120,13 @@ function SWEP:NV_ON()
 	self.NextON = 0
 	self.Owner:DrawViewModel(false)
 
-	if CLIENT then
+	if SERVER then
 		if self.BatteryLevel < 1 then
-			surface.PlaySound("breach2/items/nvg_off.wav")
+			self.Owner:EmitSound("breach2/items/nvg_off.wav")
 		else
-			surface.PlaySound("breach2/items/nvg_on.wav")
+			self.Owner:EmitSound("breach2/items/nvg_on.wav")
 		end
-	else
+
 		AttachNVG(self.Owner)
 	end
 end
@@ -136,13 +136,13 @@ function SWEP:NV_OFF()
 	self.Owner:DrawViewModel(true)
 	self.IsEnabling = false
 
-	if CLIENT then
+	if SERVER then
 		if self.BatteryLevel < 1 then
-			surface.PlaySound("breach2/items/nvg_off.wav")
+			self.Owner:EmitSound("breach2/items/nvg_off.wav")
 		else
-			surface.PlaySound("breach2/items/nvg_ins_off.wav")
+			self.Owner:EmitSound("breach2/items/nvg_ins_off.wav")
 		end
-	else
+
 		RemoveNVG(self.Owner)
 	end
 end

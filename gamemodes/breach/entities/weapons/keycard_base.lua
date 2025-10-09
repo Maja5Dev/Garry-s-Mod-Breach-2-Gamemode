@@ -42,7 +42,7 @@ end
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
 	self.NextAnimChange = CurTime() + 1.25
-	--self.Owner:DrawViewModel(false)
+
 	if IsFirstTimePredicted() then
 		if CLIENT then
 			surface.PlaySound("breach2/items/pickitem2.ogg")

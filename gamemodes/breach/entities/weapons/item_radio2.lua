@@ -25,6 +25,7 @@ end
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
+	
 	if CLIENT and IsFirstTimePredicted() then
 		surface.PlaySound("breach2/items/pickitem2.ogg")
 		self:RemoveStatic()
@@ -105,25 +106,27 @@ SWEP.CurrentCodeNum = 1
 
 SWEP.NextChannelChange = 0
 
---SWEP.Code = nil
-
 function SWEP:Think()
 	if CLIENT then
 		if self.NextChannelChange < CurTime() then
 			self.Channel = math.random(1,9)
-			self.NextChannelChange = CurTime() + 0.1
+			self.NextChannelChange = CurTime() + 0.05
 		end
-		
+	end
+
+	if SERVER then
 		if self.Code == nil then return end
 		
 		self.NextBeep = self.NextBeep or (CurTime() + 2)
 		self.NextStatic = self.NextStatic or 0
+
 		if self.NextBeep < CurTime() then
-			--chat.AddText(color_white, tostring(self.CurrentCode))
-			surface.PlaySound("radio/buzz.ogg")
-			if self.CurrentCodeNum >= tonumber(self.Code[self.CurrentCode]) then
+			self.Owner:EmitSound("radio/buzz.ogg")
+
+			if self.CurrentCodeNum >= tonumber(tostring(self.Code):sub(self.CurrentCode, self.CurrentCode)) then
 				self.CurrentCodeNum = 1
 				self.CurrentCode = self.CurrentCode + 1
+				
 				if self.CurrentCode > 4 then
 					self.CurrentCode = 1
 					self.NextBeep = CurTime() + 4
@@ -135,13 +138,6 @@ function SWEP:Think()
 				self.CurrentCodeNum = self.CurrentCodeNum + 1
 			end
 		end
-	else
-		if self.Code != nil and self.Owner.lastSentCode != self.Code then
-			net.Start("br_updatecode_radio")
-				net.WriteString(self.Code)
-			net.Send(self.Owner)
-			self.Owner.lastSentCode = self.Code
-		end
 	end
 end
 
@@ -152,13 +148,16 @@ function SWEP:SecondaryAttack()
 end
 
 local ourMat = Material("breach2/RadioHUD.png")
+
 function SWEP:DrawHUD()
 	if LocalPlayer() != self.Owner then return end
+
 	local rw = math.Clamp(ScrW(), 1, 1920) / 7.6
 	local rh = (rw * 2) * 1.1
 	surface.SetDrawColor(255, 255, 255, 255)
 	surface.SetMaterial(ourMat)
 	surface.DrawTexturedRect(ScrW() - rw, ScrH() - rh + 1, rw, rh)
+
 	draw.Text({
 		text = self.Channel,
 		pos = {ScrW() - rw + 174, ScrH() - rh + 390},
@@ -167,6 +166,7 @@ function SWEP:DrawHUD()
 		xalign = TEXT_ALIGN_RIGHT,
 		yalign = TEXT_ALIGN_TOP,
 	})
+
 	draw.Text({
 		text = "CHN",
 		pos = {ScrW() - rw + 150, ScrH() - rh + 394},

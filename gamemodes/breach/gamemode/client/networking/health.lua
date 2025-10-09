@@ -44,10 +44,9 @@ end)
 local next_blood_sound = 0
 net.Receive("br_update_health_state", function(len)
 	body_health = net.ReadInt(8)
-	--print("our health: "..body_health.."")
 	last_health_check = CurTime()
+
 	if next_blood_sound < CurTime() then
-		surface.PlaySound("breach2/D9341/BloodDrip"..math.random(0,3)..".ogg")
 		next_blood_sound = CurTime() + 4
 	end
 end)

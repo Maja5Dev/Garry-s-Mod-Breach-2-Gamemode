@@ -60,27 +60,22 @@ net.Receive("br_use_294", function(len)
 
 	if res == SCP294_RESULT_OUTOFRANGE then
 		keyboard_294_text = "OUT OF RANGE"
-		surface.PlaySound("breach2/294/outofrange.ogg")
 
 	-- normal, nothing came out
 	elseif res == SCP294_RESULT_NOTHING then
 		keyboard_294_text = "DISPENSING..."
-		surface.PlaySound("breach2/294/dispense0.ogg")
 
 	-- normal fluid
 	elseif res == SCP294_RESULT_NORMAL then
 		keyboard_294_text = "DISPENSING..."
-		surface.PlaySound("breach2/294/dispense1.ogg")
 
 	-- struggling, fluid
 	elseif res == SCP294_RESULT_STRUGGLING then
 		keyboard_294_text = "DISPENSING..."
-		surface.PlaySound("breach2/294/dispense2.ogg")
 
 	-- some insanity happened, fluid
 	elseif res == SCP294_RESULT_INSANE then
 		keyboard_294_text = "DISPENSING..."
-		surface.PlaySound("breach2/294/dispense3.ogg")
 	end
 end)
 

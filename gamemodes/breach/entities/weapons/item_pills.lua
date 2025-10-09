@@ -24,6 +24,7 @@ SWEP.WorldModelAngleOffset = Angle(0, 0, 180)
 function SWEP:Deploy()
 	self:SetHoldType(self.HoldType)
 	--self.Owner:DrawViewModel(false)
+
 	if CLIENT and IsFirstTimePredicted() then
 		surface.PlaySound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
 	end
@@ -62,13 +63,16 @@ function SWEP:PrimaryAttack()
 		self.Owner:AddSanity(60)
 		self.Owner:StripWeapon(self:GetClass())
 		self.Owner.nextHorrorSCP = CurTime() + 45
+
+		self.Owner:EmitSound("breach2/items/pills_use.wav")
 	end
+
 	if CLIENT and IsFirstTimePredicted() then
 		if IsValid(horror_scp_ent) and horror_scp_ent.isEnding == 0 then
 			horror_scp_ent:Remove()
 			surface.PlaySound("breach2/horror/shadowhand_snuff.mp3")
 		end
-		surface.PlaySound("breach2/items/pills_use.wav")
+		
 		RunConsoleCommand("lastinv")
 	end
 end

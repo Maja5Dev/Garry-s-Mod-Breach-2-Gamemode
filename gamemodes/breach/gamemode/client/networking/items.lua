@@ -18,14 +18,6 @@ net.Receive("br_updatebattery", function(len)
 	end
 end)
 
-net.Receive("br_updatecode_radio", function(len)
-	local code = net.ReadString()
-	local wep = LocalPlayer():GetActiveWeapon()
-	if IsValid(wep) then
-		wep.Code = code
-	end
-end)
-
 net.Receive("br_get_special_items", function(len)
 	local tab = net.ReadTable()
 	BR_OpenInventoryMenu(tab)

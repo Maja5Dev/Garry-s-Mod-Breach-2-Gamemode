@@ -86,6 +86,7 @@ function SWEP:Deploy()
 		if CLIENT then
 			surface.PlaySound("breach2/items/pickitem2.ogg")
 		end
+		
 		self.Weapon:SendWeaponAnim(ACT_VM_DEPLOY)
 	end
 
