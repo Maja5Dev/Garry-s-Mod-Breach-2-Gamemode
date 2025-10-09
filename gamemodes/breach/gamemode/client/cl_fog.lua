@@ -2,6 +2,17 @@
 function MakeFOG()
 	if LocalPlayer():IsSpectator() then return false end
 
+	if primary_lights_on or BR_WATCHING_CAMERAS then return false end
+	
+	if IsValid(horror_scp_ent) and horror_scp_ent.isEnding > 0 then
+		render.FogStart(0)
+		render.FogEnd(250)
+		render.FogColor(255, 0, 0)
+		render.FogMaxDensity(1)
+		render.FogMode(MATERIAL_FOG_LINEAR)
+		return true
+	end
+
 	local fog_color = Color(0,0,0)
 	local fog_mul = 1
 
@@ -19,15 +30,18 @@ function MakeFOG()
 		end
 	end
 
-	if primary_lights_on or BR_WATCHING_CAMERAS then return false end
-	
-	if IsValid(horror_scp_ent) and horror_scp_ent.isEnding > 0 then
-		render.FogStart(0)
-		render.FogEnd(250)
-		render.FogColor(255, 0, 0)
-		render.FogMaxDensity(1)
-		render.FogMode(MATERIAL_FOG_LINEAR)
-		return true
+	if br_our_custom_screen_effects and br_our_custom_screen_effects_for > CurTime() then
+		if br_our_custom_screen_effects.fog_mul then
+			fog_mul = fog_mul * br_our_custom_screen_effects.fog_mul
+		end
+
+		if br_our_custom_screen_effects.fog_color then
+			fog_color = Color(
+				(fog_color.r + br_our_custom_screen_effects.fog_color.r) / 2,
+				(fog_color.g + br_our_custom_screen_effects.fog_color.g) / 2,
+				(fog_color.b + br_our_custom_screen_effects.fog_color.b) / 2
+			)
+		end
 	end
 
 	local nvg = nil

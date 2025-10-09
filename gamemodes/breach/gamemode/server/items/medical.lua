@@ -265,8 +265,21 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
+        if pl.usedEyeDrops and pl.usedEyeDrops > CurTime() then
+            pl:BR2_ShowNotification("The last ones are still in effect")
+        end
+
         pl.usedEyeDrops = CurTime() + 12
         pl:ChatPrint("Your used the eyedrops...")
+
+        pl:StartCustomScreenEffects({
+            colour = 1.1,
+            contrast = 1.5,
+            add_b = 0.1,
+            vignette_alpha = 140,
+            fog_mul = 1.2
+        }, 30)
+
         return true
     end,
     drop = function(pl)
