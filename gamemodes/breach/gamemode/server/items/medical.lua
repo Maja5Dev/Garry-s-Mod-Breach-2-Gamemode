@@ -43,7 +43,7 @@ special_item_system.AddItem({
             return false
         end
 
-        if pl:Health() > 80 and pl.br_isBleeding == false then
+        if pl:Health() == pl:GetMaxHealth() and pl.br_isBleeding == false then
             pl:BR2_ShowNotification("I don't need to use this right now.")
             return false
         end
@@ -265,7 +265,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        pl.usedEyeDrops = CurTime() + 10
+        pl.usedEyeDrops = CurTime() + 12
         pl:ChatPrint("Your used the eyedrops...")
         return true
     end,
