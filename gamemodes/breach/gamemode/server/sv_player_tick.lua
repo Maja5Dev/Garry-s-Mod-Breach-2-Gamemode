@@ -88,6 +88,7 @@ hook.Add("Tick", "BR2_Misc", function()
 				if wep.GasMaskOn == true then
 					has_gasmask = true
 					has_hazmat = true
+
 					if v.nextBreath < CurTime() then
 						--v:SendLua('surface.PlaySound("breach2/D9341/breath'..math.random(0,4)..'gas.ogg")')
 						--v.nextBreath = CurTime() + 4
@@ -142,9 +143,11 @@ hook.Add("Tick", "BR2_Misc", function()
 
 					if v.nextDamageInGas < CurTime() then
 						v:SetHealth(v:Health() - 1)
+
 						if v:Health() < 1 then
 							v:Kill()
 						end
+
 						v.nextDamageInGas = CurTime() + 0.2
 					end
 				end
@@ -161,6 +164,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 					v.br_infection = math.Clamp(v.br_infection + 1, 0, 100)
 				end
+
 				if !v.br_asymptomatic and v.next_iup2 < CurTime() then
 					if v.br_infection < 10 then
 						v.next_iup2 = CurTime() + math.random(15,25)
@@ -178,9 +182,24 @@ hook.Add("Tick", "BR2_Misc", function()
 						v:EmitSound("breach2/D9341/Cough"..math.random(1,3).."_gasmask.ogg")
 					else
 						v:EmitSound("breach2/D9341/Cough"..math.random(1,3)..".ogg")
+
 						if v.br_infection > 15 then
 							v:InfectiousCough()
 						end
+					end
+				end
+			end
+
+			if v.br_role == "SCP-035" then
+				if v.next035Decay < CurTime() then
+					v.next035Decay = CurTime() + cvars.Number("br2_035_decay_speed", 5)
+					v:SetNWFloat("last035decay", CurTime())
+
+					-- take 1% of health
+					v:SetHealth(v:Health() - (math.Round(v:GetMaxHealth() * 0.01)))
+
+					if v:Health() < 1 then
+						v:Kill()
 					end
 				end
 			end

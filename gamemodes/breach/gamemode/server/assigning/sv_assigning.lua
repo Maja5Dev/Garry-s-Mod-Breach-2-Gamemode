@@ -88,6 +88,7 @@ function Pre_Assign(ply)
 	ply.nextRunStaminaCheck =  0
 	ply.lastRunning = 0
 	ply.attachmentModels = nil
+	ply.next035Decay = CurTime() + cvars.Number("br2_035_decay_speed", 5)
 
 	-- 173 blinking
 	ply.seen_173 = 0

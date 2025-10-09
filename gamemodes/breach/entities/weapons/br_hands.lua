@@ -131,6 +131,29 @@ SWEP.Contents = {
 			if isciagent then
 				chat.AddText(Color(255, 255, 255), prefix .. "a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
 			end
+
+			if our_role == ROLE_SCP_035 then
+				local health_times_left = math.Round(LocalPlayer():Health() / (LocalPlayer():GetMaxHealth() * 0.01))
+
+				local last_decay = LocalPlayer():GetNWFloat("last035decay", CurTime())
+
+				local time_left = (health_times_left * cvars.Number("br2_035_decay_speed", 5)) - (CurTime() - last_decay)
+
+				local text_left = ""
+
+				if time_left <= 60 then
+					if time_left == 1 then
+						text_left = ", goodbye"
+					else
+						text_left = ", it has " .. time_left .. " seconds left"
+					end
+
+				else
+					text_left = ", it has " .. string.FormattedTime(time_left, "%02i:%02i") .. " minutes left"
+				end
+
+				chat.AddText(Color(255,0,0,255), " - The body of your host is decaying (" .. (100 - math.Round(health_times_left)) .. "%)" .. text_left)
+			end
 		--ARMOR
 			if pl:Armor() > 0 then
 				chat.AddText(Color(255, 255, 255), " - You are wearing some kind of armor")
