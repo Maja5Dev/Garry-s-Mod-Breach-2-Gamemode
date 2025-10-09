@@ -142,10 +142,10 @@ SWEP.Contents = {
 				local text_left = ""
 
 				if time_left <= 60 then
-					if time_left == 1 then
+					if time_left < 2 then
 						text_left = ", goodbye"
 					else
-						text_left = ", it has " .. time_left .. " seconds left"
+						text_left = ", it has " .. math.floor(time_left) .. " seconds left"
 					end
 
 				else
