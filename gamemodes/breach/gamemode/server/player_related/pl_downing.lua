@@ -5,6 +5,7 @@ function player_meta:IsDowned()
 	if self.br_downed == nil then
 		self.br_downed = false
 	end
+	
 	return self.br_downed
 end
 
