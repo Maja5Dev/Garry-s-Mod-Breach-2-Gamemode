@@ -23,6 +23,7 @@ function PlayFirstSounds(num)
 	if istable(first_sounds_table) == true then
 		if istable(first_sounds_table[num]) == true then
 			surface.PlaySound(first_sounds_table[num][1])
+			
 			if istable(first_sounds_table[num + 1]) == true then
 				timer.Create("PlayNextFirstSound", first_sounds_table[num][2], 1, function()
 					PlayFirstSounds(num + 1)

@@ -40,7 +40,7 @@ function Breach_Map_Organise_AfterAssign()
 	end
 
 	if !scp035exists then
-		local rnd = math.random(1,2)
+		local rnd = math.random(1, 3)
 
 		if rnd == 1 then
 			local mask035 = ents.Create("breach_035mask")

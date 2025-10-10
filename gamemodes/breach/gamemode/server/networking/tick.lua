@@ -4,6 +4,7 @@ local br_crates_info = {}
 
 local function create_net_crate_info()
 	br_crates_info = {}
+	
 	for i,v in ipairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES.buttons) do
 		if !v.locked then
 			table.ForceInsert(br_crates_info, i)

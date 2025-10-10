@@ -12,6 +12,7 @@ net.Receive("br_loot_crate", function(len, ply)
 							return
 						end
 					end
+
 					ply:PrintMessage(HUD_PRINTTALK, "This crate seems to be locked...")
 					return
 				end
@@ -96,6 +97,7 @@ net.Receive("br_take_loot", function(len, ply)
 
 		if ply.br_role == ROLE_SCP_049 or ply.br_role == ROLE_SCP_173 then
 			local swep = weapons.Get(item.class)
+
 			if (swep or item.ammo_info or string.find(item.class, "ammo") or string.find(item.class, "food") or string.find(item.class, "drink"))
 				and !string.find(item.class, "keycard")
 			then
@@ -121,6 +123,7 @@ net.Receive("br_take_loot", function(len, ply)
 					source_tab = v.items
 				end
 			end
+			
 		elseif source[1] == "body" and isentity(source[2]) and IsValid(source[2]) and source[2]:GetPos():Distance(ply:GetPos()) < 160 and istable(source[2].Info) then
 			source_tab = source[2].Info.Loot
 		end
@@ -139,6 +142,7 @@ net.Receive("br_take_loot", function(len, ply)
 
 				if class2 == class then
 					local swep = weapons.Get(class)
+
 					if swep == nil then
 						for k2,v2 in pairs(BR2_DOCUMENTS) do
 							if v2.class == class or v2.class == item.type then
@@ -159,6 +163,7 @@ net.Receive("br_take_loot", function(len, ply)
 								if res == true then
 									table.RemoveByValue(source_tab, v)
 								end
+
 								return
 							end
 						end
@@ -194,6 +199,8 @@ net.Receive("br_take_loot", function(len, ply)
 						end
 					end
 					table.RemoveByValue(source_tab, v)
+
+					break
 				end
 			end
 		end

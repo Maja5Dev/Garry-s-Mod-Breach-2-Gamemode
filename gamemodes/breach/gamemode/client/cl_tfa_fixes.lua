@@ -8,6 +8,7 @@ if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 			hook.Remove("Tick", "BR2_TFA_FIXES")
 			return
 		end
+
 		if TFA and TFA.INS2 and isfunction(TFA.INS2.GetHoloSightReticle) then
 			function TFA.INS2.GetHoloSightReticle(sighttype, rel)
 				if rel == "yes" and sighttype == "sight_eotech" then
@@ -21,10 +22,12 @@ if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 					data.active = false
 					data.rel = sighttype
 					data.yuri = true
+
 					return data
 				else
 					return old_GetHoloSightReticle(sighttype, rel)
 				end
+
 				return nil
 			end
 			br2_tfa_fixed = true
@@ -45,16 +48,8 @@ if old_GetHoloSightReticle == nil and br2_tfa_fixed == nil then
 end
 
 cvars.AddChangeCallback("cl_tfa_hud_hitmarker_enabled", function(convar_name, value_old, value_new)
-	--print(convar_name, value_old, value_new)
 	RunConsoleCommand("cl_tfa_hud_hitmarker_enabled", 0)
 end)
 
-/*
-hook.Add("PlayerSwitchWeapon", "DELENDA_TFASCREENS", function()
-	timer.Simple(1, function()
-		hook.Remove("PreRender", "TFASCREENS")
-	end)
-end)
-*/
 
 print("[Breach2] client/cl_tfa_fixes.lua loaded!")

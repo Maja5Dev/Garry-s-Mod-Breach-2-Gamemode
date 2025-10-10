@@ -185,6 +185,7 @@ net.Receive("br_pickup_item", function(len, ply)
 				if entf.BatteryLevel != nil then
 					new_ent.BatteryLevel = entf.BatteryLevel
 				end
+
 				entf:Remove()
 			end
 		end
@@ -194,8 +195,6 @@ end)
 concommand.Add("br_spawn_item", function(ply, cmd, args)
     if not IsValid(ply) or not ply:IsAdmin() then return end
     local item = special_item_system.GetItem(args[1])
-
-	print(args[1])
 
 	if weapons.Get(args[1]) then
 		local wep = ents.Create(args[1])

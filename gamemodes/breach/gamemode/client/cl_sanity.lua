@@ -10,22 +10,11 @@ function HorrorCL_Blood()
 
 	if tr.Hit then
 		util.Decal("Blood", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+
 		if math.random(1,12) == 7 then
 			sound.Play("ambient/creatures/flies"..math.random(1,5)..".wav", tr.HitPos, 100, 100,1)
 		end
 	end
-	/*
-	if br2_music_info and br2_music_info.sound != "breach2/music/distance2.wav" then
-		--print("start playing sanity music")
-		br2_music_info = {
-			nextPlay = 0,
-			volume = 1,
-			length = 20,
-			sound = "breach2/music/distance2.wav",
-			playUntil = function() return br2_our_sanity < 3 end
-		}
-	end
-	*/
 end
 
 function HorrorCL_SCPSound()
@@ -51,6 +40,7 @@ function HorrorCL_SCPSound()
 	
 	if IsValid(horror_scp_ent) == false and math.random(1,3) == 2 then
 		local eyeang = LocalPlayer():EyeAngles()
+
 		LocalPlayer():SetEyeAngles(Angle(eyeang.pitch, math.random(-179, 179), 0))
 	end
 end
@@ -73,6 +63,7 @@ BR_INSANITY_ATTACK = 0
 local insanity_attack_duration = 1.0 
 local insanity_target = nil
 local insanity_attack_end = 0
+
 -- More aggressive insanity attack
 function HorrorCL_InsanityAttack()
 	surface.PlaySound(table.Random(insanity_attack_sounds))
@@ -100,6 +91,7 @@ function HorrorCL_InsanityAttack()
 
         -- start shooting
         RunConsoleCommand("+attack")
+
         timer.Simple(insanity_attack_duration, function()
             RunConsoleCommand("-attack")
         end)
@@ -109,8 +101,7 @@ end
 -- Smoothly drag aim toward the target
 hook.Add("CreateMove", "HorrorCL_InsanityAim", function(cmd)
     if IsValid(insanity_target) and CurTime() < insanity_attack_end then
-        local lp = LocalPlayer()
-        local eyePos = lp:EyePos()
+        local eyePos = LocalPlayer():EyePos()
         local targetPos = insanity_target:EyePos()
 
         -- where we need to aim
@@ -129,8 +120,12 @@ end)
 
 next_horror_breath = 0
 function HorrorCL_Breath()
-	if LocalPlayer():Alive() and !LocalPlayer():IsSpectator() and next_horror_breath < CurTime()
-		and br2_our_sanity < 2 and BR_INSANITY_ATTACK < CurTime() and math.random(1,3) < 3
+	if LocalPlayer():Alive()
+	and !LocalPlayer():IsSpectator()
+	and next_horror_breath < CurTime()
+	and br2_our_sanity < 2
+	and BR_INSANITY_ATTACK < CurTime()
+	and math.random(1,3) < 3
 	then
 		surface.PlaySound("breach2/horror/breath.wav")
 		next_horror_breath = CurTime() + 5 + math.random(5, 13)
@@ -146,6 +141,7 @@ function HorrorCL_SCP()
 
 	if IsValid(horror_scp_ent) == false and #br2_lastPositions > 0 then
 		local pos = br2_lastPositions[1][1]
+
 		if pos:Distance(ourpos) > 400 then
 			horror_scp_ent = ClientsideModel(SCP_173_MODEL)
 			horror_scp_ent:SetPos(br2_lastPositions[1][1])
@@ -160,12 +156,16 @@ function NiceSanity()
 	local s = br2_our_sanity
 	if s == 1 then
 		return "Insane", Color(255, 0, 0, 255)
+
 	elseif s == 2 then
 		return "On verge of breaking", Color(255, 100, 0, 255)
+
 	elseif s == 3 then
 		return "Very Anxious", Color(255, 150, 0, 255)
+
 	elseif s == 4 then
 		return "Stressed", Color(255, 255, 0, 255)
+		
 	elseif s == 5 then
 		return "Sane", Color(150, 255, 0, 255)
 	else

@@ -9,9 +9,7 @@ local function removeNearbyInfo(ply)
 		})
 
 		if otherply != ply and tr.Entity != otherply then
-			--notepad_system.RemovePlayerInfo(otherply, ply.charid)
 			otherply:SendPlayerUnknownInfo(ply)
-			--BroadcastPlayerUnknownInfo(ply)
 		end
 	end
 end
@@ -22,7 +20,6 @@ net.Receive("br_take_outfit", function(len, ply)
 
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.OUTFITTERS.buttons) do
 			if v.pos:Distance(ply:GetPos()) < 150 and table.HasValue(v.items, str_got) then
-				print("found outfitter with item")
 				local our_pos = 1
 				local our_model = ply:GetModel()
 				local our_model_class = nil

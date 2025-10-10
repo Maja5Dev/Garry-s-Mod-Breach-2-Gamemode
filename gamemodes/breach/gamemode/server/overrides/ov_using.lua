@@ -29,6 +29,7 @@ function ShouldPlayerUse(ply, ent)
 
 			ply.use_delay = CurTime() + 0.1
 			ply.lastkeypad = ent
+
 			net.Start("br_keypad")
 			net.Send(ply)
 			return false
@@ -51,6 +52,7 @@ function ShouldPlayerUse(ply, ent)
 			if ent.br_info.unusable != true then
 				ply:BR2_ShowNotification("I need a keycard level " .. tostring(klvl) .. " to unlock this keypad...")
 			end
+			
 			return false
 		else
 			if usesounds == true then ply:EmitSound("breach2/items/keycarduse1.ogg", 75, 100, 0.7) end

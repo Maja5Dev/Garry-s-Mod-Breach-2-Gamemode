@@ -60,13 +60,11 @@ function GM:EntityTakeDamage(ent, dmginfo)
 
 					pl.LastBody = ent.Info.Victim.Body
 
-					--pl.Body = nil
 					for k,v in pairs(player.GetAll()) do
 						if istable(v.startedReviving) and v.startedReviving[1] == ent then
 							v.startedReviving = nil
 						end
 					end
-					--ent.Info = nil
 				end
 			end
 		end
@@ -85,6 +83,7 @@ function GM:PlayerDisconnected(ply)
 			end
 		end
 	end
+
 	if ply:Alive() and ply:IsSpectator() == false and ply.br_downed == false then
 		CreateRagdollPL(ply, ply, DMG_PARALYZE, 0)
 	end
@@ -96,6 +95,7 @@ function GM:PlayerSwitchFlashlight(ply, enabled)
 	ply.nextFlashlightUse = CurTime() + 0.25
 
 	local best_flashlight = nil
+
 	for k,v in pairs(ply.br_special_items) do
 		for k2,v2 in pairs(BR2_FLASHLIGHT_TYPES) do
 			if v.class == v2.class then
@@ -105,6 +105,7 @@ function GM:PlayerSwitchFlashlight(ply, enabled)
 			end
 		end
 	end
+
 	if best_flashlight == nil then return false end
 	ply:ForceUseFlashlight(best_flashlight)
 
@@ -113,9 +114,11 @@ end
 
 function GM:PlayerSpray(ply)
 	local sprays_enabled = GetConVar("br2_enable_sprays"):GetBool()
+	
 	if sprays_enabled == false then
 		return true
 	end
+
 	return ply:IsSpectator()
 end
 

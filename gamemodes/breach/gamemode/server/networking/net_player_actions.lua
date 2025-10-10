@@ -229,6 +229,7 @@ net.Receive("br_use_camera", function(len, ply)
 	if ply.lastTerminal.Info.devices.device_cameras == false then return end
 
 	local str = net.ReadString()
+
 	for k,cgroup in pairs(MAPCONFIG.CAMERAS) do
 		for k2,v in pairs(cgroup.cameras) do
 			if v.name == str then
@@ -236,6 +237,7 @@ net.Receive("br_use_camera", function(len, ply)
 					if v2.CameraName == v.name and IsValid(v2.camera_view_ent) then
 						ply:SetViewEntity(v2.camera_view_ent)
 						ply.viewing895 = v.is_895
+
 						return
 					end
 				end
@@ -248,6 +250,7 @@ end)
 net.Receive("br_keypad", function(len, ply)
 	if ply:IsSpectator() == false and ply:Alive() == true then
 		if ply.net_delay == nil then ply.net_delay = 0 end
+
 		if ply.net_delay > CurTime() then return end
 		ply.net_delay = CurTime() + 0.5
 		if IsValid(ply.lastkeypad) == false then return end
@@ -257,7 +260,6 @@ net.Receive("br_keypad", function(len, ply)
 		local nearby_ents = ents.FindInSphere(ply:GetPos(), 100)
 		for k,v in pairs(nearby_ents) do
 			if v == ply.lastkeypad then
-				--print("found keypad!")
 				if istable(v.br_info) == true then
 					if isnumber(v.br_info.code) == true then
 						if v.br_info.code == tonumber(code) then
@@ -268,6 +270,7 @@ net.Receive("br_keypad", function(len, ply)
 						end
 					end
 				end
+
 				return
 			end
 		end
@@ -308,6 +311,7 @@ net.Receive("br_hack_terminal", function(len, ply)
 				net.Start("br_hack_terminal")
 					net.WriteTable(round_system.logins or {})
 				net.Send(ply)
+				
 				return
 			end
 		end

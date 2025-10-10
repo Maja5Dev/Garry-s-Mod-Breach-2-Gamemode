@@ -5,9 +5,11 @@ net.Receive("br_mtf_teams_leave", function(len, ply)
 		for k2,v2 in pairs(v) do
 			if v2 == ply then
 				table.RemoveByValue(v, ply)
+
 				net.Start("br_mtf_teams_update")
 					net.WriteTable(BR2_MTF_TEAMS)
 				net.Send(ply)
+
 				return
 			end
 		end
@@ -20,6 +22,7 @@ function br2_mtf_teams_check()
             local pl = teamTable[i]
             if not IsValid(pl) or pl.br_downed == true or !pl:IsSpectator() then
                 table.remove(teamTable, i)
+
 				devprint("Removed invalid player from MTF team " .. teamIndex, pl)
             end
         end
@@ -210,6 +213,7 @@ function br2_mtf_teams_add(ply, num)
 	end
 	
 	ply:PrintMessage(HUD_PRINTTALK, "For some reason you could not join this team")
+	
 	print("br2_mtf_teams_add failed for " .. ply:Nick() .. ", num: " .. tostring(num))
 	print("Conditions: ", (num == 1 or num == 2), table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN, ply:IsSpectator(), ply.br_downed != true)
 end

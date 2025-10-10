@@ -5,13 +5,7 @@ br2_nextANP = 0
 function CLTick()
 	local client = LocalPlayer()
 	if !IsValid(client) then return end
-
-	/*
-	if br2_nextANP < CurTime() and LocalPlayer().Alive != nil then
-		BR_AssignNotepadPlayers()
-		br2_nextANP = CurTime() + 2
-	end
-	*/
+	
 	HandleFootstepsCL()
 	HorrorCL_Breath()
 

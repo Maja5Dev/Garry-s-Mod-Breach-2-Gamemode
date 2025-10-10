@@ -54,6 +54,7 @@ net.Receive("br_open_brokenterminal", function(len, ply)
 				ply:ViewPunch(Angle(math.random(-30,30), math.random(-30,30), 0))
 				ply:SendLua("StunBaton_GotStunned()")
 			end
+
 			return
 		end
 	end
@@ -69,6 +70,7 @@ net.Receive("br_open_terminal", function(len, ply)
 
 	local net_str = net.ReadString()
 	if #net_str < 2 then return end
+
 	local login = net.ReadString()
 	local password = net.ReadString()
 
@@ -102,6 +104,7 @@ net.Receive("br_open_terminal", function(len, ply)
 						if v2.server then
 							v2.server = nil
 						end
+
 						if v2.canUse then
 							v2.canUse = nil
 						end
@@ -117,6 +120,7 @@ net.Receive("br_open_terminal", function(len, ply)
 
 				ply.lastTerminal = v
 				ply.lastLoginInfo = loginInfo
+				
 				return
 			end
 		end
