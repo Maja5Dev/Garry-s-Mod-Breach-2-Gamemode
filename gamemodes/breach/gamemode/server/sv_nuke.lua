@@ -90,3 +90,9 @@ hook.Add("BR2_PreparingStart", "BR2_RemoveNukeTimer", function()
     br2_nuke_deactivated_for = nil
     br2_nuke_deactivator = nil
 end)
+
+hook.Add("BR2_CalculatePlayerSpeeds", "BR2_NukeSpeedBoost", function(ply)
+    if timer.Exists("BR_NukeExplosion") then
+        return 1.06, 1.06, 1
+    end
+end)
