@@ -43,6 +43,11 @@ special_item_system.AddItem({
             return false
         end
 
+        if pl.br_role == ROLE_SCP_035 then
+            pl:BR2_ShowNotification("This will not stop the decay...")
+            return false
+        end
+
         if pl:Health() == pl:GetMaxHealth() and pl.br_isBleeding == false then
             pl:BR2_ShowNotification("I don't need to use this right now.")
             return false
@@ -173,6 +178,11 @@ special_item_system.AddItem({
             return false
         end
 
+        if pl.br_role == ROLE_SCP_035 then
+            pl:BR2_ShowNotification("This will not stop the decay...")
+            return false
+        end
+
         pl:UsedSCP500()
         return true
     end,
@@ -229,6 +239,11 @@ special_item_system.AddItem({
     use = function(pl, item)
         if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
+            return false
+        end
+
+        if pl.br_role == ROLE_SCP_035 then
+            pl:BR2_ShowNotification("This will not stop the decay...")
             return false
         end
 
@@ -298,6 +313,11 @@ special_item_system.AddItem({
     use = function(pl, item)
         if pl.br_role == ROLE_SCP_049 then
             pl:BR2_ShowNotification("Ineffective alchemies. I better throw this away.")
+            return false
+        end
+
+        if pl.br_role == ROLE_SCP_035 then
+            pl:BR2_ShowNotification("There's no point for me to use this")
             return false
         end
         

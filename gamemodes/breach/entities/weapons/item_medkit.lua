@@ -15,6 +15,13 @@ SWEP.HoldType		= "slam"
 SWEP.UseHands		= true
 SWEP.Pickupable 	= true
 
+local function canUseMedkit(ply)
+	if ply.br_role == ROLE_SCP_035 then
+		ply:BR2_ShowNotification("This will not stop the decay...")
+		return false
+	end
+end
+
 SWEP.Contents = {
 	bandage = {
 		name = "Bandage",
@@ -32,6 +39,8 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
+			if canUseMedkit(ply) == false then return end
+
 			if ply:Health() == ply:GetMaxHealth() and ply.br_isBleeding == false then
 				ply:BR2_ShowNotification("I don't need to use this right now.")
 				return false
@@ -62,6 +71,8 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
+			if canUseMedkit(ply) == false then return end
+
 			if ply:Health() == ply:GetMaxHealth() then
 				ply:BR2_ShowNotification("I don't need to use this right now.")
 				return false
@@ -88,6 +99,8 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
+			if canUseMedkit(ply) == false then return end
+
 			if ply:Health() == ply:GetMaxHealth() and !ply:IsOnFire() then
 				ply:BR2_ShowNotification("I don't need to use this right now.")
 				return false
@@ -115,6 +128,8 @@ SWEP.Contents = {
 			end
 		end,
 		sv_effect = function(ply)
+			if canUseMedkit(ply) == false then return end
+			
 			if ply:Health() == ply:GetMaxHealth() then
 				ply:BR2_ShowNotification("I don't need to use this right now.")
 				return false
