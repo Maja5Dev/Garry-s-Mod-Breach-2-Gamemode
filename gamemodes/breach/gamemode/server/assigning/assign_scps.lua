@@ -85,6 +85,7 @@ function assign_system.Assign_SCP049(ply)
 	ply.Faction = "BR2_FACTION_SCP_049"
 	ply:AddFlags(FL_NOTARGET)
 	ply.br_usesStamina = false
+	ply.disable_coughing = true
 
 	ply.first_info = "scp_049"
 	ply.mission_set = "scp_049"
