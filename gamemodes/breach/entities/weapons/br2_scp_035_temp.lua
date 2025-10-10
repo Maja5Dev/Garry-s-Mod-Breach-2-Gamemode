@@ -8,7 +8,23 @@ SWEP.Author = "Maya"
 SWEP.Purpose = ""
 SWEP.DrawCrosshair = false
 
+function SWEP:Holster()
+	return false
+end
+
+function SWEP:Deploy()
+    self:SetDeploySpeed(1)
+
+	if self.BaseClass.Deploy then
+		self.BaseClass.Deploy(self)
+	end
+
+    self:SetDeploySpeed(1)
+end
+
 function SWEP:PutTheMask()
+    self:SetDeploySpeed(1)
+
     local ply = self.Owner
 
     if !IsValid(ply) then
@@ -59,6 +75,12 @@ function SWEP:PutTheMask()
 			if !IsValid(ply) or !ply:Alive() or ply:IsSpectator() then return end
 
             if SERVER then
+                if ply.br_role == "SCP-049" then
+                    ply.disable_coughing = true
+                else
+                    ply.disable_coughing = false
+                end
+
                 ply.br_role = ROLE_SCP_035
                 ply.br_team = TEAM_SCP
                 ply:AddFlags(FL_NOTARGET)
@@ -71,6 +93,8 @@ function SWEP:PutTheMask()
                     net.WriteInt(TEAM_SCP, 8)
                     net.WriteBool(ply.br_ci_agent)
                 net.Send(ply)
+
+                BroadcastPlayerUnknownInfo(ply)
             end
 
 			--ply.SCP035_IsWear = true

@@ -62,16 +62,28 @@ net.Receive("br_send_info", function(len)
 	local ply_got = player.GetBySteamID64(steamid64_got)
 
 	if IsValid(ply_got) and istable(info_got) then
-		ply_got.br_showname = info_got.br_showname
-		ply_got.br_role = info_got.br_role
-		ply_got.br_team = info_got.br_team
-		ply_got.br_ci_agent = info_got.br_ci_agent
-		ply_got.br_info = info_got
+		if info_got.br_showname then
+			ply_got.br_showname = info_got.br_showname
+		end
+
+		if info_got.br_role then
+			ply_got.br_role = info_got.br_role
+		end
+
+		if info_got.br_team then
+			ply_got.br_team = info_got.br_team
+		end
+
+		if info_got.br_ci_agent then
+			ply_got.br_ci_agent = info_got.br_ci_agent
+		end
 	else
 		print("info_got")
+
 		if istable(info_got) then
 			PrintTable(info_got)
 		end
+
 		error("Got info on a player but its invalid " .. tostring(ply_got) .. " " .. tostring(info_got))
 	end
 end)
