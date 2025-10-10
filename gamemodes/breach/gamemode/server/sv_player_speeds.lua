@@ -54,8 +54,8 @@ function HandlePlayerSpeeds()
 			
 			-- speed boost
 			if v.br_speed_boost > CurTime() then
-				new_walk_speed = new_walk_speed * 1.15
-				new_run_speed = new_run_speed * 1.15
+				new_walk_speed = new_walk_speed * 1.12
+				new_run_speed = new_run_speed * 1.12
 				v:AddRunStamina(100)
 				--print(v:Nick(), v.br_run_stamina)
 
@@ -129,9 +129,9 @@ function HandlePlayerSpeeds()
 
 			if !v.br_asymptomatic then
 				if v.br_infection > 70 then
-					new_walk_speed = new_walk_speed * 0.85
-					new_run_speed = new_run_speed * 0.85
-					new_jump_power = new_jump_power * 0.85
+					new_walk_speed = new_walk_speed * 0.9
+					new_run_speed = new_run_speed * 0.9
+					new_jump_power = new_jump_power * 0.9
 					
 				elseif v.br_infection > 45 then
 					new_walk_speed = new_walk_speed * 0.92
