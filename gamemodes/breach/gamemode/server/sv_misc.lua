@@ -29,32 +29,66 @@ function C4BombExplode(ent, radius, damage, ply)
 	
 	for k,v in pairs(ents.FindInSphere(ent:GetPos(), radius)) do
 		if v:IsPlayer() and v:Alive() and v:IsSpectator() == false then
-			local filters = {}
-			table.ForceInsert(filters, ent)
+			local endpos = v:GetPos()
+			local endent = v
+			local dmgmul = 1
 
-			if IsValid(ply) then
+			if v:IsDowned() then
+				endpos = v.Body:GetPos()
+				endent = v.Body
+			end
+
+			if v.br_role == ROLE_SCP_173 and IsValid(v.entity173) then
+				endpos = v.entity173:GetPos()
+				endent = v.entity173
+				dmgmul = 2
+			end
+
+			local filters = {ent}
+
+			if ent:GetClass() == "item_c4" then
 				table.ForceInsert(filters, ply)
+			end
+
+			for k2,v2 in pairs(player.GetAll()) do
+				if v != v2 then
+					table.ForceInsert(filters, v2)
+				end
 			end
 
 			local tr = util.TraceLine({
 				start = ent:GetPos(),
-				endpos = v:GetPos() + Vector(0,0,40),
-				filter = filters
+				endpos = endpos,
+				filter = filters,
 			})
 			
-			if tr.Entity == v then
-				local num = math.Clamp(damage - math.Round(v:GetPos():Distance(ent:GetPos()) / 1.75), 1, 500)
-				print("C4 blew and damaged " .. v:Nick() .. " with " .. tostring(num) .. " damage.")
-				v:TakeDamage(num, ent, ent)
-				v:SetVelocity((v:GetPos() - ent:GetPos()):Angle():Forward() * 600)
-				--util.BlastDamage(ent, ent, v:GetPos(), 5, num)
+			if IsValid(tr.Entity) and (
+				tr.Entity == endent
+				or (isfunction(tr.Entity.GetOwner) and tr.Entity:GetOwner() == v))
+			then
+				local damage = math.Clamp((damage - math.Round(v:GetPos():Distance(ent:GetPos()) / 1.75)) * dmgmul, 1, 500)
+
+				local dmginfo = DamageInfo()
+				dmginfo:SetDamage(damage)
+				dmginfo:SetAttacker(ply)
+				dmginfo:SetInflictor(ent)
+				dmginfo:SetDamageType(DMG_BLAST)
+
+				endent:SetVelocity((endent:GetPos() - ent:GetPos()):Angle():Forward() * 400)
+				endent:TakeDamageInfo(dmginfo)
 			end
 		end
 	end
-	
-	if IsValid(ply) then
-		ply:TakeDamage(damage, ply, ply)
-		--util.BlastDamage(ent, ent, ply:GetPos(), 5, damage)
+
+	if ent:GetClass() == "item_c4" then
+		local dmginfo = DamageInfo()
+		dmginfo:SetDamage(damage)
+		dmginfo:SetAttacker(ply)
+		dmginfo:SetInflictor(ent)
+		dmginfo:SetDamageType(DMG_BLAST)
+
+		v:SetVelocity((v:GetPos() - ent:GetPos()):Angle():Forward() * 400)
+		v:TakeDamageInfo(dmginfo)
 	end
 	
 	util.Effect("Explosion", effect, true, true)

@@ -19,9 +19,11 @@ function ENT:Initialize()
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)
 		--self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then phys:Wake() end
 	end
+
 	if SERVER then
 		self:SetUseType(SIMPLE_USE)
 		self:SetHealth(255)
@@ -37,7 +39,7 @@ function ENT:Think()
 				self.nextBeep = CurTime() + 1
 			end
 			if self.nextExplode < CurTime() then
-				C4BombExplode(self, 500, 200)
+				C4BombExplode(self, 500, 200, self.Owner)
 				self:Remove()
 				return
 			end
@@ -48,8 +50,9 @@ end
 function ENT:OnTakeDamage(dmginfo)
 	if SERVER then
 		self:SetHealth(self:Health() - dmginfo:GetDamage())
+
 		if self:Health() < 1 then
-			C4BombExplode(self, 500, 200)
+			C4BombExplode(self, 500, 200, self.Owner)
 			self:Remove()
 		end
 	end

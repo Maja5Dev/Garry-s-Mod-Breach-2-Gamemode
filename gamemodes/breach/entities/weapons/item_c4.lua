@@ -23,6 +23,7 @@ SWEP.Timer 			= 30
 SWEP.CustomDrop = function(self)
 	local wep = self.Owner:GetWeapon("item_c4")
 	local c4planted = ents.Create("br2_c4_charge")
+	local owner = self.Owner
 
 	if IsValid(c4planted) then
 		c4planted.UsePhysics = true
@@ -32,6 +33,7 @@ SWEP.CustomDrop = function(self)
 		c4planted.isArmed = wep.isArmed
 		c4planted.Activated = wep.Activated
 		c4planted.Timer = wep.Timer
+		c4planted.Owner = owner
 
 		if wep.nextExplode then
 			c4planted.nextExplode = wep.nextExplode
@@ -219,6 +221,7 @@ function SWEP:TraceChecks()
 		local tr1 = self.Owner:GetAllEyeTrace()
 		pos = tr1.HitPos
 		ang = tr1.HitNormal:Angle()
+		
 		ang:RotateAroundAxis(ang:Right(), -90)
 		ang:RotateAroundAxis(ang:Up(), 180)
 	else
@@ -241,6 +244,7 @@ function SWEP:TraceChecks()
 			start = pos,
 			endpos = v,
 		})
+
 		if IsValid(c4ghost) then tr.filter = c4ghost end
 		if tr.Hit then return false end
 	end
@@ -263,6 +267,7 @@ function SWEP:Think()
 		ang:RotateAroundAxis(ang:Up(), 180)
 
 		local dist = pos:Distance(self.Owner:GetPos())
+
 		if dist < self.PlantDistance and tr.HitWorld and self:TraceChecks() == true and self.Owner:OnGround() then
 			c4ghost:SetNoDraw(false)
 			c4ghost:SetColor(Color(0,255,0))
@@ -276,6 +281,7 @@ function SWEP:Think()
 		end
 		
 		c4ghost:SetAngles(ang)
+
 	elseif CLIENT then
 		c4ghost = ents.CreateClientProp()
 		c4ghost:SetModel("models/weapons/w_c4_planted.mdl")
@@ -285,9 +291,13 @@ function SWEP:Think()
 	if self.Planting then
 		if self.Wait < CurTime() then
 			self.Owner:Freeze(false)
+
 			if self.Owner.StripWeapon then
+				local owner = self.Owner
+
 				self.Owner:StripWeapon(self:GetClass())
 				local c4planted = ents.Create("br2_c4_charge")
+
 				if IsValid(c4planted) then
 					c4planted:SetPos(self.PlantPos)
 					c4planted:SetAngles(self.PlantAngles)
@@ -296,6 +306,8 @@ function SWEP:Think()
 					c4planted.isArmed = self.isArmed
 					c4planted.Activated = self.Activated
 					c4planted.Timer = self.Timer
+					c4planted.Owner = owner
+
 					if self.nextExplode then
 						c4planted.nextExplode = self.nextExplode
 					end
@@ -315,6 +327,7 @@ function SWEP:Holster()
 		if IsValid(c4ghost) then
 			c4ghost:Remove()
 		end
+
 		return true
 	end
 end
@@ -323,6 +336,7 @@ function SWEP:OnRemove()
 	if IsValid(c4ghost) then
 		c4ghost:Remove()
 	end
+
 	if self.Owner.Freeze then
 		self.Owner:Freeze(false)
 	end
@@ -335,7 +349,9 @@ SWEP.Wait = 0
 function SWEP:PrimaryAttack()
 	if not IsFirstTimePredicted() then return end
 	if self.Wait > CurTime() then return end
+
 	local tr = self.Owner:GetAllEyeTrace()
+
 	if tr.HitPos:Distance(self.Owner:GetPos()) < self.PlantDistance and tr.HitWorld and self:TraceChecks() == true and self.Owner:OnGround() then
 		local tr = self.Owner:GetAllEyeTrace()
 		self.PlantPos = tr.HitPos
@@ -343,6 +359,7 @@ function SWEP:PrimaryAttack()
 		ang:RotateAroundAxis(ang:Right(), -90)
 		ang:RotateAroundAxis(ang:Up(), 180)
 		self.PlantAngles = ang
+
 		self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 		self.Wait = CurTime() + self.Owner:GetViewModel():SequenceDuration()
 		self.Planting = true
@@ -363,6 +380,7 @@ function SWEP:CreateFrame()
 		if IsValid(self) == false then
 			return
 		end
+
 		draw.Text({
 			text = "C4 ACTIONS",
 			pos = {4, 4},
@@ -371,6 +389,7 @@ function SWEP:CreateFrame()
 			font = "BR_HOLSTER_TITLE",
 			color = Color(255,255,255,255),
 		})
+
 		if input.IsKeyDown(KEY_ESCAPE) then
 			self:KillFocus()
 			self:Remove()
@@ -394,6 +413,7 @@ function SWEP:CreateFrame()
 		panel:SetPos(4, 4 + last_y)
 		panel.Paint = function(self, w, h)
 			draw.RoundedBox(0, 0, 0, w, h, Color(100, 100, 100, 100))
+
 			draw.Text({
 				text = item.name,
 				pos = {4, 2},
@@ -402,6 +422,7 @@ function SWEP:CreateFrame()
 				font = "BR_HOLSTER_CONTENT_NAME",
 				color = Color(255,255,255,255),
 			})
+
 			draw.Text({
 				text = item.desc,
 				pos = {4, h - 2},
@@ -427,11 +448,14 @@ function SWEP:CreateFrame()
 				color = Color(255,255,255,255),
 			})
 		end
+
 		panel2.DoClick = function()
 			item.cl_effect(self)
+
 			net.Start("br_c4_action")
 				net.WriteInt(item.id, 8)
 			net.SendToServer()
+
 			WeaponFrame:Remove()
 		end
 		last_y = last_y + (50 - 8) + 6
