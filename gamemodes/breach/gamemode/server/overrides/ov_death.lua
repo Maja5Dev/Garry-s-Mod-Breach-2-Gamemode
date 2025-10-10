@@ -21,7 +21,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		ply:DropCurrentWeapon()
 
 		if ply.br_downed then
-			self:StopSound("breach2/player/breathe1.wav")
+			ply:StopSound("breach2/player/breathe1.wav")
 			ply.br_downed = false
 		end
 
@@ -73,7 +73,7 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 	ply.DeathTime = CurTime()
 
 	if ply.br_downed then
-		self:StopSound("breach2/player/breathe1.wav")
+		ply:StopSound("breach2/player/breathe1.wav")
 		ply.br_downed = false
 	end
 
@@ -109,9 +109,11 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 			c4planted.Activated = wep.Activated
 			c4planted.Timer = wep.Timer
 			c4planted.Owner = ply
+
 			if wep.nextExplode then
 				c4planted.nextExplode = wep.nextExplode
 			end
+
 			c4planted:SetMoveType(MOVETYPE_VPHYSICS)
 		end
 		ply:StripWeapon("item_c4")
@@ -120,12 +122,15 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 	if IsValid(attacker) and attacker:GetClass() == "trigger_hurt" then
 		attacker = ply
 	end
+	
 	if IsValid(attacker) and attacker:IsVehicle() and IsValid(attacker:GetDriver()) then
 		attacker = attacker:GetDriver()
 	end
+
 	if !IsValid(inflictor) and IsValid(attacker) then
 		inflictor = attacker
 	end
+
 	if IsValid(inflictor) and inflictor == attacker and (inflictor:IsPlayer() or inflictor:IsNPC()) then
 		inflictor = inflictor:GetActiveWeapon()
 		if !IsValid(inflictor) then
