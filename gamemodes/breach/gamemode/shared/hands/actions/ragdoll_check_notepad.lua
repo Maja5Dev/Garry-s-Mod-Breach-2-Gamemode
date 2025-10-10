@@ -1,9 +1,10 @@
 ﻿
-registerHandsAction("steal_outfit", {
-    name = "Steal their outfit",
-    desc = "Wear the outfit found in this body",
+registerHandsAction("check_body_notepad", {
+    name = "Check the body's Notepad",
+    desc = "Check the notepad found in this body",
+    background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         local tr_ent = self.Owner:GetAllEyeTrace().Entity
 
         return IsValid(tr_ent)
@@ -12,13 +13,11 @@ registerHandsAction("steal_outfit", {
     end,
 
     cl_effect = function(self)
-        net.Start("br_steal_body_outfit")
+        net.Start("br_get_body_notepad")
         net.SendToServer()
     end,
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 10,
+    end
 })

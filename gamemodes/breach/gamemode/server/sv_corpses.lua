@@ -1,13 +1,13 @@
 
 function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	if not IsValid(victim) then
-		error("null victim", rag)
+		error("CreateRagdollPL null victim", rag)
 		return NULL
 	end
 
 	local rag = ents.Create("prop_ragdoll")
 	if IsValid(rag) == false then
-		error("null ragdoll", rag)
+		error("CreateRagdollPL null ragdoll", rag)
 		return NULL
 	end
 
@@ -58,10 +58,12 @@ function CreateRagdollPL(victim, attacker, dmgtype, distance)
 	rag.Info.charid = victim.charid
 	rag.Info.CorpseID = rag:GetCreationID()
 	rag.Info.Victim = victim
-	rag.Info.VictimNick = victim:Nick()
+	rag.Info.br_showname = victim.br_showname
 	rag.Info.br_role = victim.br_role
 	rag.Info.DamageType = dmgtype
 	rag.Info.Time = CurTime()
+
+	rag:SetNWInt("VictimMaxHealth", victim:GetMaxHealth())
 
 	--if victim:HasAttachmentModel("models/scp_035_real/scp_035_real.mdl") then
 		--tag.Info.Has035Attached = true

@@ -1,5 +1,5 @@
 ﻿
-local function check_someones_notepad()
+local function check_someones_notepad(self)
     local pl = lastseen_player
     if !IsValid(pl) then return end
 
@@ -17,9 +17,9 @@ end
 registerHandsAction("check_someones_notepad", {
     name = "Check their notepad",
     desc = "Open their notepad",
-    background_color = Color(125,125,125),
+    background_color = BR2_Hands_Actions_Colors.someone_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         return IsValid(lastseen_player)
         and lastseen_player:IsPlayer()
         and lastseen_player.br_team != TEAM_SCP
@@ -29,12 +29,10 @@ registerHandsAction("check_someones_notepad", {
     end,
 
     cl_effect = function(self)
-        check_someones_notepad()
+        check_someones_notepad(self)
     end,
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-    
-    sort = 15
+    end
 })

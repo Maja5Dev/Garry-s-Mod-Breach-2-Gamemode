@@ -8,6 +8,7 @@ net.Receive("br_scp_action", function(len, ply)
                 if v.pos:Distance(ply:GetPos()) < 400 and v.can_do(ply) then
                     v.sv_acton(ply)
                 end
+                
                 return
             end
         end

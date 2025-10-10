@@ -69,11 +69,9 @@ function SWEP:CalcViewModelView(cv_viewmodel, cv_old_eyepos, cv_old_eyeang, cv_e
 end
 
 function SWEP:CreateHandActions()
-	if self.Contents != nil then return end
-
-	self.Contents = table.Copy(BR2_GetHandActions())
-
-	hook.Run("BR2_OnHandsAddActions", self)
+	if self.Contents == nil then
+		self.Contents = table.Copy(BR2_GetHandActions())
+	end
 end
 
 function SWEP:Deploy()
@@ -89,6 +87,7 @@ end
 function SWEP:CheckActions()
 	self:CreateHandActions()
 
+	-- remove old temporary actions
 	local toRemove = {}
 
 	for k,v in pairs(self.Contents) do
@@ -98,34 +97,59 @@ function SWEP:CheckActions()
 	end
 
 	for k,v in pairs(toRemove) do
-		table.remove(self.Contents, v)
+		table.RemoveByValue(self.Contents, v)
 	end
+
+	-- Add temporary actions
+	hook.Run("BR2_OnHandsAddActions", self)
 
 	for k,v in pairs(self.Contents) do
-		if v.canDo == true then
+		-- add sort index
+		if v.sort == nil then
+			if BR2_Hands_Sort[k] then
+				v.sort = BR2_Hands_Sort[k]
+			else
+				error("No sort index with hand action " .. k .. "")
+			end
+		end
+
+		-- check if we can do these actions
+		if v.can_do == true then
 			v.enabled = true
 
-		elseif isfunction(v.canDo) then
-			v.enabled = v.canDo(self)
+		elseif isfunction(v.can_do) then
+			v.enabled = v.can_do(self)
+		
+		elseif isfunction(v.cl_can_do) then
+			v.enabled = v.cl_can_do(self)
 		
 		else
-			error("Invalid canDo with hand action " .. k .. "")
+			error("Invalid can_do with hand action " .. k .. "")
 		end
 	end
+
+	-- sort them
+	local sorted = {}
+	for k, v in pairs(self.Contents) do
+		table.insert(sorted, v)
+	end
+
+	table.sort(sorted, function(a, b)
+		return a.sort < b.sort
+	end)
+
+	self.Contents = sorted
 end
 
+local open_frame_lock_for = 0
 function SWEP:CreateFrame()
+	if open_frame_lock_for > CurTime() then return end
+
 	if IsValid(WeaponFrame) then
 		WeaponFrame:Remove()
 	end
-	
-	local tr_hull = util.TraceHull({
-		start = LocalPlayer():GetShootPos(),
-		endpos = LocalPlayer():GetShootPos() + (LocalPlayer():GetAimVector() * 100),
-		filter = LocalPlayer(),
-		mins = Vector(-2, -2, -2), maxs = Vector(2, 2, 2),
-		mask = MASK_SHOT_HULL
-	})
+
+	open_frame_lock_for = CurTime() + 0.1
 	
 	self:CheckActions()
 
@@ -181,15 +205,13 @@ function SWEP:CreateFrame()
 		end
 	end
 
-	table.sort(self.Contents, function(a, b) return a.sort > b.sort end )
-
 	local last_y = 24
 	for k,item in pairs(self.Contents) do
 		if item.enabled == true then
 			local panel = vgui.Create("DPanel", WeaponFrame)
 			panel:SetSize(360 - 8, 50 - 8)
 			panel:SetPos(4, 4 + last_y)
-			panel.clr = item.background_color or Color(100, 100, 100)
+			panel.clr = item.background_color or BR2_Hands_Actions_Colors.default
 			panel.clr.a = 100
 			panel.Paint = function(self, w, h)
 				draw.RoundedBox(0, 0, 0, w, h, panel.clr)
@@ -239,8 +261,8 @@ function SWEP:CreateFrame()
 				end
 
 				if isfunction(item.sv_effect) then
-					net.Start("br_action")
-						net.WriteInt(item.id, 8)
+					net.Start("br_hands_action")
+						net.WriteString(item.className)
 					net.SendToServer()
 				end
 
@@ -537,7 +559,7 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
-	if CLIENT then
+	if CLIENT and IsFirstTimePredicted() then
 		self:CreateFrame()
 	end
 end

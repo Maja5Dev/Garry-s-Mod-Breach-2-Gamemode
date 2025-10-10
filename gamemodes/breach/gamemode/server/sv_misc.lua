@@ -95,4 +95,103 @@ function C4BombExplode(ent, radius, damage, ply)
 	util.Effect("HelicopterMegaBomb", effect, true, true)
 end
 
+local function reapply_body_info(ent, new)
+	new.Info = table.Copy(ent.Info)
+	new.RagdollHealth = ent.RagdollHealth
+	new.nextReviveMove = ent.nextReviveMove
+
+	if ent.CInfo then
+		new.CInfo = table.Copy(ent.CInfo)
+	end
+	if ent.IsStartingCorpse then
+		new.IsStartingCorpse = ent.IsStartingCorpse
+	end
+	if ent.Info.Time then
+		new:SetNWInt("DeathTime", ent.Info.Time)
+	end
+	new:SetNWString("ExamineDmgInfo", ent:GetNWString("ExamineDmgInfo", ""))
+
+	for k,v in pairs(player.GetAll()) do
+		if v.Body == ent then
+			v.Body = new
+		end
+
+		if v.retrievingNotes == ent then
+			v.retrievingNotes = new
+		end
+	end
+end
+
+function BR2_ReplaceRagdollModel(ent, model, skin, ply)
+	local bone_positions = {}
+
+	for i = 0, ent:GetPhysicsObjectCount() - 1 do
+		local bone = ent:GetPhysicsObjectNum(i)
+
+		if IsValid(bone) then
+			bone:EnableMotion(false)
+			bone:SetVelocity(Vector(0,0,0))
+
+			bone_positions[i] = {
+				pos = bone:GetPos(),
+				ang = bone:GetAngles()
+			}
+		end
+	end
+
+	local pos = ent:GetPos() + Vector(0,0,10)
+	local ang = ent:GetAngles()
+	ent:Remove()
+
+	local new = ents.Create("prop_ragdoll")
+
+	new.blockPhysicsDamageFor = CurTime() + 2
+
+	reapply_body_info(ent, new)
+
+	new:SetModel(model)
+	new:SetSkin(skin)
+
+	new:SetPos(pos)
+	new:SetAngles(ang)
+
+	if IsValid(ply) then
+		for i = 0, ply:GetNumBodyGroups() - 1 do
+			new:SetBodygroup(i, ply:GetBodygroup(i))
+		end
+	end
+
+	new:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	new:Spawn()
+	new:Activate()
+
+	for i = 0, new:GetPhysicsObjectCount() - 1 do
+		local bone = new:GetPhysicsObjectNum(i)
+		if IsValid(bone) and bone_positions[i] then
+			bone:SetPos(bone_positions[i].pos)
+			bone:SetAngles(bone_positions[i].ang)
+
+			bone:EnableMotion(false)
+			bone:SetVelocity(Vector(0,0,0))
+		end
+	end
+
+	timer.Simple(0, function()
+		if IsValid(new) then
+			new:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
+			new:CollisionRulesChanged()
+
+			for i = 0, new:GetPhysicsObjectCount() - 1 do
+				local bone = new:GetPhysicsObjectNum(i)
+
+				if IsValid(bone) then
+					bone:EnableMotion(true)
+					bone:Wake()
+					bone:SetVelocity(Vector(0,0,0))
+				end
+			end
+		end
+	end)
+end
+
 print("[Breach2] server/sv_misc.lua loaded!")

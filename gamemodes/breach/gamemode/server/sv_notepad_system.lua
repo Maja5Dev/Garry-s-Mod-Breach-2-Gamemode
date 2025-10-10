@@ -14,41 +14,49 @@ notepad_system.GetNotepad = function(id)
 end
 
 notepad_system.GetPlayerNotepad = function(ply)
-    if IsValid(ply) then
-        if ply:IsPlayer() then
-            return notepad_system.AllNotepads[ply.charid]
-        end
+    if IsValid(ply) and ply:IsPlayer() then
+        return notepad_system.AllNotepads[ply.charid]
     end
+
     return nil
 end
 
 notepad_system.AssignNewNotepad = function(ply, to_send)
-    if ply:IsSpectator() == true or ply:Alive() == false then return end
-    --print("trying to assing a new notepad to " .. tostring(ply:Nick()))
-    if IsValid(ply) then
-        if ply:IsPlayer() then
-            notepad_system.AllNotepads[ply.charid] = {
-                people = {
-                    {
-                        br_showname = ply.br_showname,
-                        br_role = ply.br_role,
-                        br_team = ply.br_team,
-                        br_ci_agent = ply.br_ci_agent,
-                        health = HEALTH_ALIVE,
-						scp = (ply.br_team == TEAM_SCP)
-                    }
-                }
-            }
+    if !IsValid(ply) or !ply:IsPlayer() or ply:IsSpectator() or !ply:Alive() then return end
 
-            ply.notepad = notepad_system.AllNotepads[ply.charid]
-			if to_send then
-				net.Start("br_send_notepad")
-					net.WriteTable(ply.notepad)
-				net.Send(ply)
-			end
-            --print("a new notepad assigned to: " .. ply:Nick())
-            --PrintTable(ply.notepad)
-        end
+    notepad_system.AllNotepads[ply.charid] = {
+        people = {
+            {
+                br_showname = ply.br_showname,
+                br_role = ply.br_role,
+                br_team = ply.br_team,
+                br_ci_agent = ply.br_ci_agent,
+                health = HEALTH_ALIVE,
+                scp = (ply.br_team == TEAM_SCP)
+            }
+        }
+    }
+
+    ply.notepad = notepad_system.AllNotepads[ply.charid]
+
+    if to_send then
+        net.Start("br_send_notepad")
+            net.WriteTable(ply.notepad)
+        net.Send(ply)
+    end
+end
+
+notepad_system.ReplaceNotepad = function(ply, notepad, to_send)
+    if !IsValid(ply) or !ply:IsPlayer() or ply:IsSpectator() or !ply:Alive() then return end
+
+    ply.notepad = notepad
+
+    notepad_system.AllNotepads[ply.charid] = notepad
+
+    if to_send then
+        net.Start("br_send_notepad_learn")
+            net.WriteTable(ply.notepad)
+        net.Send(ply)
     end
 end
 

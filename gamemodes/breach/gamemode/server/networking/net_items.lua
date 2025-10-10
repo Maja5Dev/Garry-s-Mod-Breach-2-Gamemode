@@ -88,13 +88,15 @@ net.Receive("br_get_special_items", function(len, ply)
 end)
 
 net.Receive("br_get_owned_devices", function(len, ply)
-	if len < 8 and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
+	if len < 64 and !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
 		local tab = {}
+
 		for k,v in pairs(ply.br_special_items) do
 			if string.find(v.class, "device_") then
 				table.ForceInsert(tab, v)
 			end
 		end
+
 		net.Start("br_get_owned_devices")
 			net.WriteTable(tab)
 		net.Send(ply)

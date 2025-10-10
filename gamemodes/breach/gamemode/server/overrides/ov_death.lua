@@ -19,7 +19,11 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 
 		ply:ForceRemoveFlashlight()
 		ply:DropCurrentWeapon()
-		ply.br_downed = false
+
+		if ply.br_downed then
+			self:StopSound("breach2/player/breathe1.wav")
+			ply.br_downed = false
+		end
 
 		ply.backupLastPlayerInfo = ply:CopyPlayerInfo()
 
@@ -32,11 +36,14 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 			if IsValid(ply.entity173) then
 				ply.entity173:OnOwnerDeath()
 			end
+
 		elseif !IsValid(ply.Body) then
 			local dis = 0
+
 			if IsValid(attacker) then
 				dis = ply:GetPos():Distance(attacker:GetPos())
 			end
+			
 			CreateRagdollPL(ply, attacker, dmginfo:GetDamageType(), dis)
 		end
 
@@ -64,7 +71,11 @@ end
 function GM:PlayerDeath(ply, inflictor, attacker)
 	ply.NextSpawnTime = CurTime() + 2
 	ply.DeathTime = CurTime()
-	ply.br_downed = false
+
+	if ply.br_downed then
+		self:StopSound("breach2/player/breathe1.wav")
+		ply.br_downed = false
+	end
 
 	ply:ForceRemoveFlashlight()
 
@@ -88,6 +99,7 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 	if ply:HasWeapon("item_c4") then
 		local wep = ply:GetWeapon("item_c4")
 		local c4planted = ents.Create("br2_c4_charge")
+
 		if IsValid(c4planted) then
 			c4planted.UsePhysics = true
 			c4planted:SetPos(ply:GetPos())
@@ -96,6 +108,7 @@ function GM:PlayerDeath(ply, inflictor, attacker)
 			c4planted.isArmed = wep.isArmed
 			c4planted.Activated = wep.Activated
 			c4planted.Timer = wep.Timer
+			c4planted.Owner = ply
 			if wep.nextExplode then
 				c4planted.nextExplode = wep.nextExplode
 			end

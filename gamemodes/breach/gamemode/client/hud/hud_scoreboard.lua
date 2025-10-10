@@ -318,7 +318,11 @@ function BR_ShowScoreboard()
 		})
 	end
 
-	if !table.HasValue(BR2_ROLES_DISALLOWED_NOTEPAD, LocalPlayer().br_role) and !LocalPlayer():IsSpectator() and LocalPlayer():Alive() then
+	if !table.HasValue(BR2_ROLES_DISALLOWED_NOTEPAD, LocalPlayer().br_role)
+	and !LocalPlayer():IsSpectator() and LocalPlayer():Alive()
+	and istable(BR2_OURNOTEPAD)
+	and table.Count(BR2_OURNOTEPAD.people) > 0
+	then
 		surface.SetFont("BR_Scoreboard_Names")
 		local button_size = select(1, surface.GetTextSize("Open Notepad")) * 1.3
 

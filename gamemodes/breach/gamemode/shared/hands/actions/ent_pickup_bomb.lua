@@ -2,9 +2,9 @@
 registerHandsAction("pickup_bomb", {
     name = "Pickup the bomb",
     desc = "Pickup the bomb in front of you",
-    background_color = Color(125,0,0),
+	background_color = BR2_Hands_Actions_Colors.pickup_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         local tr_ent = self.Owner:GetAllEyeTrace().Entity
 
         return IsValid(tr_ent)
@@ -35,7 +35,5 @@ registerHandsAction("pickup_bomb", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 11
+    end
 })

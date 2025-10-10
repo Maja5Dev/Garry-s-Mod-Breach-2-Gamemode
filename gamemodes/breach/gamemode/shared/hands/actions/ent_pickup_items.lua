@@ -73,12 +73,12 @@ hook.Add("BR2_OnHandsAddActions", "AddPickupItemsActions", function(self)
 			item_name = v.PrintName
 		end
 		
-		addTemporaryHandsAction("pickup_item_" .. i .. "", {
+		addTemporaryHandsAction(self.Contents, "pickup_item_" .. i .. "", {
 			name = "Pick up " .. item_name .. "",
 			desc = "Pick up the item",
-			background_color = Color(0,150,150),
+			background_color = BR2_Hands_Actions_Colors.pickup_actions,
 
-            canDo = true,
+            can_do = true,
 
 			cl_effect = function(self)
 				chat.AddText(Color(255,255,255,255), "Trying to pick up: "..item_name.."...")
@@ -90,7 +90,9 @@ hook.Add("BR2_OnHandsAddActions", "AddPickupItemsActions", function(self)
 
 			cl_after = function()
 				WeaponFrame:Remove()
-			end
+			end,
+
+			sort = 100 + i
 		})
 	end
 end)

@@ -2,8 +2,9 @@
 registerHandsAction("loot_body", {
     name = "Loot the body",
     desc = "Search the body you are looking at",
+    background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         local tr_ent = self.Owner:GetAllEyeTrace().Entity
 
         return IsValid(tr_ent)
@@ -18,7 +19,5 @@ registerHandsAction("loot_body", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 8,
+    end
 })

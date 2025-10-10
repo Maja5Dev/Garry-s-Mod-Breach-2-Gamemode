@@ -2,9 +2,9 @@
 registerHandsAction("identify_player", {
     name = "Identify",
     desc = "Identify the player you have last seen",
-    background_color = Color(0,150,150),
+    background_color = BR2_Hands_Actions_Colors.someone_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         return IsValid(lastseen_player)
         and lastseen_player:IsPlayer()
         and lastseen_player.br_team != TEAM_SCP
@@ -17,7 +17,5 @@ registerHandsAction("identify_player", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 7
+    end
 })

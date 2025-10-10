@@ -119,9 +119,9 @@ end
 registerHandsAction("examine_someone", {
     name = "Examine someone",
     desc = "Examine the player you last seen",
-    background_color = Color(125,125,125),
+    background_color = BR2_Hands_Actions_Colors.someone_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         return (CurTime() - lastseen) < 4
         and IsValid(lastseen_player)
 
@@ -142,7 +142,5 @@ registerHandsAction("examine_someone", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 2
+    end
 })

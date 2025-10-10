@@ -178,19 +178,25 @@ net.Receive("br_drop_weapon", function(len, ply)
 	end
 end)
 
-net.Receive("br_action", function(len, ply)
-	if ply:Alive() and ply:IsSpectator() == false then
+net.Receive("br_hands_action", function(len, ply)
+	local action_name = net.ReadString()
+
+	if ply:Alive() and ply:IsSpectator() == false and ply.br_downed != true then
 		local wep = ply:GetActiveWeapon()
-		if IsValid(wep) and wep.IsHands == true and wep.Contents then
-			wep:CheckContents()
-			
-			local int = net.ReadInt(8)
-			for k,v in pairs(wep.Contents) do
-				if v.id == int then
-					v.sv_effect(wep, ply)
-					return
-				end
+
+		if IsValid(wep) and wep.IsHands == true then
+			local action = BR2_HandsActions[action_name]
+
+			if isfunction(action.can_do) and !action.can_do(wep) then
+				ply:PrintMessage(HUD_PRINTTALK, "You are not allowed to perform " .. action_name .. ".")
+				return
 			end
+
+			if action == nil then
+				error("Hand action not found: " .. action_name .. "")
+			end
+			
+			BR2_HandsActions[action_name].sv_effect(wep, ply)
 		end
 	end
 end)
@@ -201,6 +207,7 @@ net.Receive("br_c4_action", function(len, ply)
 
 		if IsValid(wep) and wep:GetClass() == "item_c4" and wep.Contents then
 			local int = net.ReadInt(8)
+			
 			for k,v in pairs(wep.Contents) do
 				if v.id == int then
 					v.sv_effect(wep, ply)

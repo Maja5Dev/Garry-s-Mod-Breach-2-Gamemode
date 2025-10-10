@@ -17,9 +17,9 @@ end
 registerHandsAction("put_on_scp35", {
     name = "Put on the mask",
     desc = "Put on the mask on your face",
-    background_color = Color(125,125,125),
+	background_color = BR2_Hands_Actions_Colors.ent_important_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         local tr = util.TraceLine({
             start = self.Owner:EyePos(),
             endpos = self.Owner:EyePos() + (self.Owner:EyeAngles():Forward() * 70),
@@ -41,7 +41,5 @@ registerHandsAction("put_on_scp35", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-    
-    sort = 16
+    end
 })

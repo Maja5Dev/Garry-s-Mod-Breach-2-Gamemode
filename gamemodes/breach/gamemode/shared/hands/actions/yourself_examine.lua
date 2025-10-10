@@ -55,9 +55,7 @@ local function examine_PersonalInfo(pl)
     if isciagent then
         chat.AddText(Color(255, 255, 255), prefix .. "a ", Color(255, 0, 255), "Chaos Insurgency Spy", Color(255, 255, 255), "!")
     end
-end
 
-local function examine_SCP035(pl)
     if our_role == ROLE_SCP_035 then
         local health_times_left = math.Round(pl:Health() / (pl:GetMaxHealth() * 0.01))
 
@@ -73,7 +71,6 @@ local function examine_SCP035(pl)
             else
                 text_left = ", it has " .. math.floor(time_left) .. " seconds left"
             end
-
         else
             text_left = ", it has " .. string.FormattedTime(time_left, "%02i:%02i") .. " minutes left"
         end
@@ -289,7 +286,6 @@ local function examine_yourself()
     end
 
     examine_PersonalInfo(pl)
-    examine_SCP035(pl)
 
     examine_Armor(pl)
     examine_Weapons(pl)
@@ -315,9 +311,9 @@ end
 registerHandsAction("examine_yourself", {
     name = "Examine yourself",
     desc = "Check everything you know about yourself",
-    background_color = Color(125,125,125),
+    background_color = BR2_Hands_Actions_Colors.self_actions,
 
-    canDo = true,
+    can_do = true,
 
     cl_effect = function(self)
         examine_yourself()
@@ -325,7 +321,5 @@ registerHandsAction("examine_yourself", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 1
+    end
 })

@@ -2,9 +2,9 @@
 registerHandsAction("use_914_1", {
     name = "Change SCP-914",
     desc = "Change SCP-914's status",
-    background_color = Color(150,150,50),
+    background_color = Color(150, 150, 50),
 
-    canDo = function(self)
+    cl_can_do = function(self)
         return select(1, BR_Check914())
     end,
 
@@ -38,14 +38,13 @@ registerHandsAction("use_914_1", {
 registerHandsAction("use_914_2", {
     name = "Start SCP-914",
     desc = "Start the machine",
-    background_color = Color(50,150,50),
+	background_color = Color(50,150,50),
 
-    canDo = function(self)
+    cl_can_do = function(self)
         return select(2, BR_Check914())
     end,
 
     sv_effect = function(self, ply)
-        if ply:Alive() == false or ply:IsSpectator() then return end
         if !(br2_914_on_map == true and BR2_Get914Status() != 0) then return end
 
         local tr_hull = util.TraceHull({
@@ -67,7 +66,5 @@ registerHandsAction("use_914_2", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 13
+    end
 })

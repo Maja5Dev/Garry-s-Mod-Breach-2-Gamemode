@@ -1,20 +1,22 @@
 
 include("config/sv_workshop_addons.lua") -- Load addons for the clients to download on the server
 
-AddCSLuaFile("client/hands/actions/check_body_notepad.lua")
-AddCSLuaFile("client/hands/actions/check_someones_notepad.lua")
-AddCSLuaFile("client/hands/actions/examine_someone.lua")
-AddCSLuaFile("client/hands/actions/examine_yourself.lua")
-AddCSLuaFile("client/hands/actions/identify_someone.lua")
-AddCSLuaFile("client/hands/actions/loot_body.lua")
-AddCSLuaFile("client/hands/actions/pickup_bomb.lua")
-AddCSLuaFile("client/hands/actions/pickup_items.lua")
-AddCSLuaFile("client/hands/actions/put_on_scp_035.lua")
-AddCSLuaFile("client/hands/actions/put_scp173_into_box.lua")
-AddCSLuaFile("client/hands/actions/scp914.lua")
-AddCSLuaFile("client/hands/actions/special_items_menu.lua")
-AddCSLuaFile("client/hands/actions/steal_outfit.lua")
-AddCSLuaFile("client/hands/hands.lua") -- register very early
+AddCSLuaFile("shared/hands/actions/ent_box_173.lua")
+AddCSLuaFile("shared/hands/actions/ent_pickup_bomb.lua")
+AddCSLuaFile("shared/hands/actions/ent_pickup_items.lua")
+AddCSLuaFile("shared/hands/actions/ent_put_on_scp035.lua")
+AddCSLuaFile("shared/hands/actions/ent_scp914_controls.lua")
+AddCSLuaFile("shared/hands/actions/ragdoll_change_host_scp035.lua")
+AddCSLuaFile("shared/hands/actions/ragdoll_check_notepad.lua")
+AddCSLuaFile("shared/hands/actions/ragdoll_loot.lua")
+AddCSLuaFile("shared/hands/actions/ragdoll_steal_outfit.lua")
+AddCSLuaFile("shared/hands/actions/someone_check_notepad.lua")
+AddCSLuaFile("shared/hands/actions/someone_examine.lua")
+AddCSLuaFile("shared/hands/actions/someone_identify.lua")
+AddCSLuaFile("shared/hands/actions/yourself_backpack.lua")
+AddCSLuaFile("shared/hands/actions/yourself_examine.lua")
+
+AddCSLuaFile("shared/hands/hands.lua") -- register very early
 
 AddCSLuaFile("client/cl_util.lua") -- just contains functions
 AddCSLuaFile("client/cl_debug.lua") -- just contains functions
@@ -127,6 +129,7 @@ AddCSLuaFile("cl_init.lua")
 -- SERVER
 include("shared.lua")
 
+include("shared/hands/hands.lua") -- register very early
 include("config/internal/sv_names.lua") -- config for names
 include("config/internal/sh_weapons.lua") -- config for weapons, top priority
 include("config/internal/sv_weapon_sets.lua") -- config for weapon sets

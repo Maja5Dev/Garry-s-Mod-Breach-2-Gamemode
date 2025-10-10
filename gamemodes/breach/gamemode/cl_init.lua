@@ -2,7 +2,7 @@
 
 include("shared.lua")
 
-include("client/hands/hands.lua") -- register very early
+include("shared/hands/hands.lua") -- register very early
 include("client/cl_util.lua") -- just contains functions
 include("client/cl_debug.lua") -- just contains functions
 include("client/cl_light_level.lua") -- just contains functions

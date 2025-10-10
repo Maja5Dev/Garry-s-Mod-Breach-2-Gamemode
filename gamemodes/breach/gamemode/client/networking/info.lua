@@ -1,29 +1,66 @@
 ﻿
-function BR_AssignNotepadPlayers()
-	for _,pl in pairs(player.GetAll()) do
-		if pl != LocalPlayer() then
-			pl.br_showname = nil
-			pl.br_ci_agent = nil
-			pl.br_role = nil
-			pl.health = nil
-			pl.scp = nil
+function BR_AssignNotepadPlayers(dont_assign_local_player, old_notepad)
+	if BR2_OURNOTEPAD.people == nil then
+		BR2_OURNOTEPAD = {}
+		BR2_OURNOTEPAD.people = {}
+	end
+
+	if istable(old_notepad) then
+		-- add old people that arent in the new notepad
+		for _, pl_old in ipairs(old_notepad.people) do
+			local found = false
+
+			for _, pl in ipairs(BR2_OURNOTEPAD.people) do
+				if pl.charid == pl_old.charid then
+					found = true
+				end
+			end
+
+			if !found then
+				table.ForceInsert(BR2_OURNOTEPAD, pl_old)
+			end
+		end
+
+		-- learning new things about already known people
+		for _, pl in ipairs(BR2_OURNOTEPAD.people) do
+			for _, pl_old in ipairs(old_notepad.people) do
+				if pl.charid == pl_old.charid then
+					-- learnt that they are a spy
+					if pl.br_ci_agent == false and pl_old.br_ci_agent == true then
+						pl.br_ci_agent = true
+					end
+
+					if pl.br_showname == nil and pl_old.br_showname != nil then
+						pl.br_showname = pl_old.br_showname
+					end
+
+					if pl.br_role == nil and pl_old.br_role != nil then
+						pl.br_role = pl_old.br_role
+					end
+
+					if pl.scp == nil and pl_old.scp != nil then
+						pl.scp = pl_old.scp
+					end
+				end
+			end
 		end
 	end
 
 	if LocalPlayer().Alive and LocalPlayer():Alive() and !LocalPlayer():IsSpectator() then
 		for _,pl in pairs(player.GetAll()) do
-			if BR2_OURNOTEPAD.people == nil then
-				--print(pl:Nick() .. " ERRRROOOORR RRR R")
-				--PrintTable(BR2_OURNOTEPAD)
-				BR2_OURNOTEPAD = {}
-				BR2_OURNOTEPAD.people = {}
+			if dont_assign_local_player and pl == LocalPlayer() then
+				continue
 			end
 
 			for k,v in pairs(BR2_OURNOTEPAD.people) do
-				if pl:GetNWInt("BR_CharID") == v.charid then
-					--print("found " .. pl:Nick() .. " " .. v.charid)
+				if pl:GetNWInt("BR_CharID") == v.charid and (dont_assign_local_player != true or pl.br_showname == nil) then
 					pl.br_showname = v.br_showname
-					pl.br_ci_agent = v.br_ci_agent
+
+					-- learning
+					if dont_assign_local_player and v.br_ci_agent != pl.br_ci_agent and pl.br_ci_agent == false then
+						pl.br_ci_agent = v.br_ci_agent
+					end
+
 					pl.br_role = v.br_role
 					pl.br_team = v.br_team
 					pl.health = v.health
@@ -52,6 +89,20 @@ net.Receive("br_send_notepad", function(len)
 
 	if BR2_OURNOTEPAD.people and table.Count(BR2_OURNOTEPAD.people) > 0 then
 		timer.Simple(0.1, BR_AssignNotepadPlayers)
+	end
+end)
+
+-- do not replace localplayer info on this, used by 035 changing hosts
+net.Receive("br_send_notepad_learn", function(len)
+	local old_notepad = table.Copy(BR2_OURNOTEPAD)
+
+	local got_tab = net.ReadTable()
+	BR2_OURNOTEPAD = got_tab
+
+	if BR2_OURNOTEPAD.people and table.Count(BR2_OURNOTEPAD.people) > 0 then
+		timer.Simple(0.1, function()
+			BR_AssignNotepadPlayers(true, old_notepad)
+		end)
 	end
 end)
 

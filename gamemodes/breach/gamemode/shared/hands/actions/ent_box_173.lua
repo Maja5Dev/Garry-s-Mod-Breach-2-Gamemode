@@ -2,8 +2,9 @@
 registerHandsAction("box_173", {
     name = "Box 173",
     desc = "Put a box on the SCP-173",
+	background_color = BR2_Hands_Actions_Colors.ent_important_actions,
 
-    canDo = function(self)
+    can_do = function(self)
         if !(self.Owner.br_role == ROLE_MTF_OPERATIVE or self.Owner.br_team == TEAM_MTF) then
             return
         end
@@ -42,7 +43,5 @@ registerHandsAction("box_173", {
 
     cl_after = function(self)
         WeaponFrame:Remove()
-    end,
-
-    sort = 14
+    end
 })

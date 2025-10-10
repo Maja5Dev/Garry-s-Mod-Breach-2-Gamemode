@@ -70,7 +70,7 @@ function BR_DEFAULT_MAP_Organize_Corpses()
 				rag.Info = {}
 				rag.Info.CorpseID = rag:GetCreationID()
 				rag.Info.Victim = NULL
-				rag.Info.VictimNick = "Unknown"
+				rag.Info.br_showname = nil
 				rag.Info.DamageType = DMG_GENERIC
 				rag.Info.Time = CurTime() - math.random(20,1400)
 				rag.RagdollHealth = 0
