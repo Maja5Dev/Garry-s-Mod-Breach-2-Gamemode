@@ -24,14 +24,14 @@ net.Receive("br_end_reviving", function(len, ply)
 
 	if ply.br_role == ROLE_SCP_049 then
 		if isPlayerValid and IsValid(ent.Info.Victim) and (!ent.Info.Victim:Alive() or ent.Info.Victim:IsSpectator())
-			and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime())
+			and !(ent:GetPos():Distance(ply:GetPos()) > 150) and IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 6.1) > CurTime())
 		then
 			ent.Info.Victim:UnDownPlayerAsZombie(ply)
 			end_reviving_pl(ply)
 		end
 
 	elseif isPlayerValid then
-		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 8.1) > CurTime()) then
+		if IsValid(ply.lastPulseChecked) and ply.lastPulseChecked == ent and ((ply.startedReviving[2] + 6.1) > CurTime()) then
 			if isPlayerAlive and ent.Info.Victim.Body != nil then
 				ent.Info.Victim:UnDownPlayer(ply)
 			end

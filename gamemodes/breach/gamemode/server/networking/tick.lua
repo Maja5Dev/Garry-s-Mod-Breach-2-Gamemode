@@ -35,7 +35,7 @@ function BR2NetworkingTick()
 			end
 			
 			-- Reviving
-			if istable(v.startedReviving) and (CurTime() - v.startedReviving[2]) > 9 then
+			if istable(v.startedReviving) and (CurTime() - v.startedReviving[2]) > 7 then
 				v.startedReviving = nil
 				v:SetNWBool("br_is_reviving", false)
 			end
@@ -137,15 +137,18 @@ function BR2NetworkingTick()
 			if v.br_role == ROLE_SCP_049 and istable(v.startedReviving) and IsValid(v.startedReviving[1]) then
 				local dis = (v.startedReviving[1]:GetPos():Distance(v:GetPos()) > 70) or v:KeyDown(IN_ATTACK) or v:KeyDown(IN_ATTACK2)
 
-				if (v.startedReviving[2] + 8.1) > CurTime() and !dis then
+				if (v.startedReviving[2] + 6.1) > CurTime() and !dis then
 					v.startedReviving[1].nextReviveMove = v.startedReviving[1].nextReviveMove or 0
+
 					if v.startedReviving[1].nextReviveMove < CurTime() then
 						local phys_obj = v.startedReviving[1]:GetPhysicsObject()
 						phys_obj:SetVelocity(Angle(0, v:EyeAngles().yaw, 0):Forward() * 200)
+
 						local cure_sound = table.Random({
 							"weapons/knife/knife_stab.wav",
 							"weapons/knife/knife_hit1.wav"
 						})
+
 						v.startedReviving[1]:EmitSound(cure_sound, 100, 100, 0.7)
 						v.startedReviving[1].nextReviveMove = CurTime() + 1
 					end
@@ -219,7 +222,7 @@ function BR2NetworkingTick()
 						if v2.startedReviving and IsValid(v.Body) and v2.startedReviving[1] == v.Body and v2.br_role != ROLE_SCP_049 then
 							local dis = (v.Body:GetPos():Distance(v2:GetPos()) > 70) or v2:KeyDown(IN_ATTACK) or v2:KeyDown(IN_ATTACK2)
 
-							if (v2.startedReviving[2] + 8.1) > CurTime() and !dis then
+							if (v2.startedReviving[2] + 6.1) > CurTime() and !dis then
 								if v.Body.nextReviveMove < CurTime() then
 									local phys_obj = v.Body:GetPhysicsObject()
 									phys_obj:SetVelocity(Vector(0,0,200))
