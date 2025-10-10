@@ -109,7 +109,7 @@ BREACH_OUTFITS = {
 		player_color = Color(244,152,66,255),
 		hands = {mdl = "models/weapons/c_arms_citizen.mdl", skin = 0},
 		examine = "You are wearing an Orange Jumpsuit",
-		examine_info = " - He looks like a Class D"
+		examine_info = " - They look like a Class D"
 	},
 	{
 		class = "scientist",
@@ -136,7 +136,7 @@ BREACH_OUTFITS = {
 		player_color = Color(255,255,255,255),
 		hands = {mdl = "models/weapons/c_arms_citizen.mdl", skin = 0},
 		examine = "You are wearing a Scientist Outfit",
-		examine_info = " - He looks like a Researcher"
+		examine_info = " - They look like a Researcher"
 	},
 	{
 		class = "janitor",
@@ -165,7 +165,7 @@ BREACH_OUTFITS = {
 		player_color = Color(2,59,106,255),
 		hands = {mdl = "models/weapons/c_arms_refugee.mdl", skin = 0},
 		examine = "You are wearing a Janitor Suit",
-		examine_info = " - He looks like a Janitor"
+		examine_info = " - They look like a Janitor"
 	},
 	{
 		class = "engineer",
@@ -189,7 +189,7 @@ BREACH_OUTFITS = {
 		player_color = Color(194,145,0,255),
 		hands = {mdl = "models/weapons/c_arms_refugee.mdl", skin = 0},
 		examine = "You are wearing an Engineer Suit",
-		examine_info = " - He looks like an Engineer"
+		examine_info = " - They look like an Engineer"
 	},
 	{
 		class = "medic",
@@ -218,7 +218,7 @@ BREACH_OUTFITS = {
 		player_color = Color(21,122,147,255),
 		hands = {mdl = "models/weapons/c_arms_citizen.mdl", skin = 0},
 		examine = "You are wearing a Medical Uniform",
-		examine_info = " - He looks like a Doctor"
+		examine_info = " - They look like a Doctor"
 	},
 	{
 		class = "hazmat",
@@ -238,7 +238,7 @@ BREACH_OUTFITS = {
 		player_color = Color(255,255,255,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_2.mdl", skin = 0},
 		examine = "You are wearing a Hazmat Suit, its heavy and hot but gives you protection",
-		examine_info = " - He looks like a Containment Specialist"
+		examine_info = " - They look like a Containment Specialist"
 	},
 	{
 		class = "guard",
@@ -257,7 +257,7 @@ BREACH_OUTFITS = {
 		player_color = Color(50,50,50,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_2.mdl", skin = 0},
 		examine = "You are wearing a Guard Uniform which gives you protection",
-		examine_info = " - He looks like a Guard"
+		examine_info = " - They look like a Guard"
 	},
 	{
 		class = "ci_soldier",
@@ -276,7 +276,7 @@ BREACH_OUTFITS = {
 		player_color = Color(50,50,50,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_3.mdl", skin = 0},
 		examine = "You are wearing a Soldier Uniform which gives you a lot of protection",
-		examine_info = " - He looks like a Soldier"
+		examine_info = " - They look like a Soldier"
 	},
 	{
 		class = "mtf",
@@ -295,7 +295,7 @@ BREACH_OUTFITS = {
 		player_color = Color(50,50,50,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_3.mdl", skin = 0},
 		examine = "You are wearing a MTF Uniform which gives you a lot of protection",
-		examine_info = " - He looks like a Soldier"
+		examine_info = " - They look like a Soldier"
 	},
 }
 
