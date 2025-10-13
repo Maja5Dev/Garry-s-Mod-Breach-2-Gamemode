@@ -1,5 +1,5 @@
 ﻿
-function put_on_035()
+local function put_on_035(ply)
     local tr = util.TraceLine({
         start = ply:EyePos(),
         endpos = ply:EyePos() + (ply:EyeAngles():Forward() * 70),
@@ -36,7 +36,7 @@ registerHandsAction("put_on_scp35", {
     end,
 
     sv_effect = function(self, ply)
-        put_on_035()
+        put_on_035(ply)
     end,
 
     cl_after = function(self)

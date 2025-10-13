@@ -126,6 +126,7 @@ function assign_system.Assign_SCP173(ply)
 	ply:AddFlags(FL_NOTARGET)
 	ply:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 	ply:SetCustomCollisionCheck(true)
+	ply:SetModel(SCP_173_MODEL)
 
 	ply.first_info = "scp_173"
 	ply.mission_set = "scp_173"
