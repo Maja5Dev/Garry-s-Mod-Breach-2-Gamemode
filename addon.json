@@ -1,0 +1,17 @@
+{
+	"title"		: "Breach 2",
+	"type"		: "Gamemode",
+	"tags"		: ["roleplay"],
+	"ignore"	: [
+		"*.psd",
+		"*.vcproj",
+		"*.svn*",
+		"*.sw.vtx",
+		"*.xbox.vtx",
+		"*.py",
+		"*.txt",
+		"*.png",
+		"*.code-workspace",
+		"*.otf*"
+	]
+}
