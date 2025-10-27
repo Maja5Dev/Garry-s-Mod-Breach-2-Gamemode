@@ -231,7 +231,7 @@ function SWEP:Check173()
 
 		self.Owner.entity173 = ents.Create("breach_173ent")
 		self.Owner.entity173:SetPos(self.Owner:GetPos())
-		self.Owner.entity173:SetModel( SCP_173_MODEL)
+		self.Owner.entity173:SetModel(SCP_173_MODEL)
 		self.Owner.entity173:SetAngles(self.Owner:GetAngles())
 		self.Owner.entity173:SetOwner(self.Owner)
 		self.Owner.entity173:SetModelScale(1, 0)

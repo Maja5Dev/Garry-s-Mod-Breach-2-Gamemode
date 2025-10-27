@@ -46,7 +46,7 @@ hook.Add("PostPlayerDraw", "BR2_DrawAttachmentModels", function(ply)
                         v.ang or Angle(),
                         matrix:GetTranslation(),
                         matrix:GetAngles()
-                    )
+                   )
                 end
             end
         else

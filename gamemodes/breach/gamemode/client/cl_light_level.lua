@@ -16,7 +16,7 @@ function GetAverageLightLevel(ply, numSamples, distance)
             math.Rand(-90, 90),  -- pitch
             math.Rand(-180, 180), -- yaw
             0
-        )
+       )
         table.insert(directions, angle:Forward())
     end
 

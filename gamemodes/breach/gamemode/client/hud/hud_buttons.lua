@@ -53,7 +53,7 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 
 					surface.SetDrawColor(255, 255, 255, 200)
 					surface.SetMaterial(opened_tab.mat)
-					surface.DrawTexturedRect(mx-( (opened_tab.w) /2),my-( (opened_tab.h) /2), opened_tab.w, opened_tab.h)
+					surface.DrawTexturedRect(mx-((opened_tab.w) /2),my-((opened_tab.h) /2), opened_tab.w, opened_tab.h)
 					focus_button_ready = bgroup
 				else
 					if not bgroup.mat then
@@ -75,7 +75,7 @@ hook.Add("HUDPaint", "BR2_DrawButtons", function()
 
 					surface.SetDrawColor(255, 255, 255, 75 * (1 - d1))
 					surface.SetMaterial(closed_tab.mat)
-					surface.DrawTexturedRect(pos.x - ( (closed_tab.w) / 2), pos.y - ( (closed_tab.h) / 2), closed_tab.w, closed_tab.h)
+					surface.DrawTexturedRect(pos.x - ((closed_tab.w) / 2), pos.y - ((closed_tab.h) / 2), closed_tab.w, closed_tab.h)
 				end
 			end
 		end

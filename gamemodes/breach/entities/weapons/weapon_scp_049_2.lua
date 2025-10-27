@@ -39,8 +39,8 @@ function SWEP:SecondaryAttack()
     self.Attacking = true
     self.NextAttack = CurTime() + 2
 
-	self:SetNextPrimaryFire( CurTime() + self.Secondary.AttackDelay)
-	self:SetNextSecondaryFire( CurTime() + self.Secondary.AttackDelay)
+	self:SetNextPrimaryFire(CurTime() + self.Secondary.AttackDelay)
+	self:SetNextSecondaryFire(CurTime() + self.Secondary.AttackDelay)
 end
 */
 
@@ -258,7 +258,7 @@ SWEP.DefaultNVG = {
 	effect = function(nvg, tab)
 		--         Darken, Multiply, SizeX, SizeY, Passes, ColorMultiply, Red, Green, Blue
 		--DrawBloom(0,      1,        1,     1,     1,      1,            1,   1,     1)
-		DrawSharpen( 1.2, 1.2 )
+		DrawSharpen(1.2, 1.2)
 
 		tab.contrast = nvg.contrast
 		tab.colour = nvg.colour
