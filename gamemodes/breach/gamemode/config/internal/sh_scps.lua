@@ -81,6 +81,7 @@ BR2_ROLE_WEAPON_LIMITS = {
     },
 }
 
+-- used to display npc names in spectating TODO
 BR_SCP_NPC_CLASSES = {
 	npc_cpt_scp_049 = "SCP-049",
 	npc_cpt_scp_106 = "SCP-106",

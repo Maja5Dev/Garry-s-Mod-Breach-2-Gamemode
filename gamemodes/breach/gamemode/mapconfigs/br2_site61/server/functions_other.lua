@@ -19,8 +19,10 @@ function MAP_EvacShelter1()
 	for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 		if v.item_gen_group == "EZ_EVAC_SHELTER_ITEMS" then
 			evac_items = v
+			
 		elseif v.item_gen_group == "EZ_EVAC_SHELTER_WEAPONS" then
 			evac_weapons = v
+
 		elseif v.item_gen_group == "EZ_EVAC_SHELTER_AMMO" then
 			evac_ammo = v
 		end

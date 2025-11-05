@@ -162,7 +162,7 @@ function WMeta:PlaySequence(seq_id, idle)
 		self.IdlePlaying = false
 	end
 	
-	if !(self and self:IsValid()) or !(self.Owner && self.Owner:IsValid()) then return end
+	if !(self and self:IsValid()) or !(self.Owner and self.Owner:IsValid()) then return end
 	local vm = self.Owner:GetViewModel()
 	
 	if !(vm and vm:IsValid()) then return end

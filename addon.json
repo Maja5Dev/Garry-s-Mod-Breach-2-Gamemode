@@ -12,6 +12,9 @@
 		"*.txt",
 		"*.png",
 		"*.code-workspace",
+		"*.zip",
+		"LICENSE",
+		"_unused/*",
 		"*.otf*"
 	]
 }

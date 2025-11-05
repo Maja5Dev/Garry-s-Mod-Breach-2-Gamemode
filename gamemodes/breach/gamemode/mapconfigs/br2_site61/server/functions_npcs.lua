@@ -17,14 +17,14 @@ function SpawnMapNPCs()
 		{"drg_scp0492ue3", Vector(3531.3984375, -6678.494140625, -8607.96875)},
 		{"drg_scp0492ue3", Vector(4664.5073242188, -6689.1069335938, -8606.96875)},
 
-		{"npc_cpt_scp_939_a", Vector(6592.954590, -893.843567, -11551.968750)},
+		{"br2_npc_cpt_scp_939a", Vector(6592.954590, -893.843567, -11551.968750)},
 
 		-- minor scps
-		{"npc_cpt_scp_012", Vector(-1122.385742, -195.140732, -8447.968750)},
-		{"npc_cpt_scp_513", Vector(-812.415161, 5603.627441, -7167.968750)},
+		{"br2_npc_cpt_scp012", Vector(-1122.385742, -195.140732, -8447.968750)},
+		{"br2_npc_cpt_scp_513", Vector(-812.415161, 5603.627441, -7167.968750)},
 		{"drg_scp1762_linux55version", Vector(1108.526245, 6267.038574, -7262)},
-		{"npc_cpt_scp_1025", Vector(1518.4587402344, 1512.3208007813, -8156.4716796875)},
-		{"npc_cpt_scp_1123", Vector(-304.29190063477, -1764.6800537109, -8150.96875)},
+		{"br2_npc_cpt_scp_1025", Vector(1518.4587402344, 1512.3208007813, -8156.4716796875)},
+		{"br2_npc_cpt_scp_1123", Vector(-304.29190063477, -1764.6800537109, -8150.96875)},
 	}
 
 	for k,v in pairs(npc_tab) do
@@ -48,7 +48,6 @@ function SpawnMapNPCs()
 
 	BR_SpawnMapNPCTimer("drg_scp096mod2", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 170))
 	BR_SpawnMapNPCTimer("drg_uescp106ver2", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 180))
-	BR_SpawnMapNPCTimer("npc_cpt_scp_173", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 140, prep_time + 200))
 	BR_SpawnMapNPCTimer("dughoo_scpcb_scp-1048a", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 60, prep_time + 100))
 	BR_SpawnMapNPCTimer("drg_scp999", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 60, prep_time + 130))
 	
