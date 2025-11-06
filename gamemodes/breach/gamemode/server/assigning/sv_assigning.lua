@@ -113,6 +113,11 @@ function Pre_Assign(ply)
 end
 
 local function send_info(ply)
+	if ply.br_role == nil then
+		print(ply.br_showname, ply.br_team, ply.br_ci_agent)
+		error("BR2 ERROR: Tried to send role info to player " .. ply:Nick() .. " but their role was nil!\n")
+	end
+
 	net.Start("br_update_own_info")
 		net.WriteString(ply.br_showname)
 		net.WriteString(ply.br_role)
