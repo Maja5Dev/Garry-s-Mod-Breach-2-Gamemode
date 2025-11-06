@@ -44,10 +44,12 @@ function Switch_SelectPrev()
 		usedslot = usedslot + 1
 	end
 
-	if usedslot > #weps then
+	local num_weps = #weps or 0
+
+	if usedslot > num_weps then
 		usedslot = 1
 	elseif usedslot < 1 then
-		usedslot = #weps
+		usedslot = num_weps
 	end
 
 	if IsValid(weps[usedslot]) then
@@ -76,10 +78,12 @@ function Switch_SelectNext()
 		usedslot = usedslot - 1
 	end
 
-	if usedslot > #weps then
+	local num_weps = #weps or 0
+
+	if usedslot > num_weps then
 		usedslot = 1
 	elseif usedslot < 1 then
-		usedslot = #weps
+		usedslot = num_weps
 	end
 
 	if IsValid(weps[usedslot]) then
