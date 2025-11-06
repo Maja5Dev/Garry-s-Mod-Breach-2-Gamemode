@@ -1,7 +1,7 @@
 ﻿
-GM_VERSION = "0.4"
-GM_VERSION_GROUP = "Alpha"
-GM_VERSION_NUM = 0.4
+GM_VERSION = "0.5"
+GM_VERSION_GROUP = "Beta"
+GM_VERSION_NUM = 0.5
 
 SCP_173_MODEL = "models/breach2_models/scp_173_2.mdl"
 
