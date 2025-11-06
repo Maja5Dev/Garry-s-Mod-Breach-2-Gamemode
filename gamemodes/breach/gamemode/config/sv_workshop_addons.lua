@@ -36,3 +36,4 @@ resource.AddWorkshop('2455580712') -- SCP-049 Ultimate Edition SNPCs [DRGBASE]
 resource.AddWorkshop('2988173290') -- [DrGBase] SCP: Containment Breach NEXTBOTS
 resource.AddWorkshop('3012509914') -- SCP-035 | The Real Entity
 resource.AddWorkshop('3597784225') -- Better Lights
+resource.AddWorkshop('3600700793') -- NPCs
