@@ -23,15 +23,22 @@ function SWEP:SaveVariablesTo(ent)
 	ent.Code = self.Code
 end
 
+SWEP.LoopingSoundID = nil
+
 function SWEP:Deploy()
 	self.Owner:DrawViewModel(false)
 	
 	if CLIENT and IsFirstTimePredicted() then
 		surface.PlaySound("breach2/items/pickitem2.ogg")
-		self:RemoveStatic()
-		self:CheckStatic()
+
 		self.CurrentCode = 1
 		self.CurrentCodeNum = 1
+	end
+
+	if SERVER then
+		self:StopLoopingStatic()
+
+		self.LoopingSoundID = self:StartLoopingSound("radio/static_loop.wav")
 	end
 end
 
@@ -63,39 +70,23 @@ function SWEP:DrawWorldModel()
 	end
 end
 
-function SWEP:CheckStatic()
-	sound.PlayFile("sound/radio/static.ogg", "mono noblock", function(station, errorID, errorName)
-		if IsValid(station) then
-			station:SetPos(LocalPlayer():GetPos())
-			station:SetVolume(1)
-			station:EnableLooping(true)
-			station:SetTime(360)
-			station:Play()
-			LocalPlayer().channel = station
-		end
-	end)
-end
-
-function SWEP:RemoveStatic()
-	if CLIENT then
-		if LocalPlayer().channel != nil then
-			LocalPlayer().channel:EnableLooping(false)
-			LocalPlayer().channel:Stop()
-			LocalPlayer().channel = nil
-		end
+function SWEP:StopLoopingStatic()
+	if SERVER and isnumber(self.LoopingSoundID) then
+		self:StopLoopingSound(self.LoopingSoundID)
 	end
 end
 
 function SWEP:OnRemove()
-	if CLIENT then
-		self:RemoveStatic()
+	if SERVER then
+		self:StopLoopingStatic()
 	end
 end
 
 function SWEP:Holster()
-	if CLIENT then
-		self:RemoveStatic()
+	if SERVER then
+		self:StopLoopingStatic()
 	end
+
 	return true
 end
 
