@@ -56,13 +56,21 @@ registerHandsAction("box_173", {
             ent = ent.Owner
         end
 
+        local contained = false
+
         if IsValid(ent) and !IsValid(ent.Box) then
             if ent:GetClass() == "npc_cpt_scp_173" then
                 ent:ContainSCP(ply)
+                contained = true
 
             elseif ent:IsPlayer() and ent.br_role == ROLE_SCP_173 then
                 box173Player(ent, ply)
+                contained = true
             end
+        end
+
+        if contained then
+            round_system.AddEventLog("SCP-173 has been contained.")
         end
     end,
 
