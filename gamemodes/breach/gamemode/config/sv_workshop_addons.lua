@@ -35,3 +35,4 @@ resource.AddWorkshop('3430729756') -- DREAMS module (v1.1)
 resource.AddWorkshop('2455580712') -- SCP-049 Ultimate Edition SNPCs [DRGBASE]
 resource.AddWorkshop('2988173290') -- [DrGBase] SCP: Containment Breach NEXTBOTS
 resource.AddWorkshop('3012509914') -- SCP-035 | The Real Entity
+resource.AddWorkshop('3597784225') -- Better Lights
