@@ -1,11 +1,22 @@
 ﻿
+local function box173Player(ent, ntf)
+    local replacement_scp = ents.Create("npc_cpt_scp_173")
+    replacement_scp:SetPos(ent:GetPos())
+    replacement_scp:SetAngles(ent:GetAngles())
+    replacement_scp:Spawn()
+
+    ent:KillSilent()
+
+    replacement_scp:ContainSCP(ntf)
+end
+
 registerHandsAction("box_173", {
     name = "Box 173",
     desc = "Put a box on the SCP-173",
 	background_color = BR2_Hands_Actions_Colors.ent_important_actions,
 
     can_do = function(self)
-        if !(self.Owner.br_role == ROLE_MTF_OPERATIVE or self.Owner.br_team == TEAM_MTF) then
+        if !self.Owner.canContain173 then
             return
         end
 
@@ -20,7 +31,12 @@ registerHandsAction("box_173", {
 
         local ent = tr_hull.Entity
 
-        return IsValid(ent) and ent:GetClass() == "npc_cpt_scp_173"
+        return IsValid(ent) and !IsValid(ent.Box) and
+        (
+            ent:GetClass() == "npc_cpt_scp_173"
+            or ent:GetClass() == "breach_173ent"
+            or (ent:IsPlayer() and ent:GetModel() == SCP_173_MODEL)
+        )
     end,
 
     sv_effect = function(self, ply)
@@ -36,8 +52,17 @@ registerHandsAction("box_173", {
         
         local ent = tr_hull.Entity
 
-        if IsValid(ent) and ent:GetClass() == "npc_cpt_scp_173" and !IsValid(ent.Box) then
-            ent:ContainSCP(ply)
+        if ent:GetClass() == "breach_173ent" then
+            ent = ent.Owner
+        end
+
+        if IsValid(ent) and !IsValid(ent.Box) then
+            if ent:GetClass() == "npc_cpt_scp_173" then
+                ent:ContainSCP(ply)
+
+            elseif ent:IsPlayer() and ent.br_role == ROLE_SCP_173 then
+                box173Player(ent, ply)
+            end
         end
     end,
 
