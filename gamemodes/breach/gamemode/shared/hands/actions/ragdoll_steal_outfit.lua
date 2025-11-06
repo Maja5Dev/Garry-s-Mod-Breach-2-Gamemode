@@ -22,7 +22,7 @@ local function steal_body_outfit(self)
 
             ply:ApplyOutfit(outfit.class)
             ply:EmitSound(Sound("npc/combine_soldier/zipline_clothing"..math.random(1,2)..".wav"))
-            removeNearbyInfo(ply)
+            BR2_removeNearbyInfo(ply)
 
         else
             ply:PrintMessage(HUD_PRINTTALK, "You cannot loot this outfit.")

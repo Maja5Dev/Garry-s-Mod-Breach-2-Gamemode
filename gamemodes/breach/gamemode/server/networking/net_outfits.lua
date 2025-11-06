@@ -1,5 +1,5 @@
 
-local function removeNearbyInfo(ply)
+function BR2_removeNearbyInfo(ply)
 	for _, otherply in pairs(player.GetAll()) do
 		local tr = util.TraceLine({
 			start = ply:GetPos(),
@@ -66,7 +66,7 @@ net.Receive("br_take_outfit", function(len, ply)
 					table.RemoveByValue(v.items, str_got)
 					table.ForceInsert(v.items, our_model_class)
 
-					removeNearbyInfo(ply)
+					BR2_removeNearbyInfo(ply)
 				end
 
 				return
