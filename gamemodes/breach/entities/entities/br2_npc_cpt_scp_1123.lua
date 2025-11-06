@@ -2,6 +2,10 @@
 AddCSLuaFile()
 
 ENT.Base = "npc_cpt_scp_1123"
+ENT.Type = "ai"
+ENT.PrintName = "SCP"
+ENT.Author = "Maya"
+ENT.Category = "SCP:CB Breach 2"
 
 function ENT:OnInputAccepted(event, activator)
 	if IsValid(activator)
