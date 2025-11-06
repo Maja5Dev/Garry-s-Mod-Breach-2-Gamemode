@@ -82,11 +82,11 @@ function GM:PlayerBindPress(ply, bind, pressed)
 		end
 		
 	elseif bind == "invnext" and pressed then
-		Switch_SelectNext()
+		Switch_SelectPrev()
 		return true
 
 	elseif bind == "invprev" and pressed then
-		Switch_SelectPrev()
+		Switch_SelectNext()
 		return true
 
 	elseif bind == "gm_showhelp" and pressed then
