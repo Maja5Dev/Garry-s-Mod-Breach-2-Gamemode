@@ -43,7 +43,7 @@ surface.CreateFont("BR2_SCPActionToolTip", {
 
 hook.Add("HUDPaint", "BR2_DrawSCPActions", function()
 	scp_action_focus_button_ready = nil
-	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.SCP_ACTIONS == nil then return end
+	if !br_render_buttons or MAPCONFIG == nil or MAPCONFIG.SCP_ACTIONS == nil or LocalPlayer():IsSpectator() then return end
     if LocalPlayer().br_role and table.HasValue(BR2_ROLES_DISALLOWED_SCP_ACTIONS, LocalPlayer().br_role) then return end
 
     local target_ent = LocalPlayer()
