@@ -218,6 +218,8 @@ function SWEP:Tick()
 	end
 end
 
+local movement_mask = CONTENTS_SOLID + CONTENTS_OPAQUE + CONTENTS_MOVEABLE + CONTENTS_MONSTER + CONTENTS_DEBRIS
+
 local clc_trh_size = 7
 function SWEP:CalcViewInfo(ply, position, angles, fov)
 	local view = {origin = pos, angles = angles, fov = fov, drawviewer = false}
@@ -240,7 +242,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 		filter = {self.Owner, ent173},
 		mins = Vector(-clc_trh_size, -clc_trh_size, -clc_trh_size),
 		maxs = Vector(clc_trh_size, clc_trh_size, clc_trh_size),
-		mask = MASK_SOLID
+		mask = movement_mask
 	})
 
 	local right_pos = 0
@@ -256,7 +258,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 		filter = {self.Owner, ent173},
 		mins = Vector(-clc_trh_size, -clc_trh_size, -clc_trh_size),
 		maxs = Vector(clc_trh_size, clc_trh_size, clc_trh_size),
-		mask = MASK_SOLID
+		mask = movement_mask
 	})
 
 	local tr_fr = util.TraceHull({
@@ -265,7 +267,7 @@ function SWEP:CalcViewInfo(ply, position, angles, fov)
 		filter = {self.Owner, ent173},
 		mins = Vector(-clc_trh_size, -clc_trh_size, -clc_trh_size),
 		maxs = Vector(clc_trh_size, clc_trh_size, clc_trh_size),
-		mask = MASK_SOLID
+		mask = movement_mask
 	})
 
 	view.origin = tr_up.HitPos
@@ -287,7 +289,6 @@ function SWEP:TraceNextPos(ent173)
 	ourpos.z = ent173:GetPos().z
 	local eyeangles = view.angles
 
-	local smask = MASK_ALL
 	local filters = {self.Owner, ent173}
 	
 	local tr_start = util.TraceHull({
@@ -296,7 +297,7 @@ function SWEP:TraceNextPos(ent173)
 		filter = filters,
 		mins = Vector(-4, -4, -4),
 		maxs = Vector(4, 4, 4),
-		mask = smask
+		mask = movement_mask
 	})
 
 	local tr = util.TraceLine({
