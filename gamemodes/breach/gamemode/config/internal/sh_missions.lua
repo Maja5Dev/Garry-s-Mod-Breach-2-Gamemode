@@ -35,6 +35,10 @@ mission_kill_humans = {
 	class = "kill_humans",
 	name = "Kill humans"
 }
+mission_cure_humans = {
+	class = "cure_humans",
+	name = "Cure humans"
+}
 mission_retrieve_scps = {
 	class = "retrieve_scps",
 	name = "Retrieve SCP objects"
@@ -119,7 +123,7 @@ BREACH_MISSIONS = {
 		name = "Survive",
 		missions = {
 			mission_escape,
-			mission_kill_humans,
+			mission_cure_humans,
 		},
 	},
 	{
