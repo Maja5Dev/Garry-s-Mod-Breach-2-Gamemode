@@ -421,6 +421,7 @@ round_system.PreparingStart = function()
 		timer.Destroy("BR_UpdateOwnInfo"..v:SteamID64())
 		v.Body = nil
 		v.respawnInSamePlace = false
+		v.dontAssignNewName = false
 	end
 	uses_294 = nil
 	npc_timer_num = 0

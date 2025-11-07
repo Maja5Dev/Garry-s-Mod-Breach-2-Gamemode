@@ -15,7 +15,11 @@ function Pre_Assign(ply)
 	ply:SetSuppressPickupNotices(true)
 	ply.DefaultJumpPower = DEF_JUMPPOWER
 	ply:AllowFlashlight(false)
-	ply.br_showname = GetRandomName()
+
+	if ply.dontAssignNewName != true then
+		ply.br_showname = GetRandomName()
+	end
+	
 	ply.br_hands = nil
 	ply.br_customspawn = nil
 	ply.br_special_items = {}

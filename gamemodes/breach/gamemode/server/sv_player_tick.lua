@@ -32,9 +32,18 @@ hook.Add("Tick", "BR2_Misc", function()
 					BroadcastPlayerUnknownInfo(v)
 
 					v.respawnInSamePlace = true
+					v.dontAssignNewName = true
 					assign_system.Assign_CIsoldier(v)
-					v.charid = BR_GetUniqueCharID()
 					v.br_team = TEAM_CI
+
+					local notepad = notepad_system.GetPlayerNotepad(v)
+					if notepad != nil and notepad.people and #notepad.people > 0 then
+						notepad_system.AllNotepads[v.charid].people[1].br_team = TEAM_CI
+						notepad_system.AllNotepads[v.charid].people[1].br_role = v.br_role
+						notepad_system.UpdateNotepad(v)
+					else
+						notepad_system.AssignNewNotepad(v, true)
+					end
 
 					devprint(v:Nick(), "escorted by CI")
 
@@ -42,9 +51,18 @@ hook.Add("Tick", "BR2_Misc", function()
 					BroadcastPlayerUnknownInfo(v)
 
 					v.respawnInSamePlace = true
+					v.dontAssignNewName = true
 					assign_system.Assign_MTF_NTF(v)
-					v.charid = BR_GetUniqueCharID()
 					v.br_team = TEAM_MTF
+
+					local notepad = notepad_system.GetPlayerNotepad(v)
+					if notepad != nil and notepad.people and #notepad.people > 0 then
+						notepad_system.AllNotepads[v.charid].people[1].br_team = TEAM_MTF
+						notepad_system.AllNotepads[v.charid].people[1].br_role = v.br_role
+						notepad_system.UpdateNotepad(v)
+					else
+						notepad_system.AssignNewNotepad(v, true)
+					end
 
 					devprint(v:Nick(), "escaped as staff")
 
@@ -58,6 +76,9 @@ hook.Add("Tick", "BR2_Misc", function()
 						net.WriteInt(CurTime() - v.aliveTime, 16)
 					net.Send(v)
 				end
+
+				v.respawnInSamePlace = false
+				v.dontAssignNewName = false
 			end
 
 			if v.viewing895 then
