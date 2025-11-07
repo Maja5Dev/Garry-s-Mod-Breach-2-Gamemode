@@ -120,7 +120,7 @@ BR2_LETHAL_WEAPONS = {
 }
 
 function isBreachWeapon(ent)
-	if ent.Category == "Breach 2 Weapons" or ent.Category == "Kanade's TFA Pack" or ent.ISSCP then
+	if ent.Category == "Breach 2 Weapons" or ent.Category == "Maya's TFA Pack" or ent.ISSCP then
 		return true
 	end
 	

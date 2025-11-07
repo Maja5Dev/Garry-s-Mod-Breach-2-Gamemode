@@ -300,7 +300,7 @@ search.AddProvider(function(str)
 
         local model = nil
         local skin = nil
-        if wepdata and wepdata.WorldModel and wepdata.Category != "Kanade's TFA Pack" then
+        if wepdata and wepdata.WorldModel and wepdata.Category != "Maya's TFA Pack" then
             model = wepdata.WorldModel
         end
         if wepdata and wepdata.ForceSkin then

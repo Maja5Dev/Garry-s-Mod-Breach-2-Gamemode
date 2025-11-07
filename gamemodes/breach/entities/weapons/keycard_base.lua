@@ -1,6 +1,6 @@
 
 SWEP.PrintName 		= "Keycard Base"
-SWEP.Author			= "CayonKanade"
+SWEP.Author			= "Maya"
 --SWEP.ViewModel		= "models/mishka/models/keycard.mdl"
 --SWEP.WorldModel		= "models/mishka/models/keycard.mdl"
 SWEP.ViewModel = "models/cultist/items/keycards/v_keycard.mdl"

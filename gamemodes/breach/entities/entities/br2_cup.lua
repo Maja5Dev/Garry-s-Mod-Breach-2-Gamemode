@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 ENT.PrintName		= "Cup"
-ENT.Author		    = "Kanade"
+ENT.Author		    = "Maya"
 ENT.Type			= "anim"
 ENT.Base			= "base_anim"
 ENT.Spawnable		= false

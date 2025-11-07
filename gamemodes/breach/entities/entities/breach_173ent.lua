@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 ENT.PrintName		= "SCP-173"
-ENT.Author		    = "Kanade"
+ENT.Author		    = "Maya"
 
 ENT.Type			= "anim"
 ENT.Base			= "base_gmodentity"

@@ -5,6 +5,7 @@ include("shared.lua")
 
 function SWEP:CanWeMoveTo(pos)
 	local ent173 = self.Owner.entity173
+
 	if IsValid(ent173) then
 		return (ent173:CanMove(pos) and ent173:CanMove(self:GetPos()))
 	end
@@ -264,8 +265,8 @@ end
 
 function SWEP:Think()
 	self:Check173()
-
 	self.Owner:SetNoDraw(true)
+	
 	if self.Owner:Alive() and !self.Owner:IsSpectator() and IsValid(self.Owner.entity173) and !self.FreeRoamMode then
 		self.Owner.entity173:SetPos(self.Owner:GetPos())
 	end

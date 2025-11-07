@@ -1,7 +1,7 @@
 SWEP.Base 			= "tfa_melee_base"
 DEFINE_BASECLASS(SWEP.Base)
 
-SWEP.Author 		= "Kanade"
+SWEP.Author 		= "Maya"
 SWEP.PrintName 		= "Crowbar"
 SWEP.Spawnable 		= true
 SWEP.AdminSpawnable = true

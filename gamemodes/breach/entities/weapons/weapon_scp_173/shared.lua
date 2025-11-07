@@ -1,4 +1,4 @@
-SWEP.Author			= "Kanade"
+SWEP.Author			= "Maya"
 SWEP.Contact		= "Look at this gamemode in workshop and search for creators"
 
 SWEP.ViewModelFOV	= 62

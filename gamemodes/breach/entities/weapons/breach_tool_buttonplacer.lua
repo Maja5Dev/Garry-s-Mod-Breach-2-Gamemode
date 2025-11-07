@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.BounceWeaponIcon = false
 end
 
-SWEP.Author			= "Kanade"
+SWEP.Author			= "Maya"
 SWEP.Contact		= "Steam"
 
 SWEP.ViewModelFOV	= 70

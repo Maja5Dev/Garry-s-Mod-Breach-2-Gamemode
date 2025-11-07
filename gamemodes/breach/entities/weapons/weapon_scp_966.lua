@@ -1,6 +1,6 @@
 
 SWEP.PrintName 		= "Hands"
-SWEP.Author			= "CayonKanade"
+SWEP.Author			= "Maya"
 SWEP.ViewModel		= ""
 SWEP.WorldModel		= ""
 SWEP.ViewModelFOV	= 60
