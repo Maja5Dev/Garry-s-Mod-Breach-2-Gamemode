@@ -174,7 +174,11 @@ function br2_mtf_teams_add(ply, num)
 					notepad_system.AddAutomatedInfo(mtf1, "evacuation code:  " .. evac_code)
 				end
 
-				notepad_system.UpdateNotepad(mtf1)
+				for i=1, 3 do
+					timer.Simple(0.4, function()
+						notepad_system.UpdateNotepad(mtf1)
+					end)
+				end
 
 				timer.Simple(0.5, function()
 					net.Start("br_update_own_info")
