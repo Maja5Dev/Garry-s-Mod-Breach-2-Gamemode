@@ -57,6 +57,7 @@ function assign_system.Assign_SDofficer_CI(ply)
 	end
 
 	ply.br_role = ROLE_SD_OFFICER
+	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.br_ci_agent = true
 
@@ -98,6 +99,7 @@ function assign_system.Assign_CIsoldier(ply)
 	end
 
 	ply.br_role = ROLE_CI_SOLDIER
+	ply.br_usesSanity = true
 	ply.br_usesTemperature = true
 	ply.br_uses_hunger_system = false
 	ply.getsAllCIinfo = true
