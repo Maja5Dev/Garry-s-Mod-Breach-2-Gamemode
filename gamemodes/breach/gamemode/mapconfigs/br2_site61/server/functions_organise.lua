@@ -32,6 +32,7 @@ end
 
 function Breach_Map_Organise_AfterAssign()
 	local scp035exists = false
+
 	for k,v in pairs(player.GetAll()) do
 		if IsValid(v) and v:Alive() and !v:IsSpectator() and v.br_role == ROLE_SCP_035 then
 			scp035exists = true
@@ -50,6 +51,8 @@ function Breach_Map_Organise_AfterAssign()
 				mask035:SetPos(tab[1])
 				mask035:SetAngles(tab[2])
 				mask035:Spawn()
+			else
+				error("failed to create scp035 mask entity")
 			end
 		else
 			local all_viable_corpses = {}
@@ -65,6 +68,8 @@ function Breach_Map_Organise_AfterAssign()
 				if IsValid(mask035) then
 					mask035:Spawn()
 					mask035:SetPos(rnd_corpse:GetPos() + Vector(0,0,15))
+				else
+					error("failed to create scp035 mask entity")
 				end
 			end
 		end
