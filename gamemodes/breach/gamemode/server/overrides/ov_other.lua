@@ -87,6 +87,10 @@ function GM:PlayerDisconnected(ply)
 	if ply:Alive() and ply:IsSpectator() == false and ply.br_downed == false then
 		CreateRagdollPL(ply, ply, DMG_PARALYZE, 0)
 	end
+
+	round_system.disconnected_players[ply:SteamID64()] = {
+		support_spawns = ply.br_support_spawns,
+	}
 end
 
 function GM:PlayerSwitchFlashlight(ply, enabled)

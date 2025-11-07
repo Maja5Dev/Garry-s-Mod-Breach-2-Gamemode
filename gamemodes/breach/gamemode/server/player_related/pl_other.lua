@@ -61,7 +61,15 @@ function player_meta:FirstSetup()
 	self.isTheOne = false
 	self.dont_assign_items = false
 	self:SetNoDraw(true)
-	self.br_support_spawns = {{"mtf", 1}}
+
+	local disonnected_info = round_system.disconnected_players[ply:SteamID64()]
+
+	if disonnected_info != nil and istable(disonnected_info.br_support_spawns) then
+		self.br_support_spawns = disonnected_info.br_support_spawns
+	else
+		self.br_support_spawns = {}
+	end
+
 	self.support_spawning = false
 	self.br_times_support_respawned = 0
 	self.br_downed = false

@@ -428,6 +428,7 @@ round_system.PreparingStart = function()
 
 	round_system.logins = {}
 	round_system.eventlog = {}
+	round_system.disconnected_players = {}
 
 	game_state = GAMESTATE_PREPARING
 	game.CleanUpMap()
