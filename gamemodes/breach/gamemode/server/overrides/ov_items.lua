@@ -6,8 +6,12 @@ function GM:PlayerCanPickupWeapon(ply, wep)
 		end
 	end
 
-	if ply:IsSpectator() or ply:Alive() == false or (wep:GetNWBool("isDropped", false) == true and !IsValid(wep.Owner)) then
+	if ply:IsSpectator() or ply:Alive() == false then
 		return false
+	end
+
+	if wep:GetNWBool("isDropped", false) == true and !IsValid(wep.Owner) then
+		return ply:KeyDown(IN_USE)
 	end
 	
 	return true

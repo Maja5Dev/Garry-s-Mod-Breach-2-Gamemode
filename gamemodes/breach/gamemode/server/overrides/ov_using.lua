@@ -60,6 +60,7 @@ function ShouldPlayerUse(ply, ent)
 		
 		ply.use_delay = CurTime() + 1.2
 	end
+	
 	return true
 end
 
