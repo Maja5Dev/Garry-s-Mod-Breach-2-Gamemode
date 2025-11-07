@@ -27,15 +27,37 @@ hook.Add("Tick", "BR2_Misc", function()
 			end
 
 			-- Check escaping
-			if v.canEscape == true and v:IsInEscapeZone() == true and !v.br_downed then
-				v:ForceRemoveFlashlight()
-				v:SetSpectator()
+			if v.canEscape == true and !v.br_downed and v:IsInEscapeZone() then
+				if v:IsClassDWithCInearby() then
+					BroadcastPlayerUnknownInfo(v)
 
-				devprint(v:Nick(), "escaped")
+					v.respawnInSamePlace = true
+					assign_system.Assign_CIsoldier(v)
+					v.charid = BR_GetUniqueCharID()
+					v.br_team = TEAM_CI
 
-				net.Start("cl_playerescaped")
-					net.WriteInt(CurTime() - v.aliveTime, 16)
-				net.Send(v)
+					devprint(v:Nick(), "escorted by CI")
+
+				elseif v.br_team == TEAM_RESEARCHER or v.br_team == TEAM_MINORSTAFF then
+					BroadcastPlayerUnknownInfo(v)
+
+					v.respawnInSamePlace = true
+					assign_system.Assign_MTF_NTF(v)
+					v.charid = BR_GetUniqueCharID()
+					v.br_team = TEAM_MTF
+
+					devprint(v:Nick(), "escaped as staff")
+
+				else
+					v:ForceRemoveFlashlight()
+					v:SetSpectator()
+
+					devprint(v:Nick(), "escaped")
+
+					net.Start("cl_playerescaped")
+						net.WriteInt(CurTime() - v.aliveTime, 16)
+					net.Send(v)
+				end
 			end
 
 			if v.viewing895 then

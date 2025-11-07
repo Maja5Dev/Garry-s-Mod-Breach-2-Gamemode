@@ -1,6 +1,9 @@
 ﻿
 function Pre_Assign(ply)
-	ply:UnSpectatePlayer(false)
+	if ply.respawnInSamePlace != true then
+		ply:UnSpectatePlayer(false)
+	end
+	
 	ply:SetViewEntity(ply)
 	ply:StripPlayer()
 	ply:SetTeam(TEAM_ALIVE)

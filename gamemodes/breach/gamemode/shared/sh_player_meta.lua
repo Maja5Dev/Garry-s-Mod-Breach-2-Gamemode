@@ -86,6 +86,20 @@ function player_meta:IsInEscapeZone()
 			end
 		end
 	end
+
+	return false
+end
+
+-- For when class d escapes with chaos insurgency, turning into one
+function player_meta:IsClassDWithCInearby()
+	if self.br_team == TEAM_CLASSD then
+		for k,v in pairs(ents.FindInSphere(self:GetPos(), 500)) do
+			if v:IsPlayer() and v.br_role == ROLE_CI_SOLDIER then
+				return true
+			end
+		end
+	end
+
 	return false
 end
 
@@ -97,6 +111,7 @@ function player_meta:IsInGasZone()
 			end
 		end
 	end
+
 	return false
 end
 
@@ -108,6 +123,7 @@ function player_meta:IsInPD()
 			end
 		end
 	end
+
 	return false
 end
 

@@ -420,6 +420,7 @@ round_system.PreparingStart = function()
 		timer.Destroy("deletenotepad"..v:SteamID64())
 		timer.Destroy("BR_UpdateOwnInfo"..v:SteamID64())
 		v.Body = nil
+		v.respawnInSamePlace = false
 	end
 	uses_294 = nil
 	npc_timer_num = 0
