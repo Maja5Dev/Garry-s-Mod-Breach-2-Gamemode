@@ -85,14 +85,6 @@ function GM:PlayerUse(ply, ent)
 		end
 	end
 
-	if IsValid(wep) then
-		if isfunction(wep.HandleUse) then
-			wep:HandleUse()
-			ply.lastuse = CurTime() + 1
-			return false
-		end
-	end
-
 	return ShouldPlayerUse(ply, ent)
 end
 

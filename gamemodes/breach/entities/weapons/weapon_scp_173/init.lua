@@ -112,31 +112,6 @@ function SWEP:MoveToNextPos(mv)
 	return false
 end
 
-function SWEP:HandleUse()
-	/*
-	if IsValid(self.Owner.entity173) then
-		if self.Owner.entity173:CanMove(self:GetPos()) == false then
-			return
-		end
-	end
-	*/
-
-	local tr_front = self:FrontTraceLine()
-
-	if tr_front != nil then
-		for k,v in pairs(ents.FindInSphere(tr_front.HitPos, 50)) do
-			if v:GetClass() == "func_button" or v:GetClass() == "func_rot_button" then
-				if ShouldPlayerUse(self.Owner, v) == true then
-					self.Owner.usingBlock = true
-					v:Use(self.Owner, self.Owner, USE_TOGGLE, 1)
-				end
-				
-				return
-			end
-		end
-	end
-end
-
 SWEP.NextTeleportSound = 0
 
 -- When the player wants to teleport to where they are standing in free roam mode
