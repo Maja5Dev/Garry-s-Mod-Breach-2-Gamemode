@@ -62,7 +62,7 @@ function player_meta:FirstSetup()
 	self.dont_assign_items = false
 	self:SetNoDraw(true)
 
-	local disonnected_info = round_system.disconnected_players[ply:SteamID64()]
+	local disonnected_info = round_system.disconnected_players[self:SteamID64()]
 
 	if disonnected_info != nil and istable(disonnected_info.br_support_spawns) then
 		self.br_support_spawns = disonnected_info.br_support_spawns
