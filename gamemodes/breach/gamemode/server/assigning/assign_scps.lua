@@ -68,8 +68,11 @@ end
 function assign_system.Assign_SCP049(ply)
 	ply.br_role = ROLE_SCP_049
 	Pre_Assign(ply)
-	ply:SetHealth(1300)
-	ply:SetMaxHealth(1300)
+
+	local hp = math.Clamp(player.GetCount() * 200, 500, 2200)
+
+	ply:SetHealth(hp)
+	ply:SetMaxHealth(hp)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_049")
 	ply.cantChangeOutfit = true
@@ -103,8 +106,11 @@ end
 -- lua_run assign_system.Assign_SCP173(Entity(1))
 function assign_system.Assign_SCP173(ply)
 	Pre_Assign(ply)
-	ply:SetHealth(8000)
-	ply:SetMaxHealth(8000)
+
+	local hp = math.Clamp(player.GetCount() * 700, 700, 7000)
+
+	ply:SetHealth(hp)
+	ply:SetMaxHealth(hp)
 	ply:SetArmor(0)
 	ply:ApplyOutfit("scp_173")
 	ply.cantChangeOutfit = true
