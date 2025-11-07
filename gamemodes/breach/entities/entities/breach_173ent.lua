@@ -51,7 +51,6 @@ function ENT:OnTakeDamage(dmginfo)
 end
 
 function ENT:Initialize()
-
 end
 
 function ENT:OnRemove()
@@ -64,6 +63,8 @@ function ENT:IsPlayerLooking(ply)
     return dot > 0.8 -- ~36° cone
 end
 
+local movement_mask = CONTENTS_SOLID + CONTENTS_OPAQUE + CONTENTS_MOVEABLE + CONTENTS_MONSTER + CONTENTS_DEBRIS
+
 function ENT:IsPlayerVisible(ply, fromPos)
     local target = ply:EyePos()
     local filter = { self, self.Owner, ply:GetActiveWeapon() }
@@ -71,7 +72,8 @@ function ENT:IsPlayerVisible(ply, fromPos)
     local trace = util.TraceLine({
         start = fromPos,
         endpos = target,
-        filter = filter
+        filter = filter,
+        mask = movement_mask
     })
 
     if trace.Entity == ply then return true end
@@ -82,7 +84,8 @@ function ENT:IsPlayerVisible(ply, fromPos)
         endpos = target,
         mins = Vector(-2, -2, -2),
         maxs = Vector(2, 2, 2),
-        filter = filter
+        filter = filter,
+        mask = movement_mask
     })
 
     return trace.Entity == ply
@@ -159,7 +162,7 @@ function ENT:Think()
             and ((dist < 600) or seen173)
             and v.usedEyeDrops < CurTime()
             and v.nextBlink < CurTime() then
-                local next_blink = math.Rand(4.5, 6.5)
+                local next_blink = 4.5
 
                 net.Start("br_blinking")
                     net.WriteFloat(next_blink)
@@ -181,6 +184,7 @@ function ENT:Think()
         end
     else
         self:NextThink(CurTime() + 0.2)
+
         if SendLightLevelInfo then
             SendLightLevelInfo()
         end
