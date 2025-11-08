@@ -67,7 +67,7 @@ function player_meta:FirstSetup()
 	if disonnected_info != nil and istable(disonnected_info.br_support_spawns) then
 		self.br_support_spawns = disonnected_info.br_support_spawns
 	else
-		self.br_support_spawns = {}
+		self.br_support_spawns = {{"mtf", 1}, {"scp_049_2", 1}}
 	end
 
 	self.support_spawning = false
