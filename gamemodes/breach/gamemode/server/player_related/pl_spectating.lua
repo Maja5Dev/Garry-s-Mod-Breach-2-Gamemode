@@ -24,16 +24,18 @@ function player_meta:SpectatePlayerRight()
 	local obv_target = self:GetObserverTarget()
 
 	local all_alive = {}
+
 	for k,v in pairs(player.GetAll()) do
-		--if v:Alive() and !v:IsSpectator() and v.br_downed == false and v.br_support_team == self.br_support_team then
 		if v:Alive() and !v:IsSpectator() and v.br_downed == false then
 			table.ForceInsert(all_alive, v)
 		end
 	end
 
 	for k,v in pairs(ents.GetAll()) do
-		if table.HasValue(BR_SCP_NPC_CLASSES, v:GetClass()) then
-			table.ForceInsert(all_alive, v)
+		for k2,v2 in pairs(BR_SPECTATABLE_NPC_CLASSES) do
+			if k2 == v:GetClass() then
+				table.ForceInsert(all_alive, v)
+			end
 		end
 	end
 
@@ -76,8 +78,10 @@ function player_meta:SpectatePlayerLeft()
 	end
 
 	for k,v in pairs(ents.GetAll()) do
-		if table.HasValue(BR_SCP_NPC_CLASSES, v:GetClass()) then
-			table.ForceInsert(all_alive, v)
+		for k2,v2 in pairs(BR_SPECTATABLE_NPC_CLASSES) do
+			if k2 == v:GetClass() then
+				table.ForceInsert(all_alive, v)
+			end
 		end
 	end
 
@@ -110,6 +114,7 @@ function player_meta:ChangeSpecMode()
 	local mode = self:GetObserverMode()
 
 	local all_alive = {}
+
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and v.br_downed == false and v != self and v.br_support_team == self.br_support_team then
 			table.ForceInsert(all_alive, v)
@@ -124,8 +129,10 @@ function player_meta:ChangeSpecMode()
 	if mode == OBS_MODE_IN_EYE then
 		self:Spectate(OBS_MODE_CHASE)
 		self:SpectatePlayerLeft()
+
 	elseif mode == OBS_MODE_CHASE then
 		self:Spectate(OBS_MODE_ROAMING)
+
 	elseif mode == OBS_MODE_ROAMING then
 		self:Spectate(OBS_MODE_IN_EYE)
 		self:SpectatePlayerLeft()
@@ -156,10 +163,13 @@ end
 
 hook.Add("KeyPress", "BR2_KEYPRESS_SPECTATE", function(ply, key)
 	if !ply:IsSpectator() then return end
+
 	if key == IN_ATTACK then
 		ply:SpectatePlayerLeft()
+
 	elseif key == IN_ATTACK2 then
 		ply:SpectatePlayerRight()
+		
 	elseif key == IN_RELOAD then
 		ply:ChangeSpecMode()
 	end
