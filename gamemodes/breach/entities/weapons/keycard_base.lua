@@ -65,6 +65,8 @@ end
 */
 
 function SWEP:DrawWorldModel()
+	if LocalPlayer() != self.Owner and (LocalPlayer():GetObserverMode() == OBS_MODE_IN_EYE) then return end
+
 	if !IsValid(self.Owner) then
 		self:DrawModel()
 	else
