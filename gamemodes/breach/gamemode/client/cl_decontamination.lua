@@ -9,7 +9,7 @@ end)
 function BR_EnableDecontaminationWarning()
     decontamination_status = 1
 
-    if LocalPlayer():IsInLCZ() then
+    if LocalPlayer():Alive() and !LocalPlayer():IsSpectator() and LocalPlayer():IsInLCZ() then
         sound.PlayFile("sound/breach2/UI/alarm9.wav", "", function(station, errCode, errStr)
             if IsValid(station) then
                 station:Play()
@@ -17,7 +17,7 @@ function BR_EnableDecontaminationWarning()
                 station:EnableLooping(true)
                 alarm_station = station
             else
-                print("Error playing sound!", errCode, errStr)
+                print("Error playing alarm9 sound!", errCode, errStr)
             end
         end)
 
@@ -35,17 +35,17 @@ function BR_EnableDecontamination()
                 station:EnableLooping(true)
                 alarm_station = station
             else
-                print("Error playing sound!", errCode, errStr)
+                print("Error playing alarm6 sound!", errCode, errStr)
             end
         end)
 
-        sound.PlayFile("ambient/gas/steam2.wav", "", function(station, errCode, errStr)
+        sound.PlayFile("sound/ambient/gas/steam2.wav", "", function(station, errCode, errStr)
             if IsValid(station) then
                 station:Play()
                 station:EnableLooping(true)
                 gas_station = station
             else
-                print("Error playing sound!", errCode, errStr)
+                print("Error playing gas sound!", errCode, errStr)
             end
         end)
     end
