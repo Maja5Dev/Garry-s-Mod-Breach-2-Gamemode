@@ -2,6 +2,16 @@
 function MakeFOG()
 	if LocalPlayer():IsSpectator() then return false end
 
+	-- LCZ decontamination fog override
+	if decontamination_status == 2 then
+		render.FogStart(0)
+		render.FogEnd(450)
+		render.FogColor(10, 50, 10)
+		render.FogMaxDensity(1)
+		render.FogMode(MATERIAL_FOG_LINEAR)
+		return true	
+	end
+
 	if primary_lights_on or BR_WATCHING_CAMERAS then return false end
 	
 	if IsValid(horror_scp_ent) and horror_scp_ent.isEnding > 0 then

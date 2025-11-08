@@ -46,6 +46,7 @@ include("client/cl_fog.lua")
 include("client/cl_tick.lua") -- lowest load order
 include("config/internal/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua
 include("client/cl_item_spawnmenu.lua")
+include("client/cl_decontamination.lua")
 
 br2_last_death = -12
 br2_last_escape = -12

@@ -185,13 +185,44 @@ hook.Add("Tick", "BR2_Misc", function()
 					end
 
 					if v.nextDamageInGas < CurTime() then
-						v:SetHealth(v:Health() - 1)
-
-						if v:Health() < 1 then
-							v:Kill()
-						end
+						local dmg = DamageInfo()
+						dmg:SetDamage(1)
+						dmg:SetDamageType(DMG_NERVEGAS)
+						v:TakeDamageInfo(dmg)
 
 						v.nextDamageInGas = CurTime() + 0.2
+					end
+				end
+			end
+
+			/* LCZ DECONTAMINATION */
+			if round_system and round_system.lcz_decontaminated == true and v:IsInLCZ() then
+				local delay = 0.6
+
+				if has_gasmask then
+					delay = 1.2
+				end
+
+				if has_hazmat then
+					delay = 1.8
+				end
+
+				if v.nextDeconDmg < CurTime() then
+					local dmg = DamageInfo()
+					dmg:SetDamage(1)
+					dmg:SetDamageType(DMG_NERVEGAS)
+					v:TakeDamageInfo(dmg)
+
+					v.nextDeconDmg = CurTime() + delay
+				end
+
+				if v.nextDeconCough < CurTime() then
+					v.nextDeconCough = CurTime() + math.Clamp(delay * 2, 2.5, 5)
+					
+					if has_gasmask or has_hazmat then
+						v:EmitSound("breach2/D9341/Cough"..math.random(1,3).."_gasmask.ogg")
+					else
+						v:EmitSound("breach2/D9341/Cough"..math.random(1,3)..".ogg")
 					end
 				end
 			end
@@ -201,7 +232,7 @@ hook.Add("Tick", "BR2_Misc", function()
 				if v.next_iup1 < CurTime() then
 					v.next_iup1 = CurTime() + math.random(2,3)
 					
-					if !has_hazmat then
+					if !has_hazmat and !has_gasmask then
 						v:InfectiousTouch()
 					end
 

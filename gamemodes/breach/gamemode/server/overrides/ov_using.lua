@@ -14,8 +14,10 @@ function ShouldPlayerUse(ply, ent)
 		if ply.use_delay > CurTime() then return false end
 		
 		local lvl, card = ply:GetKeycardLevel()
-		local klvl = 0
+		local klvl = ent.br_info.level or 0
 		local usesounds = false
+
+		local res = hook.Run("BR2_PlayerUseKeypadCheck", ply, ent, lvl, klvl, card)
 		
 		if isfunction(ent.br_info.customcheck) == true and ent.br_info.customcheck(ply, ent) == false then
 			return false
@@ -39,10 +41,6 @@ function ShouldPlayerUse(ply, ent)
 			if ent.br_info.sounds != nil then
 				usesounds = ent.br_info.sounds
 			end
-		end
-
-		if ent.br_info.level != nil then
-			klvl = ent.br_info.level
 		end
 		
 		if lvl < klvl then

@@ -115,6 +115,18 @@ function player_meta:IsInGasZone()
 	return false
 end
 
+function player_meta:IsInLCZ()
+	if MAPCONFIG and MAPCONFIG.ZONES and MAPCONFIG.ZONES.LCZ then
+		for k,v in pairs(MAPCONFIG.ZONES.LCZ) do
+			if self:IsInZone(v) then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
 function player_meta:IsInPD()
 	if MAPCONFIG and MAPCONFIG.ZONES and MAPCONFIG.ZONES.POCKETDIMENSION then
 		for k,v in pairs(MAPCONFIG.ZONES.POCKETDIMENSION) do

@@ -78,6 +78,8 @@ function Pre_Assign(ply)
 	ply.NextCough = 0
 	ply.disable_coughing = false
 	ply.nextDamageInGas = 0
+	ply.nextDeconDmg = 0
+	ply.nextDeconCough = 0
 	ply.next049Breath = 0
 	ply.next_hsd = 0
 	ply.next_iup1 = 0

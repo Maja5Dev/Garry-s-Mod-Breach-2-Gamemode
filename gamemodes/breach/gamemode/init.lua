@@ -52,6 +52,7 @@ AddCSLuaFile("client/cl_footsteps.lua")
 AddCSLuaFile("client/cl_calcview.lua")
 AddCSLuaFile("shared/sh_attachment_models.lua")
 AddCSLuaFile("client/cl_attachment_models.lua")
+AddCSLuaFile("client/cl_decontamination.lua")
 
 AddCSLuaFile("client/cl_music.lua") -- music and sound related things, doesnt need to be loaded super quickly because functions are used only after-round
 
@@ -172,6 +173,7 @@ include("server/sv_player_tick.lua") -- player tick, very low priority
 include("server/sv_debugging.lua") -- debugging stuff, very low priority
 include("server/sv_nuke.lua")
 include("server/sv_eventlog.lua")
+include("server/sv_decontamination.lua")
 
 for i=1, 4 do
     util.PrecacheSound("player/ap_footsteps/ladder"..i..".wav")

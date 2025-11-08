@@ -383,7 +383,7 @@ function BR2_ChangeLightingStyle(cli)
 	BroadcastLua('render.RedownloadAllLightmaps(true)')
 end
 
-function round_system.AddEventLog(text, ply)
+function round_system.AddEventLog(text, ply, important, sound_in_zone)
 	local login = ""
 	local terminal = nil
 
@@ -403,6 +403,26 @@ function round_system.AddEventLog(text, ply)
 	net.Start("br_update_eventlog")
 		net.WriteTable(round_system.eventlog)
 	net.Broadcast()
+
+	local level = 80
+	local snd = "breach2/UI/terminal_notification1.wav"
+
+	if important then
+		level = level * 1.2
+		snd = "breach2/UI/alarm2_single.wav"
+	end
+
+	for k,v in pairs(MAPCONFIG.BUTTONS_2D.TERMINALS.buttons) do
+		if isstring(sound_in_zone) and string.find(v.name, sound_in_zone) == nil then
+			continue
+		end
+
+		if v.name == terminal then
+			level = level * 1.2
+		end
+
+		sound.Play(snd, v.pos, level, 100, 1)
+	end
 end
 
 --lua_run force_scenario = 2
@@ -429,6 +449,7 @@ round_system.PreparingStart = function()
 	round_system.logins = {}
 	round_system.eventlog = {}
 	round_system.disconnected_players = {}
+	round_system.lcz_decontaminated = false
 
 	game_state = GAMESTATE_PREPARING
 	game.CleanUpMap()
@@ -480,6 +501,8 @@ round_system.PreparingStart = function()
 	timer.Remove("GasLeak1")
 	timer.Remove("GasLeak2")
 	timer.Remove("GasLeak3")
+	timer.Remove("LCZDecontamination")
+	
 	timer.Create("LockdownWait", 5, 1, function()
 		if isfunction(MAPCONFIG.Lockdown) == true then
 			MAPCONFIG.Lockdown(true)
@@ -609,6 +632,16 @@ function WinCheck()
 	return 0
 end
 
+function BR_GetRoundTime()
+	local round_time = GetBR2conVar("br2_time_round") or 1320
+	-- for every player less than 10, lower the round time by 3%
+	local lower_by = math.Clamp(10 - player.GetCount(), 0, 9)
+
+	round_time = round_time - (lower_by * (round_time * 0.03))
+
+	return round_time
+end
+
 br2_round_state_start = 0
 local next_round_info_update = 0
 function HandleRounds()
@@ -648,13 +681,7 @@ function HandleRounds()
 		print("1 - round preparing")
 		
 	elseif game_state == GAMESTATE_PREPARING then
-		local round_time = GetBR2conVar("br2_time_round") or 1320
-		-- for every player less than 10, lower the round time by 3%
-		local lower_by = math.Clamp(10 - player.GetCount(), 0, 9)
-
-		round_time = round_time - (lower_by * (round_time * 0.03))
-
-		br2_round_state_end = CurTime() + round_time
+		br2_round_state_end = CurTime() + BR_GetRoundTime()
 		br2_round_state_start = CurTime()
 		round_system.RoundStart()
 		print("2 - round started")
