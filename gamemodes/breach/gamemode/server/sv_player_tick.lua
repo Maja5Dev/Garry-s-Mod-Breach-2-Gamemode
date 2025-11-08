@@ -205,7 +205,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 				if v.nextDeconDmg < CurTime() then
 					local dmg = DamageInfo()
-					dmg:SetDamage(1)
+					dmg:SetDamage(v:GetMaxHealth() * 0.01)
 					dmg:SetDamageType(DMG_NERVEGAS)
 					v:TakeDamageInfo(dmg)
 
