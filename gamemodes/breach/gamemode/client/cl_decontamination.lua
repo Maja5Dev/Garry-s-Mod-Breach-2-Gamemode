@@ -52,7 +52,7 @@ function BR_EnableDecontamination()
 end
 
 hook.Add("Tick", "BR_DecontaminationTick", function()
-    if !LocalPlayer():IsInLCZ() then
+    if LocalPlayer().IsInLCZ and !LocalPlayer():IsInLCZ() then
         if IsValid(alarm_station) then
             alarm_station:Stop()
             alarm_station = nil
