@@ -321,6 +321,7 @@ function BR_ShowScoreboard()
 	if !table.HasValue(BR2_ROLES_DISALLOWED_NOTEPAD, LocalPlayer().br_role)
 	and !LocalPlayer():IsSpectator() and LocalPlayer():Alive()
 	and istable(BR2_OURNOTEPAD)
+	and istable(BR2_OURNOTEPAD.people)
 	and table.Count(BR2_OURNOTEPAD.people) > 0
 	then
 		surface.SetFont("BR_Scoreboard_Names")
