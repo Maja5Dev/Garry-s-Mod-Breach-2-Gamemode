@@ -20,8 +20,6 @@ function BR_EnableDecontaminationWarning()
                 print("Error playing alarm9 sound!", errCode, errStr)
             end
         end)
-
-        BR_CreateDecontaminationTick()
     end
 end
 
