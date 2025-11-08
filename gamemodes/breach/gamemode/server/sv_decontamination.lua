@@ -1,6 +1,10 @@
 ﻿
 hook.Add("BR2_PreparingStart", "BR2_ResetDecontaminationStatus", function()
     round_system.lcz_decontaminated = false
+
+    timer.Destroy("LCZDecontamination")
+    timer.Destroy("LCZDecontaminationWarning1")
+    timer.Destroy("LCZDecontaminationWarning2")
 end)
 
 hook.Add("BR2_RoundStart", "BR2_DecontaminationTimers", function()
