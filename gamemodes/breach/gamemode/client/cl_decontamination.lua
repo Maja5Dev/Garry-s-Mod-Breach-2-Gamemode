@@ -49,8 +49,10 @@ function BR_EnableDecontamination()
     end
 end
 
-hook.Add("Tick", "BR_DecontaminationTick", function()
-    if LocalPlayer().IsInLCZ and !LocalPlayer():IsInLCZ() then
+timer.Create("BR_DecontaminationStopSounds", 0.2, 0, function()
+    if decontamination_status != 2 then return end
+
+    if LocalPlayer():Alive() and !LocalPlayer():IsSpectator() and LocalPlayer().IsInLCZ and !LocalPlayer():IsInLCZ() then
         if IsValid(alarm_station) then
             alarm_station:Stop()
             alarm_station = nil
