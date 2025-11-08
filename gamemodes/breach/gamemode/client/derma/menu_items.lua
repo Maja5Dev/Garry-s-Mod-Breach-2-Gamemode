@@ -448,6 +448,7 @@ end
 
 function BR2_ShouldDrawWeaponInfo()
 	if IsValid(cameras_frame) then return false end
+	if !LocalPlayer():Alive() or LocalPlayer():IsSpectator() then return false end
 	
 	local wep = LocalPlayer():GetActiveWeapon()
 	if IsValid(wep) then
@@ -459,6 +460,7 @@ function BR2_ShouldDrawWeaponInfo()
 			wep.lastInfoDraw = CurTime()
 		end
 	end
+
 	return true
 end
 
