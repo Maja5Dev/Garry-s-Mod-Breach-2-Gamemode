@@ -7,7 +7,11 @@ function BR2_Update3DFlashlights(ply)
 end
 hook.Add("PlayerPostThink", "BR2_Hook_Update3DFlashlights", BR2_Update3DFlashlights)
 
+local next_br_tick = 0
 hook.Add("Tick", "BR2_Misc", function()
+	if next_br_tick > CurTime() then return end
+	next_br_tick = CurTime() + 0.2
+
 	for k,v in pairs(player.GetAll()) do
 		-- Spectator
 		if v:IsSpectator() then
@@ -197,15 +201,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 			/* LCZ DECONTAMINATION */
 			if round_system and round_system.lcz_decontaminated == true and v:IsInLCZ() then
-				local delay = 0.6
-
-				if has_gasmask then
-					delay = 1.2
-				end
-
-				if has_hazmat then
-					delay = 1.8
-				end
+				local delay = has_hazmat and 1.8 or has_gasmask and 1.2 or 0.6
 
 				if v.nextDeconDmg < CurTime() then
 					local dmg = DamageInfo()
@@ -218,12 +214,8 @@ hook.Add("Tick", "BR2_Misc", function()
 
 				if v.nextDeconCough < CurTime() then
 					v.nextDeconCough = CurTime() + math.Clamp(delay * 2, 2.5, 5)
-					
-					if has_gasmask or has_hazmat then
-						v:EmitSound("breach2/D9341/Cough"..math.random(1,3).."_gasmask.ogg")
-					else
-						v:EmitSound("breach2/D9341/Cough"..math.random(1,3)..".ogg")
-					end
+					local suffix = (has_gasmask or has_hazmat) and "_gasmask" or ""
+					v:EmitSound("breach2/D9341/Cough" .. math.random(1,3) .. suffix .. ".ogg")
 				end
 			end
 
