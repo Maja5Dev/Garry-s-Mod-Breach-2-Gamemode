@@ -1,9 +1,17 @@
 
+local next_lcz_check = 0
+local is_in_lcz = false
+
 function MakeFOG()
 	if LocalPlayer():IsSpectator() then return false end
 
+	if next_lcz_check < CurTime() then
+		is_in_lcz = LocalPlayer():IsInLCZ()
+		next_lcz_check = CurTime() + 1
+	end
+
 	-- LCZ decontamination fog override
-	if decontamination_status == 2 then
+	if is_in_lcz and decontamination_status == 2 then
 		render.FogStart(0)
 		render.FogEnd(450)
 		render.FogColor(10, 50, 10)
