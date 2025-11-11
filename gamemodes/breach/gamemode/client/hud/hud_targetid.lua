@@ -58,7 +58,7 @@ function DrawTargetID()
 			lastseen = CurTime() + 2
 			lastseen_alpha = 255
 
-		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 and LocalPlayer().br_role != ROLE_SCP_173 then
+		elseif ent:GetClass() == "prop_ragdoll" and dis < 70 and !table.HasValue(BR2_ROLES_DISALLOWED_CHECK_PULSE_AND_REVIVE, LocalPlayer().br_role) then
 			lastseen_player = ent
 
 			if ent.Pulse == nil then
