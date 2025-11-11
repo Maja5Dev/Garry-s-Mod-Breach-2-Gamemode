@@ -634,10 +634,10 @@ end
 
 function BR_GetRoundTime()
 	local round_time = GetBR2conVar("br2_time_round") or 1320
-	-- for every player less than 10, lower the round time by 3%
-	local lower_by = math.Clamp(10 - player.GetCount(), 0, 9)
+	-- for every player less than 10, lower the round time by 2.5%
+	local lower_by = math.Clamp(8 - player.GetCount(), 0, 7)
 
-	round_time = round_time - (lower_by * (round_time * 0.03))
+	round_time = round_time - (lower_by * (round_time * 0.025))
 
 	return round_time
 end
