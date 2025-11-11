@@ -4,6 +4,16 @@ hook.Add("EntityTakeDamage", "EntityDamageExample", function(ent, dmginfo)
         if ent:Health() >= 1000 then
             ent:SetHealth(200)
         end
+
+        local inflictor = dmginfo:GetInflictor()
+
+        if IsValid(inflictor) and inflictor.IsHands then
+            dmginfo:ScaleDamage(0.3)
+
+            if ent.canStartBleeding and math.random(1, 6) == 3 then
+                ent.br_isBleeding = true
+            end
+        end
     end
 end)
 
