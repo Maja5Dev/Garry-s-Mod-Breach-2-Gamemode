@@ -26,6 +26,7 @@ BR_NO_TELEPORT_NPCS = {
     ["drg_scp096mod2"] = true,
     ["br2_npc_drg_scp_096"] = true,
     ["drg_scp999"] = true,
+    ["br2_npc_drg_scp_999"] = true,
     ["dughoo_scpcb_scp066"] = true,
     ["drg_scp131"] = true,
     ["npc_cpt_scp_1356"] = true,
