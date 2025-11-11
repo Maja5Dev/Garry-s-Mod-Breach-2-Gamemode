@@ -442,6 +442,7 @@ round_system.PreparingStart = function()
 		v.Body = nil
 		v.respawnInSamePlace = false
 		v.dontAssignNewName = false
+		v.spawnedAtRoundStart = true
 	end
 	uses_294 = nil
 	npc_timer_num = 0
@@ -624,6 +625,7 @@ function WinCheck()
 
 		if alive_players == 1 then
 			return 1
+			
 		elseif all_same_team then
 			return 2
 		end
