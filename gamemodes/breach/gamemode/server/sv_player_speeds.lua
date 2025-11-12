@@ -14,7 +14,7 @@ function HandlePlayerSpeeds()
 	if next_speed_handling > CurTime() then return end
 
 	for k,v in pairs(player.GetAll()) do
-		if v:Alive() and v:IsSpectator() == false and v:IsFrozen() == false and v.br_downed == false then
+		if v:Alive() and v:IsSpectator() == false and v:IsFrozen() == false and v.br_downed == false and v.speed_walking then
 			-- no movement in preparing
 			if game_state == GAMESTATE_PREPARING then
 				v:SetWalkSpeed(2)
@@ -22,23 +22,25 @@ function HandlePlayerSpeeds()
 				v:SetJumpPower(2)
 			end
 
-			--closet
-			local outfit = v:GetOutfit()
-			if outfit.disable_movement or v.is_hiding_in_closet then
-				v:SetWalkSpeed(1)
-				v:SetRunSpeed(1)
-				v:SetJumpPower(1)
-				return
-			end
-
 			local new_walk_speed = v.speed_walking
 			local new_run_speed = v.speed_running
 			local new_jump_power = v.DefaultJumpPower
 
-			-- outfit
-			new_walk_speed = new_walk_speed * outfit.walk_speed
-			new_run_speed = new_run_speed * outfit.run_speed
-			new_jump_power = new_jump_power * outfit.jump_power
+			--closet
+			local outfit = v:GetOutfit()
+			if outfit then
+				if outfit.disable_movement or v.is_hiding_in_closet then
+					v:SetWalkSpeed(1)
+					v:SetRunSpeed(1)
+					v:SetJumpPower(1)
+					return
+				end
+
+				-- outfit
+				new_walk_speed = new_walk_speed * outfit.walk_speed
+				new_run_speed = new_run_speed * outfit.run_speed
+				new_jump_power = new_jump_power * outfit.jump_power
+			end
 			
 			-- bleeding
 			if v.br_isBleeding == true then
