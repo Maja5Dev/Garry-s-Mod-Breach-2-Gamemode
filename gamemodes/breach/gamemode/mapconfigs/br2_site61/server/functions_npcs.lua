@@ -48,7 +48,7 @@ function SpawnMapNPCs()
 
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_096", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 170))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_106", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 180))
-	BR_SpawnMapNPCTimer("dughoo_scpcb_scp-1048a", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 60, prep_time + 100))
+	BR_SpawnMapNPCTimer("br2_npc_drg_scp_1048", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 60, prep_time + 100))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_999", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 60, prep_time + 130))
 	
 	-- eye

@@ -90,6 +90,7 @@ BLUE_NVG_ENTITY_NAMES = {
 	["drg_scp999"] = "SCP-999",
 	["npc_cpt_scp_1025"] = "SCP-1025",
 	["br2_npc_cpt_scp_1025"] = "SCP-1025",
+	["br2_npc_drg_scp_1048"] = "SCP-1048",
 	["npc_cpt_scp_1048"] = "SCP-1048",
 	["npc_cpt_scp_1123"] = "SCP-1123",
 	["br2_npc_cpt_scp_1123"] = "SCP-1123",
