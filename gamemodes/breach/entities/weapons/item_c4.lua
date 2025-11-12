@@ -486,7 +486,7 @@ function SWEP:DrawHUD()
 end
 
 function SWEP:GetBetterOne()
-	if br_914status == SCP914_VERY_FINE and weapons.Get("kanade_tfa_rpg") then
+	if br_914status == SCP914_VERY_FINE then
 		return "kanade_tfa_rpg"
 	end
 
