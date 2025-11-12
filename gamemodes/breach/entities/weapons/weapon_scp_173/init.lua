@@ -114,41 +114,6 @@ end
 
 SWEP.NextTeleportSound = 0
 
--- When the player wants to teleport to where they are standing in free roam mode
-function SWEP:HandleTeleportFromFreeRoam()
-	if self.FreeRoamMode then
-		local tr = util.TraceLine({
-			start = self.Owner:GetPos(),
-			endpos = self.Owner:GetPos() - Vector(0, 0, 5),
-			mask = MASK_SOLID_BRUSHONLY -- Only hit world geometry / brushes
-		})
-
-		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
-			self.Owner:BR2_ShowNotification("Cannot move to that position")
-			return
-		end
-
-		self.FreeRoamMode = false
-
-		self.Owner:SetWalkSpeed(1)
-		self.Owner:SetRunSpeed(1)
-		self.Owner:RemoveFlags(FL_DONTTOUCH)
-		
-		if IsValid(self.Owner.entity173) then
-			self.Owner.entity173:SetAngles(Angle(0, self.Owner:EyeAngles().yaw, 0))
-
-			if self.NextTeleportSound < CurTime() then
-				self.Owner.entity173:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
-				self.NextTeleportSound  = CurTime() + 2
-			end
-		end
-
-		net.Start("br_scp173_mode")
-			net.WriteBool(self.FreeRoamMode)
-		net.Send(self.Owner)
-	end
-end
-
 -- When the player toggles the free roam mode
 function SWEP:HandleMovementModeToggle()
 	if !self.FreeRoamMode then

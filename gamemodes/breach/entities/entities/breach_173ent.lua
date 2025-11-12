@@ -118,7 +118,7 @@ function ENT:CanMove(pos)
 			and self:IsPlayerLooking(v)
 			and v.blinking_enabled then
 				v.seen_173 = CurTime() + 10
-				--self.Owner:PrintMessage(HUD_PRINTCENTER, v:Nick() .. " is looking " .. tostring(timep))
+				self.Owner:PrintMessage(HUD_PRINTCENTER, v:Nick() .. " is looking " .. tostring(timep))
 
 				return false -- player is looking, cannot move
 			end
@@ -128,27 +128,11 @@ function ENT:CanMove(pos)
 	return true -- safe to move
 end
 
-function ENT:TryToMoveTo(pos, ang)
-	if self:CanMove(self:GetPos()) == true then
-		self:SetPos(pos)
-		
-		if ang != nil then
-			self:SetAngles(ang)
-		end
-	end
-end
-
 ENT.BlinkTime = 0.2
 
 function ENT:Think()
     if SERVER then
         self:NextThink(CurTime() + 0.05)
-
-        -- Check if entity can move
-        if not self:CanMove(self:GetPos()) then
-            self:SetVelocity(Vector(0,0,0)) -- freeze if being looked at
-            return true
-        end
 
         -- Blinking + sanity logic
         for k,v in pairs(player.GetAll()) do
