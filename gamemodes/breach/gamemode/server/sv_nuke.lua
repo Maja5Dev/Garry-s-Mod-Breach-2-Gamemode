@@ -60,9 +60,22 @@ function BR_ActivateNuke()
     end)
 end
 
+local function muchPlayersAlive()
+    local alive_count = 0
+
+    for k,v in pairs(player.GetAll()) do
+        if v:Alive() and !v:IsSpectator() and v.br_role != "SCP-682" then
+            alive_count = alive_count + 1
+        end
+    end
+
+    return alive_count >= 3
+end
+
 hook.Add("BR2_RoundStateChange", "PreventRoundEndNuke", function()
     if game_state == GAMESTATE_ROUND
     and br2_nuke_exploded == false
+    and muchPlayersAlive()
     and WinCheck() == 0 -- round hasnt ended due to something else
     --and (CurTime() - br2_round_state_start) > ((br2_round_state_end - br2_round_state_start) * 0.5) -- at least 30% of the round time elapsed
     then
