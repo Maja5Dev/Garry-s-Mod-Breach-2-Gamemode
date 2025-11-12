@@ -659,13 +659,14 @@ function HandleRounds()
 		end
 	end
 
-	--if game_state == GAMESTATE_ROUND then
-	--	round_system.MTF_Check()
-	--end
-
 	if game_state == GAMESTATE_NOTSTARTED then
-		br2_round_state_end = 0
-		print("0 - game started")
+		if player.GetCount() > 0 then
+			br2_round_state_end = CurTime() + 5
+			game_state = GAMESTATE_STARTING
+			print("0 - game started")
+		else
+			return
+		end
 	end
 
 	local win_check = WinCheck()
@@ -676,7 +677,7 @@ function HandleRounds()
 	local res = hook.Run("BR2_RoundStateChange")
 	if res == true then return end
 
-	if game_state == GAMESTATE_NOTSTARTED or game_state == GAMESTATE_ROUND_END then
+	if game_state == GAMESTATE_STARTING or game_state == GAMESTATE_ROUND_END then
 		br2_round_state_end = CurTime() + GetBR2conVar("br2_time_preparing") or 25
 		br2_round_state_start = CurTime()
 		round_system.PreparingStart()
@@ -704,7 +705,7 @@ end
 hook.Add("Tick", "BR2_HandleRounds", HandleRounds)
 
 function HandleDiseases()
-	if math.random (1,100) > 50 then return end
+	if math.random (1,100) > 70 then return end
 
 	local possible_infecteds = {}
 	
