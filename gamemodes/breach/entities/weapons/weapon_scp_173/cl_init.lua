@@ -32,6 +32,28 @@ function draw.Circle(x, y, radius, seg, fraction)
 end
 
 function SWEP:DrawHUD()
+	local perc = LocalPlayer():Health() / LocalPlayer():GetMaxHealth()
+
+	local x = 32
+	local y = ScrH() - 64
+
+	draw.Text({
+		text = "Health:",
+		pos = {32, y - 8},
+		font = "BR2_ItemFont",
+		color = Color(255,255,255,200),
+		xalign = TEXT_ALIGN_LEFT,
+		yalign = TEXT_ALIGN_BOTTOM,
+	})
+
+	surface.SetDrawColor(Color(255,255,255,200))
+	surface.SetMaterial(mat_progress_bar_1)
+	surface.DrawTexturedRect(x, y, 317, 34)
+	
+	surface.SetDrawColor(Color(255,255,255,200))
+	surface.SetMaterial(mat_progress_bar_2)
+	surface.DrawTexturedRect(x + 8, y, 303 * perc, 34)
+
 	if BR2_ShouldDrawWeaponInfo() then
 		draw.Text({
 			text = "Shift shows the next position, W teleports you to the next position if possible, A and D switch shoulder",
