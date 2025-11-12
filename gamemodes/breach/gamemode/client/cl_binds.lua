@@ -55,11 +55,6 @@ function GM:PlayerBindPress(ply, bind, pressed)
 	elseif bind == "+menu" and pressed == true then
 		local wep = ply:GetActiveWeapon()
 
-		if IsValid(wep) and wep:GetClass() == "weapon_scp_173" then
-			wep:TryToTeleportFromFreeRoam()
-			return true
-		end
-
 		if debug_menu_enabled == false then
 			net.Start("br_drop_weapon")
 			net.SendToServer()
