@@ -31,11 +31,17 @@ local function HandleStamina()
             local runChange = RUN_STAMINA_RECOVERY
 
             if vel:Length() >= v:GetRunSpeed() and (v:KeyDown(IN_FORWARD) or v:KeyDown(IN_BACK) or v:KeyDown(IN_MOVELEFT) or v:KeyDown(IN_MOVERIGHT)) then
+                -- Actively sprinting
                 runChange = RUN_STAMINA_COST
                 v.lastRunning = ct
 
-            elseif (ct - (v.lastRunning or 0)) < 2 then
-                runChange = RUN_STAMINA_COST + 1
+            elseif vel:Length() > 0 then
+                -- Walking or moving slowly — small recovery
+                runChange = math.floor(RUN_STAMINA_RECOVERY * 0.5)
+
+            else
+                -- Standing still — full recovery
+                runChange = RUN_STAMINA_RECOVERY
             end
 
             v:AddRunStamina(runChange)
