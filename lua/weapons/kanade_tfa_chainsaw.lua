@@ -81,3 +81,19 @@ function SWEP:Think2()
 		self.OwnerViewModel:SetSkin(0)
 	end
 end
+
+function SWEP:OnRemove()
+	if self.BaseClass.OnRemove then
+		self.BaseClass.OnRemove(self)
+	end
+
+	if self.reqon then
+		self:StopSound(self.Primary.Motorized_IdleSound)
+		self:StopSound(self.Primary.Motorized_SawSound)
+
+		self.reqon = false
+		self:SetStatus(TFA.GetStatus("NMRIH_MELEE_MOTOR_END"))
+
+		self:EmitSound("weapons/melee/chainsaw/chainsaw_turnoff.wav")
+	end
+end
