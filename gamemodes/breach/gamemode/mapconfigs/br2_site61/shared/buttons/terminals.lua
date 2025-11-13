@@ -117,6 +117,13 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 					error("checkpoint_lockdown ENTITY NOT FOUND")
 				end
 
+				local round_time = BR_GetRoundTime()
+
+				if br2_round_state_start < round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) then
+					pl:PrintMessage(HUD_PRINTTALK, "You cannot disable the LCZ lockdown yet. Try again in " .. math.Round(br2_round_state_start + round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) - CurTime(), 1) .. " seconds.")
+					return
+				end
+
 				local enabled = tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 0
 
 				if !enabled then
