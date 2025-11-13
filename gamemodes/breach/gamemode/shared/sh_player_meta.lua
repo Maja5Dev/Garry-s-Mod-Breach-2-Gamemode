@@ -181,17 +181,21 @@ end
 
 function player_meta:GetSubAreaName()
 	local pos = self:GetPos()
+
 	if istable(MAPCONFIG) and istable(MAPCONFIG.ZONES) then
 		for k,v in pairs(MAPCONFIG.ZONES) do
 			for k2,zone in pairs(v) do
 				if zone.sub_areas then
-					for k3,zone2 in pairs(zone.sub_areas) do
+					for k3, zone2 in pairs(zone.sub_areas) do
 						local pos1 = Vector(zone2[2].x, zone2[2].y, zone2[2].z)
 						local pos2 = Vector(zone2[3].x, zone2[3].y, zone2[3].z)
+
 						OrderVectors(pos1, pos2)
+
 						if pos:WithinAABox(pos1, pos2) then return zone2[1] end
 					end
 				end
+
 				if zone.pos1 then
 					local pos1 = Vector(zone.pos1.x, zone.pos1.y, zone.pos1.z)
 					local pos2 = Vector(zone.pos2.x, zone.pos2.y, zone.pos2.z)
@@ -201,15 +205,12 @@ function player_meta:GetSubAreaName()
 			end
 		end
 	end
+
 	return nil
 end
 
 function player_meta:GetZone()
 	return BR2_GetZonePos(self:GetPos(), false)
-end
-
-function player_meta:GetSubZoneName()
-	return BR2_GetZoneName(self:GetPos(), true)
 end
 
 --lua_run for k,v in pairs(player.GetAll()) do print(v:Nick(), v:GetOutfit().name, v:GetModel()) end

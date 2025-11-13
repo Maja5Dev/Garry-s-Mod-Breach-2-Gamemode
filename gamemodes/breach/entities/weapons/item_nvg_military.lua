@@ -73,3 +73,128 @@ function SWEP:GetBetterOne()
 
 	return table.Random({"item_nvg2", "item_nvg3"})
 end
+
+
+if SERVER then
+	util.AddNetworkString("br_send_nvg_zone_display")
+
+	SWEP.next_player_update = 0
+
+	function SWEP:GlobalThink()
+		if self.BaseClass.GlobalThink then
+			self.BaseClass.GlobalThink(self)
+		end
+
+		if self.Enabled and self.next_player_update < CurTime() then
+			self:GetPlayersToDisplay()
+			self.next_player_update = CurTime() + 4
+		end
+	end
+
+	function SWEP:GetPlayersToDisplay()
+		local tab = {}
+
+		for k,v in pairs(player.GetAll()) do
+			local zone = v:GetZone()
+
+			if zone and zone.name then
+				local zone_name = zone.name
+				if tab[zone_name] == nil then
+					tab[zone_name] = 0
+				end
+
+				tab[zone_name] = tab[zone_name] + 1
+			end
+		end
+
+		net.Start("br_send_nvg_zone_display")
+			net.WriteTable(tab)
+		net.Send(self.Owner)
+	end
+end
+
+if CLIENT then
+	SWEP.PlayersToDisplay = {}
+
+	net.Receive("br_send_nvg_zone_display", function(len)
+		local tab = net.ReadTable()
+		local wep = LocalPlayer():GetWeapon("item_nvg_military")
+
+		if IsValid(wep) then
+			wep.PlayersToDisplay = tab
+		end
+	end)
+
+	function SWEP:CreateFonts()
+		local size_mul = ScrH() / 1080
+
+		local font_structure = {
+			font = "Tahoma",
+			extended = false,
+			size = 35 * size_mul,
+			weight = 1000,
+			blursize = 1,
+			scanlines = 2,
+			antialias = true,
+			underline = false,
+			italic = false,
+			strikeout = false,
+			symbol = false,
+			rotary = false,
+			shadow = false,
+			additive = true,
+			outline = false,
+		}
+		surface.CreateFont("BR_NVGMILITARY_MAIN", font_structure)
+		font_structure.size = 30 * size_mul
+		surface.CreateFont("BR_NVGMILITARY_SMALL", font_structure)
+	end
+
+	function SWEP:Deploy()
+		self.BaseClass.Deploy(self)
+
+		self:CreateFonts()
+	end
+
+	function SWEP:GlobalDraw()
+		self.BaseClass.GlobalDraw(self)
+
+		if self.Enabled then
+			surface.SetFont("BR_NVGMILITARY_MAIN")
+			local textw, texth = surface.GetTextSize("Motion detected in areas:")
+			local numw, numh = surface.GetTextSize("99")
+
+			draw.Text({
+				text = "Motion detected in areas:",
+				pos = {ScrW() - 12, numh},
+				xalign = TEXT_ALIGN_RIGHT,
+				yalign = TEXT_ALIGN_CENTER,
+				font = "BR_NVGMILITARY_MAIN",
+				color = Color(255,255,255,180),
+			})
+
+			local i = 1
+			for k,v in pairs(self.PlayersToDisplay) do
+				draw.Text({
+					text = k,
+					pos = {ScrW() - numw, numh + (i * texth)},
+					xalign = TEXT_ALIGN_RIGHT,
+					yalign = TEXT_ALIGN_CENTER,
+					font = "BR_NVGMILITARY_SMALL",
+					color = Color(255,255,255,180),
+				})
+
+				draw.Text({
+					text = v,
+					pos = {ScrW() - 12, numh + (i * texth)},
+					xalign = TEXT_ALIGN_RIGHT,
+					yalign = TEXT_ALIGN_CENTER,
+					font = "BR_NVGMILITARY_SMALL",
+					color = Color(255,255,255,180),
+				})
+
+				i = i + 1
+			end
+		end
+	end
+end
