@@ -35,7 +35,7 @@ function GM:PlayerBindPress(ply, bind, pressed)
 	end
 
 	if string.find(bind, "+jump") then
-		if ply:GetJumpPower() < 5 or ply:IsSprinting() then
+		if ply:GetJumpPower() < 5 then
 			return true
 		end
 	end
