@@ -144,7 +144,7 @@ MAPCONFIG.BUTTONS_2D.SIMPLE = {
 				ply:TakeDamage(20, ply, ply)
 			else
 				local rnd_wep = table.Random(weps)
-				local rnd_classes = {"keycard_master", "keycard_playing", "item_battery_9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask"}
+				local rnd_classes = {"keycard_master", "keycard_playing", "battery9v", "item_radio", "keycard_level1", "keycard_level2", "item_gasmask"}
 				--for k,v in pairs(BR2_SPECIAL_ITEMS) do
 				--	if v.scp_1162_class then table.ForceInsert(rnd_classes, {v.scp_1162_class, v.scp_1162}) end
 				--end

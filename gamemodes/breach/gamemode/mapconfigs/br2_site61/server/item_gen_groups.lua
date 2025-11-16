@@ -3,7 +3,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 -- LIGHT CONTAINMENT ZONE
 	["LCZ_FIRST_LOOT"] = {
 		{"keycard_level1", 4},
-		{"item_battery_9v", 3},
+		{"battery9v", 3},
 		{"item_radio", 1},
 		{"eyedrops", 2},
 
@@ -14,7 +14,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_SECOND_LOOT"] = {
 		{"keycard_level2", 3},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"eyedrops", 1},
 
 		{"ammo_pistol16", 1},
@@ -105,7 +105,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"personal_medkit", 1},
 		{"item_radio", 1},
 		{"ssri_pills", 1},
-		{"item_battery_9v", 3},
+		{"battery9v", 3},
 
 		{"ammo_pistol16", 1},
 		{"ammo_smg30", 1},

@@ -41,7 +41,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 
 	["LCZ_1"] = {
 		{"keycard_level2", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"lockpick", 1},
 		{"coin", 1},
 		{"crafting_toolbox", 1},
@@ -59,7 +59,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["LCZ_RANDOMITEMS"] = {
 		{"keycard_level3", 1},
 		{"item_gasmask", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"kanade_tfa_crowbar", 1},
 		{"doc_scp1048", 1},
 		{"food_chips", 1},
@@ -73,7 +73,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"conf_folder", 1},
 		{"doc_strange", 1},
 		{"item_nvg", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"item_radio", 1},
 	},
 	
@@ -87,7 +87,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	},
 	["LCZ_CRATES"] = {
 		{"item_nvg", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"device_cameras", 1},
 		{"ssri_pills", 1},
 		{"item_radio", 1},

@@ -29,7 +29,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"flashlight_cheap", 1},
 		{"coin", 1},
 		{"lockpick", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"antibiotics", 1},
 		{"doc_scp1048", 1},
 		{"drink_bottle_water", 1},
@@ -72,7 +72,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		{"keycard_master", 1},
 		{"coin", 1},
 		{"doc_scp173", 1},
-		{"item_battery_9v", 3},
+		{"battery9v", 3},
 	},
 	["LCZ_SECONDARY_LOOT"] = {
 		{"keycard_level2", 3},

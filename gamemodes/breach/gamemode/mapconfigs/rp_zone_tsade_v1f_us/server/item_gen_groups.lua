@@ -43,7 +43,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 		--{"keycard_playing", 1},
 		{"coin", 1},
 		{"lockpick", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"doc_scp1048", 1},
 		{"drink_bottle_water", 1},
 	},
@@ -56,7 +56,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["LCZ_STOR"] = {
 		{"keycard_level2", 1},
 		{"doc_gonzalez", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"coin", 1},
 	},
 	["LCZ_2"] = {
@@ -91,7 +91,7 @@ MAPCONFIG.ITEM_GENERATION_GROUPS = {
 	["RZ_3"] = {
 		{"keycard_level3", 2},
 		{"antibiotics", 1},
-		{"item_battery_9v", 1},
+		{"battery9v", 1},
 		{"conf_folder", 1},
 		{"syringe", 1},
 	},

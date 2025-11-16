@@ -8,7 +8,7 @@ end
 MAPCONFIG.STARTING_CORPSES = {
     --NEAR LCZ ITEM ROOM
     {
-        items = {"keycard_level1", {"item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}},
+        items = {"keycard_level1", {"item_gasmask", "item_radio", "battery9v", "ssri_pills"}},
         model = "models/player/kerry/class_scientist_3.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
@@ -327,7 +327,7 @@ MAPCONFIG.STARTING_CORPSES = {
 
     --SCP 012
     {
-        items = {{"keycard_level1", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills", "item_medkit", "item_nvg"}},
+        items = {{"keycard_level1", "item_gasmask", "item_radio", "battery9v", "ssri_pills", "item_medkit", "item_nvg"}},
         model = "models/player/kerry/class_scientist_6.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
@@ -585,7 +585,7 @@ MAPCONFIG.STARTING_CORPSES = {
 
 	--HOLE SCP
     {
-        items = {{"keycard_level2", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}},
+        items = {{"keycard_level2", "item_gasmask", "item_radio", "battery9v", "ssri_pills"}},
         model = "models/player/kerry/class_scientist_2.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
@@ -781,7 +781,7 @@ MAPCONFIG.STARTING_CORPSES = {
 	},
     --LCZ CHECKPOINT
 	{
-        items = {{"keycard_level1", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}},
+        items = {{"keycard_level1", "item_gasmask", "item_radio", "battery9v", "ssri_pills"}},
         model = "models/player/kerry/class_scientist_3.mdl",
         setup = function(rag)
             rag.br_showname = GetRandomName()
@@ -1038,7 +1038,7 @@ MAPCONFIG.STARTING_CORPSES = {
 	},
     --173 CHAMBER
     {
-        items = {{"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "item_battery_9v", "ssri_pills"}},
+        items = {{"keycard_level1", "keycard_level2", "keycard_level3", "item_gasmask", "item_radio", "battery9v", "ssri_pills"}},
         model = "models/player/kerry/class_d_1.mdl",
         setup = function(rag)
             rag.br_showname = "D-" ..math.random(1,9)..math.random(0,9)..math.random(0,9)..math.random(0,9) .. ""

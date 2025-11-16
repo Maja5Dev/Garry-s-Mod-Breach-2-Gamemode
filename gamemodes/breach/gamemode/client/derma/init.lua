@@ -13,6 +13,7 @@ include("menu_terminal_access.lua")
 include("menu_terminal_loading.lua")
 include("menu_terminal_starting.lua")
 include("menu_terminal.lua")
+include("menu_batteries.lua")
 
 function BR_GetAllMenus()
 	return {

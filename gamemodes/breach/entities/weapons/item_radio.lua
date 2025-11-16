@@ -285,7 +285,7 @@ end
 
 function SWEP:GetBetterOne()
 	if br_914status == SCP914_ROUGH then
-		return "item_battery_9v"
+		return "battery9v"
 
 	elseif br_914status == SCP914_VERY_FINE then
 		return "item_radio2"

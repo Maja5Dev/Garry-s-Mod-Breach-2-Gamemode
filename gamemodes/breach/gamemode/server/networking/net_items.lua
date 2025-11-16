@@ -43,11 +43,14 @@ end)
 net.Receive("br_use_special_item", function(len, ply)
 	if !ply:IsSpectator() and ply:Alive() and ply.br_downed == false then
 		local item = net.ReadTable()
+		PrintTable(item)
 
 		for k,v in pairs(ply.br_special_items) do
 			if spi_comp(v, item) then
 				for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
+					print("Comparing to special item:", v.class, v2.class)
 					if v.class == v2.class then
+						print("Using special item:", v.class)
 						local remove = v2.use(ply, v)
 
 						if remove then

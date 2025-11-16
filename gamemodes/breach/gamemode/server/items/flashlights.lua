@@ -8,7 +8,7 @@ BR2_FLASHLIGHT_TYPES = {
 		sound_off = "breach2/flashlight2.wav",
 		upgrade = function(ent)
 			if br_914status == SCP914_ROUGH or br_914status == SCP914_COARSE then
-				return "item_battery_9v"
+				return "battery9v"
 
 			elseif br_914status == SCP914_1_1 then
 				return "br2_item_flashlight_cheap"
@@ -41,7 +41,7 @@ BR2_FLASHLIGHT_TYPES = {
 		sound_off = "breach2/flashlight3.wav",
 		upgrade = function(ent)
 			if br_914status == SCP914_ROUGH then
-				return "item_battery_9v"
+				return "battery9v"
 				
 			elseif br_914status == SCP914_1_1 then
 				return "br2_item_flashlight_normal"
@@ -74,7 +74,7 @@ BR2_FLASHLIGHT_TYPES = {
 		sound_off = "breach2/flashlight4_off.wav",
 		upgrade = function(ent)
 			if br_914status == SCP914_ROUGH then
-				return "item_battery_9v"
+				return "battery9v"
 
 			elseif br_914status == SCP914_1_1 or br_914status == SCP914_FINE then
 				return "br2_item_flashlight_tactical"

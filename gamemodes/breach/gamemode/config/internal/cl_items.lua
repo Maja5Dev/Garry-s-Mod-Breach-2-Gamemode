@@ -15,7 +15,6 @@ BR_ITEM_NAMES_FROM_MODELS = {
 
 BR_ITEM_DESCRIPTIONS = {
 	-- SWEP ITEMS
-	item_battery_9v = {desc = "Useful 9 Volt Battery"},
 	item_c4 = {desc = "Useful explosive charge"},
 	item_gasmask = {desc = "Protects you from toxic gases"},
 	item_gasmask2 = {desc = "Protects you from toxic gases"},
@@ -103,6 +102,8 @@ BR_ITEM_DESCRIPTIONS = {
 	coin = {name = "Coin", desc = "Just a shiny coin", mdl = "models/cultist/items/coin/coin.mdl"},
 	lockpick = {name = "Lockpick", desc = "Universal lockpick for opening stuff"},
 	crafting_toolbox = {name = "Toolbox", desc = "Toolbox used for crafting things", mdl = "models/cultist/items/toolbox/tool_box.mdl"},
+
+	battery9v = {name = "9V Battery", desc = "Generic battery used in electronic devices", mdl = "models/mishka/models/battery.mdl"},
 
 	-- AMMO
 	ammo_pistol16 = {name = "Pistol Ammo Box 16", desc = "16 pistol rounds in a box", mdl = "models/Items/357ammo.mdl"},

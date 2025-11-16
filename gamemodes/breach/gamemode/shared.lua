@@ -45,7 +45,11 @@ function spi_comp(item1, item2)
 		end
 	end
 
-	return (item1.class == item2.class) and (item1.name == item2.name) and (item1.type == item2.type)
+	if (item1.class or item2.class) and (item1.class != item2.class) then return false end
+	if (item1.name or item2.name) and (item1.name != item2.name) then return false end
+	if (item1.type or item2.type) and (item1.type != item2.type) then return false end
+
+	return true
 end
 
 -- Disable default footsteps

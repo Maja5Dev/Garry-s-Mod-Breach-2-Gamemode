@@ -41,8 +41,6 @@ local function add_drink(class, name, model, thirst, hunger)
 
 			return true
 		end,
-		onstart = function(pl)
-		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)
 			return item
@@ -85,8 +83,6 @@ local function add_alcohol(class, name, model, thirst, hunger)
 			end)
 
 			return true
-		end,
-		onstart = function(pl)
 		end,
 		drop = function(pl)
 			local res, item = br2_special_item_drop(pl, class, name, "prop_physics", model)

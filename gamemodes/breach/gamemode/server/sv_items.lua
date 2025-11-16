@@ -150,5 +150,6 @@ include("items/food.lua")
 include("items/medical.lua")
 include("items/scp_294.lua")
 include("items/toolbox.lua")
+include("items/batteries.lua")
 
 print("[Breach2] server/sv_items.lua loaded!")

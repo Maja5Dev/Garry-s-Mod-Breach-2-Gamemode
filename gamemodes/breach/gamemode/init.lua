@@ -112,6 +112,7 @@ AddCSLuaFile("client/derma/menu_terminal_cameras.lua")
 AddCSLuaFile("client/derma/menu_terminal_loading.lua")
 AddCSLuaFile("client/derma/menu_terminal_starting.lua")
 AddCSLuaFile("client/derma/menu_terminal.lua")
+AddCSLuaFile("client/derma/menu_batteries.lua")
 AddCSLuaFile("client/derma/init.lua")
 
 AddCSLuaFile("client/cl_player.lua") -- player related overrides, low priority
