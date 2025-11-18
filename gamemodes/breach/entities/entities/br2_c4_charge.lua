@@ -57,3 +57,11 @@ function ENT:OnTakeDamage(dmginfo)
 		end
 	end
 end
+
+function ENT:GetBetterOne()
+	if br_914status == SCP914_VERY_FINE then
+		return "kanade_tfa_rpg"
+	end
+
+	return self
+end
