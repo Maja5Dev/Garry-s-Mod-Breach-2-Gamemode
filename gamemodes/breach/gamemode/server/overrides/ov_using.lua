@@ -63,6 +63,35 @@ function ShouldPlayerUse(ply, ent)
 end
 
 function GM:PlayerUse(ply, ent)
+	if ent.SI_Class then
+		if ply:IsBackPackFull() then
+			ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+			return true
+		end
+
+		local name = ent.PrintName
+		local class = ent.SI_Class
+
+		for k,v in pairs(BR2_DOCUMENTS) do
+			if v.class == ent.SI_Class then
+				name = v.name
+				class = "document"
+				break
+			end
+		end
+
+		table.ForceInsert(ply.br_special_items, {
+			class = class,
+			type = ent.DocType,
+			name = name,
+			attributes = ent.Attributes
+		})
+
+		ent:Remove()
+
+		return false
+	end
+
 	local wep = ply:GetActiveWeapon()
 
 	if ply.entity173 then

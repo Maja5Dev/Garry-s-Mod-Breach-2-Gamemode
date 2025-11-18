@@ -85,6 +85,12 @@ end)
 
 net.Receive("br_take_loot", function(len, ply)
 	if len > 1500 or !ply:Alive() or ply:IsSpectator() or table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, ply.br_role) then return end
+
+	if ply:IsBackPackFull() then
+		ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+		return
+	end
+
 	local item = net.ReadTable()
 	local source = net.ReadTable()
 
@@ -154,11 +160,6 @@ net.Receive("br_take_loot", function(len, ply)
 
 						for k2,v2 in pairs(BR2_SPECIAL_ITEMS) do
 							if v2.class == class then
-								if ply:IsBackPackFull() then
-									ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
-									return
-								end
-
 								local res = v2.func(ply, v2) or false
 								if res == true then
 									table.RemoveByValue(source_tab, v)

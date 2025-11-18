@@ -128,19 +128,4 @@ hook.Add("HUDShouldDraw", "BR_HideHUD", function(name)
 	if hide[name] then return !hide[name] end
 end)
 
-local pickupable_classes = {"item_", "keycard_", "kanade_tfa_"}
-
-function EntIsPickupable(ent)
-	if IsValid(ent:GetOwner()) then return false end
-
-	local class = ent:GetClass()
-	for k,v in pairs(pickupable_classes) do
-		if string.find(class, v) then
-			return true
-		end
-	end
-	
-	return (ent.ForceHalo or ent:GetNWBool("isDropped", false))
-end
-
 print("[Breach2] client/hud/init.lua loaded!")
