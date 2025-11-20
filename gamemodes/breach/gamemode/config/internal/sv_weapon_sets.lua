@@ -76,7 +76,7 @@ BR2_WEAPON_SETS = {
         },
         additional = {
             "item_radio",
-            "item_nvg",
+            "item_nvg3",
             "item_gasmask",
         }
     }
