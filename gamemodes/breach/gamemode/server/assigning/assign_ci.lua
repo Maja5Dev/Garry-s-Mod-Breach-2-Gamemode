@@ -85,15 +85,15 @@ function assign_system.Assign_CIsoldier(ply)
 	if ply.dont_assign_items == false then
 		ply:Give("keycard_omni")
 
-		for k,v in pairs(BR2_WEAPON_SETS.mtf_soldier.additional) do
+		for k,v in pairs(BR2_WEAPON_SETS.ci_soldier.additional) do
 			ply:Give(v)
 		end
 
-		local random_side = table.Random(BR2_WEAPON_SETS.mtf_soldier.side)
+		local random_side = table.Random(BR2_WEAPON_SETS.ci_soldier.side)
 		ply:Give(random_side[1])
 		ply:SetAmmo(random_side[3], random_side[2])
 
-		local random_main = table.Random(BR2_WEAPON_SETS.mtf_soldier.main)
+		local random_main = table.Random(BR2_WEAPON_SETS.ci_soldier.main)
 		ply:Give(random_main[1])
 		ply:SetAmmo(random_main[3], random_main[2])
 	end
