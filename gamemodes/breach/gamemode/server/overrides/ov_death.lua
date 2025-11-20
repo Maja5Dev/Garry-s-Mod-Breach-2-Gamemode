@@ -27,7 +27,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 
 		ply.backupLastPlayerInfo = ply:CopyPlayerInfo()
 
-		if ply.isTheOne == true then
+		if ply.isTheOne == true and pl.br_times_support_respawned < 3 then
 			ply:SendLua('surface.PlaySound("breach2/save1.ogg")')
 			return
 		end
@@ -153,7 +153,7 @@ function GM:PlayerDeathThink(pl)
 	if pl.NextSpawnTime and pl.NextSpawnTime > CurTime() then return end
 	
 	-- Respawning D-9341
-	if pl.isTheOne == true then
+	if pl.isTheOne == true and pl.br_times_support_respawned < 3 then
 		local old_showname = pl.br_showname
 
 		if IsValid(pl.LastBody) then
