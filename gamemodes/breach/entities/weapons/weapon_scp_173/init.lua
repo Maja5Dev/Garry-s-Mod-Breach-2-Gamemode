@@ -49,7 +49,11 @@ end
 function SWEP:MoveToNextPos(mv)
 	local ent173 = self.Owner.entity173
 
-	if self.NextMove > CurTime() or !IsValid(ent173) or self.NextPos == nil or (ent173:GetPos():Distance(self.NextPos) < 10) then return end
+	if self.NextMove > CurTime()
+	or !IsValid(ent173)
+	or self.NextPos == nil
+	or (ent173:GetPos():Distance(self.NextPos) < 10)
+	then return end
 
 	if self.NextPos != nil and IsValid(self.Owner) then
 		if self:CanWeMoveTo(self.NextPos) == true then
@@ -212,4 +216,48 @@ function SWEP:Think()
 	end
 
 	self:NextThink(CurTime() + 0.3)
+end
+
+-- When the player wants to teleport to where they are standing in free roam mode
+function SWEP:HandleTeleportFromFreeRoam()
+	if self.FreeRoamMode then
+		local tr = util.TraceLine({
+			start = self.Owner:GetPos(),
+			endpos = self.Owner:GetPos() - Vector(0, 0, 5),
+			mask = MASK_SOLID_BRUSHONLY -- Only hit world geometry / brushes
+		})
+
+		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
+			self.Owner:BR2_ShowNotification("Cannot move to that position")
+			return
+		end
+
+		if self:GetNWInt("NextMovementAllowed", 0) > CurTime() then
+			self.Owner:BR2_ShowNotification("Movement is on cooldown")
+			return
+		end
+
+		self.FreeRoamMode = false
+
+		self.MovementDelay = CurTime() + 3
+		self:SetNWInt("NextMovementAllowed", self.MovementDelay)
+		self.NextMove = self.MovementDelay
+
+		self.Owner:SetWalkSpeed(1)
+		self.Owner:SetRunSpeed(1)
+		self.Owner:RemoveFlags(FL_DONTTOUCH)
+		
+		if IsValid(self.Owner.entity173) then
+			self.Owner.entity173:SetAngles(Angle(0, self.Owner:EyeAngles().yaw, 0))
+
+			if self.NextTeleportSound < CurTime() then
+				self.Owner.entity173:EmitSound("breach2/173sound"..math.random(1,3)..".ogg", 300, 100, 1)
+				self.NextTeleportSound  = CurTime() + 2
+			end
+		end
+
+		net.Start("br_scp173_mode")
+			net.WriteBool(self.FreeRoamMode)
+		net.Send(self.Owner)
+	end
 end

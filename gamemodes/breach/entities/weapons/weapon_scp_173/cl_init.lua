@@ -35,7 +35,7 @@ function SWEP:DrawHUD()
 	local perc = LocalPlayer():Health() / LocalPlayer():GetMaxHealth()
 
 	local x = 32
-	local y = ScrH() - 64
+	local y = ScrH() - 100
 
 	draw.Text({
 		text = "Health:",
@@ -65,12 +65,23 @@ function SWEP:DrawHUD()
 		})
 
 		draw.Text({
-			text = "Clicking R toggles roaming mode, where you can find people faster but cannot teleport",
+			text = "Clicking R toggles free roaming mode, Q teleports to where you are standing in free roam mode",
 			pos = {ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),
 			xalign = TEXT_ALIGN_CENTER,
 			yalign = TEXT_ALIGN_BOTTOM,
+		})
+	end
+
+	if self:GetNWInt("NextMovementAllowed", 0) > CurTime() then
+		draw.Text({
+			text = "Movement delay for " .. math.Round(self:GetNWInt("NextMovementAllowed", 0) - CurTime()) .. "s",
+			pos = {ScrW() / 2, ScrH() / 2 + 80},
+			font = "BR2_ItemFont",
+			color = Color(255,255,255,80),
+			xalign = TEXT_ALIGN_CENTER,
+			yalign = TEXT_ALIGN_CENTER,
 		})
 	end
 
@@ -90,6 +101,10 @@ function SWEP:DrawHUD()
 				if v.Hit == true then
 					self.CColor = Color(200,0,0,120)
 				end
+			end
+
+			if self:GetNWInt("NextMovementAllowed", 0) > CurTime() then
+				self.CColor = Color(200,0,0,120)
 			end
 			
 			local ourpos = ent173:GetPos()
@@ -142,5 +157,12 @@ function SWEP:ToggleFreeRoam(toggle)
 
 	if toggle then
 		self.Owner:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	end
+end
+
+function SWEP:TryToTeleportFromFreeRoam()
+	if self.FreeRoamMode then
+		net.Start("br_scp173_teleport")
+		net.SendToServer()
 	end
 end
