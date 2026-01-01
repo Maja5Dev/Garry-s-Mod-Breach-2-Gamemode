@@ -9,12 +9,11 @@
 		"*.sw.vtx",
 		"*.xbox.vtx",
 		"*.py",
-		"*.txt",
-		"*.png",
 		"*.code-workspace",
 		"*.zip",
 		"LICENSE",
 		"_unused/*",
+		"_notes/*",
 		"*.otf*"
 	]
 }
