@@ -7,6 +7,9 @@ ENT.PrintName = "SCP"
 ENT.Author = "Maya"
 ENT.Category = "SCP:CB Breach 2"
 
+ENT.Faction = "FACTION_SCP"
+ENT.Factions = {"FACTION_SCP"}
+
 function ENT:OnInputAccepted(event, activator)
 	if IsValid(activator)
 	and activator:IsPlayer()

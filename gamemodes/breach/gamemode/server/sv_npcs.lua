@@ -9,8 +9,6 @@ end
 local function checkForPlayerSCP(npcclass)
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and v:IsSpectator() == false then
-			table.ForceInsert(all_players, v)
-
             if (string.find(npcclass, "scp_173") or string.find(npcclass, "scp173")) and v.br_role == ROLE_SCP_173 then
                 print("Not spawning SCP-173 because a player is SCP-173")
                 return false
@@ -25,6 +23,8 @@ local function checkForPlayerSCP(npcclass)
             end
 		end
 	end
+
+    return true
 end
 
 npc_timer_num = 0

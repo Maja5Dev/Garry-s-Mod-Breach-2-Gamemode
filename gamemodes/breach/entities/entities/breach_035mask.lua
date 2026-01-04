@@ -8,6 +8,9 @@ ENT.PrintName = "SCP-035"
 ENT.Spawnable = true
 ENT.Category = "Breach 2"
 
+ENT.Faction = "FACTION_NONE"
+ENT.Factions = {"FACTION_NONE"}
+
 function ENT:Think()
     local player_tab = {}
 
