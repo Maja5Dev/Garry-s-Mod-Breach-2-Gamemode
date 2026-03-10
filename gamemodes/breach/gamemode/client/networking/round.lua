@@ -21,8 +21,6 @@ net.Receive("br_round_prepstart", function(len)
 	system.FlashWindow()
 
 --CLEANING THE MAP
-	game.CleanUpMap()
-
 	BR2_OURINFO = {}
 	round_start = CurTime()
 	round_starting_end = CurTime() + GetConVar("br2_time_preparing"):GetFloat()
