@@ -45,10 +45,6 @@ util.AddNetworkString("br_pregame_spawns")
 util.AddNetworkString("br_update_support_spawns")
 util.AddNetworkString("cl_playerescaped")
 util.AddNetworkString("br_support_spawn")
-util.AddNetworkString("br_mtf_teams_update")
-util.AddNetworkString("br_mtf_teams_join")
-util.AddNetworkString("br_mtf_teams_leave")
-util.AddNetworkString("br_mtf_team_ready")
 util.AddNetworkString("br_get_special_items")
 util.AddNetworkString("br_get_owned_devices")
 util.AddNetworkString("br_get_terminal_settings")
@@ -86,6 +82,8 @@ util.AddNetworkString("br_spawn_item")
 util.AddNetworkString("br_was_nuked")
 util.AddNetworkString("br_nuke_activation")
 
+include("net_supports_ci.lua") -- top priority
+include("net_supports_mtf.lua") -- top priority
 include("net_supports.lua") -- top priority
 
 include("net_health.lua")

@@ -43,7 +43,7 @@ function assign_system.Assign_ClassD(ply)
 	ply.br_usesTemperature = true
 
 	if ply.support_spawning == false then
-		ply.br_support_spawns = {{"class_d", 1}, {"mtf", 1}}
+		ply.br_support_spawns = {{"class_d", 1}, {"ci", 1}}
 		ply.first_info = "classd"
 		ply.mission_set = "classd"
 	end

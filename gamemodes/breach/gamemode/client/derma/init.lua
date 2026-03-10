@@ -2,6 +2,8 @@
 include("menu_firstrole.lua")
 include("menu_identify.lua")
 include("menu_info.lua")
+include("menu_spawn_mtf.lua")
+include("menu_spawn_ci.lua")
 include("menu_items.lua")
 include("menu_notepad.lua")
 include("menu_support_spawns.lua")
@@ -18,6 +20,7 @@ include("menu_batteries.lua")
 function BR_GetAllMenus()
 	return {
 		br_our_mtf_frame,
+		br_our_ci_frame,
 		info_menu_1_frame,
 		info_menus_panel,
 		cameras_frame,
@@ -51,5 +54,6 @@ function BR_AnyMenusOn()
 			return true
 		end
 	end
+	
 	return false
 end

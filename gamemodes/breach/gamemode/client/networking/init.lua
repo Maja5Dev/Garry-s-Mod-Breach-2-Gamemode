@@ -11,7 +11,7 @@ BR2_MTF_TEAMS = {
 	{},
 	{},
 }
-br2_support_spawns = {{"mtf", 1}}
+br2_support_spawns = {}
 br_our_team_num = 0
 br2_round_state_start = 0
 br2_nuke_activated = false

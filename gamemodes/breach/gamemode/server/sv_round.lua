@@ -467,6 +467,11 @@ round_system.PreparingStart = function()
 	RunConsoleCommand("sbox_godmode", "0")
 	RunConsoleCommand("sbox_playershurtplayers", "1")
 
+	local drg_speed = cvars.Number("drgbase_multiplier_speed", nil)
+	if drg_speed then
+		RunConsoleCommand("drgbase_multiplier_speed", "0.4")
+	end
+
 	if isfunction(round_system.current_scenario.preparing_start) then round_system.current_scenario.preparing_start() end
 
 	create_all_possible_names()

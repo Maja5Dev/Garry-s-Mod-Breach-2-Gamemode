@@ -62,6 +62,7 @@ function BR_SupportSpawnButtons()
         janitor = {"Spawn as a Janitor", function(name) sendtoserver(name) end},
         engineer = {"Spawn as an Engineer", function(name) sendtoserver(name) end},
         mtf = {1, function() Open_MTF_SpawnMenu() end},
+        ci = {2, function() Open_CI_SpawnMenu() end},
         ci_soldier = {"Spawn in a CI Group", function(name) sendtoserver(name) end},
         cont_spec = {"Spawn as a ContSpec", function(name) sendtoserver(name) end}
     }
@@ -96,8 +97,15 @@ function BR_SupportSpawnButtons()
             net.SendToServer()
         end
     end
+
+    local has_mtf = false
+    for k,v in pairs(br2_support_spawns) do
+        if v[1] == "mtf" then
+            has_mtf = true
+        end
+    end
     
-    local function createbutts()
+    local function create_butts()
         local supsp_tab = {}
 
         if istable(br2_support_spawns) and table.Count(br2_support_spawns) > 0 then
@@ -106,7 +114,6 @@ function BR_SupportSpawnButtons()
             else
                 for k,v in pairs(br2_support_spawns) do
                     if v[2] > 0 then
-                        --print(v[1], supsp_tab1[v[1]])
                         table.ForceInsert(supsp_tab, {v[1], supsp_tab1[v[1]][1], supsp_tab1[v[1]][2]})
                     end
                 end
@@ -130,11 +137,21 @@ function BR_SupportSpawnButtons()
                 end
                 
                 if isnumber(text) then
-                    local mtf_spawn_time = GetConVar("br2_time_mtf_spawn"):GetFloat()
-                    if mtf_spawn_time > (CurTime() - br2_round_state_start) then
-                        text = "MTF Spawns in " .. math.Round(mtf_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
-                    else
-                        text = "Spawn in a MTF Group"
+                    if text == 1 then -- mtf
+                        local mtf_spawn_time = GetConVar("br2_time_mtf_spawn"):GetFloat()
+                        if mtf_spawn_time > (CurTime() - br2_round_state_start) then
+                            text = "MTF Spawns in " .. math.Round(mtf_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
+                        else
+                            text = "Spawn in a MTF Group"
+                        end
+
+                    elseif text == 2 then -- ci
+                        local ci_spawn_time = GetConVar("br2_time_ci_spawn"):GetFloat()
+                        if ci_spawn_time > (CurTime() - br2_round_state_start) then
+                            text = "CI Spawns in " .. math.Round(ci_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
+                        else
+                            text = "Spawn in a CI Group"
+                        end
                     end
                 end
 
@@ -146,15 +163,21 @@ function BR_SupportSpawnButtons()
                     font = "BR_SUPSP_1_FONT_1",
                     color = Color(255,255,255,200),
                 })
+
                 if isbool(v[2]) and (int < 0) then
-                    createbutts()
+                    create_butts()
                     supsp_button:Remove()
                 end
             end
             supsp_button.DoClick = function()
-                if isnumber(v[2]) and GetConVar("br2_time_mtf_spawn"):GetFloat() > (CurTime() - br2_round_state_start) then
+                if isnumber(v[2]) and v[2] == 1 and GetConVar("br2_time_mtf_spawn"):GetFloat() > (CurTime() - br2_round_state_start) then
                     return
                 end
+
+                if isnumber(v[2]) and v[2] == 2 and GetConVar("br2_time_ci_spawn"):GetFloat() > (CurTime() - br2_round_state_start) then
+                    return
+                end
+
                 if v[1] != nil and v[3] != nil then
                     v[3](v[1])
                     BR_SupportSpawns:Remove()
@@ -165,62 +188,7 @@ function BR_SupportSpawnButtons()
         end
     end
 
-    createbutts()
-end
-
-function BR_OpenMTFMenu()
-    local size_w = 180
-    local size_h = 190
-
-    br_our_mtf_frame = vgui.Create("DFrame")
-    br_our_mtf_frame:SetTitle("")
-    br_our_mtf_frame:ShowCloseButton(false)
-    br_our_mtf_frame:SetDraggable(false)
-    br_our_mtf_frame:SetPos(ScrW() - size_w, ScrH() - size_h)
-    br_our_mtf_frame:SetSize(size_w, size_h)
-    br_our_mtf_frame.nextUpdate = 0
-    br_our_mtf_frame.Think = function(self)
-        if !IsValid(info_menu_1_frame) and br_our_mtf_frame.nextUpdate < CurTime() then
-            net.Start("br_mtf_teams_update")
-            net.SendToServer()
-            br_our_mtf_frame.nextUpdate = CurTime() + 1
-        end
-    end
-
-    --our_team = {Entity(1), Entity(2), Entity(3), Entity(4)}
-    br_our_mtf_frame.Paint = function(self, w, h)
-        for i,v in ipairs(BR2_MTF_TEAMS) do
-            for k,pl in pairs(v) do
-                if pl == LocalPlayer() then
-                    found_ourselves = true
-                    our_team = v
-                    br_our_team_num = i
-                end
-            end
-        end
-        
-        draw.RoundedBox(0, 0, 0, w, h, Color(25, 25, 25, 200))
-        draw.Text({
-            text = "MTF Team "..br_our_team_num.."",
-            pos = {w / 2, 32},
-            xalign = TEXT_ALIGN_CENTER,
-            yalign = TEXT_ALIGN_CENTER,
-            font = "BR_INFO_1_FONT_3",
-            color = Color(255,33,58,150),
-        })
-        for i,ply in ipairs(our_team) do
-            if IsValid(ply) then
-                draw.Text({
-                    text = ply:Nick() or "Unknown",
-                    pos = {w / 2, 32 + i * 32},
-                    xalign = TEXT_ALIGN_CENTER,
-                    yalign = TEXT_ALIGN_CENTER,
-                    font = "BR_INFO_1_FONT_3",
-                    color = Color(255,255,255,200),
-                })
-            end
-        end
-    end
+    create_butts()
 end
 
 print("[Breach2] client/derma/menu_support_spawns.lua loaded!")

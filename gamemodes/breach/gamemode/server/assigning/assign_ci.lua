@@ -19,7 +19,7 @@ function assign_system.Assign_Researcher_CI(ply)
 	ply.br_ci_agent = true
 
 	if ply.support_spawning == false then
-		ply.br_support_spawns = {{"mtf", 1}}
+		ply.br_support_spawns = {{"ci", 1}}
 		ply.first_info = "ci_spy"
 		ply.mission_set = "chaos_spies"
 	end
@@ -62,7 +62,7 @@ function assign_system.Assign_SDofficer_CI(ply)
 	ply.br_ci_agent = true
 
 	if ply.support_spawning == false then
-		ply.br_support_spawns = {{"mtf", 1}}
+		ply.br_support_spawns = {{"ci", 1}}
 		ply.first_info = "ci_spy"
 		ply.mission_set = "chaos_spies"
 	end
@@ -105,7 +105,7 @@ function assign_system.Assign_CIsoldier(ply)
 	ply.getsAllCIinfo = true
 
 	if ply.support_spawning == false then
-		ply.br_support_spawns = {{"mtf", 1}}
+		ply.br_support_spawns = {{"ci", 1}}
 		ply.first_info = "ci_soldier"
 		ply.mission_set = "chaos_soldiers"
 	end
