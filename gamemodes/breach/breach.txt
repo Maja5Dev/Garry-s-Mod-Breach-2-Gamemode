@@ -144,13 +144,31 @@
 		// --- GAMEPLAY TOGGLES & STATS ---
 		17
 		{
+			"name"		"br2_enable_hunger"
+			"text"		"Enable Hunger"
+			"help"		"Toggle hunger system"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+
+		18
+		{
+			"name"		"br2_enable_thirst"
+			"text"		"Enable Thirst"
+			"help"		"Toggle thirst system"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+
+		19
+		{
 			"name"		"br2_enable_npcs"
 			"text"		"Enable NPCs"
 			"help"		"Toggle NPC spawning"
 			"type"		"CheckBox"
 			"default"	"1"
 		}
-		18
+		20
 		{
 			"name"		"br2_enable_sprays"
 			"text"		"Enable Sprays"
@@ -158,7 +176,7 @@
 			"type"		"CheckBox"
 			"default"	"1"
 		}
-		19
+		21
 		{
 			"name"		"br2_down_players"
 			"text"		"Disable Downing"
@@ -166,7 +184,7 @@
 			"type"		"CheckBox"
 			"default"	"1"
 		}
-		20
+		22
 		{
 			"name"		"br2_gun_damage"
 			"text"		"Gun Damage Multiplier"
@@ -174,7 +192,7 @@
 			"type"		"Numeric"
 			"default"	"0.7"
 		}
-		21
+		23
 		{
 			"name"		"br2_sanity_strength"
 			"text"		"Sanity Strength"
@@ -182,7 +200,7 @@
 			"type"		"Numeric"
 			"default"	"1"
 		}
-		22
+		24
 		{
 			"name"		"br2_sanity_speed"
 			"text"		"Sanity Speed"
@@ -190,7 +208,7 @@
 			"type"		"Numeric"
 			"default"	"3"
 		}
-		23
+		25
 		{
 			"name"		"br2_temperature_speed"
 			"text"		"Temperature Speed"
@@ -198,7 +216,7 @@
 			"type"		"Numeric"
 			"default"	"0.75"
 		}
-		24
+		26
 		{
 			"name"		"br2_temperature_high_enabled"
 			"text"		"Enable High Heat"
@@ -208,7 +226,7 @@
 		}
 
 		// --- SCP NPC SPECIFIC ---
-		25
+		27
 		{
 			"name"		"br2_npc_teleport_delay_global"
 			"text"		"Global SCP TP Delay"
@@ -216,7 +234,7 @@
 			"type"		"Numeric"
 			"default"	"40"
 		}
-		26
+		28
 		{
 			"name"		"br2_npc_teleport_delay"
 			"text"		"Individual SCP TP Delay"
@@ -224,7 +242,7 @@
 			"type"		"Numeric"
 			"default"	"40"
 		}
-		27
+		29
 		{
 			"name"		"br2_035_decay_speed"
 			"text"		"SCP-035 Decay Speed"

@@ -207,6 +207,9 @@ end
 local function examine_Hunger(pl)
     if br_our_hunger == nil then return end
 
+    local enabled = SafeBoolConVar("br2_enable_hunger")
+    if enabled == false then return end
+
     if br_our_hunger < 25 then
         chat.AddText(Color(255,0,0,255), " - You are very hungry!")
 
@@ -222,6 +225,9 @@ end
 
 local function examine_Thirst(pl)
     if br_our_thirst == nil then return end
+
+    local enabled = SafeBoolConVar("br2_enable_thirst")
+    if enabled == false then return end
 
     if br_our_thirst < 25 then
         chat.AddText(Color(255,0,0,255), " - You are very thirsty!")

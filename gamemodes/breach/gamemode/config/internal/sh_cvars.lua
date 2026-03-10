@@ -17,6 +17,8 @@ br2_add_cvar("br2_time_music_start_low", "150", "After x seconds low intensity m
 br2_add_cvar("br2_time_music_start_medium", "800", "After x seconds medium intensity music starts")
 br2_add_cvar("br2_time_music_start_high", "1400", "After x seconds high intensity music starts")
 
+br2_add_cvar("br2_enable_hunger", "0", "Enable the hunger system")
+br2_add_cvar("br2_enable_thirst", "0", "Enable the hunger system")
 br2_add_cvar("br2_enable_npcs", "1", "Enable npcs spawning")
 br2_add_cvar("br2_enable_sprays", "1", "Enable sprays")
 br2_add_cvar("br2_chance_to_get_downed", "50", "Chances to down a player, from 0 to 100")
