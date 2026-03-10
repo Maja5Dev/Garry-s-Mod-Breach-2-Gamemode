@@ -37,7 +37,9 @@ function ENT:Think()
         end
     end
 
-    scp_035.SetEffectsMask(self, player_tab)
+    if IsValid(scp_035) then
+        scp_035.SetEffectsMask(self, player_tab)
+    end
 end
 
 function ENT:OnRemove()
