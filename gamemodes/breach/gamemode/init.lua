@@ -121,6 +121,7 @@ AddCSLuaFile("client/cl_player.lua") -- player related overrides, low priority
 AddCSLuaFile("client/cl_tfa_fixes.lua") -- very low priority
 AddCSLuaFile("client/cl_binds.lua")
 AddCSLuaFile("client/cl_fog.lua")
+AddCSLuaFile("client/cl_scp966.lua")
 
 AddCSLuaFile("client/cl_tick.lua")
 AddCSLuaFile("config/internal/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua

@@ -59,20 +59,6 @@ BREACH_DEFAULT_ROLES = {
 		assign_function = "Assign_ISDagent"
 	},
 	*/
-	/*
-	roles_scps_unkillable = {
-		class = "scp_unkillable",
-		team = TEAM_SCP,
-		spawns = {"SPAWNS_SCP_OTHERS"},
-		assign_function = "Assign_SCP_Unkillable"
-	},
-	roles_scps_killable = {
-		class = "scp_killable",
-		team = TEAM_SCP,
-		spawns = {"SPAWNS_SCP_OTHERS"},
-		assign_function = "Assign_SCP_Killable"
-	},
-	*/
 	roles_scps = {
 		class = "scp",
 		team = TEAM_SCP,

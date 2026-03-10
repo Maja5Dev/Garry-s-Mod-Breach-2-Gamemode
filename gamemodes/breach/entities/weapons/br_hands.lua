@@ -27,6 +27,14 @@ function SWEP:IsSCP049()
 	end
 end
 
+function SWEP:IsSCP966()
+	if CLIENT then
+		return (BR2_OURNOTEPAD.people and BR2_OURNOTEPAD.people[1] != nil and BR2_OURNOTEPAD.people[1].br_role == ROLE_SCP_966)
+	else
+		return (self.Owner.br_role == ROLE_SCP_966)
+	end
+end
+
 SWEP.NextReload = 0
 function SWEP:Reload()
 	if not IsFirstTimePredicted() or self.NextReload > CurTime() then return end
@@ -34,7 +42,7 @@ function SWEP:Reload()
 
 	local dmg_holdtype = "fist"
 
-	if self:IsSCP049() then
+	if self:IsSCP049() or self:IsSCP966() then
 		self.PushingMode = false
 		self.PunchingMode = false
 		self.SCP049Mode = true
@@ -506,7 +514,7 @@ function SWEP:Think()
 		self:SetHoldType(self.HoldType)
 	end
 
-	if self:IsSCP049() and self.PushingMode then
+	if (self:IsSCP049() or self:IsSCP966()) and self.PushingMode then
 		self.PushingMode = false
 		self.PunchingMode = false
 		self.SCP049Mode = true
@@ -571,6 +579,10 @@ function SWEP:DrawHUD()
 	
 	if self:IsSCP049() then
 		text = "Left click to attack, to cure, first kill, then check pulse, and cure"
+	end
+
+	if self:IsSCP966() then
+		text = "Secondary attack opens action menu, Left click to attack"
 	end
 
 	draw.Text({

@@ -42,6 +42,7 @@ include("client/cl_player.lua") -- player related overrides, low priority
 include("client/cl_tfa_fixes.lua") -- very low priority
 include("client/cl_binds.lua") -- quite a lot of things, any load order
 include("client/cl_fog.lua")
+include("client/cl_scp966.lua")
 
 include("client/cl_tick.lua") -- lowest load order
 include("config/internal/sh_scp294.lua") -- needs to be before cl_item_spawnmenu.lua

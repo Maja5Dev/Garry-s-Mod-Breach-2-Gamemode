@@ -67,6 +67,30 @@ BREACH_OUTFITS = {
 		examine_info = " - It looks like SCP-049-2!"
 	},
 	{
+		class = "scp_966",
+		name = "SCP-966's Outfit",
+		model = "models/966/966.mdl",
+		temp_resistance = OUTFIT_COLD_RESISTANCE_MEDIUM,
+		walk_speed = 0.92,
+		run_speed = 0.8,
+		jump_power = 1,
+		bullet_damage = 1,
+		fire_damage = 1,
+		explosion_damage = 1,
+		can_change_outfits = false,
+		can_loot_this_outfit = false,
+		footstep_volume = 0,
+		footstep_sounds = {
+			{"breach2/scp/049/Step1.ogg", 1},
+			{"breach2/scp/049/Step2.ogg", 1},
+			{"breach2/scp/049/Step3.ogg", 1},
+		},
+		player_color = Vector(255,0,0,255),
+		hands = {mdl = "models/vinrax/weapons/c_arms_scp049.mdl", skin = 0},
+		examine = "You are not wearing any clothing, why would you? you can't be seen anyway",
+		examine_info = " - It looks like SCP-966!"
+	},
+	{
 		class = "scp_173",
 		name = "SCP-173's Outfit",
 		model = SCP_173_MODEL,

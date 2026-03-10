@@ -102,6 +102,41 @@ function assign_system.Assign_SCP049(ply)
 	ply.br_role = ROLE_SCP_049
 end
 
+function assign_system.Assign_SCP966(ply)
+	ply.br_role = ROLE_SCP_966
+	Pre_Assign(ply)
+
+	local hp = math.Clamp(player.GetCount() * 180, 500, 1600)
+
+	ply:SetHealth(hp)
+	ply:SetMaxHealth(hp)
+	ply:SetArmor(0)
+	ply:ApplyOutfit("scp_966")
+	ply.cantChangeOutfit = true
+	ply:Give("br_hands")
+	ply.use049sounds = true
+	ply.br_uses_hunger_system = false
+	ply.br_usesSanity = false
+	ply.can_get_infected = false
+	ply.br_role = ROLE_SCP_966
+	ply.br_showname = ROLE_SCP_966
+	ply.br_customspawn = "SPAWNS_SCP_966"
+	ply.Faction = "BR2_FACTION_SCP_966"
+	ply:AddFlags(FL_NOTARGET)
+	ply.br_usesStamina = false
+	ply.disable_coughing = true
+
+	ply.first_info = "scp_966"
+	ply.mission_set = "scp_966"
+
+	ply:SetNWString("CPTBase_NPCFaction", "BR2_FACTION_SCP_966")
+	if ply.support_spawning == false then
+		ply.br_support_spawns = {{"scp_049_2", 1}, {"ci", 1}}
+	end
+	ply.br_support_team = SUPPORT_ROGUE
+	Post_Assign(ply)
+	ply.br_role = ROLE_SCP_966
+end
 
 -- lua_run assign_system.Assign_SCP173(Entity(1))
 function assign_system.Assign_SCP173(ply)
@@ -283,9 +318,16 @@ last_scp_assign = nil
 function assign_system.Assign_SCP(ply)
 	-- Alternate between SCP-049 and SCP-173 assignments for first SCP
 	if last_scp_assign == nil then
-		if math.random(1,2) == 1 then
+		local rng = math.random(1,3)
+
+		if rng == 1 then
 			assign_system.Assign_SCP049(ply)
 			last_scp_assign = "scp_049"
+			return
+
+		elseif rng == 2 then
+			assign_system.Assign_SCP966(ply)
+			last_scp_assign = "scp_966"
 			return
 		else
 			assign_system.Assign_SCP173(ply)
@@ -299,20 +341,16 @@ function assign_system.Assign_SCP(ply)
 		last_scp_assign = "scp_173"
 		return
 
-	-- an SCP 173 was assigned, so assign SCP 049 next
+	-- an SCP 173 was assigned, so assign SCP 966 next
 	elseif last_scp_assign == "scp_173" then
+		assign_system.Assign_SCP966(ply)
+		last_scp_assign = "scp_966"
+		return
+
+	-- an SCP 966 was assigned, so assign SCP 049 next
+	elseif last_scp_assign == "scp_966" then
 		assign_system.Assign_SCP049(ply)
 		last_scp_assign = "scp_049"
 		return
 	end
-end
-
-
--- so far only 2 SCPs so we use this simple thing
-function assign_system.Assign_SCP_Unkillable(ply)
-	assign_system.Assign_SCP173(ply)
-end
-
-function assign_system.Assign_SCP_Killable(ply)
-	assign_system.Assign_SCP049(ply)
 end

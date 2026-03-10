@@ -9,16 +9,19 @@
 BR2_ROLES_DISALLOWED_NOTEPAD = {
     ROLE_SCP_173,
     ROLE_SCP_049_2,
+    ROLE_SCP_966,
 }
 
 BR2_ROLES_DISALLOWED_TERMINAL_USE = {
     ROLE_SCP_173,
     ROLE_SCP_049_2,
+    ROLE_SCP_966,
 }
 
 BR2_ROLES_DISALLOWED_CHECK_PULSE_AND_REVIVE = {
     ROLE_SCP_173,
     ROLE_SCP_049_2,
+    ROLE_SCP_966,
 }
 
 BR2_ROLES_DONT_RENDER_BUTTONS = {
@@ -28,6 +31,7 @@ BR2_ROLES_DONT_RENDER_BUTTONS = {
 BR2_ROLES_DISALLOWED_SCP_ACTIONS = {
     ROLE_SCP_049_2,
     ROLE_SCP_035,
+    ROLE_SCP_966,
 }
 
 -- Add role names here to disallow them completely from picking up special items
@@ -43,6 +47,19 @@ BR2_ROLES_LOOT_LIMITS = {
         disallow = function(ply, item)
             local class = item.class or (IsEntity(item) and (item.SI_Class or item:GetClass()))
             -- Disallow 049 to loot any swep, ammo, food, drinks
+            -- But allow keycards
+            return (weapons.Get(class) or item.ammo_info or string.find(class, "ammo")
+                or string.find(class, "doc_") or item.DocType
+                or string.find(class, "conf_folder") or string.find(class, "food") or string.find(class, "drink"))
+                and !string.find(class, "keycard")
+        end
+    },
+
+    {
+        role_name = ROLE_SCP_966,
+        disallow = function(ply, item)
+            local class = item.class or (IsEntity(item) and (item.SI_Class or item:GetClass()))
+            -- Disallow 966 to loot any swep, ammo, food, drinks
             -- But allow keycards
             return (weapons.Get(class) or item.ammo_info or string.find(class, "ammo")
                 or string.find(class, "doc_") or item.DocType
@@ -69,11 +86,16 @@ BR2_ROLES_DISALLOWED_PICKUPS = {
 BR2_ROLES_UNAFFECTED_BY_SCP035 = {
     ROLE_SCP_173,
     ROLE_SCP_035,
+    ROLE_SCP_966,
 }
 
 BR2_ROLE_WEAPON_LIMITS = {
     {
         role_name = ROLE_SCP_049,
+        allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") or wep:GetClass() == "br2_scp_035_temp" end
+    },
+    {
+        role_name = ROLE_SCP_966,
         allow_only = function(ply, wep) return string.find(wep:GetClass(), "keycard") or wep:GetClass() == "br2_scp_035_temp" end
     },
     {

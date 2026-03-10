@@ -75,6 +75,13 @@ BR_ROLE_FIRST_TEXTS = {
         "You must find humans and 'cure' them by touching them, turning them into SCP-049-2",
         "Work with other SCPs to eliminate all humans in this facility",
     },
+    scp_966 = {
+        "You are SCP-966, the Sleep Killer",
+        "You are a hostile and extremely dangerous entity",
+        "You cannot be seen by any living creature, but you can see them just fine",
+        "They can see you when they are wearing night vision goggles!",
+        "You must kill all humans in this facility, work with other SCPs to achieve your goal",
+    },
     scp_035 = {
         "You are SCP-035, the Possessive Mask",
         "When worn, you completely take over the mind and body of the host",
