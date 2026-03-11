@@ -44,6 +44,7 @@ function SpawnMapNPCs()
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_106", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 180))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_1048", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 60, prep_time + 100))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_999", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 60, prep_time + 130))
+	BR_SpawnMapNPCTimer("dughoo_scpcb_scp035", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 480, prep_time + 600))
 
 	BR_SpawnMapNPCTimer("dughoo_scpcb_173", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 360, prep_time + 420))
 	
@@ -71,6 +72,11 @@ function SpawnMapNPCs()
 		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
 		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
 		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
+
+		BR_SpawnMapNPCTimer("drg_scientist", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("drg_janitor", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+
+		BR_SpawnMapNPCTimer("drg_scientist", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
 
 		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
 		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))

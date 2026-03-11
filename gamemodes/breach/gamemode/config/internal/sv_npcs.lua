@@ -32,11 +32,14 @@ BR_NO_TELEPORT_NPCS = {
     ["npc_cpt_scp_1356"] = true,
     ["drg_scp1762_linux55version"] = true,
     ["br2_npc_drg_scp_1048"] = true,
+	["dughoo_scpcb_scp035"] = true,
 
     ["drg_dughoo_guardcb"] = true,
-    ["drg_classd"] = true,
     ["drg_dugho_mtfcb"] = true,
     ["drg_ghost_dughoo_chaosi"] = true,
+    ["drg_classd"] = true,
+	["drg_scientist"] = true,
+	["drg_janitor"] = true,
 }
 
 BR_DISABLE_NPCS = {
