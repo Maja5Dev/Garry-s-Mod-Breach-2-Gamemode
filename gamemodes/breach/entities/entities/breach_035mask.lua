@@ -69,8 +69,6 @@ function ENT:Use(ply)
 end
 
 if CLIENT then
-    oldFunc = scp_035.DisPlayGIF
-
     function scp_035.DisPlayGIF(ply, material, alpha)
         if material == "https://i.imgur.com/Uc1nY1n.gif" then
             material = "asset://garrysmod/materials/breach2/scp035_static.gif"
@@ -78,9 +76,6 @@ if CLIENT then
         if material == "https://i.imgur.com/1aLhip5.gif" then
             material = "asset://garrysmod/materials/breach2/scp035_transform.gif"
         end
-
-        -- TEMPORARILY DISABLE, NEED TO SELF HOST THESE GIFS
-        --return oldFunc(ply, material, alpha)
     end
 
     -- removed jumpscare sound
