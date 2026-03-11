@@ -83,7 +83,7 @@ function SpawnMapNPCs()
 end
 
 hook.Add("Tick", "BR2_NPC_MTFs", function()
-	if game_state == GAMESTATE_ROUND and round_system.AlreadyAnnouncedMTF == false then
+	if player.GetCount() < 5 and game_state == GAMESTATE_ROUND and round_system.AlreadyAnnouncedMTF == false then
 		local mtf_spawn_time = GetConVar("br2_time_mtf_spawn"):GetFloat()
 
 		if (CurTime() - br2_round_state_start) > mtf_spawn_time then
