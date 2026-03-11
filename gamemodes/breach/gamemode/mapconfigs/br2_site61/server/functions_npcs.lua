@@ -7,12 +7,6 @@ function SpawnMapNPCs()
 
 	local npc_tab = {
 		--{"npc_cpt_scp_173", Vector(-183.948669, 1345.252441, -8063.968750)},
-		--{"npc_cpt_scp_966", Vector(-650.879883, 4119.376953, -7167.968750)},
-		--{"npc_cpt_scp_966", Vector(-474.215820, 4124.738281, -7167.968750)},
-		--{"npc_cpt_scp_966", Vector(-752.841125, 4201.270020, -7167.968750)},
-		--{"npc_cpt_scp_939_b", Vector(6699.372070, -1848.375977, -11551.968750)},
-		--{"npc_cpt_scp_939_c", Vector(6929.901367, -885.706116, -11551.968750)},
-		--{"npc_cpt_scp_178specs", Vector(658.442383, 1594.945190, -8145.907227)},
 
 		{"drg_scp0492ue3", Vector(3531.3984375, -6678.494140625, -8607.96875)},
 		{"drg_scp0492ue3", Vector(4664.5073242188, -6689.1069335938, -8606.96875)},
@@ -50,6 +44,8 @@ function SpawnMapNPCs()
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_106", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 80, prep_time + 180))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_1048", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 60, prep_time + 100))
 	BR_SpawnMapNPCTimer("br2_npc_drg_scp_999", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 60, prep_time + 130))
+
+	BR_SpawnMapNPCTimer("dughoo_scpcb_173", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 360, prep_time + 420))
 	
 	-- eye
 	BR_SpawnMapNPCTimer("drg_scp131", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 60, prep_time + 130))
@@ -68,7 +64,69 @@ function SpawnMapNPCs()
 		Vector(-1790.8957519531, 3944.8376464844, -7136),
 		Vector(-2180.6157226563, 4310.9404296875, -7136)
 	}, math.random(prep_time + 20, prep_time + 240))
+
+	-- human npcs spawn after a while
+	if player.GetCount() < 5 then
+		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
+
+		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 360))
+
+		BR_SpawnMapNPCTimer("drg_ghost_dughoo_chaosi", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
+		BR_SpawnMapNPCTimer("drg_ghost_dughoo_chaosi", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
+	end
 end
+
+hook.Add("Tick", "BR2_NPC_MTFs", function()
+	if game_state == GAMESTATE_ROUND and round_system.AlreadyAnnouncedMTF == false then
+		local mtf_spawn_time = GetConVar("br2_time_mtf_spawn"):GetFloat()
+
+		if (CurTime() - br2_round_state_start) > mtf_spawn_time then
+			BroadcastLua('surface.PlaySound("breach2/mtf/Announc.ogg")')
+			round_system.AlreadyAnnouncedMTF = true
+
+			/* npcs are too stupid to be spawned there xd
+			local all_possible_mtf_spawns = {}
+			for mtf_spawn_group_k, mtf_spawn_group in pairs(MAPCONFIG.SPAWNS_MTF) do
+				if mtf_spawn_group.available() then
+					table.ForceInsert(all_possible_mtf_spawns, mtf_spawn_group)
+				end
+			end
+
+			if table.Count(all_possible_mtf_spawns) == 0 then
+				table.ForceInsert(all_possible_mtf_spawns, table.Random(MAPCONFIG.SPAWNS_MTF))
+			end
+
+			local mtf_spawn_tab = table.Random(all_possible_mtf_spawns)
+			local mtf_spawns = table.Copy(mtf_spawn_tab.spawns)
+
+			mtf_spawn_tab.func()
+			*/
+
+			for i=1, 4 do
+				/*
+				local rnd_spawn = table.Random(mtf_spawns)
+
+				local npc = ents.Create("drg_dugho_mtfcb")
+				if IsValid(npc) then
+					npc:SetPos(rnd_spawn)
+					npc:Spawn()
+					npc:Activate()
+				end
+				
+				table.RemoveByValue(mtf_spawns, rnd_spawn)
+				*/
+
+				BR_SpawnMapNPCTimer("drg_dugho_mtfcb", MAPCONFIG.SPAWNS_ENTRANCEZONE, 0)
+			end
+		end
+	end
+end)
 
 function MAP_FemurBreaker()
 	devprint("FEMUR BREAKER")
