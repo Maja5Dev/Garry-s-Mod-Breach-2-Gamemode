@@ -99,6 +99,11 @@ function BR_DEFAULT_MAP_Organize_AddCodeDocuments()
 		local code_group = v[1]
 		local code = v[2]
 
+		if code_groups_items[code_group] == nil then
+			ErrorNoHalt("Not enough documents to assign codes to")
+			return
+		end
+
 		local random_item = table.Random(code_groups_items[code_group])
 
 		random_item.attributes = {doc_code = tostring(code)}

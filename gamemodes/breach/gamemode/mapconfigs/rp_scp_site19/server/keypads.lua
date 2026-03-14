@@ -1,0 +1,77 @@
+
+MAPCONFIG.KEYPADS = {
+	{
+		name = "HCZ_SCP_035_BACKROOM",
+		pos = Vector(-1830, 788, -9158),
+		level = 1,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = false
+	},
+	{
+		name = "HCZ_MAINTENANCE_TUNNEL_BEFORE",
+		pos = Vector(-252, 2060, -9160.5),
+		level = 1,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = false
+	},
+	{
+		name = "EZ_DOORSCP_OBS_1",
+		pos = Vector(-3730, 5621.990234375, -9158),
+		level = 1,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = false
+	},
+	{
+		name = "EZ_DOORSCP_OBS_2",
+		pos = Vector(-3310, 5717.990234375, -9158),
+		level = 1,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_spawn_in_docs = {groups = {"LCZ", "HCZ"}, method = "duplicate"},
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = false
+	},
+	{
+		name = "EZ_DR_MAYNARD",
+		pos = Vector(-1507.9699707031, 6594.990234375, -9158),
+		level = 1,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = true,
+	},
+	{
+		name = "EZ_DR_HARP",
+		pos = Vector(-1827.9699707031, 6594.990234375, -9158),
+		level = 0,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = true,
+	},
+	{
+		name = "EZ_DR_L",
+		pos = Vector(-2287.9699707031, 6531.990234375, -9158),
+		level = 0,
+		sounds = true,
+		code = 1234,
+		code_available_on_start = true,
+		code_can_be_obtained_by_radio = true,
+		code_personal_office = true,
+	},
+}

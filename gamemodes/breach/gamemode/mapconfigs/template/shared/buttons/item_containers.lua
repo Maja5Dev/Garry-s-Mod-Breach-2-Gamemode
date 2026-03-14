@@ -1,6 +1,6 @@
 
 MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
-	mat = button_icons.scpu,
+	mat = br_default_button_icons.scpu,
 	on_open = function(button)
 		TryToOpenContainer(button)
 	end,
@@ -10,7 +10,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS = {
 }
 
 MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES = {
-	mat = button_icons.scpu_locks,
+	mat = br_default_button_icons.scpu_locks,
 	on_open = function(button)
 		TryToOpenCrate(button)
 	end,
@@ -26,7 +26,7 @@ MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS_CRATES = {
 }
 
 MAPCONFIG.BUTTONS_2D.OUTFITTERS = {
-	mat = button_icons.scpu,
+	mat = br_default_button_icons.scpu,
 	on_open = function(button)
 		if button == nil or LocalPlayer():GetOutfit().can_change_outfits == false then
 			chat.AddText(Color(255, 255, 255), "You couldn't find anything useful...")

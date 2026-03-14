@@ -74,7 +74,7 @@ end
 
 function SWEP:PrimaryAttack()
 	if SERVER then
-		local ent = self.Owner:GetAllEyeTrace().Entity
+		local ent = self.Owner:GetEyeTrace().Entity
 		if IsValid(ent) and ent:GetClass() == "prop_ragdoll" then
 			self.RagdollInfo = {}
 			self.RagdollInfo.ragdoll_pos = ent:GetPos()
@@ -105,7 +105,7 @@ end
 function SWEP:SecondaryAttack()
 	--if true then return end
 	if SERVER then
-		local ent = self.Owner:GetAllEyeTrace().Entity
+		local ent = self.Owner:GetEyeTrace().Entity
 		if self.RagdollInfo and IsValid(ent) and ent:GetClass() == "prop_ragdoll" then
 			--ent:Spawn()
 			ent:SetModel(self.RagdollInfo.ragdoll_mdl)

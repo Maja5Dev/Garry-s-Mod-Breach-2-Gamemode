@@ -348,8 +348,25 @@ round_system.AssignRandomCodes = function()
 		local v = table.Random(all_pl)
 		local bt = v.br_team
 
+		if v == nil then
+			ErrorNoHalt("one of the players is nil")
+			print("pl:", v)
+		end
+
 		if v.br_role == ROLE_RESEARCHER then
 			local random_personal_code = table.Random(all_possible_personal_codes)
+
+			if #random_personal_code < 2 then
+				ErrorNoHalt("random_personal_code is nil")
+
+				print("random_personal_code")
+				print(random_personal_code)
+				PrintTable(random_personal_code)
+
+				print("all_possible_personal_codes:")
+				PrintTable(all_possible_personal_codes)
+			end
+
 			if random_personal_code != nil then
 				notepad_system.AddAutomatedInfo(v, "Personal office code: "..random_personal_code[2].." ("..random_personal_code[1]..")")
 				table.RemoveByValue(all_possible_personal_codes, random_personal_code)

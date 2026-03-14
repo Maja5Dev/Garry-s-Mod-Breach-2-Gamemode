@@ -96,7 +96,7 @@ function BR_DEFAULT_MAP_Organize_Keypads()
 			end
 		end
 	else
-		ErrorNoHaltWithStack("[Breach2] No code keypads found...")
+		ErrorNoHaltWithStack("[Breach2] No keypads found...")
 		return
 	end
 end

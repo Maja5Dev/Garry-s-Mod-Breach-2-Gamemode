@@ -1,6 +1,4 @@
 
-BR_MAP_NAME = "br2_site19_a6"
-
 MAPCONFIG.EnableGamemodeMusic = true
 MAPCONFIG.EnableAmbientSounds = true
 MAPCONFIG.GeneralAmbientSounds = BR_DEFAULT_AMBIENT_GENERAL

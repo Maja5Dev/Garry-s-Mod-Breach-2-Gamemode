@@ -10,7 +10,7 @@ end
 
 -- lua_run Buttons_Terminals_TestPos(Vector(1915,6156,-7112))
 MAPCONFIG.BUTTONS_2D.TERMINALS = {
-	mat = button_icons.scpu,
+	mat = br_default_button_icons.scpu,
 	on_open = function(button)
 		BR_Access_Terminal(button)
 	end,
@@ -302,7 +302,7 @@ MAPCONFIG.BUTTONS_2D.UMUSABLE_TERMINALS = {
 */
 
 MAPCONFIG.BUTTONS_2D.BROKEN_TERMINALS = {
-	mat = button_icons.scpu,
+	mat = br_default_button_icons.scpu,
 	on_open = function(button)
 		BR_Access_BrokenTerminal(button)
 	end,

@@ -88,8 +88,9 @@ function Breach_Map_Organise()
 	end)
 
 	MAP_SCP_294_Coins = 0
-
 	BR2_SPECIAL_BUTTONS = {}
+	br2_914_disabled = false
+	br_914status = 1
 
 	timer.Remove("BR_Map_Fix914")
 
@@ -116,44 +117,8 @@ function Breach_Map_Organise()
 		end
 	end)
 
-	/*
-	timer.Remove("BR_SCP008")
-	timer.Remove("BR_SCP008_2")
-	timer.Create("BR_SCP008", 5, 1, function()
-		for k,v in pairs(ents.GetAll()) do
-			local name = v:GetName():lower()
-			if name == "008_containment_door" then
-				local rnd_pl = table.Random(player.GetAll())
-				if IsValid(rnd_pl) then
-					v:Use(rnd_pl, rnd_pl, 1, 1)
-				end
-			end
-		end
-	end)
-
-	local scp_008_time = GetConVar("br2_time_008_open"):GetInt()
-	timer.Create("BR_SCP008_2", scp_008_time, 1, function()
-		for k,v in pairs(ents.GetAll()) do
-			local name = v:GetName():lower()
-			if name == "008_containment_door" then
-				local tr = util.TraceLine({
-					start = Vector(-1586,4896,-7088),
-					endpos = Vector(-1579,4896,-7088),
-				})
-				if tr.Hit then
-					local rnd_pl = table.Random(player.GetAll())
-					v:Use(rnd_pl, rnd_pl, 1, 1)
-				end
-			end
-		end
-	end)
-	*/
-
+	BR_DEFAULT_MAP_Organize_HidingClosets()
 	BR_DEFAULT_MAP_Organize_ItemSpawns()
-
-	br2_914_disabled = false
-	br_914status = 1
-
     BR_DEFAULT_MAP_Organize_Corpses()
     BR_DEFAULT_MAP_Organize_Terminals()
 	BR_DEFAULT_MAP_Organize_Outfits()
