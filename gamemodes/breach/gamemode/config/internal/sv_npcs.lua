@@ -34,12 +34,12 @@ BR_NO_TELEPORT_NPCS = {
     ["br2_npc_drg_scp_1048"] = true,
 	["dughoo_scpcb_scp035"] = true,
 
-    ["drg_dughoo_guardcb"] = true,
-    ["drg_dugho_mtfcb"] = true,
-    ["drg_ghost_dughoo_chaosi"] = true,
-    ["drg_classd"] = true,
-	["drg_scientist"] = true,
-	["drg_janitor"] = true,
+    ["dughoo_scpcb_mtfclassic"] = true,
+    ["dughoo_scpcb_mtfcb"] = true,
+    ["dughoo_scpcb_chaos_insurgent"] = true,
+    ["dughoo_scpcb_classd"] = true,
+	["dughoo_scpcb_scientist"] = true,
+	["dughoo_scpcb_janitor"] = true,
 }
 
 BR_DISABLE_NPCS = {

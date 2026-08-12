@@ -68,23 +68,23 @@ function SpawnMapNPCs()
 
 	-- human npcs spawn after a while
 	if player.GetCount() < 5 then
-		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
-		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
-		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
-		BR_SpawnMapNPCTimer("drg_classd", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_classd", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_classd", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_classd", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
 
-		BR_SpawnMapNPCTimer("drg_scientist", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
-		BR_SpawnMapNPCTimer("drg_janitor", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_scientist", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_janitor", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 420))
 
-		BR_SpawnMapNPCTimer("drg_scientist", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_scientist", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 420))
 
-		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
-		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
-		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 360))
-		BR_SpawnMapNPCTimer("drg_dughoo_guardcb", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_mtfclassic", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_mtfclassic", MAPCONFIG.SPAWNS_LCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_mtfclassic", MAPCONFIG.SPAWNS_HCZ, math.random(prep_time + 240, prep_time + 360))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_mtfclassic", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 240, prep_time + 360))
 
-		BR_SpawnMapNPCTimer("drg_ghost_dughoo_chaosi", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
-		BR_SpawnMapNPCTimer("drg_ghost_dughoo_chaosi", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_chaos_insurgent", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
+		BR_SpawnMapNPCTimer("dughoo_scpcb_chaos_insurgent", MAPCONFIG.SPAWNS_ENTRANCEZONE, math.random(prep_time + 360, prep_time + 420))
 	end
 end
 
@@ -118,7 +118,7 @@ hook.Add("Tick", "BR2_NPC_MTFs", function()
 				/*
 				local rnd_spawn = table.Random(mtf_spawns)
 
-				local npc = ents.Create("drg_dugho_mtfcb")
+				local npc = ents.Create("dughoo_scpcb_mtfcb")
 				if IsValid(npc) then
 					npc:SetPos(rnd_spawn)
 					npc:Spawn()
@@ -128,7 +128,7 @@ hook.Add("Tick", "BR2_NPC_MTFs", function()
 				table.RemoveByValue(mtf_spawns, rnd_spawn)
 				*/
 
-				BR_SpawnMapNPCTimer("drg_dugho_mtfcb", MAPCONFIG.SPAWNS_ENTRANCEZONE, 0)
+				BR_SpawnMapNPCTimer("dughoo_scpcb_mtfcb", MAPCONFIG.SPAWNS_ENTRANCEZONE, 0)
 			end
 		end
 	end
