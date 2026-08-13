@@ -11,7 +11,7 @@
 		1
 		{
 			"name"		"br2_time_preparing"
-			"text"		"Preparing Time"
+			"text"		"Preparing time (s)"
 			"help"		"Time in seconds for the preparing phase"
 			"type"		"Numeric"
 			"default"	"25"
@@ -19,7 +19,7 @@
 		2
 		{
 			"name"		"br2_time_round"
-			"text"		"Round Time"
+			"text"		"Round time (s)"
 			"help"		"Total length of the round in seconds"
 			"type"		"Numeric"
 			"default"	"1320"
@@ -27,226 +27,208 @@
 		3
 		{
 			"name"		"br2_time_postround"
-			"text"		"Post-Round Time"
-			"help"		"Time in seconds after a round ends"
+			"text"		"Post-round time (s)"
+			"help"		"Length of the post-round time"
 			"type"		"Numeric"
 			"default"	"30"
 		}
 		4
 		{
 			"name"		"br2_time_mtf_spawn"
-			"text"		"MTF Spawn Delay"
-			"help"		"Seconds before MTF are allowed to spawn"
+			"text"		"MTF spawn delay (s)"
+			"help"		"Time counted from round start before MTF are allowed to spawn"
 			"type"		"Numeric"
 			"default"	"400"
 		}
 		5
 		{
-			"name"		"br2_time_008_open"
-			"text"		"SCP-008 Auto-Open"
-			"help"		"Seconds until 008 opens automatically"
+			"name"		"br2_time_ci_spawn"
+			"text"		"CI soldier spawn delay (s)"
+			"help"		"Time counted from round start before CI soldiers are allowed to spawn"
 			"type"		"Numeric"
-			"default"	"200"
+			"default"	"440"
 		}
 		6
 		{
-			"name"		"br2_time_unlock_scps"
-			"text"		"SCP Cell Unlock Delay"
-			"help"		"Delay between unlocking SCP containment cells"
+			"name"		"br2_time_008_open"
+			"text"		"SCP-008 auto-open time (s)"
+			"help"		"After x seconds 008 opens automatically"
 			"type"		"Numeric"
-			"default"	"25"
+			"default"	"200"
 		}
 		7
 		{
-			"name"		"br2_time_nuke"
-			"text"		"Nuke Timer"
-			"help"		"Seconds until the nuke explodes"
+			"name"		"br2_time_unlock_scps"
+			"text"		"SCP cell unlock time (s)"
+			"help"		"Time after the round start when SCP containment cells unlock"
 			"type"		"Numeric"
-			"default"	"90"
+			"default"	"25"
 		}
 		8
 		{
-			"name"		"br2_time_decontamination"
-			"text"		"Decontamination Start %"
-			"help"		"Percentage of round time when LCZ decontamination starts"
+			"name"		"br2_time_nuke"
+			"text"		"End-round nuke timer (s)"
+			"help"		"Time after which the nuke explodes"
 			"type"		"Numeric"
-			"default"	"65"
+			"default"	"90"
 		}
 		9
 		{
+			"name"		"br2_time_decontamination"
+			"text"		"Decontamination start time (% of round time)"
+			"help"		"Time for the LCZ deconatamination to start in % of round time"
+			"type"		"Numeric"
+			"default"	"65"
+		}
+		10
+		{
 			"name"		"br2_time_toggle_lockdowns"
-			"text"		"Lockdown Toggle %"
-			"help"		"Percentage of round time before lockdowns can be toggled"
+			"text"		"Lockdown toggle delay (% of round time)"
+			"help"		"Percentage of the round time until it's possible to toggle lockdowns via terminals"
 			"type"		"Numeric"
 			"default"	"35"
 		}
 
 		// --- CHANCE & PERCENTAGE SETTINGS ---
-		10
+		11
 		{
-			"name"		"br2_ci_percentage"
-			"text"		"CI Researcher %"
-			"help"		"Percentage of researchers that spawn as CI"
+			"name"		"br2_researcher_ci_percentage"
+			"text"		"CI researcher (%)"
+			"help"		"Percentage of researchers that spawn as CI spies"
 			"type"		"Numeric"
 			"default"	"25"
 		}
-		11
-		{
-			"name"		"br2_ci_chance"
-			"text"		"CI Spy Spawn Chance"
-			"help"		"Chance for a designated spy to actually spawn"
-			"type"		"Numeric"
-			"default"	"50"
-		}
 		12
 		{
-			"name"		"br2_chance_to_get_downed"
-			"text"		"Downing Chance"
-			"help"		"Chance to down a player (0-100)"
+			"name"		"br2_researcher_ci_chance"
+			"text"		"CI spy spawn chance (%)"
+			"help"		"Chance for a researcher designated to be a spy to actually spawn as one"
 			"type"		"Numeric"
 			"default"	"50"
 		}
 		13
 		{
+			"name"		"br2_chance_to_get_downed"
+			"text"		"Downing chance (%)"
+			"help"		"Chance to down a player (0-100)"
+			"type"		"Numeric"
+			"default"	"50"
+		}
+		14
+		{
 			"name"		"br2_chance_res_conffolder_spawn"
-			"text"		"Folder Spawn Chance"
+			"text"		"Folder spawn chance (%)"
 			"help"		"Chance for researcher to spawn with a confidential folder"
 			"type"		"Numeric"
 			"default"	"30"
 		}
 
-		// --- MUSIC SETTINGS ---
-		14
-		{
-			"name"		"br2_time_music_start_low"
-			"text"		"Low Music Start"
-			"help"		"Seconds until low intensity music starts"
-			"type"		"Numeric"
-			"default"	"150"
-		}
+		// --- GAMEPLAY TOGGLES & STATS ---
 		15
 		{
-			"name"		"br2_time_music_start_medium"
-			"text"		"Medium Music Start"
-			"help"		"Seconds until medium intensity music starts"
-			"type"		"Numeric"
-			"default"	"800"
+			"name"		"br2_enable_hunger"
+			"text"		"Enable hunger"
+			"help"		"Toggle the hunger system"
+			"type"		"CheckBox"
+			"default"	"0"
 		}
+
 		16
 		{
-			"name"		"br2_time_music_start_high"
-			"text"		"High Music Start"
-			"help"		"Seconds until high intensity music starts"
-			"type"		"Numeric"
-			"default"	"1400"
-		}
-
-		// --- GAMEPLAY TOGGLES & STATS ---
-		17
-		{
-			"name"		"br2_enable_hunger"
-			"text"		"Enable Hunger"
-			"help"		"Toggle hunger system"
-			"type"		"CheckBox"
-			"default"	"0"
-		}
-
-		18
-		{
 			"name"		"br2_enable_thirst"
-			"text"		"Enable Thirst"
-			"help"		"Toggle thirst system"
+			"text"		"Enable thirst"
+			"help"		"Toggle the thirst system"
 			"type"		"CheckBox"
 			"default"	"0"
 		}
 
-		19
+		17
 		{
 			"name"		"br2_enable_npcs"
 			"text"		"Enable NPCs"
-			"help"		"Toggle NPC spawning"
+			"help"		"Toggle NPCs spawning"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		18
+		{
+			"name"		"br2_enable_sprays"
+			"text"		"Enable sprays"
+			"help"		"Allow/disallow player sprays"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		19
+		{
+			"name"		"br2_down_players"
+			"text"		"Disable downing"
+			"help"		"If enabled, players cannot be downed"
 			"type"		"CheckBox"
 			"default"	"1"
 		}
 		20
 		{
-			"name"		"br2_enable_sprays"
-			"text"		"Enable Sprays"
-			"help"		"Allow/Disallow player sprays"
-			"type"		"CheckBox"
-			"default"	"1"
-		}
-		21
-		{
-			"name"		"br2_down_players"
-			"text"		"Disable Downing"
-			"help"		"If enabled, players cannot be downed"
-			"type"		"CheckBox"
-			"default"	"1"
-		}
-		22
-		{
 			"name"		"br2_gun_damage"
-			"text"		"Gun Damage Multiplier"
+			"text"		"Gun damage multiplier"
 			"help"		"Multiplier for all gun damage"
 			"type"		"Numeric"
 			"default"	"0.7"
 		}
-		23
+		21
 		{
-			"name"		"br2_sanity_strength"
-			"text"		"Sanity Strength"
-			"help"		"Multiplier for sanity effects"
+			"name"		"br2_sanity_change_mul"
+			"text"		"Sanity changes multiplier"
+			"help"		"Multiplier of sanity changes"
 			"type"		"Numeric"
 			"default"	"1"
 		}
-		24
+		22
 		{
-			"name"		"br2_sanity_speed"
-			"text"		"Sanity Speed"
-			"help"		"Speed of sanity drain in seconds"
+			"name"		"br2_sanity_change_interval"
+			"text"		"Sanity drain interval (lower is faster)"
+			"help"		"Delay between sanity drains (in seconds, lower is faster)"
 			"type"		"Numeric"
 			"default"	"3"
 		}
-		25
+		23
 		{
-			"name"		"br2_temperature_speed"
-			"text"		"Temperature Speed"
-			"help"		"Speed of temperature changes in seconds"
+			"name"		"br2_temperature_change_interval"
+			"text"		"Temperature change interval (lower is faster)"
+			"help"		"Delay between temperature changes (in seconds, lower is faster)"
 			"type"		"Numeric"
 			"default"	"0.75"
 		}
-		26
+		24
 		{
 			"name"		"br2_temperature_high_enabled"
-			"text"		"Enable High Heat"
-			"help"		"Enable Warm/High temperature mechanics"
+			"text"		"Enable high heat"
+			"help"		"Enable warm/high temperature mechanics"
 			"type"		"CheckBox"
 			"default"	"0"
 		}
 
 		// --- SCP NPC SPECIFIC ---
-		27
+		25
 		{
-			"name"		"br2_npc_teleport_delay_global"
-			"text"		"Global SCP TP Delay"
+			"name"		"br2_npc_teleport_cooldown_global"
+			"text"		"Global SCP teleport cooldown"
 			"help"		"Global cooldown between SCP teleports"
 			"type"		"Numeric"
 			"default"	"40"
 		}
-		28
+		26
 		{
-			"name"		"br2_npc_teleport_delay"
+			"name"		"br2_npc_teleport_cooldown"
 			"text"		"Individual SCP TP Delay"
-			"help"		"Cooldown for individual SCP teleports"
+			"help"		"Cooldown between individual SCP NPC's teleports"
 			"type"		"Numeric"
 			"default"	"40"
 		}
-		29
+		27
 		{
-			"name"		"br2_035_decay_speed"
+			"name"		"br2_035_decay_interval"
 			"text"		"SCP-035 Decay Speed"
-			"help"		"Seconds between 1% health loss for SCP-035"
+			"help"		"Every how many seconds drain 1% of SCP-035's health"
 			"type"		"Numeric"
 			"default"	"5"
 		}

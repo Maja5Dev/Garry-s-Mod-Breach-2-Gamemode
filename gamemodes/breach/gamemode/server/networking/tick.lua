@@ -13,7 +13,6 @@ local function create_net_crate_info()
 end
 
 function BR2NetworkingTick()
-	local dev_mode = SafeBoolConVar("br2_debug_dev_mode")
 	local hunger_enabled = SafeBoolConVar("br2_enable_thirst")
 	local thirst_enabled = SafeBoolConVar("br2_enable_hunger")
 
@@ -44,7 +43,7 @@ function BR2NetworkingTick()
 			end
 
 			-- Hunger and thirst system
-			if v.br_uses_hunger_system and !dev_mode then
+			if v.br_uses_hunger_system then
 				if hunger_enabled and v.next_hunger < CurTime() then
 					v.next_hunger = CurTime() + math.random(14,30)
 					v.br_hunger = v.br_hunger - 1

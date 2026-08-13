@@ -17,14 +17,12 @@ net.Receive("br_horror_173_end", function(len, ply)
 end)
 
 local function HandleSanity()
-	if SafeBoolConVar("br2_debug_dev_mode") then return end
-
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and v.br_usesSanity then
 			v.nextSanityCheck = v.nextSanityCheck or 0
 
 			if v.nextSanityCheck < CurTime() and game_state == GAMESTATE_ROUND then
-				v.nextSanityCheck = CurTime() + SafeIntConVar("br2_sanity_speed")
+				v.nextSanityCheck = CurTime() + SafeIntConVar("br2_sanity_change_interval")
 				
 				local zone = v:GetZone()
 				local sanity_amount = 0
@@ -196,7 +194,7 @@ end
 function player_meta:AddSanity(amount)
 	if self.br_usesSanity != true then return end
 	
-	self.br_sanity = math.Clamp(self.br_sanity + math.Round(amount * SafeFloatConVar("br2_sanity_strength")), 0, 100)
+	self.br_sanity = math.Clamp(self.br_sanity + math.Round(amount * SafeFloatConVar("br2_sanity_change_mul")), 0, 100)
 end
 
 function player_meta:NiceSanity()

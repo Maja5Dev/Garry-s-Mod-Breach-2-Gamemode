@@ -61,7 +61,7 @@ local function examine_PersonalInfo(pl)
 
         local last_decay = pl:GetNWFloat("last035decay", CurTime())
 
-        local time_left = (health_times_left * cvars.Number("br2_035_decay_speed", 5)) - (CurTime() - last_decay)
+        local time_left = (health_times_left * cvars.Number("br2_035_decay_interval", 5)) - (CurTime() - last_decay)
 
         local text_left = ""
 

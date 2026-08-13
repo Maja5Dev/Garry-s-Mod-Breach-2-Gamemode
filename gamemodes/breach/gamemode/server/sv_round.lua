@@ -206,7 +206,7 @@ round_system.AssignPlayers = function()
 		i = i + 1
 	end
 
-	local ci_spies_num = math.Round(researcher_num * (SafeIntConVar("br2_ci_percentage") / 100))
+	local ci_spies_num = math.Round(researcher_num * (SafeIntConVar("br2_researcher_ci_percentage") / 100))
 	local ci_spies_spawned = 0
 
 	-- This system goes through random players and assigns them the first available role in the role table
@@ -227,7 +227,7 @@ round_system.AssignPlayers = function()
 			*/
 
 			if role.class == "researcher" and round_system.current_scenario.enable_ci_researchers
-				and ci_spies_spawned < ci_spies_num and math.random(1,100) < SafeIntConVar("br2_ci_chance")
+				and ci_spies_spawned < ci_spies_num and math.random(1,100) < SafeIntConVar("br2_researcher_ci_chance")
 			then
 				ci_spies_spawned = ci_spies_spawned + 1
 				role = BREACH_DEFAULT_ROLES.roles_ci_agent_res

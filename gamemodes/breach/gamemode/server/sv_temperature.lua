@@ -24,14 +24,12 @@ outfit_temp_table = {
 }
 
 function HandleTemperature()
-	if SafeBoolConVar("br2_debug_dev_mode") then return end
-
 	local high_temp_enabled = SafeBoolConVar("br2_temperature_high_enabled")
 
 	for k,v in pairs(player.GetAll()) do
 		if v:Alive() and !v:IsSpectator() and v.br_usesTemperature then
 			if v.nextTemperatureCheck < CurTime() then
-				v.nextTemperatureCheck = CurTime() + SafeFloatConVar("br2_temperature_speed")
+				v.nextTemperatureCheck = CurTime() + SafeFloatConVar("br2_temperature_change_interval")
 				local outfit = v:GetOutfit()
 				local resistance = outfit.temp_resistance
 				local ott = outfit_temp_table[resistance]
@@ -59,7 +57,7 @@ function HandleTemperature()
 
 					-- outfit temperature
 					add_temp = add_temp + ott[1]
-					v.nextTemperatureCheck = CurTime() + SafeFloatConVar("br2_temperature_speed") * ott[2]
+					v.nextTemperatureCheck = CurTime() + SafeFloatConVar("br2_temperature_change_interval") * ott[2]
 
 					if (skip_zone_temp and add_temp > 0) or (v.br_temperature >= 1000 and !high_temp_enabled) then
 						add_temp = 0

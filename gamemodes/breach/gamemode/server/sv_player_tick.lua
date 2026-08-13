@@ -258,7 +258,7 @@ hook.Add("Tick", "BR2_Misc", function()
 
 			if v.br_role == "SCP-035" then
 				if v.next035Decay < CurTime() then
-					v.next035Decay = CurTime() + cvars.Number("br2_035_decay_speed", 5)
+					v.next035Decay = CurTime() + cvars.Number("br2_035_decay_interval", 5)
 					v:SetNWFloat("last035decay", CurTime())
 
 					-- take 1% of health
