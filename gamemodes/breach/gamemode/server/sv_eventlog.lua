@@ -27,7 +27,7 @@ hook.Add("OnNPCKilled", "BR_Eventlog_OnNPCKilled", function(npc, attacker, infli
     elseif string.find(class, "scp575") or string.find(class, "scp_575") then
         round_system.AddEventLog("SCP-575 has been contained.")
 
-    elseif string.find(class, "scp1048") or string.find(class, "scp_1048") then
+    elseif string.find(class, "scp1048") or string.find(class, "scp_1048") or string.find(class, "scp-1048") then
         round_system.AddEventLog("SCP-1048 has been contained.")
 
     elseif string.find(class, "scp939") or string.find(class, "scp_939") then
