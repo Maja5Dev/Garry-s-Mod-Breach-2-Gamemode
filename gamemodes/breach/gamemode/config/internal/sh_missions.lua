@@ -93,7 +93,7 @@ BREACH_MISSIONS = {
 			mission_find_weapon,
 			mission_find_food,
 			mission_find_outfit,
-			--neutralize_class_ds,
+			--mission_neutralize_class_ds,
 			mission_turn_on_generator,
 		},
 	},
@@ -103,7 +103,7 @@ BREACH_MISSIONS = {
 		missions = {
 			mission_escort_staff,
 			mission_find_food,
-			neutralize_class_ds,
+			mission_neutralize_class_ds,
 			mission_turn_on_generator,
 		},
 	},
@@ -113,7 +113,7 @@ BREACH_MISSIONS = {
 		missions = {
 			mission_escort_staff,
 			mission_find_food,
-			neutralize_class_ds,
+			mission_neutralize_class_ds,
 			mission_neutralize_spies,
 			mission_turn_on_generator,
 		},
