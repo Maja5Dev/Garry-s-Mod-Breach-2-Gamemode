@@ -1,6 +1,4 @@
 ﻿
-local fake_examine_stats = false
-
 local function examine_Armor(pl)
     if pl:Armor() > 0 then
         chat.AddText(Color(255, 255, 255), " - You are wearing some kind of armor")
@@ -157,9 +155,9 @@ local function examine_Outfit(pl)
     end
 end
 
-local function examine_Health(pl)
+local function examine_Health(pl, fake_examine_stats)
     local t_health, c_health = NiceHealth()
-    if fake_stats then
+    if fake_examine_stats then
         local insane_texts = {
             "Very healthy!",
             "Healthy!",
@@ -176,9 +174,9 @@ local function examine_Health(pl)
     end
 end
 
-local function examine_Sanity(pl)
+local function examine_Sanity(pl, fake_examine_stats)
     local t_sanity, c_sanity = NiceSanity()
-    if fake_stats then
+    if fake_examine_stats then
         local insane_texts = {
             "Totally fine!",
             "Completely sane!",
@@ -193,14 +191,11 @@ local function examine_Sanity(pl)
 end
 
 local function examine_Infection(pl)
-    if BR_OUR_INFECTION >= 25 then
+    if BR_OUR_INFECTION >= 50 then
+    	chat.AddText(Color(255,255,255,255), " - You feel like you are sick")
+
+    elseif BR_OUR_INFECTION >= 25 then
         chat.AddText(Color(255,255,255,255), " - You feel weak")
-
-    elseif BR_OUR_INFECTION >= 50 then
-    	chat.AddText(Color(255,255,255,255), " - You feel like you are sick")
-
-    elseif BR_OUR_INFECTION >= 75 then
-    	chat.AddText(Color(255,255,255,255), " - You feel like you are sick")
     end
 end
 
@@ -243,8 +238,8 @@ local function examine_Thirst(pl)
     end
 end
 
-local function examine_Bleeding(pl)
-    if br2_is_bleeding == true or (fake_stats and math.random(1,2) == 2) then
+local function examine_Bleeding(pl, fake_examine_stats)
+    if br2_is_bleeding == true or (fake_examine_stats and math.random(1,2) == 2) then
         chat.AddText(Color(255,0,0,255), " - You are bleeding!")
     end
 end
@@ -285,11 +280,7 @@ local function examine_yourself()
         return
     end
 
-    fake_examine_stats = false
-
-    if math.random(1,4) == 2 and br2_our_sanity < 2 then
-        fake_examine_stats = true
-    end
+    local fake_examine_stats = (math.random(1,4) == 2 and br2_our_sanity < 2)
 
     examine_PersonalInfo(pl)
 
@@ -301,9 +292,9 @@ local function examine_yourself()
     examine_Temperature(pl)
     examine_Outfit(pl)
 
-    examine_Sanity(pl)
-    examine_Health(pl)
-    examine_Bleeding(pl)
+    examine_Sanity(pl, fake_examine_stats)
+    examine_Health(pl, fake_examine_stats)
+    examine_Bleeding(pl, fake_examine_stats)
     examine_Infection(pl)
 
     examine_Hunger(pl)
