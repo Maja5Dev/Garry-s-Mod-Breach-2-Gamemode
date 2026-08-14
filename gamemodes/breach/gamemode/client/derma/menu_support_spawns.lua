@@ -54,17 +54,17 @@ function BR_SupportSpawnButtons()
     end
 
     local supsp_tab1 = {
-        explorer = {"Spawn as an explorer", function(name) sendtoserver(name) end},
+        explorer = {"Spawn as an Explorer", function(name) sendtoserver(name) end},
         class_d = {"Spawn as a Class D", function(name) sendtoserver(name) end},
         researcher = {"Spawn as a Researcher", function(name) sendtoserver(name) end},
-        scp_049_2 = {"Spawn as a SCP-049-2", function(name) sendtoserver(name) end},
+        scp_049_2 = {"Spawn as SCP-049-2", function(name) sendtoserver(name) end},
         doctor = {"Spawn as a Doctor", function(name) sendtoserver(name) end},
         janitor = {"Spawn as a Janitor", function(name) sendtoserver(name) end},
         engineer = {"Spawn as an Engineer", function(name) sendtoserver(name) end},
         mtf = {1, function() Open_MTF_SpawnMenu() end},
         ci = {2, function() Open_CI_SpawnMenu() end},
         ci_soldier = {"Spawn in a CI Group", function(name) sendtoserver(name) end},
-        cont_spec = {"Spawn as a ContSpec", function(name) sendtoserver(name) end}
+        cont_spec = {"Spawn as a Containment Specialist", function(name) sendtoserver(name) end}
     }
 
     if game_state == GAMESTATE_ROUND then
@@ -78,9 +78,9 @@ function BR_SupportSpawnButtons()
             local text = ""
 
             if br_voted_for_round_end then
-                text = "Remove your vote ("..br_round_end_votes.."/"..votes_needed..")"
+                text = "Remove your vote to end the round ("..br_round_end_votes.."/"..votes_needed..")"
             else
-                text = "Vote round end ("..br_round_end_votes.."/"..votes_needed..")"
+                text = "Vote to end the round ("..br_round_end_votes.."/"..votes_needed..")"
             end
 
             draw.Text({
@@ -133,22 +133,22 @@ function BR_SupportSpawnButtons()
                 local text = v[2]
                 local int = 30 - (CurTime() - br2_last_death)
                 if isbool(v[2]) then
-                    text = "Spawn support in " .. math.Round(int) .. "s"
+                    text = "Support spawns available in " .. math.Round(int) .. "s"
                 end
                 
                 if isnumber(text) then
                     if text == 1 then -- mtf
                         local mtf_spawn_time = GetConVar("br2_time_mtf_spawn"):GetFloat()
                         if mtf_spawn_time > (CurTime() - br2_round_state_start) then
-                            text = "MTF Spawns in " .. math.Round(mtf_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
+                            text = "MTF spawns in " .. math.Round(mtf_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
                         else
-                            text = "Spawn in a MTF Group"
+                            text = "Spawn in an MTF Group"
                         end
 
                     elseif text == 2 then -- ci
                         local ci_spawn_time = GetConVar("br2_time_ci_spawn"):GetFloat()
                         if ci_spawn_time > (CurTime() - br2_round_state_start) then
-                            text = "CI Spawns in " .. math.Round(ci_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
+                            text = "CI spawns in " .. math.Round(ci_spawn_time - (CurTime() - br2_round_state_start)) .. "s"
                         else
                             text = "Spawn in a CI Group"
                         end

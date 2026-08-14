@@ -1,5 +1,5 @@
 
-SWEP.PrintName 		= "Breach 2 Item base"
+SWEP.PrintName 		= "Breach 2 Item Base"
 SWEP.Author			= "Maya"
 SWEP.ViewModel		= ""
 SWEP.WorldModel		= ""

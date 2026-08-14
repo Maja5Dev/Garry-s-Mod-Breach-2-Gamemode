@@ -182,10 +182,10 @@ function BR2NetworkingTick()
 							table.RemoveByValue(v.br_special_items, v2)
 							if v.startedLockpicking[1] and IsEntity(v.startedLockpicking[1]) then
 								v.startedLockpicking[1]:Fire("unlock", "", 0)
-								v:PrintMessage(HUD_PRINTTALK, "You picked the lock of this door...")
+								v:PrintMessage(HUD_PRINTTALK, "You picked the lock of this door.")
 							else
 								v.startedLockpicking[1].locked = false
-								v:PrintMessage(HUD_PRINTTALK, "You picked the lock of this crate...")
+								v:PrintMessage(HUD_PRINTTALK, "You picked the lock of this crate.")
 							end
 							v.startedLockpicking = nil
 						end

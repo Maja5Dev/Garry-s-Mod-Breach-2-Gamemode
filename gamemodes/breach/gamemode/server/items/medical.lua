@@ -267,7 +267,7 @@ special_item_system.AddItem({
         end
     end,
     drop = function(pl)
-        local res, item = br2_special_item_drop(pl, "antibiotics", "Medicine", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
+        local res, item = br2_special_item_drop(pl, "antibiotics", "Antibiotics", "prop_physics", "models/cultist/items/painpills/w_painpills.mdl")
         return item
     end
 })
@@ -281,11 +281,11 @@ special_item_system.AddItem({
     end,
     use = function(pl, item)
         if pl.usedEyeDrops and pl.usedEyeDrops > CurTime() then
-            pl:BR2_ShowNotification("The last ones are still in effect")
+            pl:BR2_ShowNotification("The last drops are still in effect...")
         end
 
         pl.usedEyeDrops = CurTime() + 13
-        pl:ChatPrint("Your used the eyedrops...")
+        pl:ChatPrint("You used the eyedrops...")
 
         pl:StartCustomScreenEffects({
             colour = 1.1,
@@ -317,19 +317,19 @@ special_item_system.AddItem({
         end
 
         if pl.br_role == ROLE_SCP_035 then
-            pl:BR2_ShowNotification("There's no point for me to use this")
+            pl:BR2_ShowNotification("There is no point in using this...")
             return false
         end
         
         if pl:SanityLevel() > 4 then
-            pl:PrintMessage(HUD_PRINTTALK, "Your sanity is fine, you don't need to use them.")
+            pl:PrintMessage(HUD_PRINTTALK, "Your sanity is fine, you don't need to use these.")
             return false
         end
 
         pl.nextHorrorSCP = CurTime() + 45
         pl:AddSanity(60)
         pl:EmitSound("breach2/items/pills_deploy_"..math.random(1,3)..".wav")
-        pl:ChatPrint("Your took the pills... you feel calmer.")
+        pl:ChatPrint("You took the pills... you feel calmer.")
         return true
     end,
     onstart = function(pl)

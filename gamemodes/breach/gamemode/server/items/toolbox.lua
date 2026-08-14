@@ -34,7 +34,7 @@ special_item_system.AddItem({
     end,
     use = function(pl, item)
         if pl:IsBackPackFull() then
-            pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+            pl:PrintMessage(HUD_PRINTTALK, "Your inventory is full.")
             return
         end
 

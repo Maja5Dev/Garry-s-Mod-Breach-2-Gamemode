@@ -23,14 +23,14 @@ local info_set_devices = {"DEVICES", function(button, panel)
 			end
 
 			if any_device_working then
-				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently working devices:", clr_big_text, true})
+				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently installed devices:", clr_big_text, true})
 				for k,v in pairs(terminal_frame.CurrentInfo.devices) do
 					if br2_devices_info[k] then
 						table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " - "..br2_devices_info[k].name2, Color(25, 139, 209), false})
 					end
 				end
 			else
-				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently there are no working devices", Color(255, 0, 0), true})
+				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " No devices are currently installed", Color(255, 0, 0), true})
 			end
 
 			local text_w, text_h = draw_easy_text({12, 8}, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, texttab)
@@ -137,11 +137,11 @@ local info_set_system = {"SYSTEM", function(button, panel)
 			local size_mul = ScrH() / 1080
 			local clr_big_text = Color(255,255,255,255)
 			local texttab = {
-				{"BR_TERMINAL_MAIN_TEXT", "TERMINAL SYSTEM FUNCTIONS/SETTINGS", clr_big_text, true}
+				{"BR_TERMINAL_MAIN_TEXT", "TERMINAL FUNCTIONS AND SETTINGS", clr_big_text, true}
 			}
 
 			if spec_functions == nil or #spec_functions == 0 then
-				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " Currently there are no functions or settings in this terminal", Color(255, 0, 0), true})
+				table.ForceInsert(texttab, {"BR_TERMINAL_MAIN_TEXT_SMALL", " This terminal has no functions or settings available", Color(255, 0, 0), true})
 			end
 			
 
@@ -218,11 +218,11 @@ TERMINAL_INFOS = {
 
 					local redcolor = Color(255,0,0)
 					table.Add(texttab, {
-						{"BR_TERMINAL_MAIN_TEXT_SMALL", " The Site is currently experiencing containment breaches of:", redcolor, true},
+						{"BR_TERMINAL_MAIN_TEXT_SMALL", " The site is currently experiencing containment breaches of:", redcolor, true},
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " SCP-173, SCP-106, SCP-096, SCP-939, SCP-575, SCP-457, SCP-049, SCP-035", redcolor, true},
 						{true, "BR_TERMINAL_MAIN_TEXT"}, -- break line
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " A Site Lockdown has been initiated", redcolor, true},
-						{"BR_TERMINAL_MAIN_TEXT_SMALL", " All personnnel are advised to stay in the evacuation shelters", redcolor, true},
+						{"BR_TERMINAL_MAIN_TEXT_SMALL", " All personnel are advised to stay in the evacuation shelters", redcolor, true},
 						{"BR_TERMINAL_MAIN_TEXT_SMALL", " Await further instructions from security personnel", redcolor, true},
 					})
 
@@ -341,7 +341,7 @@ br_terminal_mtf = {
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Xander Bright", clr_small_text, true},
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Raphael Felton", clr_small_text, true},
 					{"BR_TERMINAL_MAIN_TEXT", "Mission:", clr_big_text, true},
-					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Recontain remaining 6 SCP Objects", clr_small_text, true},
+					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Recontain the remaining SCP objects", clr_small_text, true},
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Rescue all personnel", clr_small_text, true},
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Terminate rogue Class D Personnel", clr_small_text, true},
 					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Turn on the main generators", clr_small_text, true},

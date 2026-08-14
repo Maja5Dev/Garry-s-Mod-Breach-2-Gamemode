@@ -64,7 +64,7 @@ function br2_mtf_teams_add(ply, num)
 	end
 
 	if not has_mtf_spawn then
-		ply:PrintMessage(HUD_PRINTTALK, "You do not have any MTF support spawns left")
+		ply:PrintMessage(HUD_PRINTTALK, "You do not have any MTF support spawns left.")
 		return
 	end
 
@@ -157,7 +157,7 @@ function br2_mtf_teams_add(ply, num)
 				end
 
 				local login, password = BR2_GenerateTerminalAuth(pl_mtf)
-				notepad_system.AddAutomatedInfo(pl_mtf, "personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
+				notepad_system.AddAutomatedInfo(pl_mtf, "Personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
 				
 				table.RemoveByValue(mtf_spawns, spawn)
 			end
@@ -175,7 +175,7 @@ function br2_mtf_teams_add(ply, num)
 				end
 
 				if evac_code != nil then
-					notepad_system.AddAutomatedInfo(mtf1, "evacuation code:  " .. evac_code)
+					notepad_system.AddAutomatedInfo(mtf1, "Evacuation code: " .. evac_code)
 				end
 
 				for i=1, 3 do
@@ -220,7 +220,7 @@ function br2_mtf_teams_add(ply, num)
 		return true
 	end
 	
-	ply:PrintMessage(HUD_PRINTTALK, "For some reason you could not join this team")
+	ply:PrintMessage(HUD_PRINTTALK, "You could not join this team.")
 	
 	print("br2_mtf_teams_add failed for " .. ply:Nick() .. ", num: " .. tostring(num))
 	print("Conditions: ", (num == 1 or num == 2), table.Count(BR2_MTF_TEAMS[num]) < MTF_NEEDED_TO_SPAWN, ply:IsSpectator(), ply.br_downed != true)

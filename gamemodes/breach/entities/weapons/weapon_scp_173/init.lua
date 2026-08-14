@@ -228,12 +228,12 @@ function SWEP:HandleTeleportFromFreeRoam()
 		})
 
 		if !self:CanWeMoveTo(self.Owner:GetPos()) or !tr.HitWorld then
-			self.Owner:BR2_ShowNotification("Cannot move to that position")
+			self.Owner:BR2_ShowNotification("You cannot move to that position")
 			return
 		end
 
 		if self:GetNWInt("NextMovementAllowed", 0) > CurTime() then
-			self.Owner:BR2_ShowNotification("Movement is on cooldown")
+			self.Owner:BR2_ShowNotification("Your movement is on cooldown")
 			return
 		end
 

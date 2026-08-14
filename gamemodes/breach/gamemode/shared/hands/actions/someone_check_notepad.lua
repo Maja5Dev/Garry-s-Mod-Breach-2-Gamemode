@@ -16,7 +16,7 @@ end
 
 registerHandsAction("check_someones_notepad", {
     name = "Check their notepad",
-    desc = "Open their notepad",
+    desc = "Read the notepad of the player you last saw",
     background_color = BR2_Hands_Actions_Colors.someone_actions,
 
     can_do = function(self)

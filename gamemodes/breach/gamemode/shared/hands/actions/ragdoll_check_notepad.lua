@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("check_body_notepad", {
-    name = "Check the body's Notepad",
-    desc = "Check the notepad found in this body",
+    name = "Check the body's notepad",
+    desc = "Read the notepad carried by this body",
     background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
     can_do = function(self)

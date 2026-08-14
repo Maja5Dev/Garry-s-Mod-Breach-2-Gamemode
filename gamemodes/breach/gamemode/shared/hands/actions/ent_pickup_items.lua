@@ -75,13 +75,13 @@ hook.Add("BR2_OnHandsAddActions", "AddPickupItemsActions", function(self)
 		
 		addTemporaryHandsAction(self.Contents, "pickup_item_" .. i .. "", {
 			name = "Pick up " .. item_name .. "",
-			desc = "Pick up the item",
+			desc = "Pick up the item in front of you",
 			background_color = BR2_Hands_Actions_Colors.pickup_actions,
 
             can_do = true,
 
 			cl_effect = function(self)
-				chat.AddText(Color(255,255,255,255), "Trying to pick up: "..item_name.."...")
+				chat.AddText(Color(255,255,255,255), "Trying to pick up the "..item_name.."...")
 
 				net.Start("br_pickup_item")
 					net.WriteEntity(v)

@@ -47,7 +47,7 @@ net.Receive("br_open_brokenterminal", function(len, ply)
 				sound.Play("weapons/stunstick/spark"..math.random(1,3)..".wav", v.pos, 150, 100, 1)
 				sound.Play("ambient/energy/spark"..math.random(5,6)..".wav", v.pos, 150, 100, 1)
 
-				ply:PrintMessage(HUD_PRINTTALK, "You try to start the terminal but an electric shock zaps your hand...")
+				ply:PrintMessage(HUD_PRINTTALK, "You try to start the terminal, but an electric shock zaps your hand...")
 				ply.nextBTerminal = CurTime() + 5
 
 				--ply:TakeDamage(1, ply)
@@ -64,7 +64,7 @@ net.Receive("br_open_terminal", function(len, ply)
 	if ply:Alive() == false or ply:IsSpectator() then return end
 	
 	if table.HasValue(BR2_ROLES_DISALLOWED_TERMINAL_USE, ply.br_role) then
-		ply:PrintMessage(HUD_PRINTTALK, "Your cannot use terminals.")
+		ply:PrintMessage(HUD_PRINTTALK, "You cannot use terminals.")
 		return
 	end
 

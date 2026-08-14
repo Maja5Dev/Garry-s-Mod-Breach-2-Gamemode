@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("special_items_menu", {
-    name = "Open Backpack",
-    desc = "Check your backpack, drop or use items",
+    name = "Open your backpack",
+    desc = "Check, use or drop the items you are carrying",
 		background_color = Color(150,75,50),
 
     can_do = true,

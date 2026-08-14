@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("identify_player", {
-    name = "Identify",
-    desc = "Identify the player you have last seen",
+    name = "Identify someone",
+    desc = "Match the player you last saw with a name from your notepad",
     background_color = BR2_Hands_Actions_Colors.someone_actions,
 
     can_do = function(self)

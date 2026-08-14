@@ -158,10 +158,10 @@ function NiceSanity()
 		return "Insane", Color(255, 0, 0, 255)
 
 	elseif s == 2 then
-		return "On verge of breaking", Color(255, 100, 0, 255)
+		return "On the verge of breaking", Color(255, 100, 0, 255)
 
 	elseif s == 3 then
-		return "Very Anxious", Color(255, 150, 0, 255)
+		return "Very anxious", Color(255, 150, 0, 255)
 
 	elseif s == 4 then
 		return "Stressed", Color(255, 255, 0, 255)
@@ -169,7 +169,7 @@ function NiceSanity()
 	elseif s == 5 then
 		return "Sane", Color(150, 255, 0, 255)
 	else
-		return "Fully Sane", Color(0, 255, 0, 255)
+		return "Fully sane", Color(0, 255, 0, 255)
 	end
 end
 

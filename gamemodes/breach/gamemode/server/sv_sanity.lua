@@ -202,15 +202,15 @@ function player_meta:NiceSanity()
 	if s < 16 then
 		return "Insane" -- 1
 	elseif s < 31 then
-		return "On verge of breaking" -- 2
+		return "On the verge of breaking" -- 2
 	elseif s < 51 then
-		return "Very Anxious" -- 3
+		return "Very anxious" -- 3
 	elseif s < 76 then
 		return "Stressed" -- 4
 	elseif s < 96 then
 		return "Sane" -- 5
 	else
-		return "Fully Sane" -- 6
+		return "Fully sane" -- 6
 	end
 end
 

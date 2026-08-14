@@ -346,7 +346,7 @@ function SWEP:SecondaryAttack()
 					nvg_settings_panel.num_slider = num_slider
 					num_slider:SetPos(name_w, 0)
 					num_slider:SetSize(size_w - name_w, size_h)
-					num_slider:SetText("Maximum props")
+					num_slider:SetText("")
 					num_slider:SetMin(v[3][2])
 					num_slider:SetMax(v[3][3])
 					num_slider:SetDecimals(0)
@@ -448,7 +448,7 @@ function SWEP:DrawHUD()
 
 	if self.Enabled == false then
 		draw.Text({
-			text = "Primary attack puts on the NVG, secondary opens settings",
+			text = "Primary attack puts on the goggles, secondary attack opens the settings",
 			pos = {ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),

@@ -13,7 +13,7 @@ local function examine_Ragdoll(pl)
             local death_time = pl:GetNWInt("DeathTime", nil)
 
             if death_time != nil then
-                chat.AddText(Color(255,255,255,255), " - They died " .. string.ToMinutesSeconds(CurTime() - death_time) .. " minutes ago")
+                chat.AddText(Color(255,255,255,255), " - They died " .. string.ToMinutesSeconds(CurTime() - death_time) .. " ago")
             end
 
             return
@@ -24,7 +24,7 @@ local function examine_Ragdoll(pl)
         end
     end
 
-    chat.AddText(Color(255,255,255,255), " - Looks dead but i am not sure...")
+    chat.AddText(Color(255,255,255,255), " - They look dead, but I am not sure...")
 end
 
 local function examine_Outfit(pl)
@@ -46,13 +46,13 @@ local function examine_PersonalInfo(pl)
         chat.AddText(Color(255,255,255,255), " - You don't really know a lot about this person")
     end
     if pl.br_ci_agent == true then
-        chat.AddText(Color(195, 55, 255), " - You rememeber that they were a Chaos Insurgency Spy!")
+        chat.AddText(Color(195, 55, 255), " - You remember that they were a Chaos Insurgency Spy!")
     end
 end
 
 local function examine_Armor(pl)
     if pl:Armor() > 0 then
-        chat.AddText(Color(56, 205,255), " - They seems to be wearing some kind of armor")
+        chat.AddText(Color(56, 205,255), " - They seem to be wearing some kind of armor")
     end
 end
 
@@ -118,7 +118,7 @@ end
 
 registerHandsAction("examine_someone", {
     name = "Examine someone",
-    desc = "Examine the player you last seen",
+    desc = "Examine the player you last saw",
     background_color = BR2_Hands_Actions_Colors.someone_actions,
 
     can_do = function(self)

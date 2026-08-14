@@ -37,7 +37,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl, item)
-        pl:PrintMessage(HUD_PRINTTALK, "Folder of Confidential Information")
+        pl:PrintMessage(HUD_PRINTTALK, "A folder of confidential information.")
         if pl.br_team == TEAM_CI then
             pl:SendLua('chat.AddText(Color(195, 55, 255), "This folder is a valuable property of the SCP Foundation, stealing it would be a good idea!")')
         

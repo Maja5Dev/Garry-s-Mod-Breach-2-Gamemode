@@ -23,7 +23,7 @@ local change_health_panel = NULL
 local current_page = 1
 local notepad_pages = {
 	{
-		name = "Known players",
+		name = "Known People",
 		func = function(notepad_info)
 			local size_mul = math.Clamp(ScrH() / 1080, 0.1, 1)
 
@@ -357,7 +357,8 @@ local notepad_pages = {
 					text_combined = text_combined .. v .. "\n"
 				end
 			else
-				table.ForceInsert(all_texts, "No information")
+				table.ForceInsert(all_texts, "No information yet")
+				text_combined = "No information yet"
 			end
 
 			local auto_info_panel = vgui.Create("DTextEntry", panel_contents)
@@ -400,7 +401,7 @@ local notepad_pages = {
 		end
 	},
 	{
-		name = "Own stuff",
+		name = "Your Own Notes",
 		func = function(notepad_info)
 			local c_w, c_h = panel_contents:GetSize()
 			/*
@@ -838,4 +839,4 @@ function BR_ShowNotepad(notepad_info)
 	--panel_contents.clear_contents()
 end
 
-print("[Breach2] client/derma/menu_healing.lua loaded!")
+print("[Breach2] client/derma/menu_notepad.lua loaded!")

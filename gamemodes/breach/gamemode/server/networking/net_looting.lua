@@ -39,7 +39,7 @@ net.Receive("br_loot_container", function(len, ply)
 		for k,v in pairs(MAPCONFIG.BUTTONS_2D.ITEM_CONTAINERS.buttons) do
 			if v.pos == pos_got then
 				if v.locked then
-					ply:PrintMessage(HUD_PRINTTALK, "Seems to be locked...")
+					ply:PrintMessage(HUD_PRINTTALK, "This seems to be locked...")
 					return
 				end
 
@@ -87,7 +87,7 @@ net.Receive("br_take_loot", function(len, ply)
 	if len > 1500 or !ply:Alive() or ply:IsSpectator() or table.HasValue(BR2_ROLES_DISALLOWED_PICKUP_SITEMS, ply.br_role) then return end
 
 	if ply:IsBackPackFull() then
-		ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+		ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full.")
 		return
 	end
 
@@ -107,13 +107,13 @@ net.Receive("br_take_loot", function(len, ply)
 			if (swep or item.ammo_info or string.find(item.class, "ammo") or string.find(item.class, "food") or string.find(item.class, "drink"))
 				and !string.find(item.class, "keycard")
 			then
-				ply:PrintMessage(HUD_PRINTTALK, "You cannot pick up weapons!")
+				ply:PrintMessage(HUD_PRINTTALK, "You cannot pick up weapons.")
 				return
 			end
 		end
 
 		if ply.br_uses_hunger_system != true and (string.find(item.class, "food") or string.find(item.class, "drink")) then
-			ply:PrintMessage(HUD_PRINTTALK, "You dont't want food or drinks.")
+			ply:PrintMessage(HUD_PRINTTALK, "You don't want food or drinks.")
 			return
 		end
 

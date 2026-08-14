@@ -179,7 +179,7 @@ function OpenInfoMenu1()
         local last_y = info_menu_exit_size
         
 		draw.Text({
-			text = "Breach 2: the successor to Breach",
+			text = "Breach 2: The Successor to Breach",
 			pos = {im1s, last_y},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_TOP,
@@ -193,16 +193,16 @@ function OpenInfoMenu1()
             true,
             "Some models made by Водорода (Vodoroda)",
             --"Map originally made by Default_OS, heavily edited by Maya",
-            "Models, textures and sounds were made by the Undertow Games",
+            "Models, textures and sounds made by Undertow Games",
             --"The whole entrance zone was made by Maya",
-            "Playermodels were made by KERRY and maJor",
+            "Playermodels made by KERRY and maJor",
             --"NPCs were made by Cpt. Hazama, edited by Maya",
-            "Weapons are using the TFA Base made by The Forgotten Architect",
-            "Some SCP:CB prop models were made by nasvaykid",
-            "Music and some ambients were made by Creative Assembly",
+            "Weapons use the TFA Base made by The Forgotten Architect",
+            "Some SCP:CB prop models made by nasvaykid",
+            "Music and some ambience made by Creative Assembly",
             true,
             "Special thanks to:",
-            " - Polish_User for a lot of gameplay ideas and bug-fixes",
+            " - Polish_User for a lot of gameplay ideas and bug fixes",
             " - Dr.arielpro for quality checks, content ideas and testing",
         }
 
@@ -551,9 +551,9 @@ function OpenInfoMenu3()
         last_y = last_y + ((info_menu_exit_size_o * 1.2) * size_mul) + im1s
 
         draw_multiple_texts({
-            "If you find a bug or a problem, try fixing it yourself before reporting",
-            "Some bugs may be known and are being worked on, check the FAQ",
-            "If the bug is not disappearing, please contact us"
+            "If you find a bug or a problem, try to fix it yourself before reporting it",
+            "Some bugs are already known and are being worked on, check the FAQ below",
+            "If the bug does not go away, please contact us"
         })
 
         last_y = last_y + (16 * size_mul)
@@ -571,13 +571,13 @@ function OpenInfoMenu3()
 
         draw_multiple_texts({
             "Will the gamemode ever be released to the public?",
-            " - Yes, when its finished and bug-free",
+            " - Yes, when it's finished and bug-free",
             "Will <x> SCP be added?",
             " - I have a lot of ideas for SCPs and some of them will be added",
             "   If you really want a certain SCP to be added, send me an idea",
             "   on how it should work and possible resources (models, sounds)",
             "Will <something> be added in the future?",
-            " - Like before, I have a lot of ideas and if you really want something, contact me"
+            " - Like before, I have a lot of ideas, so if you really want something, contact me"
         })
 
         last_y = last_y + (16 * size_mul)
@@ -594,8 +594,8 @@ function OpenInfoMenu3()
         last_y = last_y + ((info_menu_exit_size_o * 1.2) * size_mul) + im1s
 
         draw_multiple_texts({
-            "If you want to contact anybody working on this project, join the discord server",
-            "Click the link below and check the console/chat to copy"
+            "To contact anybody working on this project, join the Discord server",
+            "Click the link below, the address is also printed to the chat and the console"
         })
 
         surface.SetDrawColor(Color(255,255,255,175))
@@ -620,10 +620,10 @@ function OpenInfoMenu3()
     info_menu_discord_link:SetTextColor(Color(200,200,200,200))
     info_menu_discord_link:SetContentAlignment(4)
     info_menu_discord_link.DoClick = function()
-        gui.OpenURL("https:--discordapp.com/invite/sqcjFbX")
-        print("Discord link: ")
-        print("https:--discordapp.com/invite/sqcjFbX")
-        chat.AddText("https:--discordapp.com/invite/sqcjFbX")
+        gui.OpenURL("https://discord.gg/sqcjFbX")
+        print("Discord link:")
+        print("https://discord.gg/sqcjFbX")
+        chat.AddText("https://discord.gg/sqcjFbX")
     end
     info_menu_discord_link:SetMouseInputEnabled(true)
     info_menu_discord_link.Paint = function() end
@@ -707,23 +707,23 @@ function OpenInfoMenu4()
         {
             main = "Tutorial 1: Basic Information",
             texts = {
-                "This gamemode takes place in the SCP Universe, from the SCP wiki.",
-                "It's based on the greatest SCP game: SCP: Containment Breach.",
+                "This gamemode takes place in the SCP universe, from the SCP wiki.",
+                "It is based on the greatest SCP game: SCP: Containment Breach.",
                 "If you have played any older version of this gamemode, SCP:CB or SCP:SL,",
                 "you will generally know what to do and what not to do.",
                 "But if you have never played any of these, don't worry, this gamemode isn't hard.",
                 "",
                 "The SCP Foundation is a secret organisation focused on containing anomalous objects.",
                 "After capturing and containing these objects in a secure facility, they are researched.",
-                "Humans that are used as guinea pigs in research are reffered to as Class D Personnel.",
+                "Humans that are used as guinea pigs in research are referred to as Class D Personnel.",
                 "Every corner of the facility is guarded by officers from the Security Department.",
                 "Unfortunately, sometimes groups of interest attack the facility for various reasons.",
                 "",
-                "In this gamemode the action is happening in Site-19, a large research facility.",
-                'There are multiple scenarios but the main one is called the "Containment Breach"',
-                "In this scenario the Chaos Insurgency (a group of interest) are raiding the facility.",
+                "In this gamemode the action takes place in Site-19, a large research facility.",
+                'There are multiple scenarios, but the main one is called the "Containment Breach".',
+                "In this scenario the Chaos Insurgency (a group of interest) is raiding the facility.",
                 "The attack started with a spy giving SCP-079 access to the site's systems.",
-                "Multiple SCP objects have been released and chaos have ensued.",
+                "Multiple SCP objects have been released and chaos has ensued.",
                 --"Now the facility's future is in your hands, will you recontain the SCPs or escape?"
             }
         },
@@ -731,19 +731,19 @@ function OpenInfoMenu4()
             main = "Tutorial 2: Factions",
             texts = {
                 "In Breach 2 there are four main factions.",
-                "The first and the most important: SCP Foundation which includes:",
+                "The first and the most important is the SCP Foundation, which includes:",
                 " - Security Department Officers",
                 " - Internal Security Department Agents",
                 " - Researchers",
                 " - Engineers",
-                " - Janitors, Doctors",
+                " - Janitors and Doctors",
                 " - Mobile Task Forces",
-                "The second faction is the Chaos Insurgency which includes:",
+                "The second faction is the Chaos Insurgency, which includes:",
                 " - Researcher spies",
                 " - Security Department spies",
                 " - Chaos Insurgency Soldiers",
-                "The third one is just the Class D Personnel",
-                "The fourth faction includes all SCP Objects",
+                "The third faction is the Class D Personnel.",
+                "The fourth faction includes all SCP objects.",
                 --"Currently most SCPs are AI controlled but in the future more will be playable",
                 --"AI controlled SCPs: SCP-173, 106, 457, 575, 096, 939, 1025",
                 --"Minor SCP objects: SCP-500, 012, 513, 714",
@@ -753,24 +753,24 @@ function OpenInfoMenu4()
         {
             main = "Tutorial 3: Roles",
             texts = {
-                "Now lets take a deeper look at the roles in all of these factions",
+                "Now let's take a deeper look at the roles in all of these factions.",
                 "1. SD Officer",
-                " Highly trained officers from the Security Department that keep order in the facility",
+                " Highly trained officers from the Security Department who keep order in the facility",
                 " They are equipped with lethal weapons, radios and gasmasks",
-                " Their mission is to kill any Class Ds and help site staff getting to evac shelters",
+                " Their mission is to kill any Class Ds and get site staff to the evacuation shelters",
                 "2. ISD Agent",
-                " Agents from the Internal Security Department are always hunting down any traitors",
-                " Their job is to find and capture spies from any group of interests inside the facility",
+                " Agents from the Internal Security Department are always hunting down traitors",
+                " Their job is to find and capture spies from any group of interest inside the facility",
                 "3. Researchers",
-                " Researchers are an essential part of the foundation, they try to figure out anomalies",
+                " Researchers are an essential part of the Foundation, they study the anomalies",
                 " When a breach happens, the best thing they can do is escape the facility",
                 "4. Engineers",
-                " They analyze, maintain and repair any on-site systems and machines",
-                "5. Janitors / Doctors",
+                " They analyze, maintain and repair the on-site systems and machines",
+                "5. Janitors and Doctors",
                 " They just have to survive the containment breach and escape with the researchers",
                 "6. Mobile Task Forces",
-                " When a breach happens and facility descends into chaos, they try to fix the situation",
-                " They are equipped with heavy weaponry, night vision googles, medkits, grenades etc",
+                " When a breach happens and the facility descends into chaos, they retake control",
+                " They are equipped with heavy weaponry, night vision goggles, medkits, grenades etc.",
             }
         },
         {
@@ -778,44 +778,44 @@ function OpenInfoMenu4()
             texts = {
                 --"Breach 2 is a complex gamemode with a lot of mechanics and items",
                 "There are many mechanics in Breach 2, here are the most important ones:",
-                "1. Gas:",
-                " There are some areas where gas may be leaking and without a gas mask is harmful",
-                "2. Temperature:",
-                " It is very cold outside the facility and if you want to escape, find a warm outfit",
-                "3. Sanity:",
+                "1. Gas",
+                " Some areas leak gas that harms you unless you are wearing a gasmask",
+                "2. Temperature",
+                " It is very cold outside the facility, if you want to escape, find a warm outfit",
+                "3. Sanity",
                 " If you want to escape successfully, you will have to maintain your sanity",
-                " Your sanity can go down in certain conditions, including:",
+                " Your sanity goes down in certain conditions, including:",
                 "  - Being affected by SCP objects",
                 "  - Being attacked",
                 "  - Being AFK",
-                " And also you can increase your sanity levels by:",
+                " You can restore your sanity by:",
                 "  - Taking SSRI pills",
-                "4. Escaping:",
-                " If you are a Class D, Researcher, Janitor or a Doctor, you might want to escape",
-                " Grab a warm outfit and find Gate A or Gate B, then escape through an exit",
-                " Also you can escape through the evac shelter if the security manages to do so"
+                "4. Escaping",
+                " If you are a Class D, Researcher, Janitor or Doctor, you might want to escape",
+                " Grab a warm outfit, find Gate A or Gate B, then escape through an exit",
+                " You can also escape through the evacuation shelter if security opens it"
                 -- GAS, SANITY, TEMPERATURE, FOG, MTF SPAWN, ESCAPING, EVAC SHELTER, DOWNING N REVIVING, OUTFITS, ITEMS, TERMINALS
             } 
         },
         {
             main = "Tutorial 5: Mechanics 2",
             texts = {
-                "5. Downing / Reviving",
-                " There is a chance that someone with low hp will get downed if they get shot",
-                " They will start bleeding and after checking their pulse, they can be revived",
+                "5. Downing and Reviving",
+                " Someone with low health has a chance to get downed instead of killed when shot",
+                " They will start bleeding, and after checking their pulse, they can be revived",
                 "6. Outfits",
                 " There are places in the facility where you can change your outfit",
-                " You can get a warmer one to escape this place or steal one to disguise as someone",
+                " Take a warmer one to escape this place, or steal one to disguise yourself",
                 "7. Terminals",
                 " Site terminals are typically used to message staff or store information",
-                " You can check the cameras using them and some of them have special options",
-                "8. Support spawns",
-                " If you die, you can still get back into the action using the support mechanics",
-                " Somebody can only respawn once",
-                " Class D personnel can respawn with low health and no items around the LCZ area",
-                " SCP objects can spawn as zombies around the facility to harass other players",
-                " Any foundation personnel can spawn in Mobile Task Force squads",
-                " Any member of the Chaos Insurgency can spawn in groups as CI Soldiers",
+                " You can check the cameras with them, and some of them have special options",
+                "8. Support Spawns",
+                " If you die, you can still get back into the action through a support spawn",
+                " Every player can only respawn once",
+                " Class D Personnel respawn around the LCZ with low health and no items",
+                " SCP objects respawn as zombies around the facility to harass other players",
+                " Any Foundation personnel can respawn in a Mobile Task Force squad",
+                " Any member of the Chaos Insurgency can respawn in a group of CI Soldiers",
                 --" Depending on the player count, the amount of support spawns may vary",
                 --" There are three types of support spawns:",
                 --"  - Mobile Task Force (Soldiers)",
@@ -826,24 +826,24 @@ function OpenInfoMenu4()
         {
             main = "Tutorial 6: Items",
             texts = {
-                "In breach 2 there are many unique items, here is a simple list of them:",
+                "In Breach 2 there are many unique items, here is a simple list of them:",
                 "1. Keycards",
-                " Keycard are used to open any doors that require them",
-                " There are 6 types of keycards of different clearances",
+                " Keycards are used to open the doors that require them",
+                " There are six clearance levels, from level 1 up to the omni keycard",
                 "2. 9V Battery",
-                " Using a 9v battery you can replace the batteries in other items",
+                " Use a 9V battery to replace the battery in another item",
                 "3. Radio",
-                " Using radios, players can communicate wirelessly",
-                "4. Night Vision Googles",
+                " Radios let players communicate wirelessly over a shared channel",
+                "4. Night Vision Goggles",
                 " NVGs are used to see better in dark areas",
                 "5. Gasmask",
-                " Gasmasks are used to breathe in areas where lethal gas is leaking",
+                " Gasmasks let you breathe in areas where lethal gas is leaking",
                 "6. SSRI Pills",
-                " These pills are used to fix someone's sanity",
+                " These pills restore your sanity",
                 "7. Medkit",
-                "They contain bruise packs that heal 30HP, blood bags that heal 50HP",
-                "Bandages that heal 15HP and stop player's bleeding,",
-                "And ointments that heal 10HP and extinguish the player",
+                " Bruise packs heal 30 HP and blood bags heal 50 HP",
+                " Bandages heal 15 HP and stop bleeding",
+                " Ointments heal 10 HP and put out fire",
             }
         },
         -- TODO ADD MORE ITEMS
@@ -890,7 +890,7 @@ function OpenInfoMenu4()
         draw.RoundedBox(0, 0, 0, w, info_menu_exit_size, Color(0, 0, 0, 200))
 
 		draw.Text({
-			text = "Gamemode tutorial",
+			text = "Gamemode Tutorial",
 			pos = {im1s, (info_menu_exit_size_o / 2) * size_mul},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_CENTER,
@@ -1060,13 +1060,13 @@ function OpenInfoMenu5()
         last_y = last_y + ((info_menu_exit_size_o * 1.5) * size_mul) + im1s
         
         local info_table = {
-            "Development of Breach 2 started in january of 2018",
-            "This gamemode, like Breach is being developed only by Maya",
-            "Because of that the development is very slow and hard",
+            "Development of Breach 2 started in January 2018",
+            "This gamemode, like Breach, is being developed only by Maya",
+            "Because of that, the development is slow and difficult",
             true,
             {"Current goals of the gamemode:", Color(255,128,0,175)},
             " - Fix any bugs and errors",
-            " - Make the UI scaling good on most resolutions",
+            " - Make the UI scale well on most resolutions",
             " - Add more content",
             " - Make the gamemode more consistent",
             " - Add playable SCP-106 and SCP-035",

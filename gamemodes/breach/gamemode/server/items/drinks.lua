@@ -11,7 +11,7 @@ local function add_drink(class, name, model, thirst, hunger)
 			if timer.Exists("drinkuse" .. pl:SteamID64()) then return false end
 
 			if pl.br_thirst > 100 then
-				pl:PrintMessage(HUD_PRINTTALK, "You are not thirsty")
+				pl:PrintMessage(HUD_PRINTTALK, "You are not thirsty.")
 				return false
 			end
 
@@ -29,11 +29,11 @@ local function add_drink(class, name, model, thirst, hunger)
 				pl:EmitSound("breach2/player/drink.wav")
 
 				if pl.br_thirst > 70 then
-					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched")
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", your thirst is quenched.")
 				elseif pl.br_thirst > 35 then
-					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst hasn't been fully quenched")
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but your thirst is not fully quenched.")
 				else
-					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", you still feel thirsty")
+					pl:PrintMessage(HUD_PRINTTALK, "You drank the "..name..", but you still feel thirsty.")
 				end
 
 				pl:UpdateHungerThirst()

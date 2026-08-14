@@ -51,7 +51,7 @@ function CreateBatteryFrame()
 		end
 
 		draw.Text({
-			text = "Replace battery:",
+			text = "Replace a battery:",
 			pos = {4, 4},
 			xalign = TEXT_ALIGN_LEFT,
 			yalign = TEXT_ALIGN_TOP,
@@ -123,7 +123,7 @@ function CreateBatteryFrame()
         local no_weapons_label = vgui.Create("DLabel", WeaponFrame)
         no_weapons_label:SetPos(4, 28)
         no_weapons_label:SetSize(300 - 8, 20)
-        no_weapons_label:SetText("-")
+        no_weapons_label:SetText("You have nothing that takes a battery")
         no_weapons_label:SetFont("BR_MEDKIT_CONTENT_USE")
         no_weapons_label:SetColor(Color(255,255,255,255))
         last_y = last_y + 20 + 6

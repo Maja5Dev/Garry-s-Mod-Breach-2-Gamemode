@@ -39,7 +39,7 @@ BREACH_OUTFITS = {
 		},
 		player_color = Vector(255,0,0,255),
 		hands = {mdl = "models/vinrax/weapons/c_arms_scp049.mdl", skin = 0},
-		examine = "You are wearing your doctor clothes, they slow you a bit but give you protection",
+		examine = "You are wearing your doctor clothes, they slow you down a bit but give you protection",
 		examine_info = " - It looks like SCP-049!"
 	},
 	{
@@ -87,7 +87,7 @@ BREACH_OUTFITS = {
 		},
 		player_color = Vector(255,0,0,255),
 		hands = {mdl = "models/vinrax/weapons/c_arms_scp049.mdl", skin = 0},
-		examine = "You are not wearing any clothing, why would you? you can't be seen anyway",
+		examine = "You are not wearing any clothing, why would you? You cannot be seen anyway",
 		examine_info = " - It looks like SCP-966!"
 	},
 	{
@@ -106,6 +106,7 @@ BREACH_OUTFITS = {
 		can_change_outfits = false,
 		can_loot_this_outfit = false,
 		footstep_volume = 1,
+		examine = "You are not wearing any clothing, your body is made of concrete and rebar",
 		examine_info = " - It looks like SCP-173!"
 	},
 	{
@@ -261,7 +262,7 @@ BREACH_OUTFITS = {
 		footstep_volume = 1.1,
 		player_color = Color(255,255,255,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_2.mdl", skin = 0},
-		examine = "You are wearing a Hazmat Suit, its heavy and hot but gives you protection",
+		examine = "You are wearing a Hazmat Suit, it's heavy and hot but gives you protection",
 		examine_info = " - They look like a Containment Specialist"
 	},
 	{
@@ -318,7 +319,7 @@ BREACH_OUTFITS = {
 		footstep_volume = 1.25,
 		player_color = Color(50,50,50,255),
 		hands = {mdl = "models/weapons/c_arms_cstrike_3.mdl", skin = 0},
-		examine = "You are wearing a MTF Uniform which gives you a lot of protection",
+		examine = "You are wearing an MTF Uniform which gives you a lot of protection",
 		examine_info = " - They look like a Soldier"
 	},
 }

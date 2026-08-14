@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("pickup_bomb", {
-    name = "Pickup the bomb",
-    desc = "Pickup the bomb in front of you",
+    name = "Pick up the bomb",
+    desc = "Pick up the explosive charge in front of you",
 	background_color = BR2_Hands_Actions_Colors.pickup_actions,
 
     can_do = function(self)

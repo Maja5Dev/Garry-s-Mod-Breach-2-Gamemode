@@ -188,7 +188,7 @@ function BR_Access_Terminal(terminal)
 		local dcolor = Color(255,255,255,140)
 		local dfont = "BR_ACCESS_TERMINAL_2"
 		if #dtext < 1 then
-			dtext = "Input login here"
+			dtext = "Enter your login"
 			dcolor = Color(255,255,255,20)
 			dfont = "BR_ACCESS_TERMINAL_2_IT"
 		end
@@ -213,7 +213,7 @@ function BR_Access_Terminal(terminal)
 		local dcolor = Color(255,255,255,140)
 		local dfont = "BR_ACCESS_TERMINAL_2"
 		if #dtext < 1 then
-			dtext = "Input password here"
+			dtext = "Enter your password"
 			dcolor = Color(255,255,255,20)
 			dfont = "BR_ACCESS_TERMINAL_2_IT"
 		else
@@ -260,7 +260,7 @@ function BR_Access_Terminal(terminal)
 			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(0,0,0,255))
 
 			draw.Text({
-				text = "Use personal id card",
+				text = "Use your personal ID card",
 				pos = {w/2, h/2},
 				xalign = TEXT_ALIGN_CENTER,
 				yalign = TEXT_ALIGN_CENTER,
@@ -293,7 +293,7 @@ function BR_Access_Terminal(terminal)
 			draw.RoundedBox(0, 4, 4, w-8, h-8, Color(0,0,0,255))
 
 			draw.Text({
-				text = "Hack into the terminal",
+				text = "Hack into this terminal",
 				pos = {w/2, h/2},
 				xalign = TEXT_ALIGN_CENTER,
 				yalign = TEXT_ALIGN_CENTER,

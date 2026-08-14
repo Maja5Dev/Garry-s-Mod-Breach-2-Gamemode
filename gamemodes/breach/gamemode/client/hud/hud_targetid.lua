@@ -63,7 +63,7 @@ function DrawTargetID()
 
 			if ent.Pulse == nil then
 				if progress_circle_end == nil then
-					lastseen_nick = "Press E to check the pulse"
+					lastseen_nick = "Press E to check their pulse"
 
 					if input.IsButtonDown(KEY_E) then
 						progress_circle_time = 4
@@ -81,7 +81,7 @@ function DrawTargetID()
 						is_checking = true
 					end
 				else
-					lastseen_nick = "Checking the pulse..."
+					lastseen_nick = "Checking their pulse..."
 					is_checking = true
 				end
 
@@ -103,7 +103,7 @@ function DrawTargetID()
 					revive_text2 = "Curing..."
 					
 				elseif ent.Pulse == true then
-					lastseen_nick = "Dead"
+					lastseen_nick = "They are dead"
 					can_revive = false
 				end
 				

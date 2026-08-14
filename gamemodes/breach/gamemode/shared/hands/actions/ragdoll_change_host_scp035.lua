@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("change_host_scp035", {
-    name = "Change your host to this body",
-    desc = "Your current host is decaying",
+    name = "Possess this body",
+    desc = "Move into this body before your current host decays",
     background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
     can_do = function(self)
@@ -21,7 +21,7 @@ registerHandsAction("change_host_scp035", {
         and tr_ent:GetClass() == "prop_ragdoll"
         )
         then
-            ply:PrintMessage(HUD_PRINTTALK, "Invalid ragdoll")
+            ply:PrintMessage(HUD_PRINTTALK, "You cannot possess this body.")
             return
         end
 

@@ -118,4 +118,4 @@ BR_SPECTATABLE_NPC_CLASSES = {
 	npc_cpt_scp_173 = "SCP-173",
 }
 
-print("[Breach2] config/sh_npcs.lua loaded!")
+print("[Breach2] config/sh_scps.lua loaded!")

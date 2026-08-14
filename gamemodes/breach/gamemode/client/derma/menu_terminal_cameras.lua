@@ -87,7 +87,7 @@ info_set_camera = {"CAMERAS", function(button, panel)
 				})
 			else
 				table.Add(texttab, {
-					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Camera software not found, please install and restart the system", Color(255,0,0), false},
+					{"BR_TERMINAL_MAIN_TEXT_SMALL", " Camera software not found, install the receiver device and restart the system", Color(255,0,0), false},
 				})
 			end
 
@@ -124,7 +124,7 @@ function BR_Access_Cameras()
 	--terminal_frame:SetVisible(false)
 	local size_mul = ScrH() / 1080
 	
-	local go_around = CreateClientConVar("br2_cameras_go_around", "0", true, true):GetBool()
+	local go_around = CreateClientConVar("br2_cameras_go_around", "0", true, true, "Let the camera list wrap around from the last camera back to the first one"):GetBool()
 
 	CheckSCP895()
 
@@ -169,7 +169,7 @@ function BR_Access_Cameras()
 	top_panel:SetSize(top_panel_w, top_panel_h)
 	top_panel:SetPos(top_panel_x, top_panel_y)
 	top_panel.Paint = function(self, w, h)
-		local camera_name = "unknown camera"
+		local camera_name = "Unknown Camera"
 		if BR_CURRENT_CAMERA then
 			camera_name = BR_CURRENT_CAMERA
 		end

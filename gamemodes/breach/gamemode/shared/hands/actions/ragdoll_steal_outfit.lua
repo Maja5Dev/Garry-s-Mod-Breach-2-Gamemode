@@ -32,7 +32,7 @@ end
 
 registerHandsAction("steal_outfit", {
     name = "Steal their outfit",
-    desc = "Wear the outfit found in this body",
+    desc = "Wear the outfit taken from this body",
     background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
     can_do = function(self)

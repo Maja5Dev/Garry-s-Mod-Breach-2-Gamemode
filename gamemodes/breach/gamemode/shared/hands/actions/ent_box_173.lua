@@ -11,8 +11,8 @@ local function box173Player(ent, ntf)
 end
 
 registerHandsAction("box_173", {
-    name = "Box 173",
-    desc = "Put a box on the SCP-173",
+    name = "Box SCP-173",
+    desc = "Put a box over SCP-173 to contain it",
 	background_color = BR2_Hands_Actions_Colors.ent_important_actions,
 
     can_do = function(self)
