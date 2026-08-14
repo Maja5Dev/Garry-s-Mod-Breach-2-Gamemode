@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("use_914_1", {
-    name = "Change SCP-914",
-    desc = "Change SCP-914's status",
+    name = "Change SCP-914's setting",
+    desc = "Turn the dial to the next refinement setting",
     background_color = Color(150, 150, 50),
 
     cl_can_do = function(self)
@@ -37,7 +37,7 @@ registerHandsAction("use_914_1", {
 
 registerHandsAction("use_914_2", {
     name = "Start SCP-914",
-    desc = "Start the machine",
+    desc = "Refine everything placed inside the intake booth",
 	background_color = Color(50,150,50),
 
     cl_can_do = function(self)

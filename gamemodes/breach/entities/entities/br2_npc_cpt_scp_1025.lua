@@ -3,7 +3,7 @@ AddCSLuaFile()
 
 ENT.Base = "npc_cpt_scp_1025"
 ENT.Type = "ai"
-ENT.PrintName = "SCP"
+ENT.PrintName = "SCP-1025"
 ENT.Author = "Maya"
 ENT.Category = "SCP:CB Breach 2"
 

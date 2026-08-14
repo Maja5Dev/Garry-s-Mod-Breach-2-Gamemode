@@ -66,7 +66,7 @@ function SWEP:PrimaryAttack()
 
 		if !self.GasMaskOn and (self.Owner:CheckAttachmentSlot("eyes") or self.Owner:CheckAttachmentSlot("face")) then
 			if SERVER then
-				self.Owner:PrintMessage(HUD_PRINTTALK, "You are already wearing something on your face!")
+				self.Owner:PrintMessage(HUD_PRINTTALK, "You are already wearing something on your face.")
 			end
 			return
 		end

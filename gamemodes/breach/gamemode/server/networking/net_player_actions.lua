@@ -120,7 +120,7 @@ net.Receive("br_use_soda_machine", function(len, ply)
 						return
 					end
 				end
-				ply:PrintMessage(HUD_PRINTTALK, "You need a coin to use this machine!")
+				ply:PrintMessage(HUD_PRINTTALK, "You need a coin to use this machine.")
 			end
 		end
 	end
@@ -188,7 +188,7 @@ net.Receive("br_hands_action", function(len, ply)
 			local action = BR2_HandsActions[action_name]
 
 			if isfunction(action.can_do) and !action.can_do(wep) then
-				ply:PrintMessage(HUD_PRINTTALK, "You are not allowed to perform " .. action_name .. ".")
+				ply:PrintMessage(HUD_PRINTTALK, "You cannot do that right now.")
 				return
 			end
 
@@ -291,7 +291,7 @@ net.Receive("br_check_someones_notepad", function(len, ply)
 			local notepad = notepad_system.GetPlayerNotepad(target_ply)
 
 			if !istable(notepad) then
-				ply:BR2_ShowNotification("This person doesn't seem to have a notepad.")
+				ply:BR2_ShowNotification("This person does not seem to have a notepad.")
 				return
 			end
 

@@ -80,7 +80,7 @@ end
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
 	draw.Text({
-		text = "Click Primary attack to take the pills",
+		text = "Primary attack takes the pills",
 		pos = { ScrW() / 2, ScrH() - 6},
 		font = "BR2_ItemFont",
 		color = Color(255,255,255,80),

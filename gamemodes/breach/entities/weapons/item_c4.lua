@@ -51,9 +51,9 @@ SWEP.Contents = {
 		desc = "Set the bomb's timer to 30 seconds",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set now")
+				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set right now.")
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 30 seconds")
+				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 30 seconds.")
 				self.Timer = 30
 			end
 		end,
@@ -69,9 +69,9 @@ SWEP.Contents = {
 		desc = "Set the bomb's timer to 60 seconds",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set now")
+				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set right now.")
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 60 seconds")
+				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 60 seconds.")
 				self.Timer = 60
 			end
 		end,
@@ -87,9 +87,9 @@ SWEP.Contents = {
 		desc = "Set the bomb's timer to 2 minutes",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set now")
+				chat.AddText(Color(255,0,0,255), "(C4) The timer cannot be set right now.")
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 2 minutes")
+				chat.AddText(Color(255,0,0,255), "(C4) Timer set to 2 minutes.")
 				self.Timer = 120
 			end
 		end,
@@ -105,9 +105,9 @@ SWEP.Contents = {
 		desc = "Arm the bomb",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb cannot be armed now")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb cannot be armed right now.")
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb has been armed")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb has been armed.")
 				self.isArmed = true
 			end
 		end,
@@ -123,9 +123,9 @@ SWEP.Contents = {
 		desc = "Disarm the bomb",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb cannot be disarmed now")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb cannot be disarmed right now.")
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb has been disarmed")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb has been disarmed.")
 				self.isArmed = false
 			end
 		end,
@@ -141,13 +141,13 @@ SWEP.Contents = {
 		desc = "Activate the bomb timer",
 		cl_effect = function(self)
 			if self.Activated == true then
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb has already been activated!")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb has already been activated.")
 			else
 				if self.isArmed then
-					chat.AddText(Color(255,0,0,255), "(C4) Activated, the bomb will explode in "..self.Timer.." seconds")
+					chat.AddText(Color(255,0,0,255), "(C4) Activated, the bomb will explode in "..self.Timer.." seconds.")
 					self.Activated = true
 				else
-					chat.AddText(Color(255,0,0,255), "(C4) The bomb must be armed to activate the timer")
+					chat.AddText(Color(255,0,0,255), "(C4) The bomb must be armed before the timer can start.")
 				end
 			end
 		end,
@@ -167,14 +167,14 @@ SWEP.Contents = {
 				self.Activated = false
 				self.isArmed = false
 			else
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb hasn't been activated")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb has not been activated.")
 			end
 		end,
 		sv_effect = function(self, ply)
 			if self.Activated then
 				self.Activated = false
 				self.isArmed = false
-				local str = 'chat.AddText(Color(255,0,0,255), "(C4) Bomb defused. Timer of the bomb indicates that the bomb would explode in '..math.Round(self.nextExplode-CurTime(), 1)..' seconds.")'
+				local str = 'chat.AddText(Color(255,0,0,255), "(C4) Bomb defused. Its timer shows that it would have exploded in '..math.Round(self.nextExplode-CurTime(), 1)..' seconds.")'
 				ply:SendLua(str)
 			end
 		end
@@ -185,7 +185,7 @@ SWEP.Contents = {
 		desc = "Force the bomb to explode",
 		cl_effect = function(self)
 			if self.isArmed == false then
-				chat.AddText(Color(255,0,0,255), "(C4) The bomb must be armed to explode")
+				chat.AddText(Color(255,0,0,255), "(C4) The bomb must be armed before it can explode.")
 			else
 				surface.PlaySound("breach2/explosion_near.wav")
 			end
@@ -476,7 +476,7 @@ function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
 	
 	draw.Text({
-		text = "Primary attack plants the C4, secondary opens settings menu",
+		text = "Primary attack plants the C4, secondary attack opens the settings",
 		pos = { ScrW() / 2, ScrH() - 6},
 		font = "BR2_ItemFont",
 		color = Color(255,255,255,80),

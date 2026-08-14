@@ -37,7 +37,7 @@ end)
 /*
 hook.Add("BR2_PlayerUseKeypadCheck", "BR2_BlockDecontUse", function(ply, ent, lvl, klvl, card)
     if round_system.lcz_decontaminated == true and ent.br_info != nil and ent.br_info.dis_after_decon == true then
-        ply:BR2_ShowNotification("The decontamination process is active! I cannot use this keypad right now.")
+        ply:BR2_ShowNotification("The decontamination process is active, I cannot use this keypad right now.")
         return false
     end
 end)

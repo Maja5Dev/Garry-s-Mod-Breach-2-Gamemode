@@ -2,7 +2,7 @@
 br2_current_spec_target = nil
 function DrawSpectatorHud()
 	local obv_target = LocalPlayer():GetObserverTarget()
-	local spec_text = "Spectating (Click R to change mode, LMB/RMB to cycle players)"
+	local spec_text = "Spectating (R to change mode, left/right click to cycle targets)"
 	
 	if IsValid(obv_target) then
 		if obv_target:IsPlayer() then

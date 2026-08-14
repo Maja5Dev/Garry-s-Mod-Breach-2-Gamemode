@@ -8,7 +8,7 @@ function entity_meta:AddAttachmentModel(tbl, force)
     end
 
     if self:IsPlayer() and tbl.attachment and self:CheckAttachmentSlot(tbl.attachment) and force != true then
-        self:PrintMessage(HUD_PRINTTALK, "You are already wearing something in that slot!")
+        self:PrintMessage(HUD_PRINTTALK, "You are already wearing something in that slot.")
         return false
     end
 

@@ -81,7 +81,7 @@ round_system.Force_MTF_Spawn = function()
 			local evac_code = MTF_GetEvacInfo()
 
 			if evac_code != nil then
-				notepad_system.AddAutomatedInfo(v, "evacuation code:  " .. evac_code)
+				notepad_system.AddAutomatedInfo(v, "Evacuation code: " .. evac_code)
 			end
 
 			table.ForceInsert(all_mtfs, v)
@@ -585,7 +585,7 @@ round_system.PostRoundStart = function()
 	game_state = GAMESTATE_POSTROUND
 	if isfunction(round_system.current_scenario.postround_start) then round_system.current_scenario.postround_start() end
 
-	PrintMessage(HUD_PRINTTALK, "The round is ending in "..GetConVar("br2_time_postround"):GetInt().." seconds")
+	PrintMessage(HUD_PRINTTALK, "The round is ending in "..GetConVar("br2_time_postround"):GetInt().." seconds.")
 	--PrintMessage(HUD_PRINTTALK, "BR2_PostRoundStart")
 end
 

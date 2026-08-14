@@ -1,7 +1,7 @@
 
 function BR_OpenInventoryMenu(items)
 	if table.Count(items) < 1 then
-		chat.AddText(Color(255,255,255,255), "Your inventory is empty")
+		chat.AddText(Color(255,255,255,255), "Your inventory is empty.")
 		return
 	end
 	if IsValid(BR_Looting_Menu) then

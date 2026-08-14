@@ -72,7 +72,7 @@ function SWEP:PrimaryAttack()
 		end
 	elseif IsFirstTimePredicted() then
 		if tr_hull.Entity.BatteryLevel then
-			chat.AddText(Color(255,255,255,255), "Trying to use battery on item...")
+			chat.AddText(Color(255,255,255,255), "Trying to replace a battery...")
 		end
 	end
 end
@@ -84,7 +84,7 @@ end
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
 	draw.Text({
-		text = "You can use batteries on an item using primary attack",
+		text = "Primary attack lists the items you can replace a battery in",
 		pos = { ScrW() / 2, ScrH() - 6},
 		font = "BR2_ItemFont",
 		color = Color(255,255,255,80),

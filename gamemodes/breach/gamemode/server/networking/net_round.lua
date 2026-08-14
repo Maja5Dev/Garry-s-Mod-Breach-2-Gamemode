@@ -46,14 +46,14 @@ net.Receive("br_vote_round_end", function(len, ply)
 		end
 		
 		if votes >= votes_needed then
-			PrintMessage(HUD_PRINTTALK, "Players voted for the round to end, postround started")
+			PrintMessage(HUD_PRINTTALK, "Players voted for the round to end, the post-round has started.")
 			Debug_NextRoundStage()
 			return
 
 		else
 			for k,v in pairs(player.GetAll()) do
 				if v:IsSpectator() then
-					v:PrintMessage(HUD_PRINTTALK, "Votes for round end: ("..votes.."/"..votes_needed..")")
+					v:PrintMessage(HUD_PRINTTALK, "Votes to end the round: "..votes.."/"..votes_needed)
 				end
 			end
 		end

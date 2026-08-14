@@ -246,7 +246,7 @@ function SWEP:DrawHUD()
 	surface.DrawTexturedRect(ScrW() - rw, ScrH() - rh + 1, rw, rh)
 	if !self.Enabled and BR2_ShouldDrawWeaponInfo() then
 		draw.Text({
-			text = "Primary attack changes the channel and secondary attack toggles the radio",
+			text = "Primary attack changes the channel, secondary attack toggles the radio",
 			pos = { ScrW() / 2, ScrH() - 15},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),

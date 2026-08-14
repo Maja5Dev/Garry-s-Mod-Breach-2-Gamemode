@@ -20,7 +20,7 @@ net.Receive("br_install_device", function(len, ply)
 		for _, terminal_tab in pairs(BR2_TERMINALS) do
 			if terminal_tab.name == terminal then
 				if terminal_tab.Info.devices[device] == true then
-					ply:PrintMessage(HUD_PRINTTALK, "This terminal already has this device installed!")
+					ply:PrintMessage(HUD_PRINTTALK, "This terminal already has this device installed.")
 					return
 				end
 
@@ -30,13 +30,13 @@ net.Receive("br_install_device", function(len, ply)
 				net.Start("br_install_device")
 				net.Send(ply)
 
-				ply:PrintMessage(HUD_PRINTTALK, "Device installed")
+				ply:PrintMessage(HUD_PRINTTALK, "Device installed in the terminal.")
 
 				return
 			end
 		end
 
-		ply:PrintMessage(HUD_PRINTTALK, "Terminal not found!")
+		ply:PrintMessage(HUD_PRINTTALK, "Terminal not found.")
 	end
 end)
 
@@ -122,7 +122,7 @@ net.Receive("br_pickup_item", function(len, ply)
 					for k2,v2 in pairs(BR2_ROLES_LOOT_LIMITS) do
 						if v2.role_name == ply.br_role then
 							if v2.disallow(ply, ent) then
-								ply:PrintMessage(HUD_PRINTTALK, "Your cannot pick up this item.")
+								ply:PrintMessage(HUD_PRINTTALK, "You cannot pick up this item.")
 								return
 							else
 								break
@@ -133,7 +133,7 @@ net.Receive("br_pickup_item", function(len, ply)
 					if isstring(ent.SI_Class) then
 						for k,v in pairs(BR2_SPECIAL_ITEMS) do
 							if ply:IsBackPackFull() then
-								ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+								ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full.")
 								return
 							end
 
@@ -150,7 +150,7 @@ net.Receive("br_pickup_item", function(len, ply)
 
 					for k,v in pairs(ply:GetWeapons()) do
 						if v.Slot == ent.Slot then
-							ply:PrintMessage(HUD_PRINTTALK, "You already have an item at slot " .. (v.Slot + 1 .. ""))
+							ply:PrintMessage(HUD_PRINTTALK, "You already have an item in slot " .. (v.Slot + 1 .. ""))
 							return
 						end
 					end

@@ -16,7 +16,7 @@ function DrawHidingInfo()
 		BR_IS_HIDING = true
 
 		draw.Text({
-			text = "Press the use button to leave",
+			text = "Press E to leave",
 			pos = { ScrW() / 2, ScrH() - 40},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,10),

@@ -1,7 +1,7 @@
 ﻿
 registerHandsAction("loot_body", {
     name = "Loot the body",
-    desc = "Search the body you are looking at",
+    desc = "Search the body you are looking at for items",
     background_color = BR2_Hands_Actions_Colors.ragdoll_actions,
 
     can_do = function(self)

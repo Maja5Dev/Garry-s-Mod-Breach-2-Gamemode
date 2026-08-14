@@ -114,7 +114,7 @@ BR2_SCP_294_OUTCOMES = {
 		sound = scp294_sound_slurp,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
-			ply:BR2_ShowNotification("Nostalgia overwhelms you... you commit suicide.")
+			ply:BR2_ShowNotification("Nostalgia overwhelms you...")
 			ply:Kill()
 			return true
 		end
@@ -152,7 +152,7 @@ BR2_SCP_294_OUTCOMES = {
 		sound = scp294_sound_ew2,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
-			ply:BR2_ShowNotification("Ouch my ass is being eaten.")
+			ply:BR2_ShowNotification("Ouch, my ass is being eaten.")
 			local ply_charid = ply.charid
 
 			timer.Simple(3, function()
@@ -225,7 +225,7 @@ BR2_SCP_294_OUTCOMES = {
 		sound = nil,
 		func = function(ply, info, text) scp_294_func(ply, info, text) end,
 		use = function(ply)
-			ply:BR2_ShowNotification("I am not drinking that")
+			ply:BR2_ShowNotification("I am not drinking that.")
 			return false
 		end
 	},

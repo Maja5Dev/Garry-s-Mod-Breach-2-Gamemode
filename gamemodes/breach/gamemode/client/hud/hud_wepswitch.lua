@@ -253,4 +253,4 @@ hook.Add("CreateMove", "WeaponSwitch", function(cmd)
 	end
 end)
 
-print("[Breach2] cl_wepswitch.lua loaded!")
+print("[Breach2] client/hud/hud_wepswitch.lua loaded!")

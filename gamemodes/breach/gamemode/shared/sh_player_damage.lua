@@ -161,7 +161,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 					victim:StripWeapon("item_gasmask2")
 				end
 
-				victim:PrintMessage(HUD_PRINTTALK, "Your gasmask protected you from a headshot! But it is now broken.")
+				victim:PrintMessage(HUD_PRINTTALK, "Your gasmask protected you from a headshot, but it is now broken.")
 
 			elseif HasNVGOn(victim) then
 				dmg_mul = 0.3
@@ -185,7 +185,7 @@ function GM:ScalePlayerDamage(victim, hitgroup, dmginfo)
 					victim:StripWeapon("item_nvg_military")
 				end
 
-				victim:PrintMessage(HUD_PRINTTALK, "Your nightvision goggles protected you from a headshot! But they are now broken.")
+				victim:PrintMessage(HUD_PRINTTALK, "Your night vision goggles protected you from a headshot, but they are now broken.")
 			end
 		end
 		

@@ -65,7 +65,7 @@ end
 function GM:PlayerUse(ply, ent)
 	if ent.SI_Class then
 		if ply:IsBackPackFull() then
-			ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full!")
+			ply:PrintMessage(HUD_PRINTTALK, "Your inventory is full.")
 			return true
 		end
 

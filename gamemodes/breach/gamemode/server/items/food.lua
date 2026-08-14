@@ -19,7 +19,7 @@ local function add_food(class, name, model, hunger, health)
 				end
 			else
 				if pl.br_thirst > 100 then
-					pl:PrintMessage(HUD_PRINTTALK, "You are not hungry")
+					pl:PrintMessage(HUD_PRINTTALK, "You are not hungry.")
 					return false
 				end
 
@@ -27,13 +27,13 @@ local function add_food(class, name, model, hunger, health)
 				pl:AddHealth(health)
 
 				if pl.br_hunger > 75 then
-					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel full")
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel full.")
 				elseif pl.br_hunger > 60 then
-					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel satisfied")
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel satisfied.")
 				elseif pl.br_hunger > 35 then
-					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your feel less hungry")
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", you feel less hungry.")
 				else
-					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", your stomach still rumbles")
+					pl:PrintMessage(HUD_PRINTTALK, "You ate the "..name..", but your stomach still rumbles.")
 				end
 
 				pl:EmitSound("breach2/player/eat.wav")

@@ -28,7 +28,7 @@ BR2_PLAYER_SCOREBOARD_GROUPS = {
 		sort = 2,
 		check = function(pl) return pl.br_team == TEAM_CLASSD end,
 		color = Color(201, 87, 16, 220),
-		text = "Class Ds"
+		text = "Class D Personnel"
 	},
 	unknown = {
 		sort = 1,

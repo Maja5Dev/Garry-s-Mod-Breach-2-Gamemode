@@ -16,7 +16,7 @@ end
 
 registerHandsAction("put_on_scp35", {
     name = "Put on the mask",
-    desc = "Put on the mask on your face",
+    desc = "Wear the mask you are looking at",
 	background_color = BR2_Hands_Actions_Colors.ent_important_actions,
 
     can_do = function(self)

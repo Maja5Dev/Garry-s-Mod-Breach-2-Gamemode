@@ -110,7 +110,7 @@ local function add_flashlight(fl_info)
 				return true
 			end
 
-			pl:PrintMessage(HUD_PRINTTALK, "You already have a flashlight!")
+			pl:PrintMessage(HUD_PRINTTALK, "You already have a flashlight.")
 
 			return false
 		end,

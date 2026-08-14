@@ -28,7 +28,7 @@ end
 
 function Breach_SCP294_Keyboard(ply)
 	if IsValid(uses_294) and uses_294:Alive() and !uses_294:IsSpectator() and !uses_294.br_downed then
-		uses_294:BR2_ShowNotification("Someone else used the SCP-294")
+		uses_294:BR2_ShowNotification("Someone else is using SCP-294.")
 		uses_294:SendLua("CloseSCP_294()")
 	end
 
@@ -37,19 +37,19 @@ function Breach_SCP294_Keyboard(ply)
 		uses_294 = ply
 
 	elseif MAP_SCP_294_Coins == 1 then
-		ply:PrintMessage(HUD_PRINTTALK, "You need to insert one more coin")
+		ply:PrintMessage(HUD_PRINTTALK, "You need to insert one more coin.")
 	else
-		ply:PrintMessage(HUD_PRINTTALK, "You need to insert two coins")
+		ply:PrintMessage(HUD_PRINTTALK, "You need to insert two coins.")
 	end
 end
 
 function Breach_SCP294_Coiner(ply, sound_pos)
 	if MAP_SCP_294_Coins == 2 then
-		ply:PrintMessage(HUD_PRINTTALK, "Coins are already in")
+		ply:PrintMessage(HUD_PRINTTALK, "The coins are already inserted.")
 	else
 		for k,v in pairs(ply.br_special_items) do
 			if v.class == "coin" then
-				ply:PrintMessage(HUD_PRINTTALK, "Inserted a coin in")
+				ply:PrintMessage(HUD_PRINTTALK, "You inserted a coin.")
 				sound.Play("ambient/office/coinslot1.wav", sound_pos, 75, 100, 1)
 				MAP_SCP_294_Coins = MAP_SCP_294_Coins + 1
 				table.RemoveByValue(ply.br_special_items, v)
@@ -57,7 +57,7 @@ function Breach_SCP294_Coiner(ply, sound_pos)
 			end
 		end
 
-		ply:PrintMessage(HUD_PRINTTALK, "You don't have any coins!")
+		ply:PrintMessage(HUD_PRINTTALK, "You don't have any coins.")
 	end
 end
 

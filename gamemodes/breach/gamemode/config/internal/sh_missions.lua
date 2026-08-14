@@ -17,11 +17,11 @@ mission_find_outfit = {
 }
 mission_neutralize_researchers_guards = {
 	class = "neutralize_researchers_guards",
-	name = "Kill researchers and guards"
+	name = "Neutralize researchers and guards"
 }
 mission_neutralize_class_ds = {
 	class = "neutralize_class_ds",
-	name = "Neutralize Class Ds"
+	name = "Neutralize Class D Personnel"
 }
 mission_turn_on_generator = {
 	class = "turn_on_generator",
@@ -33,11 +33,11 @@ mission_escort_staff = {
 }
 mission_kill_humans = {
 	class = "kill_humans",
-	name = "Kill humans"
+	name = "Kill all humans"
 }
 mission_cure_humans = {
 	class = "cure_humans",
-	name = "Cure humans"
+	name = "Cure all humans"
 }
 mission_retrieve_scps = {
 	class = "retrieve_scps",
@@ -57,7 +57,7 @@ mission_steal_information = {
 }
 mission_escort_ci_spies = {
 	class = "escort_ci_spies",
-	name = "Escort CI Spies"
+	name = "Escort CI spies"
 }
 mission_neutralize_spies = {
 	class = "neutralize_spies",
@@ -65,11 +65,11 @@ mission_neutralize_spies = {
 }
 mission_terminate_ci = {
 	class = "terminate_ci",
-	name = "Kill a Chaos Insurgency soldier"
+	name = "Neutralize a Chaos Insurgency soldier"
 }
 mission_terminate_mtf = {
 	class = "terminate_mtf",
-	name = "Kill a Mobile Task Force operative"
+	name = "Neutralize a Mobile Task Force operative"
 }
 
 

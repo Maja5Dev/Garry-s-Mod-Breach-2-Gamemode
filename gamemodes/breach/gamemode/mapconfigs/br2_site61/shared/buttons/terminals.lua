@@ -15,7 +15,7 @@ end
 BR2_SPECIAL_TERMINAL_SETTINGS = {
 	hcz_storage_room = {
 		class = "1",
-		name = "Open/Close Storage Room 2b",
+		name = "Open/Close Storage Room 2B",
 		type = "button",
 		button_size = 720,
 		global = false,
@@ -27,7 +27,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 	},
 	ez_servers = {
 		class = "5",
-		name = "Restart the servers",
+		name = "Restart the Servers",
 		type = "button",
 		button_size = 640,
 		global = false,
@@ -40,7 +40,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 	},
 	evac_shelter = {
 		class = "6",
-		name = "Send the elevator",
+		name = "Send the Evacuation Elevator",
 		type = "button",
 		button_size = 600,
 		global = false,
@@ -72,14 +72,14 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 				local round_time = BR_GetRoundTime()
 
 				if br2_round_state_start < round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) then
-					pl:PrintMessage(HUD_PRINTTALK, "You cannot disable the LCZ lockdown yet. Try again in " .. math.Round(br2_round_state_start + round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) - CurTime(), 1) .. " seconds.")
+					pl:PrintMessage(HUD_PRINTTALK, "You cannot change the LCZ lockdown yet. Try again in " .. math.Round(br2_round_state_start + round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) - CurTime(), 1) .. " seconds.")
 					return
 				end
 
 				local enabled = tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 0
 
 				if enabled then
-					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already enabled")
+					pl:PrintMessage(HUD_PRINTTALK, "The LCZ lockdown is already enabled.")
 					return
 				end
 
@@ -98,7 +98,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 						error("lockdown_lever_roomccont ENTITY NOT FOUND")
 					end
 				else
-					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds to be able to change the LCZ lockdown")
+					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds before changing the LCZ lockdown again.")
 				end
 			end
 		}
@@ -127,14 +127,14 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 				local round_time = BR_GetRoundTime()
 
 				if br2_round_state_start < round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) then
-					pl:PrintMessage(HUD_PRINTTALK, "You cannot disable the LCZ lockdown yet. Try again in " .. math.Round(br2_round_state_start + round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) - CurTime(), 1) .. " seconds.")
+					pl:PrintMessage(HUD_PRINTTALK, "You cannot change the LCZ lockdown yet. Try again in " .. math.Round(br2_round_state_start + round_time * (GetConVar("br2_time_toggle_lockdowns"):GetInt() / 100) - CurTime(), 1) .. " seconds.")
 					return
 				end
 
 				local enabled = tonumber(lcz_lockdown[1]:GetKeyValues()["effects"]) == 0
 
 				if !enabled then
-					pl:PrintMessage(HUD_PRINTTALK, "The lockdown is already disabled")
+					pl:PrintMessage(HUD_PRINTTALK, "The LCZ lockdown is already disabled.")
 					return
 				end
 
@@ -152,7 +152,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 						error("lockdown_lever_roomccont ENTITY NOT FOUND")
 					end
 				else
-					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds to be able to change the LCZ lockdown")
+					pl:PrintMessage(HUD_PRINTTALK, "You need to wait " .. math.Round(lcz_lockdown_delay - CurTime(), 1) .. " more seconds before changing the LCZ lockdown again.")
 				end
 			end
 		}
@@ -191,7 +191,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 				local enabled = remote_detonation[1]:GetAngles().pitch > 0
 
 				if enabled then
-					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is off, cannot activate detonation.")
+					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is disabled, the warhead cannot be activated from this terminal.")
 					return
 				end
 
@@ -219,7 +219,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 					nuke_change_delay = CurTime() + 30
 					BR_ActivateNuke()
 					local nuke_time = cvars.Number("br2_time_nuke", 90)
-					pl:PrintMessage(HUD_PRINTTALK, "Secondary confirmation received. Detonation sequence initiated (T-"..nuke_time.." seconds).")
+					pl:PrintMessage(HUD_PRINTTALK, "Second confirmation registered. Detonation sequence initiated (T-"..nuke_time.." seconds).")
 				else
 					pl:PrintMessage(HUD_PRINTTALK, "Terminal locked. Please wait " .. math.Round(nuke_change_delay - CurTime(), 1) .. " seconds before retrying.")
 				end
@@ -260,7 +260,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 				local enabled = remote_detonation[1]:GetAngles().pitch > 0
 
 				if enabled then
-					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is off, cannot deactivate detonation.")
+					pl:PrintMessage(HUD_PRINTTALK, "Remote detonation is disabled, the warhead cannot be deactivated from this terminal.")
 					return
 				end
 
@@ -287,7 +287,7 @@ BR2_SPECIAL_TERMINAL_SETTINGS = {
 				if nuke_change_delay < CurTime() then
 					nuke_change_delay = CurTime() + 30
 					BR_DeactivateNuke()
-					pl:PrintMessage(HUD_PRINTTALK, "Secondary confirmation received. Detonation sequence deactivated.")
+					pl:PrintMessage(HUD_PRINTTALK, "Second confirmation registered. Detonation sequence deactivated.")
 				else
 					pl:PrintMessage(HUD_PRINTTALK, "Terminal locked. Please wait " .. math.Round(nuke_change_delay - CurTime(), 1) .. " seconds before retrying.")
 				end
@@ -306,7 +306,7 @@ for i=1, 4 do
 		server = {
 			func = function(pl)
 				BR2_SPECIAL_BUTTONS["spec_button_generator_"..i]:Use(pl, pl, 1, 1)
-				round_system.AddEventLog("Auxillary generator "..i.." restarted.", pl)
+				round_system.AddEventLog("Auxiliary generator "..i.." restarted.", pl)
 			end
 		}
 	}
@@ -326,7 +326,7 @@ MAPCONFIG.BUTTONS_2D.TERMINALS = {
 	mat = br_default_button_icons.scpu,
 	on_open = function(button)
 		if table.HasValue(BR2_ROLES_DISALLOWED_TERMINAL_USE, LocalPlayer().br_role) then
-			LocalPlayer():PrintMessage(HUD_PRINTTALK, "Your cannot use terminals.")
+			LocalPlayer():PrintMessage(HUD_PRINTTALK, "You cannot use terminals.")
 			return
 		end
 

@@ -22,7 +22,7 @@ function NiceHealth()
 		return "Slightly hurt", Color(150, 255, 0, 255)
 
 	elseif hl > 2 then
-		return "Very Healthy", Color(0, 255, 0, 255)
+		return "Very healthy", Color(0, 255, 0, 255)
 	else
 		return "Healthy", Color(0, 255, 0, 255)
 	end

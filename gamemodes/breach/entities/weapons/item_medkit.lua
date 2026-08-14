@@ -330,7 +330,7 @@ function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
 
 	draw.Text({
-		text = "Primary attack opens the Medkit",
+		text = "Primary attack opens the medkit",
 		pos = { ScrW() / 2, ScrH() - 6},
 		font = "BR2_ItemFont",
 		color = Color(255,255,255,80),

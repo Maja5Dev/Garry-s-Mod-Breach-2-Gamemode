@@ -24,7 +24,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl)
-        --pl:PrintMessage(HUD_PRINTTALK, "Universal lockpick, can be used to open doors or crates")
+        --pl:PrintMessage(HUD_PRINTTALK, "A universal lockpick, use it to open doors and crates.")
         local tr_lp = util.TraceLine({
             start = pl:EyePos(),
             endpos = pl:EyePos() + pl:EyeAngles():Forward() * 170,
@@ -51,7 +51,7 @@ special_item_system.AddItem({
             return
         end
 
-        pl:PrintMessage(HUD_PRINTTALK, "Universal lockpick, can be used to open doors or crates")
+        pl:PrintMessage(HUD_PRINTTALK, "A universal lockpick, use it to open doors and crates.")
     end,
     onstart = function(pl)
         if pl.br_role == ROLE_CLASS_D and math.random(1,5) == 2 then
@@ -104,7 +104,7 @@ special_item_system.AddItem({
         return true
     end,
     use = function(pl)
-        pl:PrintMessage(HUD_PRINTTALK, "Just a shiny coin, probably usable in some places")
+        pl:PrintMessage(HUD_PRINTTALK, "Just a shiny coin, some machines take them.")
     end,
     drop = function(pl)
         local res, item = br2_special_item_drop(pl, "coin", "Coin", "prop_physics", "models/cultist/items/coin/coin.mdl")

@@ -21,25 +21,25 @@ BR_ROLE_FIRST_TEXTS = {
         "Your main focus will be set on finding any CI spies responsible for the breach",
     },
     sd_officer = {
-        "You are a guard from the Security Department HAVING THE FACILITY'S STAFF IN CHECK",
+        "You are a guard from the Security Department KEEPING THE FACILITY'S STAFF IN CHECK",
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
         "Some SCP objects broke containment and Class Ds are on the loose",
         "Find staff members and bring them to safety until the MTF comes",
     },
     janitor = {
-        "You are just a janitor, one of many minor staff members in this foundation",
+        "You are just a janitor, one of many minor staff members in this Foundation",
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
         "Some SCP objects broke containment and Class Ds are on the loose",
         "Work with guards and other staff members to achieve your goals",
     },
     engineer = {
-        "You are an Engineer, one of many minor staff members in this foundation",
+        "You are an engineer, one of many minor staff members in this Foundation",
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
         "Some SCP objects broke containment and Class Ds are on the loose",
         "Work with guards and other staff members to achieve your goals",
     },
     doctor = {
-        "You are a medical doctor, one of many minor staff members in this foundation",
+        "You are a medical doctor, one of many minor staff members in this Foundation",
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
         "Some SCP objects broke containment and Class Ds are on the loose",
         "Work with guards and other staff members to achieve your goals",
@@ -48,7 +48,7 @@ BR_ROLE_FIRST_TEXTS = {
         "After an unexpected Chaos Insurgency attack the facility fell into chaos",
         "You don't know who you really are and you don't remember your past",
         "Researchers used you as a guinea pig to test anomalous SCP objects",
-        "Stay vigilant, do not trust others because anybody can be your potential enemy",
+        "Stay vigilant and do not trust others, anybody here can be your enemy",
     },
     researcher = {
         "You are a researcher analyzing strange anomalous SCP objects",
@@ -58,13 +58,13 @@ BR_ROLE_FIRST_TEXTS = {
     },
     ci_soldier = {
         "You are a soldier from the Chaos Insurgency involved in the containment breach",
-        "Your group brought this facility into real chaos, now its time to finish the job",
+        "Your group brought this facility into real chaos, now it's time to finish the job",
         "SCP objects, Class Ds, guards and researchers are your enemies, kill them",
         "Teamwork with other CI members will be CRUCIAL to win this fight",
     },
     ci_spy = {
         "You are a spy from the Chaos Insurgency involved in the containment breach",
-        "Your group brought this facility into real chaos, but for you its not safe",
+        "Your group brought this facility into real chaos, but it is not safe for you here",
         "SCP objects, Class Ds, guards and researchers are your enemies",
         "Steal any valuable information or SCP objects you find in this place",
         "Teamwork with other CI members will be CRUCIAL to win this fight",
@@ -100,8 +100,8 @@ BR_ROLE_FIRST_TEXTS = {
 	-- DEATHMATCH
     dm_ci = {
 		"You are a soldier from the Chaos Insurgency involved in the containment breach",
-		"After a long fight with foundation's security, the facility is in your hands",
-		"But the Mobile Task Forces were deployed and has entered the facility",
+		"After a long fight with the Foundation's security, the facility is in your hands",
+		"But the Mobile Task Forces were deployed and have entered the facility",
 		"They are near the gates in the Entrance Zone, prepare yourselves",
 		--"You can either go assault the Entrance Zone or defend the Heavy Containment Zone",
 		"You can either go assault them or defend your positions and wait for them to attack",
@@ -109,11 +109,11 @@ BR_ROLE_FIRST_TEXTS = {
     },
     dm_mtf = {
 		"You are an operative in a Mobile Task Force group, fighting to retake this facility",
-		"Spies from the Chaos Insurgency broke into our security systems starting the breach",
+		"Spies from the Chaos Insurgency broke into our security systems and started the breach",
 		"Multiple SCP objects broke free and plunged this facility into complete chaos",
 		"These anomalous SCP objects and valuable information were stolen from us",
-		"Our group of operatives is here to retake this facility from Chaos Insrugency",
-		"Work with your teammates, kill any unathorized personnel and remember to stay vigilant"
+		"Our group of operatives is here to retake this facility from the Chaos Insurgency",
+		"Work with your teammates, kill any unauthorized personnel and remember to stay vigilant"
     }
 }
 

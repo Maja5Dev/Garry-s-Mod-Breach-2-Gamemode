@@ -47,7 +47,7 @@ local function examine_PersonalInfo(pl)
     end
 
     if our_role then
-        chat.AddText(Color(255,255,255,255), " - You are a ", Color(255,255,255,255), our_role)
+        chat.AddText(Color(255,255,255,255), " - Your role: ", Color(255,255,255,255), our_role)
     end
 
     if isciagent then
@@ -96,7 +96,7 @@ local function examine_Zone(pl)
     local area_name = pl:GetSubAreaName()
 
     if area_name then
-        chat.AddText(Color(255, 255, 255), " - " .. "Location: "..pl:GetSubAreaName())
+        chat.AddText(Color(255, 255, 255), " - Location: "..pl:GetSubAreaName())
     else
         if istable(our_area) and isstring(our_area.examine_info) then
             chat.AddText(Color(255, 255, 255), " - " .. our_area.examine_info)
@@ -182,7 +182,7 @@ local function examine_Sanity(pl, fake_examine_stats)
             "Completely sane!",
             "Fully sane, as always!",
             "Who even cares about sanity?",
-            "Very fine! dont worry...",
+            "Very fine! Don't worry...",
         }
         chat.AddText(Color(255,255,255,255), " - Your mental state: ", Color(0,255,0,255), tostring(table.Random(insane_texts)))
     else
@@ -276,7 +276,7 @@ local function examine_yourself()
     chat.AddText(Color(255,255,255,255), "Examining...")
 
     if pl:Alive() == false then
-        chat.AddText(Color(255, 255, 255), " - Well, you are dead... I guess")
+        chat.AddText(Color(255, 255, 255), " - Well, you are dead... I guess.")
         return
     end
 
@@ -307,7 +307,7 @@ end
 
 registerHandsAction("examine_yourself", {
     name = "Examine yourself",
-    desc = "Check everything you know about yourself",
+    desc = "Check your condition and everything you know about yourself",
     background_color = BR2_Hands_Actions_Colors.self_actions,
 
     can_do = true,

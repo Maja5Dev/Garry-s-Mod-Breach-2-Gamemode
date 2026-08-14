@@ -126,7 +126,7 @@ MAPCONFIG.SCP_ACTIONS = {
             local pos = Vector(1871, 1277, -7163)
 
             if !ent173:CanMove(pos) then
-                ply:BR2_ShowNotification("Cannot move to that position")
+                ply:BR2_ShowNotification("You cannot move to that position")
                 return
             end
 
@@ -151,7 +151,7 @@ MAPCONFIG.SCP_ACTIONS = {
             local pos = Vector(-485, 180, -7163)
 
             if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
-                ply:BR2_ShowNotification("Cannot move to that position")
+                ply:BR2_ShowNotification("You cannot move to that position")
                 return
             end
 
@@ -314,7 +314,7 @@ MAPCONFIG.SCP_ACTIONS = {
             local pos = Vector(1868, 1296, -8187)
 
             if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
-                ply:BR2_ShowNotification("Cannot move to that position")
+                ply:BR2_ShowNotification("You cannot move to that position")
                 return
             end
 
@@ -339,7 +339,7 @@ MAPCONFIG.SCP_ACTIONS = {
             local pos = Vector(-896, 442, -8187)
 
             if !ply:GetActiveWeapon():CanWeMoveTo(pos) then
-                ply:BR2_ShowNotification("Cannot move to that position")
+                ply:BR2_ShowNotification("You cannot move to that position")
                 return
             end
 

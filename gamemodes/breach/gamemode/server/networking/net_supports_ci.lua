@@ -51,7 +51,7 @@ function br2_ci_teams_add(ply, num)
 	end
 
 	if not has_ci_spawn then
-		ply:PrintMessage(HUD_PRINTTALK, "You do not have any CI support spawns left")
+		ply:PrintMessage(HUD_PRINTTALK, "You do not have any CI support spawns left.")
 		return
 	end
 
@@ -185,7 +185,7 @@ function br2_ci_teams_add(ply, num)
 		return true
 	end
 	
-	ply:PrintMessage(HUD_PRINTTALK, "For some reason you could not join this team")
+	ply:PrintMessage(HUD_PRINTTALK, "You could not join this team.")
 	
 	print("br2_ci_teams_add failed for " .. ply:Nick() .. ", num: " .. tostring(num))
 	print("Conditions: ", (num == 1 or num == 2), table.Count(BR2_CI_TEAMS[num]) < CI_NEEDED_TO_SPAWN, ply:IsSpectator(), ply.br_downed != true)

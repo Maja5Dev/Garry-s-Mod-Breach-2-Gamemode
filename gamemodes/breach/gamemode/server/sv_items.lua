@@ -2,7 +2,7 @@
 function LockPickFunc(ply, v)
 	for k,pl in pairs(player.GetAll()) do
 		if pl.startedLockpicking and pl.startedLockpicking[2] + 9.1 > CurTime() then
-			ply:ChatPrint("Someone else is lockpicking this crate...")
+			ply:ChatPrint("Someone else is already lockpicking this crate...")
 			return
 		end
 	end
@@ -102,7 +102,7 @@ BR2_SPECIAL_ITEMS = {
 			return true
 		end,
 		use = function(pl)
-			pl:PrintMessage(HUD_PRINTTALK, "Installed in terminals, used to check the cameras")
+			pl:PrintMessage(HUD_PRINTTALK, "Install it in a terminal to check the cameras.")
 		end,
 		onstart = function(pl)
 			if pl.br_role == ROLE_ENGINEER and math.random(1,5) == 2 then

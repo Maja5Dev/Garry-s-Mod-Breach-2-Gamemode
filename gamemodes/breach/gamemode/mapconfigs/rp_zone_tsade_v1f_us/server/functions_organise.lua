@@ -82,7 +82,7 @@ end
 hook.Add("BR2_SupportSpawned", "rz_give_late_researcher_code", function(ply)
 	if IsValid(ply) and ply:Alive() and !ply:IsSpectator() and ply.br_role == ROLE_RESEARCHER and IsRoundTimeProgress(0.25) then
 		rz_give_code_to(ply)
-		ply:ChatPrint("Check your notepad for additional information")
+		ply:ChatPrint("Check your notepad for additional information.")
 	end
 end)
 

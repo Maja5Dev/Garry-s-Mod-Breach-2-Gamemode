@@ -575,14 +575,14 @@ end
 function SWEP:DrawHUD()
 	if !BR2_ShouldDrawWeaponInfo() then return end
 
-	local text = "Secondary attack opens action menu, Reload toggles pushing mode"
+	local text = "Secondary attack opens the actions menu, reload toggles pushing mode"
 	
 	if self:IsSCP049() then
-		text = "Left click to attack, to cure, first kill, then check pulse, and cure"
+		text = "Primary attack attacks, to cure a human you must first kill them, then check their pulse"
 	end
 
 	if self:IsSCP966() then
-		text = "Secondary attack opens action menu, Left click to attack"
+		text = "Primary attack attacks, secondary attack opens the actions menu"
 	end
 
 	draw.Text({

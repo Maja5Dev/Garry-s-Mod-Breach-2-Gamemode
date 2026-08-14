@@ -56,7 +56,7 @@ function SWEP:DrawHUD()
 
 	if BR2_ShouldDrawWeaponInfo() then
 		draw.Text({
-			text = "Shift shows the next position, W teleports you to the next position if possible, A and D switch shoulder",
+			text = "Hold Shift to preview the next position, W teleports you there, A and D switch shoulder",
 			pos = {ScrW() / 2, ScrH() - 30},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),
@@ -65,7 +65,7 @@ function SWEP:DrawHUD()
 		})
 
 		draw.Text({
-			text = "Clicking R toggles free roaming mode, Q teleports to where you are standing in free roam mode",
+			text = "R toggles free roam mode, Q teleports you to where you are standing in free roam",
 			pos = {ScrW() / 2, ScrH() - 6},
 			font = "BR2_ItemFont",
 			color = Color(255,255,255,80),

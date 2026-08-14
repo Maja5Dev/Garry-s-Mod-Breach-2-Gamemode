@@ -78,4 +78,4 @@ function assign_system.Assign_ClassD9341(ply)
 	ply.canEscape = true
 end
 
-print("[Breach2] server/sv_assign_players.lua loaded!")
+print("[Breach2] server/assigning/assign_classds.lua loaded!")

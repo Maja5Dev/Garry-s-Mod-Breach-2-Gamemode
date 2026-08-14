@@ -251,7 +251,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 
 		if v:IsFromFoundation() and v.br_team != TEAM_CLASSD and v.br_team != TEAM_SCP then
 			local login, password = BR2_GenerateTerminalAuth(v)
-			notepad_system.AddAutomatedInfo(v, "personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
+			notepad_system.AddAutomatedInfo(v, "Personal terminal account:\n - login: " .. login .. "\n - password: " .. password .. "\n")
 		end
 	end
 
@@ -293,7 +293,7 @@ function BREACH_DEFAULT_STARTING_INFORMATION()
 		-- high staff gets info
 		if v:IsFromFoundationHighStaff() then
 			if v.getsPossibleTraitors == true then
-				notepad_system.AddAutomatedInfo(v, "Possible spies")
+				notepad_system.AddAutomatedInfo(v, "Possible spies:")
 				for k2,pspy in pairs(possible_ci_spies) do
 					if pspy != v then
 						notepad_system.AddAutomatedInfo(v, " - "..pspy.br_showname)

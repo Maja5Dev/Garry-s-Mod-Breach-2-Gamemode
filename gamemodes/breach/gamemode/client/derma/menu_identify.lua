@@ -7,7 +7,7 @@ function BR_OpenIdentifyingMenu(l_player, l_nick, l_time)
 	end
 	
 	if (table.Count(BR2_OURNOTEPAD.people) - 1) < 1 then
-		chat.AddText(Color(255,255,255,255), "Not enough information to identify...")
+		chat.AddText(Color(255,255,255,255), "You don't know enough people to identify them...")
 		return
 	end
 	
